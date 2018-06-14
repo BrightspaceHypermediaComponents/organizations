@@ -5,9 +5,11 @@
   "scripts": {
     "postinstall": "polymer install",
     "lint:html": "eslint *.html demo/*.html test/*.html",
-    "lint": "npm run lint:html && polymer lint --input ./**/*.html",
-    "test": "npm run lint && polymer test --skip-plugin sauce",
-    "serve": "polymer analyze > analysis.json && polymer serve"
+    "lint": "npm run lint:html && polymer lint --input ./{components,test}/*.html",
+    "pretest": "npm run lint",
+    "test": "polymer test --skip-plugin sauce",
+    "test-p": "polymer test -p --skip-plugin sauce",
+    "start": "polymer analyze > analysis.json && polymer serve"
   },
   "repository": {
     "type": "git",
@@ -16,9 +18,11 @@
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "chai-dom": "^1.8.0",
+    "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.0",
     "eslint-plugin-html": "^4.0.1",
-    "polymer-cli": "^1.5.7"
+    "polymer-cli": "^1.7.2",
+    "polymer-siren-test-helpers": "^1.0.0"
   }
 }

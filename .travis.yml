@@ -1,5 +1,7 @@
 language: node_js
-node_js: node
+node_js: 9
+sudo: required
+addons:
+  chrome: stable
 script:
-- npm run lint
-- polymer test --skip-plugin local
+- npm run test

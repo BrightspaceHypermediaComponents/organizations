@@ -6,22 +6,35 @@
 		<title>d2l-organizations test</title>
 		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 		<script src="../../web-component-tester/browser.js"></script>
+		<script src="../node_modules/chai-dom/chai-dom.js"></script>
+		<script src="../node_modules/polymer-siren-test-helpers/dist/index.js"></script>
+		<link rel="import" href="../../polymer/polymer.html">
 		<link rel="import" href="../components/d2l-organization-name.html">
 	</head>
 	<body>
 		<test-fixture id="basic">
 			<template>
-				<d2l-organization-name></d2l-organization-name>
+				<d2l-organization-name href="../demo/data/course.json" token="foo"></d2l-organization-name>
 			</template>
 		</test-fixture>
 
 		<script>
-			describe('d2l-organization-name', function() {
-				describe('basic', function() {
-					it('should instantiate the element', function() {
-						const elem = fixture('basic');
-						expect(elem.tagName).to.equal('D2L-ORGANIZATION-NAME');
-					});
+			/* global SirenFixture */
+			describe('d2l-organization-name', () => {
+				let element;
+
+				beforeEach(async() => {
+					element = await SirenFixture.load('../demo/data/course.json', fixture('basic'));
+				});
+
+				it('should instantiate the element', () => {
+					expect(element.tagName).to.equal('D2L-ORGANIZATION-NAME');
+				});
+
+				it('should display the entity name', () => {
+
+					// Need to use html because shadowRoot doesn't have .innerText
+					expect(element.shadowRoot).to.contain.html('Arch@D2L');
 				});
 			});
 		</script>
