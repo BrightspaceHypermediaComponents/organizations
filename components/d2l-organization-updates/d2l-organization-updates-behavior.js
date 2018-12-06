@@ -1,5 +1,5 @@
 import '@polymer/polymer/polymer-legacy.js';
-import 'd2l-hypermedia-constants/d2l-hm-constants-behavior.js';
+import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/tier1-icons.js';
 import '../d2l-organization-icons.js';
 import '../d2l-organization-behavior.js';
@@ -117,7 +117,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 
 		return this._fetchSirenEntity(notificationsUrl)
 			.then(function(notificationsInfo) {
-				if (!(notificationsInfo = notificationsInfo.getSubEntities(this.HypermediaRels.Notifications.updates))) {
+				if (!(notificationsInfo = notificationsInfo.getSubEntities(Rels.Notifications.updates))) {
 					return;
 				}
 				var notifications = {};
@@ -142,8 +142,8 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var currentLink = updateEntity.hasLinkByRel(this.HypermediaRels.Notifications.updatesSource)
-			&& updateEntity.getLinkByRel(this.HypermediaRels.Notifications.updatesSource).href;
+		var currentLink = updateEntity.hasLinkByRel(Rels.Notifications.updatesSource)
+			&& updateEntity.getLinkByRel(Rels.Notifications.updatesSource).href;
 
 		if (!notifications.hasOwnProperty(options.key)) {
 			notifications[options.key] = {
@@ -170,7 +170,6 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 * @polymerBehavior D2L.PolymerBehaviors.Organization.Updates.Behavior
 */
 D2L.PolymerBehaviors.Organization.Updates.Behavior = [
-	window.D2L.Hypermedia.HMConstantsBehavior,
 	D2L.PolymerBehaviors.Organization.Updates.LocalizeBehavior,
 	D2L.PolymerBehaviors.Organization.Behavior,
 	D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl
