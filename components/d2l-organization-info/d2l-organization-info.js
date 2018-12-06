@@ -12,10 +12,9 @@ Polymer-based web component for a organization info such as course code and seme
 */
 import '@polymer/polymer/polymer-legacy.js';
 
-import 'd2l-hypermedia-constants/d2l-hm-constants-behavior.js';
+import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
-import 'siren-parser/siren-parser.js';
 import '../d2l-organization-behavior.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 const $_documentContainer = document.createElement('template');
@@ -75,7 +74,6 @@ Polymer({
 	},
 
 	behaviors: [
-		window.D2L.Hypermedia.HMConstantsBehavior,
 		D2L.PolymerBehaviors.Organization.Behavior
 	],
 
@@ -135,12 +133,12 @@ Polymer({
 	_fetchSemester: function(organization, showSemesterName) {
 		if (!showSemesterName
 			|| !organization
-			|| !organization.hasLinkByRel(this.HypermediaRels.parentSemester)
+			|| !organization.hasLinkByRel(Rels.parentSemester)
 		) {
 			return Promise.resolve();
 		}
 
-		var semesterHref = organization.getLinkByRel(this.HypermediaRels.parentSemester).href;
+		var semesterHref = organization.getLinkByRel(Rels.parentSemester).href;
 		return this._fetchSirenEntity(semesterHref)
 			.then(function(semesterEntity) {
 				this._semesterName = semesterEntity
