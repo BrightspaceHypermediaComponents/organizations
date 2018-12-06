@@ -4,61 +4,85 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 		<title>d2l-organization demo</title>
-		<script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-		<link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-		<link rel="import" href="../../d2l-typography/d2l-typography.html">
-		<link rel="import" href="../components/d2l-organization-info/d2l-organization-info.html">
-		<custom-style>
+		<script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+		<script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
+		<script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
+		<script type="module" src="../../d2l-typography/d2l-typography.js"></script>
+		<script type="module" src="../components/d2l-organization-info/d2l-organization-info.js"></script>
+		<!-- FIXME(polymer-modulizer):
+		These imperative modules that innerHTML your HTML are
+		a hacky way to be sure that any mixins in included style
+		modules are ready before any elements that reference them are
+		instantiated, otherwise the CSS @apply mixin polyfill won't be
+		able to expand the underlying CSS custom properties.
+		See: https://github.com/Polymer/polymer-modulizer/issues/154
+		-->
+	<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style>
 			<style is="custom-style" include="demo-pages-shared-styles"></style>
-		</custom-style>
-		<custom-style include="d2l-typography">
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
 			<style is="custom-style" include="d2l-typography"></style>
-		</custom-style>
+		</custom-style>`;
+
+document.body.appendChild($_documentContainer.content);
+</script>
 	</head>
 	<body class="d2l-typography">
-		<div class="vertical-section-container centered">
+		<script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
 
 			<h3>d2l-organization-info</h3>
 			<demo-snippet>
 				<template>
-					<d2l-organization-info
-						presentation-href="data/presentation/1.json"
-						href="data/organization-future.json"></d2l-organization-info>
+					<d2l-organization-info presentation-href="data/presentation/1.json" href="data/organization-future.json"></d2l-organization-info>
+					
+				</template>
+			</demo-snippet>
+
+			<demo-snippet>
+				<template>
+					<d2l-organization-info presentation-href="data/presentation/1.json" href="data/organization-past.json"></d2l-organization-info>
+					
+				</template>
+			</demo-snippet>
+
+			<demo-snippet>
+				<template>
+					<d2l-organization-info presentation-href="data/presentation/2.json" href="data/organization-current.json">
 					</d2l-organization-info>
 				</template>
 			</demo-snippet>
 
 			<demo-snippet>
 				<template>
-					<d2l-organization-info
-						presentation-href="data/presentation/1.json"
-						href="data/organization-past.json"></d2l-organization-info>
+					<d2l-organization-info presentation-href="data/presentation/3.json" href="data/organization-current.json">
 					</d2l-organization-info>
 				</template>
 			</demo-snippet>
 
-			<demo-snippet>
-				<template>
-					<d2l-organization-info
-						presentation-href="data/presentation/2.json"
-						href="data/organization-current.json">
-					</d2l-organization-info>
-				</template>
-			</demo-snippet>
+		</div>`;
 
-			<demo-snippet>
-				<template>
-					<d2l-organization-info
-						presentation-href="data/presentation/3.json"
-						href="data/organization-current.json">
-					</d2l-organization-info>
-				</template>
-			</demo-snippet>
-
-		</div>
+document.body.appendChild($_documentContainer.content);
+</script>
 	</body>
 
 	<!-- The class="d2l-typography" on the body doesn't always work -->
-	<script>document.querySelector('body').classList.add('d2l-typography');</script>
+	<script type="module">
+import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+import '@polymer/iron-demo-helpers/demo-snippet.js';
+import 'd2l-typography/d2l-typography.js';
+import '../components/d2l-organization-info/d2l-organization-info.js';
+document.querySelector('body').classList.add('d2l-typography');
+</script>
 </html>
