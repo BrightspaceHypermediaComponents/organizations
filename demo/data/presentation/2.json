@@ -5,7 +5,7 @@
     "ShowUnattemptedQuizzes":true,
     "ShowDropboxUnreadFeedback":true,
     "ShowUngradedQuizAttempts":true,
-    "ShowUnreadDiscussionMessages":true,
+    "ShowUnreadDiscussionMessages":false,
     "ShowUnreadDropboxSubmissions":true
   },
   "links": [{

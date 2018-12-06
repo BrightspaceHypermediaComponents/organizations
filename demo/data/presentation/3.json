@@ -3,10 +3,10 @@
     "ShowCourseCode": false,
     "ShowSemester": false,
     "ShowUnattemptedQuizzes":true,
-    "ShowDropboxUnreadFeedback":true,
+    "ShowDropboxUnreadFeedback":false,
     "ShowUngradedQuizAttempts":true,
-    "ShowUnreadDiscussionMessages":true,
-    "ShowUnreadDropboxSubmissions":true
+    "ShowUnreadDiscussionMessages":false,
+    "ShowUnreadDropboxSubmissions":false
   },
   "links": [{
     "rel": ["self"],
