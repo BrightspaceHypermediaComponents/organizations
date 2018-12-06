@@ -15,21 +15,21 @@
 			this.fire('d2l-organization-accessible', details);
 		},
 		_fetchSirenEntity: function(url) {
-				if (!url) {
-					return;
-				}
-
-				return window.d2lfetch
-					.fetch(new Request(url, {
-						headers: { Accept: 'application/vnd.siren+json' },
-					}))
-					.then(function(response) {
-						if (response.ok) {
-							return response.json();
-						}
-						return Promise.reject(response.status + ' ' + response.statusText);
-					})
-					.then(window.D2L.Hypermedia.Siren.Parse);
+			if (!url) {
+				return;
 			}
+
+			return window.d2lfetch
+				.fetch(new Request(url, {
+					headers: { Accept: 'application/vnd.siren+json' },
+				}))
+				.then(function(response) {
+					if (response.ok) {
+						return response.json();
+					}
+					return Promise.reject(response.status + ' ' + response.statusText);
+				})
+				.then(window.D2L.Hypermedia.Siren.Parse);
+		}
 	};
 </script>
