@@ -27,6 +27,6 @@ D2L.PolymerBehaviors.Organization.Behavior = {
 				}
 				return Promise.reject(response.status + ' ' + response.statusText);
 			})
-			.then(window.D2L.Hypermedia.Siren.Parse);
+			.then(SirenParse);
 	}
 };

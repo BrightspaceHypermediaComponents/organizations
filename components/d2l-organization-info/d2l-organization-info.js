@@ -15,7 +15,6 @@ import '@polymer/polymer/polymer-legacy.js';
 import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
-import SirenParser from 'siren-parser';
 import '../d2l-organization-behavior.js';
 import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
 const $_documentContainer = document.createElement('template');
