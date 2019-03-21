@@ -36,13 +36,6 @@ class D2lOrganizationSemesterName extends mixinBehaviors([ D2L.PolymerBehaviors.
 			this._semesterName = semester.tryGetName();
 		});
 	}
-
-	_imageLoaded() {
-		this.dispatchEvent(new CustomEvent('d2l-organization-image-loaded', {
-			bubbles: true,
-			composed: true
-		}));
-	}
 }
 
 window.customElements.define('d2l-organization-semester-name', D2lOrganizationSemesterName);
