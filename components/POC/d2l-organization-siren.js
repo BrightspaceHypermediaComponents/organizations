@@ -8,6 +8,7 @@ export class OrganizationEntity {
 	constructor(entity, token) {
 		this._entity = entity;
 		this._token = token;
+		this._semester;
 	}
 	tryGetCode() {
 		return this._entity && this._entity.properties && this._entity.properties.code;
@@ -19,7 +20,11 @@ export class OrganizationEntity {
 		}
 
 		var semesterHref = this._entity.getLinkByRel(Rels.parentSemester).href;
-		return new SemesterListener(semesterHref, this._token, listener);
+		if (!this._semester) {
+			this._semester = new SemesterListener(semesterHref, this._token, listener);
+		} else {
+			this._semester.updateListener(semesterHref, this._token, listener);
+		}
 	}
 }
 
