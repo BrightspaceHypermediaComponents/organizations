@@ -69,6 +69,7 @@ class OrganizationInfo extends mixinBehaviors([
 	static get observers() {
 		return [
 			'_loadData(entity)',
+			'_setSemesterHref(showSemesterName)',
 			'_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)'
 		];
 	}
@@ -82,7 +83,17 @@ class OrganizationInfo extends mixinBehaviors([
 
 	_loadData(entity) {
 		this._organizationCode = entity && entity.properties && entity.properties.code;
-		this._semesterHref = this.showSemesterName && entity && entity.hasLinkByRel(Rels.parentSemester) && entity.getLinkByRel(Rels.parentSemester).href || null;
+		this._semesterHref = this.showSemesterName && this._getSemesterHref(entity) || null;
+	}
+
+	_getSemesterHref(entity) {
+		return entity && entity.hasLinkByRel(Rels.parentSemester) && entity.getLinkByRel(Rels.parentSemester).href;
+	}
+
+	_setSemesterHref(showSemesterName) {
+		if(showSemesterName) {
+			this._semesterHref = this._getSemesterHref(this.entity);
+		}
 	}
 
 	_computeShowSeparator(showOrganizationCode, showSemester) {

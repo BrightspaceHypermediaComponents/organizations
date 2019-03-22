@@ -37,6 +37,14 @@ describe('d2l-organization-info', () => {
 		});
 	});
 
+	describe('Set semesterHref', () => {
+		it('should set _semesterHref', () => {
+			component.entity = organizationEntity;
+			component.showSemesterName = true;
+			expect(component._semesterHref).to.equal('fake.json');
+		});
+	});
+
 	describe('Events', () => {
 		it('d2l-organization-accessible should have semesterName and course code.', done => {
 			sinon.spy(component, 'fire');
