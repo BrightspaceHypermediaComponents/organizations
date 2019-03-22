@@ -91,7 +91,7 @@ class OrganizationInfo extends mixinBehaviors([
 	}
 
 	_setSemesterHref(showSemesterName) {
-		if(showSemesterName) {
+		if (showSemesterName) {
 			this._semesterHref = this._getSemesterHref(this.entity);
 		}
 	}
