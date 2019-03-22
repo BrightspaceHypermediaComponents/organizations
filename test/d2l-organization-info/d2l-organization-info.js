@@ -33,7 +33,7 @@ describe('d2l-organization-info', () => {
 		it('should not set _semesterHref when showSemesterName is false', () => {
 			component.entity = organizationEntity;
 			expect(component._organizationCode).to.equal('SCI100');
-			expect(component._semesterHref).to.equal(null);
+			expect(component._semesterHref).to.equal(undefined);
 		});
 	});
 
@@ -42,6 +42,28 @@ describe('d2l-organization-info', () => {
 			component.entity = organizationEntity;
 			component.showSemesterName = true;
 			expect(component._semesterHref).to.equal('fake.json');
+		});
+	});
+
+	describe('Show separator', () => {
+		it('should show separator when both semester name and semester code are showing', () => {
+			var showSeparator = component._computeShowSeparator(true, true);
+			expect(showSeparator).to.be.true;
+		});
+
+		it('should not show separator when only semester name is showing', () => {
+			var showSeparator = component._computeShowSeparator(false, true);
+			expect(showSeparator).to.be.false;
+		});
+
+		it('should not show separator when only semester code is showing', () => {
+			var showSeparator = component._computeShowSeparator(true, false);
+			expect(showSeparator).to.be.false;
+		});
+
+		it('should not show separator when neither semester name nor semester code are showing', () => {
+			var showSeparator = component._computeShowSeparator(false, false);
+			expect(showSeparator).to.be.false;
 		});
 	});
 

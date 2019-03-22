@@ -32,14 +32,14 @@ class OrganizationInfo extends mixinBehaviors([
 					display: none;
 				}
 
-				.uppercase {
+				.d2l-organization-code {
 					text-transform: uppercase;
 				}
 
 			</style>
 
 			<span>
-				<span hidden$="[[!showOrganizationCode]]" class="uppercase">[[_organizationCode]]</span>
+				<span hidden$="[[!showOrganizationCode]]" class="d2l-organization-code">[[_organizationCode]]</span>
 				<d2l-icon hidden$="[[!_computeShowSeparator(showOrganizationCode, showSemesterName)]]" icon="d2l-tier1:bullet"></d2l-icon>
 				<span hidden$="[[!showSemesterName]]"><d2l-organization-name href="[[_semesterHref]]" token="[[token]]"></d2l-organization-name></span>
 			</span>
@@ -79,16 +79,12 @@ class OrganizationInfo extends mixinBehaviors([
 
 	_loadData(entity) {
 		this._organizationCode = entity && entity.properties && entity.properties.code;
-		this._semesterHref = this.showSemesterName && this._getSemesterHref(entity) || null;
-	}
-
-	_getSemesterHref(entity) {
-		return entity && entity.hasLinkByRel(Rels.parentSemester) && entity.getLinkByRel(Rels.parentSemester).href;
+		this._setSemesterHref(this.showSemesterName);
 	}
 
 	_setSemesterHref(showSemesterName) {
 		if (showSemesterName) {
-			this._semesterHref = this._getSemesterHref(this.entity);
+			this._semesterHref = this.entity && this.entity.hasLinkByRel(Rels.parentSemester) && this.entity.getLinkByRel(Rels.parentSemester).href;
 		}
 	}
 
