@@ -51,7 +51,7 @@ class OrganizationDate extends mixinBehaviors([
 	static get observers() {
 		return [
 			'_getOrganizationDate(entity)',
-			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate, _startDate, _endDate, _entityStatus)',
+			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
 			'_sendVoiceReaderInfo(_statusText)'
 		];
 	}
@@ -60,16 +60,17 @@ class OrganizationDate extends mixinBehaviors([
 		return 'd2l-organization-date';
 	}
 
-	_getOrganizationDate(entity) {
+	_getOrganizationDate(entity, hideCourseStartDate, hideCourseEndDate) {
 		this._startDate = entity && entity.properties && entity.properties.startDate || '';
 		this._endDate = entity && entity.properties && entity.properties.endDate || '';
 		this._entityStatus = entity && entity.properties && entity.properties.isActive || '';
+		this._setOrganizationDate(hideCourseStartDate, hideCourseEndDate);
 	}
 
-	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate, courseStartDate, courseEndDate, entityStatus) {
+	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
 		var nowDate = Date.now();
-		var startDate = Date.parse(courseStartDate);
-		var endDate = Date.parse(courseEndDate);
+		var startDate = Date.parse(this._startDate);
+		var endDate = Date.parse(this._endDate);
 		if (startDate > nowDate) {
 			startDate = new Date(startDate);
 			this._statusText = this.localize('startsAt', 'date', this.formatDate(startDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(startDate));
@@ -92,9 +93,9 @@ class OrganizationDate extends mixinBehaviors([
 			}
 		}
 
-		if (this._statusText || !entityStatus) {
+		if (this._statusText || !this._entityStatus) {
 			this.fire('d2l-organization-date', {
-				active: !!entityStatus,
+				active: !!this._entityStatus,
 				beforeStartDate: startDate ? startDate > nowDate : null,
 				afterEndDate: endDate ? endDate <= nowDate : null
 			});
