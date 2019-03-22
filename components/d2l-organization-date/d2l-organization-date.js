@@ -3,124 +3,106 @@
 Polymer-based web component for a organization date such as start and end date for a course.
 @demo demo/d2l-organization-date/d2l-organization-date-demo.html Organization Name
 */
-/*
-  FIXME(polymer-modulizer): the above comments were extracted
-  from HTML and may be out of place here. Review them and
-  then delete this comment!
-*/
-import '@polymer/polymer/polymer-legacy.js';
 
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import '../d2l-organization-behavior.js';
 import './localize-behavior.js';
-import { Polymer } from '@polymer/polymer/lib/legacy/polymer-fn.js';
-const $_documentContainer = document.createElement('template');
 
-$_documentContainer.innerHTML = `<dom-module id="d2l-organization-date">
-	<template strip-whitespace="">
-		<span hidden$="[[!_statusText]]">[[_statusText]]</span>
-	</template>
-	
-</dom-module>`;
+/**
+ * @customElement
+ * @polymer
+ */
+class OrganizationDate extends mixinBehaviors([
+	D2L.PolymerBehaviors.Siren.EntityBehavior,
+	D2L.PolymerBehaviors.Organization.Date.LocalizeBehavior,
+	D2L.PolymerBehaviors.Organization.Behavior
+], PolymerElement) {
+	static get template() {
+		return html`
+            <span hidden$="[[!_statusText]]">[[_statusText]]</span>
+		`;
+	}
 
-document.head.appendChild($_documentContainer.content);
-Polymer({
-	is: 'd2l-organization-date',
+	static get properties() {
+		return {
+			entity: {
+				type: Object
+			},
+			hideCourseStartDate: {
+				type: Boolean,
+				value: false
+			},
+			hideCourseEndDate: {
+				type: Boolean,
+				value: false
+			},
+			_statusText: {
+				type: String,
+				value: null
+			},
+			_startDate: String,
+			_endDate: String,
+			_entityStatus: String
+		};
+	}
 
-	properties: {
-		href: String,
-		presentationHref: String,
+	static get observers() {
+		return [
+			'_getOrganizationDate(entity)',
+			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
+			'_sendVoiceReaderInfo(_statusText)'
+		];
+	}
 
-		_statusText: String,
-		_hideCourseStartDate:{
-			type: Boolean,
-			value: false
-		},
-		_hideCourseEndDate:{
-			type: Boolean,
-			value: false
-		}
-	},
+	static get is() {
+		return 'd2l-organization-date';
+	}
 
-	behaviors: [
-		D2L.PolymerBehaviors.Organization.Date.LocalizeBehavior,
-		D2L.PolymerBehaviors.Organization.Behavior
-	],
+	_getOrganizationDate(entity) {
+		this._startDate = entity && entity.properties && entity.properties.startDate || '';
+		this._endDate = entity && entity.properties && entity.properties.endDate || '';
+		this._entityStatus = entity && entity.properties && entity.properties.isActive || '';
+		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
+	}
 
-	observers: [
-		'_fetchPresentation(presentationHref)',
-		'_fetchOrganizationDate(href, _hideCourseStartDate, _hideCourseEndDate)',
-		'_sendVoiceReaderInfo(_statusText)'
-	],
-
-	_fetchPresentation: function(presentationHref) {
-		if (!presentationHref) {
-			return Promise.resolve();
-		}
-		return this._fetchSirenEntity(presentationHref)
-			.then(function(presentationEntity) {
-				this._hideCourseStartDate = presentationEntity
-					&& presentationEntity.properties
-					&& presentationEntity.properties.HideCourseStartDate;
-				this._hideCourseEndDate = presentationEntity
-					&& presentationEntity.properties
-					&& presentationEntity.properties.HideCourseEndDate;
-			}.bind(this));
-	},
-
-	_fetchOrganizationDate: function(organizationHref, hideCourseStartDate, hideCourseEndDate) {
-		if (!organizationHref) {
-			return Promise.resolve();
-		}
-		return this._fetchSirenEntity(organizationHref)
-			.then(function(organizationEntity) {
+	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
+		var nowDate = Date.now();
+		var startDate = Date.parse(this._startDate);
+		var endDate = Date.parse(this._endDate);
+		if (startDate > nowDate) {
+			startDate = new Date(startDate);
+			this._statusText = this.localize('startsAt', 'date', this.formatDate(startDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(startDate));
+			if (hideCourseStartDate) {
 				this._statusText = null;
+			}
 
-				if (!organizationEntity) {
-					return;
-				}
+		} else if (endDate < nowDate) {
+			endDate = new Date(endDate);
+			this._statusText = this.localize('ended', 'date', this.formatDate(endDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(endDate));
+			if (hideCourseEndDate) {
+				this._statusText = null;
+			}
 
-				if (!organizationEntity.properties) {
-					return;
-				}
+		} else if (endDate >= nowDate) {
+			endDate = new Date(endDate);
+			this._statusText = this.localize('endsAt', 'date', this.formatDate(endDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(endDate));
+			if (hideCourseEndDate) {
+				this._statusText = null;
+			}
+		}
 
-				var nowDate = Date.now();
-				var endDate = Date.parse(organizationEntity.properties.endDate);
-				var startDate = Date.parse(organizationEntity.properties.startDate);
+		if (this._statusText || !this._entityStatus) {
+			this.fire('d2l-organization-date', {
+				active: !!this._entityStatus,
+				beforeStartDate: startDate ? startDate > nowDate : null,
+				afterEndDate: endDate ? endDate <= nowDate : null
+			});
+		}
+	}
 
-				if (startDate > nowDate) {
-					startDate = new Date(startDate);
-					this._statusText = this.localize('startsAt', 'date', this.formatDate(startDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(startDate));
-					if (hideCourseStartDate) {
-						this._statusText = null;
-					}
-
-				} else if (endDate < nowDate) {
-					endDate = new Date(endDate);
-					this._statusText = this.localize('ended', 'date', this.formatDate(endDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(endDate));
-					if (hideCourseEndDate) {
-						this._statusText = null;
-					}
-
-				} else if (endDate >= nowDate) {
-					endDate = new Date(endDate);
-					this._statusText = this.localize('endsAt', 'date', this.formatDate(endDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(endDate));
-					if (hideCourseEndDate) {
-						this._statusText = null;
-					}
-				}
-
-				if (this._statusText || !organizationEntity.properties.isActive) {
-					this.fire('d2l-organization-date', {
-						active: !!organizationEntity.properties.isActive,
-						beforeStartDate: startDate ? startDate > nowDate : null,
-						afterEndDate: endDate ? endDate <= nowDate : null
-					});
-				}
-
-			}.bind(this));
-	},
-
-	_sendVoiceReaderInfo: function(statusText) {
+	_sendVoiceReaderInfo(statusText) {
 		if (!statusText) {
 			return;
 		}
@@ -130,7 +112,8 @@ Polymer({
 				date: statusText
 			},
 		};
-
 		this._fireD2lOrganizationAccessible(details);
-	},
-});
+	}
+}
+
+window.customElements.define(OrganizationDate.is, OrganizationDate);
