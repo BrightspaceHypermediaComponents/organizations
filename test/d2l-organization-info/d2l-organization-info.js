@@ -11,17 +11,10 @@ describe('d2l-organization-info', () => {
 		organizationEntity = {
 			properties: {
 				name: 'Course Name',
-				code: 'SCI100',
-				startDate: null,
-				endDate: null,
-				isActive: false
+				code: 'SCI100'
 			},
-			links: [{
-				rel: ['https://api.brightspace.com/rels/parent-semester'],
-				href: '/semester.json'
-			}],
 			hasLinkByRel: function() { return true; },
-			getLinkByRel: function() { return '/semester.json'; }
+			getLinkByRel: function() { return { href: 'fake.json' }; }
 		};
 	});
 
@@ -30,19 +23,27 @@ describe('d2l-organization-info', () => {
 	});
 
 	describe('fetching organization', () => {
-		it('should set the _organizationCode', () => {
+		it('should set the _organizationCode and _semesterHref', () => {
+			component.showSemesterName = true;
 			component.entity = organizationEntity;
 			expect(component._organizationCode).to.equal('SCI100');
+			expect(component._semesterHref).to.equal('fake.json');
+		});
+
+		it('should not set _semesterHref when showSemesterName is false', () => {
+			component.entity = organizationEntity;
+			expect(component._organizationCode).to.equal('SCI100');
+			expect(component._semesterHref).to.equal(null);
 		});
 	});
 
 	describe('Events', () => {
 		it('d2l-organization-accessible should have semesterName and course code.', done => {
 			sinon.spy(component, 'fire');
-			component.entity = organizationEntity;
 			component.showOrganizationCode = true;
 			component.showSemesterName = true;
 			component._semesterName = 'Course Name';
+			component.entity = organizationEntity;
 			expect(component.fire).to.have.been.calledWith('d2l-organization-accessible', {
 				organization: {
 					code: 'SCI100'

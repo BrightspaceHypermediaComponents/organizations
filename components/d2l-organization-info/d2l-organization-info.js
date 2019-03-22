@@ -61,7 +61,7 @@ class OrganizationInfo extends mixinBehaviors([
 			_semesterName: String,
 			_showSeparator: {
 				type: Boolean,
-				computed: '_computeShowSeparator(showOrganizationCode, showSemesterName, _organizationCode, _semesterHref)'
+				computed: '_computeShowSeparator(showOrganizationCode, showSemesterName)'
 			}
 		};
 	}
@@ -82,14 +82,11 @@ class OrganizationInfo extends mixinBehaviors([
 
 	_loadData(entity) {
 		this._organizationCode = entity && entity.properties && entity.properties.code;
-		this._semesterHref = entity && entity.hasLinkByRel(Rels.parentSemester) && entity.getLinkByRel(Rels.parentSemester).href;
+		this._semesterHref = this.showSemesterName && entity && entity.hasLinkByRel(Rels.parentSemester) && entity.getLinkByRel(Rels.parentSemester).href || null;
 	}
 
-	_computeShowSeparator(showOrganizationCode, showSemester, organizationCode, semesterHref) {
-		return showSemester
-			&& showOrganizationCode
-			&& organizationCode
-			&& semesterHref
+	_computeShowSeparator(showOrganizationCode, showSemester) {
+		return showSemester && showOrganizationCode;
 	}
 
 	_onD2lOrganizationAccessible(e) {
