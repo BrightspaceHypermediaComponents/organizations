@@ -9,14 +9,7 @@
 		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
 		<script type="module" src="../../../d2l-typography/d2l-typography.js"></script>
 		<script type="module" src="../../components/d2l-organization-info/d2l-organization-info.js"></script>
-		<!-- FIXME(polymer-modulizer):
-		These imperative modules that innerHTML your HTML are
-		a hacky way to be sure that any mixins in included style
-		modules are ready before any elements that reference them are
-		instantiated, otherwise the CSS @apply mixin polyfill won't be
-		able to expand the underlying CSS custom properties.
-		See: https://github.com/Polymer/polymer-modulizer/issues/154
-		-->
+		<script type="module" src="../../components/d2l-organization-name/d2l-organization-name.js"></script>
 	<script type="module">
 const $_documentContainer = document.createElement('template');
 
@@ -41,25 +34,24 @@ document.body.appendChild($_documentContainer.content);
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<div class="vertical-section-container centered">
-
 			<h3>d2l-organization-info</h3>
 			<demo-snippet>
 				<template>
-					<d2l-organization-info presentation-href="../data/presentation/1.json" href="../data/organization-current.json">
+					<d2l-organization-info href="../data/organization-current.json" token="1234a" show-organization-code show-organization-code show-semester-name>
 					</d2l-organization-info>
 				</template>
 			</demo-snippet>
 
 			<demo-snippet>
 				<template>
-					<d2l-organization-info presentation-href="../data/presentation/2.json" href="../data/organization-current.json">
+					<d2l-organization-info href="../data/organization-current.json" token="1234a" show-organization-code>
 					</d2l-organization-info>
 				</template>
 			</demo-snippet>
 
 			<demo-snippet>
 				<template>
-					<d2l-organization-info presentation-href="../data/presentation/3.json" href="../data/organization-current.json">
+					<d2l-organization-info href="../data/organization-current.json" token="1234a">
 					</d2l-organization-info>
 				</template>
 			</demo-snippet>
@@ -67,15 +59,6 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 		</div>`;
 
 document.body.appendChild($_documentContainer.content);
-</script>
+		</script>
 	</body>
-
-	<!-- The class="d2l-typography" on the body doesn't always work -->
-	<script type="module">
-import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-import '@polymer/iron-demo-helpers/demo-snippet.js';
-import 'd2l-typography/d2l-typography.js';
-import '../../components/d2l-organization-info/d2l-organization-info.js';
-document.querySelector('body').classList.add('d2l-typography');
-</script>
 </html>
