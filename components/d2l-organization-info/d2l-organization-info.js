@@ -40,7 +40,7 @@ class OrganizationInfo extends mixinBehaviors([
 
 			<span>
 				<span hidden$="[[!showOrganizationCode]]" class="uppercase">[[_organizationCode]]</span>
-				<d2l-icon hidden$="[[!_showSeparator]]" icon="d2l-tier1:bullet"></d2l-icon>
+				<d2l-icon hidden$="[[!_computeShowSeparator(showOrganizationCode, showSemesterName)]]" icon="d2l-tier1:bullet"></d2l-icon>
 				<span hidden$="[[!showSemesterName]]"><d2l-organization-name href="[[_semesterHref]]" token="[[token]]"></d2l-organization-name></span>
 			</span>
 		`;
@@ -59,10 +59,6 @@ class OrganizationInfo extends mixinBehaviors([
 			_semesterHref: String,
 			_organizationCode: String,
 			_semesterName: String,
-			_showSeparator: {
-				type: Boolean,
-				computed: '_computeShowSeparator(showOrganizationCode, showSemesterName)'
-			}
 		};
 	}
 
