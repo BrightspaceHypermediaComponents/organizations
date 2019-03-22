@@ -69,7 +69,7 @@ describe('d2l-organization-date', () => {
 
 	describe('observers', () => {
 		beforeEach(() => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 		});
 
 		it('should call _getOrganizationDate upon changes to entity', () => {
@@ -83,7 +83,7 @@ describe('d2l-organization-date', () => {
 			component.entity = futureOrganization;
 			component.hideCourseStartDate = true;
 			component.hideCourseEndDate = true;
-			expect(spy).to.have.been.called;
+			expect(spy).to.have.been.calledThrice;
 		});
 
 		it('should call _sendVoiceReaderInfo upon changes to _statusText', () => {
@@ -97,7 +97,7 @@ describe('d2l-organization-date', () => {
 
 	describe('fetching organization', () => {
 		beforeEach(done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = futureOrganization;
 			setTimeout(() => {
 				done();
@@ -109,9 +109,9 @@ describe('d2l-organization-date', () => {
 		});
 	});
 
-	describe('fetching presentation entity', () => {
+	describe('Testing attribute default', () => {
 		beforeEach(done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = organizationEntity;
 			setTimeout(() => {
 				done();
@@ -129,7 +129,7 @@ describe('d2l-organization-date', () => {
 
 	describe('status text', () => {
 		it('should display the "Starts" text when organization starts in future', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = futureOrganization;
 
 			setTimeout(() => {
@@ -141,7 +141,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it('should display the "Ended" text when organization ended in past', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = endedOrganization;
 
 			setTimeout(() => {
@@ -153,7 +153,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it('should display the "Ends" text when organization ends in past', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = endsOrganization;
 
 			setTimeout(() => {
@@ -165,7 +165,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it('should display the nothing when organization is inactive and is after start date or has no start date', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = organizationEntity;
 
 			setTimeout(() => {
@@ -177,7 +177,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it ('should display nothing when organization starts in future and _hideCourseStartDate is true', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = futureOrganization;
 			component.hideCourseStartDate = true;
 
@@ -189,7 +189,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it ('should display nothing when organization ended in past and _hideCourseEndDate is true', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = endedOrganization;
 			component.hideCourseEndDate = true;
 
@@ -201,7 +201,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it ('should display nothing when organization ends in past and _hideCourseEndDate is true', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = endsOrganization;
 			component.hideCourseEndDate = true;
 
@@ -213,7 +213,7 @@ describe('d2l-organization-date', () => {
 		});
 
 		it ('should display the "Starts" text when organization starts in future and _hideCourseStartDate is null', done => {
-			component = fixture('no-params');
+			component = fixture('org-date');
 			component.entity = futureOrganization;
 			component.hideCourseEndDate = null;
 			component.hideCourseStartDate = null;
@@ -229,7 +229,7 @@ describe('d2l-organization-date', () => {
 
 	describe('Events', () => {
 		beforeEach(async() => {
-			component = await fixture('no-params');
+			component = await fixture('org-date');
 		});
 
 		it('should send event with detail of inactive and before start date as true when organization starts in future.', done => {

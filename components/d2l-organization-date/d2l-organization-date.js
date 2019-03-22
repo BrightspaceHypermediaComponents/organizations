@@ -60,11 +60,11 @@ class OrganizationDate extends mixinBehaviors([
 		return 'd2l-organization-date';
 	}
 
-	_getOrganizationDate(entity, hideCourseStartDate, hideCourseEndDate) {
+	_getOrganizationDate(entity) {
 		this._startDate = entity && entity.properties && entity.properties.startDate || '';
 		this._endDate = entity && entity.properties && entity.properties.endDate || '';
 		this._entityStatus = entity && entity.properties && entity.properties.isActive || '';
-		this._setOrganizationDate(hideCourseStartDate, hideCourseEndDate);
+		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
 	}
 
 	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
