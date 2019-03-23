@@ -12,7 +12,7 @@ export const interalEntityMixin = function(superClass) {
 					reflectToAttribute: true
 				},
 				token: String,
-				entity: Object
+				_entity: Object
 			};
 		}
 
@@ -23,6 +23,7 @@ export const interalEntityMixin = function(superClass) {
 		}
 
 		detached() {
+			// this calls this._entity.decompose() if entity is actually an entity.
 			decompose(this._entity);
 		}
 

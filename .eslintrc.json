@@ -1,6 +1,7 @@
 {
   "extends": "brightspace/polymer-3-config",
   "globals": {
-    "Promise": false
+    "Promise": false,
+    "ExperimentalDecorators": true
   }
 }

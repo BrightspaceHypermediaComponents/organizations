@@ -27,7 +27,7 @@ class D2lOrganizationSemesterName extends EntityMixin(PolymerElement) {
 	}
 	static get observers() {
 		return [
-			'_onOrganizationChange(entity)'
+			'_onOrganizationChange(_entity)'
 		];
 	}
 
@@ -37,7 +37,8 @@ class D2lOrganizationSemesterName extends EntityMixin(PolymerElement) {
 		}
 
 		// entity object will keep track of semester object and blow it up when it blows up.
-		this._organization.onSemesterChange((semester) => {
+		// organization is a reference to this._entity defined in EntityMixin.
+		organization.onSemesterChange((semester) => {
 			this._semesterName = semester.name();
 		});
 	}

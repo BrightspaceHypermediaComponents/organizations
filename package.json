@@ -56,6 +56,7 @@
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
+    "lit-element": "^2.1.0",
     "siren-parser": "^8.0.0",
     "whatwg-fetch": "^3.0.0"
   }
