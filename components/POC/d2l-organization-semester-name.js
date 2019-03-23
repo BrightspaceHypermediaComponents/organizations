@@ -1,13 +1,19 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import 'd2l-course-image/d2l-course-image.js';
-import { entityFactory, decompose } from 'entity-store/Entity.js';
+import { EntityMixin } from 'entity-store/entity-mixin.js';
 import { OrganizationEntity } from 'es6/OrganizationEntity.js';
 
 /**
  * @customElement
  * @polymer
  */
-class D2lOrganizationSemesterName extends PolymerElement {
+class D2lOrganizationSemesterName extends EntityMixin(PolymerElement) {
+	constructor() {
+		super();
+		// Using entity mixin we have to set the type of the entity we are going to get.
+		this._setEntityType(OrganizationEntity);
+	}
+
 	static get template() {
 		return html`
 			[[_semesterName]]
@@ -16,24 +22,13 @@ class D2lOrganizationSemesterName extends PolymerElement {
 
 	static get properties() {
 		return {
-			href: String,
-			token: Object,
-			_organization: Object,
 			_semesterName: String
 		};
 	}
 	static get observers() {
 		return [
-			'_onHrefChange(href, token)'
+			'_onOrganizationChange(entity)'
 		];
-	}
-
-	detached() {
-		decompose(this._organization);
-	}
-
-	_onHrefChange(href, token) {
-		entityFactory(OrganizationEntity, href, token, this._onOrganizationChange.bind(this));
 	}
 
 	_onOrganizationChange(organization) {
@@ -41,8 +36,7 @@ class D2lOrganizationSemesterName extends PolymerElement {
 			return;
 		}
 
-		this._organization = organization;
-		//organization object will keep track of semester object and blow it up when it blows up.
+		// entity object will keep track of semester object and blow it up when it blows up.
 		this._organization.onSemesterChange((semester) => {
 			this._semesterName = semester.name();
 		});
