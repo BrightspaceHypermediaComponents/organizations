@@ -1,6 +1,6 @@
 'use strict';
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
-import { entityFactory, decompose } from 'Entity.js';
+import { entityFactory, decompose } from './Entity.js';
 
 /* @polymerMixin */
 export const interalEntityMixin = function(superClass) {

@@ -1,7 +1,6 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import 'd2l-course-image/d2l-course-image.js';
-import { EntityMixin } from 'entity-store/entity-mixin.js';
-import 'components/d2l-organization-entity.js';
+import { EntityMixin } from './entity-store/entity-mixin.js';
+import './components/d2l-organization-entity.js';
 
 /**
  * @customElement

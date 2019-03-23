@@ -1,7 +1,7 @@
 // Import the LitElement base class and html helper function
 import { LitElement } from 'lit-element';
-import { entityFactory, decompose } from 'Entity.js';
-import { OrganizationEntity } from 'es6/OrganizationEntity.js';
+import { entityFactory, decompose } from '../entity-store/Entity.js';
+import { OrganizationEntity } from '../es6/OrganizationEntity.js';
 
 class D2lOrganizationEntity extends LitElement {
 	render() {
