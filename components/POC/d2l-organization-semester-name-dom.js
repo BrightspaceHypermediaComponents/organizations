@@ -27,11 +27,6 @@ class D2lOrganizationSemesterNameDom extends EntityMixin(PolymerElement) {
 			_semesterHref: String
 		};
 	}
-	static get observers() {
-		return [
-			'_onOrganizationChange(_entity)'
-		];
-	}
 
 	_handleOrganizationChanged(organization) {
 		if (!organization || !organization.detail || !organization.detail.entity) {
