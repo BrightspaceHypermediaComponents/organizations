@@ -1,6 +1,6 @@
 'use strict';
 
-import { Entity } from '../entity-store/entity.js';
+import { Entity } from '../entity-store/Entity.js';
 import { Rels } from 'd2l-hypermedia-constants';
 
 export class OrganizationEntity extends Entity {
