@@ -4,12 +4,7 @@ import 'd2l-polymer-siren-behaviors/store/entity-store.js';
 
 export function entityFactory(entityType, href, token, onChange) {
 	const entityListener = new EntityListener();
-
 	const onChangeWrapped = (entity) => {
-		if (!entity) {
-			window.D2L.Siren.EntityStore.fetch(href, token);
-			return;
-		}
 		const entityWrapped = new entityType(entity, token, entityListener);
 		onChange(entityWrapped);
 	};
@@ -62,6 +57,7 @@ class EntityListener {
 		this._onChange = onChange;
 
 		window.D2L.Siren.EntityStore.addListener(this._href, this._token, this._onChange);
+		window.D2L.Siren.EntityStore.fetch(href, token);
 	}
 
 	update(href, token, onChange) {

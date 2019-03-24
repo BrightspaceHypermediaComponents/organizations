@@ -10,27 +10,30 @@ class D2lOrganizationEntity extends LitElement {
 
 	static get properties() {
 		return {
-			href: {
-				type: String,
-				reflectToAttribute: true
-			},
-			token: String,
-			_entity: Object
+			href: { type: String, attribute: 'href', reflect: true },
+			token: { type: String, attribute: 'token', reflect: true },
+			_entity: { type: Object }
 		};
 
+	}
+	attributeChangedCallback(name, oldval, newval) {
+		super.attributeChangedCallback(name, oldval, newval);
 	}
 	// Does this run when the element is detacted? Assume that is true.
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		decompose(this._entity);
 	}
+
 	update(changedProperties) {
 		super.update(changedProperties);
-		if (changedProperties.href || changedProperties.token) {
-			entityFactory(OrganizationEntity, this.href, this.token, entity => this._entity = entity);
+		if (changedProperties.has('href') || changedProperties.has('token')) {
+			entityFactory(OrganizationEntity, this.href, this.token, entity => {
+				this._entity = entity;
+			});
 		}
-		if (changedProperties.entity) {
-			this.dispatchEvent(new CustomEvent('on-change', {
+		if (changedProperties.has('_entity')) {
+			this.dispatchEvent(new CustomEvent('change', {
 				detail: {
 					entity: this._entity
 				}

@@ -11,7 +11,7 @@ class D2lOrganizationSemesterNameDom extends EntityMixin(PolymerElement) {
 		return html`
 			[[_semesterName]]
 			<d2l-organization-entity href="[[href]]" token="[[token]]" on-change="_handleOrganizationChanged" ></d2l-organization-entity>
-            <d2l-organization-entity href="[[semesterHref]]" token="[[token]]" on-change="_handleSemesterChanged" ><d2l-organization-entity>
+            <d2l-organization-entity href="[[_semesterHref]]" token="[[token]]" on-change="_handleSemesterChanged" ><d2l-organization-entity>
 		`;
 	}
 
@@ -33,13 +33,16 @@ class D2lOrganizationSemesterNameDom extends EntityMixin(PolymerElement) {
 	}
 
 	_handleOrganizationChanged(organization) {
-		if (!organization) {
+		if (!organization || !organization.detail || !organization.detail.entity) {
 			return;
 		}
-		this._semesterHref = organization.semesterHref();
+		this._semesterHref = organization.detail.entity.semesterHref();
 	}
 	_handleSemesterChanged(semester) {
-		this._semesterName = semester.name();
+		if (!semester || !semester.detail || !semester.detail.entity) {
+			return;
+		}
+		this._semesterName = semester.detail.entity.name();
 	}
 }
 

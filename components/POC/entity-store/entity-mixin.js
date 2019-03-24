@@ -28,13 +28,13 @@ export const interalEntityMixin = function(superClass) {
 		}
 
 		_setEntityType(entityType) {
-			if (typeof entityType === 'object') {
+			if (typeof entityType === 'function') {
 				this._entityType = entityType;
 			}
 		}
 
 		__onHrefChange(href, token) {
-			if (typeof this._entityType === 'object') {
+			if (typeof this._entityType === 'function') {
 				entityFactory(this._entityType, href, token, entity => {
 					this._entity = entity;
 				});
