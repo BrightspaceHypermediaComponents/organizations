@@ -4,10 +4,6 @@ import { entityFactory, decompose } from '../entity-store/Entity.js';
 import { OrganizationEntity } from '../es6/OrganizationEntity.js';
 
 class D2lOrganizationEntity extends LitElement {
-	render() {
-		return '';
-	}
-
 	static get properties() {
 		return {
 			href: { type: String, attribute: 'href', reflect: true },
@@ -29,6 +25,7 @@ class D2lOrganizationEntity extends LitElement {
 		super.update(changedProperties);
 		if (changedProperties.has('href') || changedProperties.has('token')) {
 			entityFactory(OrganizationEntity, this.href, this.token, entity => {
+				decompose(this._entity);
 				this._entity = entity;
 			});
 		}

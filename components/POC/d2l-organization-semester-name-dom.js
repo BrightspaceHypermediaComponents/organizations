@@ -3,6 +3,7 @@ import { EntityMixin } from './entity-store/entity-mixin.js';
 import './components/d2l-organization-entity.js';
 
 /**
+ * Uses the lit element dom elements to get the entity information
  * @customElement
  * @polymer
  */

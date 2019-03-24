@@ -4,6 +4,7 @@ import { Entity } from '../entity-store/entity.js';
 import { Rels } from 'd2l-hypermedia-constants';
 
 export class OrganizationEntity extends Entity {
+	// Entity has a constructor that is called from the factory to keep track of what is required to be cleaned.
 	name() {
 		return this._entity && this._entity.properties && this._entity.properties.name;
 	}
@@ -20,6 +21,8 @@ export class OrganizationEntity extends Entity {
 
 	onSemesterChange(onChange) {
 		const semesterHref = this.semesterHref();
+		// _subEntity builds new sub entity and allows this object to track it.
+		// So all sub entities are decomposed when this object is decomposed.
 		semesterHref && this._subEntity(OrganizationEntity, semesterHref, this._token, onChange);
 	}
 }
