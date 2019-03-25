@@ -1,8 +1,10 @@
+import SirenParse from 'siren-parser';
+
 describe('d2l-organization-updates', () => {
 	var sandbox,
 		component,
 		notificationEntity,
-		notificationEntityAllFull
+		notificationEntityAllFull;
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
@@ -29,18 +31,26 @@ describe('d2l-organization-updates', () => {
 					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
 					title: 'UnapprovedDiscussions',
 					href: '/discussions'
-				}]
+				}],
+				_linksByRel: {
+					'https://notifications.api.brightspace.com/rels/updates-source':
+						['http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609']
+				}
 			}, {
 				rel: ['https://notifications.api.brightspace.com/rels/updates'],
 				properties: {
-					count: 0,
+					count: 1000,
 					type: 'UnreadAssignmentFeedback'
 				},
 				links: [{
 					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
 					title: 'UnreadAssignmentFeedback',
 					href: '/assignment'
-				}]
+				}],
+				_linksByRel: {
+					'https://notifications.api.brightspace.com/rels/updates-source':
+						['http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609']
+				}
 			}, {
 				rel: ['https://notifications.api.brightspace.com/rels/updates'],
 				properties: {
@@ -51,7 +61,11 @@ describe('d2l-organization-updates', () => {
 					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
 					title: 'UnreadAssignmentSubmissions',
 					href: '/assignment'
-				}]
+				}],
+				_linksByRel: {
+					'https://notifications.api.brightspace.com/rels/updates-source':
+						['http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609']
+				}
 			}, {
 				rel: ['https://notifications.api.brightspace.com/rels/updates'],
 				properties: {
@@ -62,7 +76,11 @@ describe('d2l-organization-updates', () => {
 					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
 					title: 'UngradedQuizzes',
 					href: '/quizzes'
-				}]
+				}],
+				_linksByRel: {
+					'https://notifications.api.brightspace.com/rels/updates-source':
+						['http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609']
+				}
 			}, {
 				rel: ['https://notifications.api.brightspace.com/rels/updates'],
 				properties: {
@@ -73,7 +91,11 @@ describe('d2l-organization-updates', () => {
 					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
 					title: 'UnattemptedQuizzes',
 					href: '/quizzes'
-				}]
+				}],
+				_linksByRel: {
+					'https://notifications.api.brightspace.com/rels/updates-source':
+						['http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609']
+				}
 			}],
 			links: [{
 				rel: ['self'],
@@ -83,6 +105,7 @@ describe('d2l-organization-updates', () => {
 				href: 'https://98739553-44af-4933-b09c-f3798cdb13f5.organizations.api.proddev.d2l/6609'
 			}]
 		};
+
 		notificationEntityAllFull = {
 			entities: [{
 				rel: ['https://notifications.api.brightspace.com/rels/updates'],
@@ -206,7 +229,7 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			component.entity = notificationEntity;
+			component.entity = SirenParse(notificationEntity);
 			component.showDropboxUnreadFeedback = true;
 			component.showUnattemptedQuizzes = true;
 			component.showUnreadDiscussionMessages = true;
@@ -216,7 +239,6 @@ describe('d2l-organization-updates', () => {
 		});
 
 		it('Correct Display.', () => {
-
 			// unreadAssignmentFeedback: -20
 			var notification = component.$$('#unreadAssignmentFeedback');
 			expect(notification.getAttribute('disabled')).is.equal.false;
@@ -248,75 +270,48 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			component.entity = notificationEntityAllFull;
+			component.entity = SirenParse(notificationEntityAllFull);
 			setTimeout(() => {
 				done();
 			}, 100);
 		});
 
-		function testName(testCase) {
-			return 'should show ' +
-				(testCase.count ? testCase.count : 'no') +
-				' notifications';
-		}
-
-		[
-			{
-				properties: {
-					ShowUnattemptedQuizzes: false,
-					ShowDropboxUnreadFeedback: false,
-					ShowUngradedQuizAttempts: true,
-					ShowUnreadDiscussionMessages: true,
-					ShowUnreadDropboxSubmissions: true
-				},
-				count: 3
-			},
-			{
-				properties: {
-					ShowUnattemptedQuizzes: false,
-					ShowDropboxUnreadFeedback: false,
-					ShowUngradedQuizAttempts: false,
-					ShowUnreadDiscussionMessages: true,
-					ShowUnreadDropboxSubmissions: true
-				},
-				count: 2
-			},
-			{
-				properties: {
-					ShowUnattemptedQuizzes: false,
-					ShowDropboxUnreadFeedback: false,
-					ShowUngradedQuizAttempts: false,
-					ShowUnreadDiscussionMessages: false,
-					ShowUnreadDropboxSubmissions: true
-				},
-				count: 1
-			},
-			{
-				properties: {
-					ShowUnattemptedQuizzes: false,
-					ShowDropboxUnreadFeedback: false,
-					ShowUngradedQuizAttempts: false,
-					ShowUnreadDiscussionMessages: false,
-					ShowUnreadDropboxSubmissions: false
-				},
-				count: 0
-			}
-		].forEach(testCase => {
-
-			it(testName(testCase), done => {
-				component.__orgUpdates_fetchNotifications(component.entity, testCase.properties)
-					.then(function(notification) {
-						component._notifications = component._orgUpdates_notifications(notification);
-					});
-
-				setTimeout(() => {
-					var notifications = component.root.querySelectorAll('.organization-updates-container');
-					expect(notifications.length).to.equal(testCase.count);
-					done();
-				});
-
+		it('should show 3 notifications', done => {
+			component.showUngradedQuizAttempts = true;
+			component.showUnreadDiscussionMessages = true;
+			component.showUnreadDropboxSubmissions = true;
+			setTimeout(() => {
+				var notifications = component.root.querySelectorAll('.organization-updates-container');
+				expect(notifications.length).to.equal(3);
+				done();
 			});
+		});
 
+		it('should show 2 notifications', done => {
+			component.showUnreadDiscussionMessages = true;
+			component.showUnreadDropboxSubmissions = true;
+			setTimeout(() => {
+				var notifications = component.root.querySelectorAll('.organization-updates-container');
+				expect(notifications.length).to.equal(2);
+				done();
+			});
+		});
+
+		it('should show 1 notifications', done => {
+			component.showUnreadDropboxSubmissions = true;
+			setTimeout(() => {
+				var notifications = component.root.querySelectorAll('.organization-updates-container');
+				expect(notifications.length).to.equal(1);
+				done();
+			});
+		});
+
+		it('should show no notifications', done => {
+			setTimeout(() => {
+				var notifications = component.root.querySelectorAll('.organization-updates-container');
+				expect(notifications.length).to.equal(0);
+				done();
+			});
 		});
 
 	});

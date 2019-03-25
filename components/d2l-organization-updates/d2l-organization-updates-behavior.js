@@ -114,7 +114,6 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		}.bind(this))) {
 			return Promise.resolve();
 		}
-
 		if (!(entity = entity.getSubEntities(Rels.Notifications.updates))) {
 			return;
 		}
@@ -141,7 +140,6 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 
 		var currentLink = updateEntity.hasLinkByRel(Rels.Notifications.updatesSource)
 			&& updateEntity.getLinkByRel(Rels.Notifications.updatesSource).href;
-
 		if (!notifications.hasOwnProperty(options.key)) {
 			notifications[options.key] = {
 				icon: options.icon,

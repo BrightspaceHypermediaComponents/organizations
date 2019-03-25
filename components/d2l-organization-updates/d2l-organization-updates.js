@@ -189,12 +189,12 @@ class OrganizationUpdates extends mixinBehaviors([
 
 	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
 		var presentationAttributes = {
-			"ShowDropboxUnreadFeedback": showDropboxUnreadFeedback,
-			"ShowUnattemptedQuizzes": showUnattemptedQuizzes,
-			"ShowUngradedQuizAttempts": showUngradedQuizAttempts,
-			"ShowUnreadDiscussionMessages": showUnreadDiscussionMessages,
-			"ShowUnreadDropboxSubmissions": showUnreadDropboxSubmissions,
-		}
+			'ShowDropboxUnreadFeedback': showDropboxUnreadFeedback,
+			'ShowUnattemptedQuizzes': showUnattemptedQuizzes,
+			'ShowUngradedQuizAttempts': showUngradedQuizAttempts,
+			'ShowUnreadDiscussionMessages': showUnreadDiscussionMessages,
+			'ShowUnreadDropboxSubmissions': showUnreadDropboxSubmissions,
+		};
 
 		if (!this.entity || !presentationAttributes) {
 			return Promise.resolve();
