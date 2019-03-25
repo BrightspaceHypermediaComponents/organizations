@@ -1,0 +1,25 @@
+{
+  "class":[
+     "course-image"
+  ],
+  "links":[
+     {
+        "rel":[
+           "self"
+        ],
+        "href":"../data/image.json"
+     },
+     {
+        "class":[
+           "tile",
+           "low-density",
+           "max"
+        ],
+        "rel":[
+           "alternate"
+        ],
+        "type":"image/jpeg",
+        "href":"../data/images/tile-low-density-max-size.jpg"
+     }
+  ]
+}

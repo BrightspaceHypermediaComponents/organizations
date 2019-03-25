@@ -47,7 +47,7 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 				<template>
 					<d2l-organization-date
 						href="../data/organization-future.json"
-						presentation-href="../data/presentation/1.json">
+						token="1a">
 					</d2l-organization-date>
 				</template>
 			</demo-snippet>
@@ -57,7 +57,7 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 				<template>
 					<d2l-organization-date
 						href="../data/organization-past.json"
-						presentation-href="../data/presentation/1.json">
+						token="1a">
 					</d2l-organization-date>
 				</template>
 			</demo-snippet>
@@ -67,7 +67,7 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 				<template>
 					<d2l-organization-date
 						href="../data/organization-current.json"
-						presentation-href="../data/presentation/1.json">
+						token="1a">
 					</d2l-organization-date>
 				</template>
 			</demo-snippet>
@@ -77,53 +77,47 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 				<template>
 					<d2l-organization-date
 						href="../data/organization-no-dates.json"
-						presentation-href="../data/presentation/1.json">
+						token="1a">
 					</d2l-organization-date>
 				</template>
-			</demo-snippet>				
+			</demo-snippet>
 
-			<h3>d2l-organization-date: future (_hideCourseStartDate: true)</h3>
+			<h3>d2l-organization-date: future (hideCourseStartDate: true)</h3>
 			<demo-snippet>
 				<template>
 					<d2l-organization-date
 						href="../data/organization-future.json"
-						presentation-href="../data/presentation/2.json">
+						token="1a"
+						hide-course-start-date>
 					</d2l-organization-date>
 				</template>
-			</demo-snippet>			
+			</demo-snippet>
 
-			<h3>d2l-organization-date: past (_hideCourseEndDate: true)</h3>
+			<h3>d2l-organization-date: past (hideCourseEndDate: true)</h3>
 			<demo-snippet>
 				<template>
 					<d2l-organization-date
 						href="../data/organization-past.json"
-						presentation-href="../data/presentation/3.json">
+						token="1a"
+						hide-course-end-date>
 					</d2l-organization-date>
 				</template>
-			</demo-snippet>		
+			</demo-snippet>
 
-			<h3>d2l-organization-date: current (_hideCourseEndDate: true)</h3>
+			<h3>d2l-organization-date: current (hideCourseEndDate: true)</h3>
 			<demo-snippet>
 				<template>
 					<d2l-organization-date
 						href="../data/organization-current.json"
-						presentation-href="../data/presentation/3.json">
+						token="1a"
+						hide-course-end-date>
 					</d2l-organization-date>
 				</template>
-			</demo-snippet>	
+			</demo-snippet>
 
 		</div>`;
 
 document.body.appendChild($_documentContainer.content);
-</script>
+		</script>
 	</body>
-
-	<!-- The class="d2l-typography" on the body doesn't always work -->
-	<script type="module">
-import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-import '@polymer/iron-demo-helpers/demo-snippet.js';
-import 'd2l-typography/d2l-typography.js';
-import '../../components/d2l-organization-date/d2l-organization-date.js';
-document.querySelector('body').classList.add('d2l-typography');
-</script>
 </html>

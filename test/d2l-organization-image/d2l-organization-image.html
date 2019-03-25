@@ -5,15 +5,21 @@
 		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
 		<script src="../../../wct-browser-legacy/browser.js"></script>
 
-		<script type="module" src="../../components/d2l-organization-name/d2l-organization-name.js"></script>
+		<script type="module" src="../../components/d2l-organization-image/d2l-organization-image.js"></script>
 	</head>
 	<body>
 		<test-fixture id="no-params">
 			<template>
-				<d2l-organization-name></d2l-organization-name>
+				<d2l-organization-image></d2l-organization-image>
 			</template>
 		</test-fixture>
 
-		<script src="./d2l-organization-name.js"></script>
+		<test-fixture id="with-href">
+			<template>
+				<d2l-organization-image href="organization/1"></d2l-organization-image>
+			</template>
+		</test-fixture>
+
+		<script type="module" src="./d2l-organization-image.js"></script>
 	</body>
 </html>

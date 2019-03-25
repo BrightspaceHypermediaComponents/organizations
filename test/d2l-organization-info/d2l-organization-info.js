@@ -1,181 +1,87 @@
 describe('d2l-organization-info', () => {
 	var sandbox,
 		component,
-		fetchStub;
+		organizationEntity;
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
 
-		var organizationEntity = {
+		component = fixture('org-info');
+
+		organizationEntity = {
 			properties: {
 				name: 'Course Name',
-				code: 'SCI100',
-				startDate: null,
-				endDate: null,
-				isActive: false
+				code: 'SCI100'
 			},
-			links: [{
-				rel: ['https://api.brightspace.com/rels/parent-semester'],
-				href: '/semester.json'
-			}]
+			hasLinkByRel: function() { return true; },
+			getLinkByRel: function() { return { href: 'fake.json' }; }
 		};
-		var semesterEntity = {
-			properties: {
-				name: 'Semester Name'
-			}
-		};
-		var presentationEntity = {
-			properties: {
-				ShowCourseCode: true,
-				ShowSemester: true
-			}
-		};
-
-		fetchStub = sandbox.stub(window.d2lfetch, 'fetch');
-		fetchStub
-			.withArgs(sinon.match.has('url', sinon.match('/organization.json')))
-			.returns(Promise.resolve({
-				ok: true,
-				json: () => { return Promise.resolve(organizationEntity); }
-			}))
-			.withArgs(sinon.match.has('url', sinon.match('/semester.json')))
-			.returns(Promise.resolve({
-				ok: true,
-				json: () => { return Promise.resolve(semesterEntity); }
-			}))
-			.withArgs(sinon.match.has('url', sinon.match('/presentation.json')))
-			.returns(Promise.resolve({
-				ok: true,
-				json: () => { return Promise.resolve(presentationEntity); }
-			}));
 	});
 
 	afterEach(() => {
 		sandbox.restore();
 	});
 
-	describe('observers', () => {
-		beforeEach(done => {
-			component = fixture('no-params');
-			setTimeout(() => {
-				done();
-			}, 100);
-		});
-
-		afterEach(() => {
-			sandbox.restore();
-		});
-
-		it('should call _fetchOrganization upon changes to href', () => {
-			var spy = sandbox.spy(component, '_fetchOrganization');
-			component.href = '/organization.json';
-			expect(spy).to.have.been.called;
-		});
-
-		it('should call _fetchPresentation upon changes to presentation-href', () => {
-			var spy = sandbox.spy(component, '_fetchPresentation');
-			component.presentationHref = '/organization.json';
-			expect(spy).to.have.been.called;
-		});
-
-		it('should call _fetchSemester upon changes to _organization or _showSemesterName', () => {
-			var spy = sandbox.spy(component, '_fetchSemester');
-
-			component._organization = window.D2L.Hypermedia.Siren.Parse({});
-			expect(spy).to.have.been.calledOnce;
-
-			component._showSemesterName = true;
-			expect(spy.callCount).to.equal(2);
-		});
-
-		it('should call _sendVoiceReaderInfo upon changes to _showOrganizationCode, _showSemesterName, _organizationCode or _semesterName', () => {
-			var spy = sandbox.spy(component, '_sendVoiceReaderInfo');
-
-			component._semesterName = 'Semester Name';
-			component._showSemesterName = true;
-			component._organizationCode = 'PMATH350';
-			component._showOrganizationCode = true;
-			expect(spy).to.have.been.called;
-
-		});
-	});
-
 	describe('fetching organization', () => {
-		beforeEach(done => {
-			component = fixture('with-href');
-
-			setTimeout(() => {
-				done();
-			}, 100);
-		});
-
-		it('should set the _organization', () => {
-			expect(component._organization).to.be.an('object');
-		});
-
-		it('should set the _organizationCode', () => {
+		it('should set the _organizationCode and _semesterHref', () => {
+			component.showSemesterName = true;
+			component.entity = organizationEntity;
 			expect(component._organizationCode).to.equal('SCI100');
+			expect(component._semesterHref).to.equal('fake.json');
+		});
+
+		it('should not set _semesterHref when showSemesterName is false', () => {
+			component.entity = organizationEntity;
+			expect(component._organizationCode).to.equal('SCI100');
+			expect(component._semesterHref).to.equal(undefined);
 		});
 	});
 
-	describe('fetching presentation entity', () => {
-		beforeEach(done => {
-			component = fixture('with-href-and-presentation-href');
-
-			setTimeout(() => {
-				done();
-			}, 100);
-		});
-
-		it('should set _showOrganizationCode', () => {
-			expect(component._showOrganizationCode).to.be.true;
-		});
-
-		it('should set _showSemesterName', () => {
-			expect(component._showSemesterName).to.be.true;
+	describe('Set semesterHref', () => {
+		it('should set _semesterHref', () => {
+			component.entity = organizationEntity;
+			component.showSemesterName = true;
+			expect(component._semesterHref).to.equal('fake.json');
 		});
 	});
 
-	describe('fetching semester', () => {
-		beforeEach(done => {
-			component = fixture('with-href-and-presentation-href');
-
-			setTimeout(() => {
-				done();
-			}, 100);
+	describe('Show separator', () => {
+		it('should show separator when both semester name and semester code are showing', () => {
+			var showSeparator = component._computeShowSeparator(true, true);
+			expect(showSeparator).to.be.true;
 		});
 
-		it('should set _semesterName', () => {
-			expect(component._semesterName).to.equal('Semester Name');
+		it('should not show separator when only semester name is showing', () => {
+			var showSeparator = component._computeShowSeparator(false, true);
+			expect(showSeparator).to.be.false;
+		});
+
+		it('should not show separator when only semester code is showing', () => {
+			var showSeparator = component._computeShowSeparator(true, false);
+			expect(showSeparator).to.be.false;
+		});
+
+		it('should not show separator when neither semester name nor semester code are showing', () => {
+			var showSeparator = component._computeShowSeparator(false, false);
+			expect(showSeparator).to.be.false;
 		});
 	});
 
 	describe('Events', () => {
-		beforeEach(done => {
-			component = fixture('with-href-and-presentation-href');
-			setTimeout(() => {
-				done();
-			}, 100);
-		});
-
-		it('d2l-organization-accessible should have semesterName.', done => {
-			component.addEventListener('d2l-organization-accessible', function(e) {
-				expect(e.detail.semesterName).to.equal('New Name');
-				done();
+		it('d2l-organization-accessible should have semesterName and course code.', done => {
+			sinon.spy(component, 'fire');
+			component.showOrganizationCode = true;
+			component.showSemesterName = true;
+			component._semesterName = 'Course Name';
+			component.entity = organizationEntity;
+			expect(component.fire).to.have.been.calledWith('d2l-organization-accessible', {
+				organization: {
+					code: 'SCI100'
+				},
+				semesterName: 'Course Name'
 			});
-			component._semesterName = 'New Name';
-
+			done();
 		});
-
-		it('d2l-organization-accessible should have course code.', done => {
-			component.addEventListener('d2l-organization-accessible', function(e) {
-				expect(e.detail.organization.code).to.equal('PMATH350');
-				done();
-			});
-			component._organizationCode = 'PMATH350';
-
-		});
-
 	});
 
 });
