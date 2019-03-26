@@ -62,7 +62,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 	_orgUpdates_notifications: function(notification, combined) {
 		var maxCount = 99;
 		if (!notification) {
-			return {};
+			return [];
 		}
 		if (combined) {
 			notification = {
