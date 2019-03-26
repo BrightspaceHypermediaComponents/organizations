@@ -184,11 +184,15 @@ class OrganizationUpdates extends mixinBehaviors([
 
 	_getNotificationsEntity(entity) {
 		this.entity = entity;
-		this._getNotifications(this.combined, this.showDropboxUnreadFeedback, this.showUnattemptedQuizzes, this.showUngradedQuizAttempts, this.showUnreadDiscussionMessages, this.showUnreadDropboxSubmissions);
+		this._getNotifications(this.combined, this.showDropboxUnreadFeedback,
+			this.showUnattemptedQuizzes, this.showUngradedQuizAttempts,
+			this.showUnreadDiscussionMessages, this.showUnreadDropboxSubmissions);
 	}
 
-	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
-		var presentationAttributes = {
+	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes,
+		showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
+
+			var presentationAttributes = {
 			'ShowDropboxUnreadFeedback': showDropboxUnreadFeedback,
 			'ShowUnattemptedQuizzes': showUnattemptedQuizzes,
 			'ShowUngradedQuizAttempts': showUngradedQuizAttempts,

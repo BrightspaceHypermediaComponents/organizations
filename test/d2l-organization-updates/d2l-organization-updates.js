@@ -182,6 +182,10 @@ describe('d2l-organization-updates', () => {
 				href: 'https://98739553-44af-4933-b09c-f3798cdb13f5.organizations.api.proddev.d2l/6609'
 			}]
 		};
+
+		notificationEntity = SirenParse(notificationEntity);
+		notificationEntityAllFull = SirenParse(notificationEntityAllFull);
+
 	});
 
 	afterEach(() => {
@@ -229,7 +233,7 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			component.entity = SirenParse(notificationEntity);
+			component.entity = notificationEntity;
 			component.showDropboxUnreadFeedback = true;
 			component.showUnattemptedQuizzes = true;
 			component.showUnreadDiscussionMessages = true;
@@ -270,7 +274,7 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			component.entity = SirenParse(notificationEntityAllFull);
+			component.entity = notificationEntityAllFull;
 			setTimeout(() => {
 				done();
 			}, 100);

@@ -59,13 +59,6 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			}
 		}
 	},
-	_orgUpdates_fetch: function(entity, presentation) {
-		if (!presentation) {
-			return Promise.resolve();
-		}
-
-		return this.__orgUpdates_fetchNotifications(entity, presentation);
-	},
 	_orgUpdates_notifications: function(notification, combined) {
 		var maxCount = 99;
 		if (!notification) {
@@ -104,15 +97,15 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return a.order - b.order;
 		});
 	},
-	__orgUpdates_fetchNotifications: function(entity, presentation) {
+	_orgUpdates_fetch: function(entity, presentation) {
 
 		if (!entity || !presentation) {
-			return Promise.resolve();
+			return;
 		}
 		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
 			return !presentation[this.__organizationUpdates.notificationMap[notificationKey].presentationLink];
 		}.bind(this))) {
-			return Promise.resolve();
+			return;
 		}
 		if (!(entity = entity.getSubEntities(Rels.Notifications.updates))) {
 			return;
