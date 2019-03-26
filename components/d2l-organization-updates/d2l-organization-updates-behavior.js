@@ -62,7 +62,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 	_orgUpdates_notifications: function(notification, combined) {
 		var maxCount = 99;
 		if (!notification) {
-			return;
+			return {};
 		}
 		if (combined) {
 			notification = {
@@ -100,15 +100,15 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 	_orgUpdates_fetch: function(entity, presentation) {
 
 		if (!entity || !presentation) {
-			return;
+			return {};
 		}
 		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
 			return !presentation[this.__organizationUpdates.notificationMap[notificationKey].presentationLink];
 		}.bind(this))) {
-			return;
+			return {};
 		}
 		if (!(entity = entity.getSubEntities(Rels.Notifications.updates))) {
-			return;
+			return {};
 		}
 		var notifications = {};
 		for (var i = 0; i < entity.length; i++) {

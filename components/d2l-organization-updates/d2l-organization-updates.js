@@ -192,7 +192,7 @@ class OrganizationUpdates extends mixinBehaviors([
 	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes,
 		showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
 
-			var presentationAttributes = {
+		var presentationAttributes = {
 			'ShowDropboxUnreadFeedback': showDropboxUnreadFeedback,
 			'ShowUnattemptedQuizzes': showUnattemptedQuizzes,
 			'ShowUngradedQuizAttempts': showUngradedQuizAttempts,
