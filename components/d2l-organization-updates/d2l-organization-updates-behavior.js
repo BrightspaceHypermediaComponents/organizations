@@ -59,23 +59,10 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			}
 		}
 	},
-	_orgUpdates_fetch: function(notificationsUrl, presentationUrl) {
-		if (!presentationUrl) {
-			return Promise.resolve();
-		}
-
-		return this._fetchSirenEntity(presentationUrl)
-			.then(function(presentation) {
-				return presentation.properties || {};
-			}.bind(this))
-			.then(function(presentation) {
-				return this.__orgUpdates_fetchNotifications(notificationsUrl, presentation);
-			}.bind(this));
-	},
 	_orgUpdates_notifications: function(notification, combined) {
 		var maxCount = 99;
 		if (!notification) {
-			return;
+			return [];
 		}
 		if (combined) {
 			notification = {
@@ -110,29 +97,25 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return a.order - b.order;
 		});
 	},
-	__orgUpdates_fetchNotifications: function(notificationsUrl, presentation) {
-		if (!notificationsUrl || !presentation) {
-			return Promise.resolve();
-		}
+	_orgUpdates_fetch: function(entity, presentation) {
 
+		if (!entity || !presentation) {
+			return {};
+		}
 		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
 			return !presentation[this.__organizationUpdates.notificationMap[notificationKey].presentationLink];
 		}.bind(this))) {
-			return Promise.resolve();
+			return {};
+		}
+		if (!(entity = entity.getSubEntities(Rels.Notifications.updates))) {
+			return {};
+		}
+		var notifications = {};
+		for (var i = 0; i < entity.length; i++) {
+			this.__orgUpdates_prepareNotification(notifications, presentation, entity[i]);
 		}
 
-		return this._fetchSirenEntity(notificationsUrl)
-			.then(function(notificationsInfo) {
-				if (!(notificationsInfo = notificationsInfo.getSubEntities(Rels.Notifications.updates))) {
-					return;
-				}
-				var notifications = {};
-				for (var i = 0; i < notificationsInfo.length; i++) {
-					this.__orgUpdates_prepareNotification(notifications, presentation, notificationsInfo[i]);
-				}
-
-				return notifications;
-			}.bind(this));
+		return notifications;
 	},
 	__orgUpdates_prepareNotification: function(notifications, presentation, updateEntity) {
 		var notification = updateEntity.properties && updateEntity.properties.type;
@@ -150,7 +133,6 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 
 		var currentLink = updateEntity.hasLinkByRel(Rels.Notifications.updatesSource)
 			&& updateEntity.getLinkByRel(Rels.Notifications.updatesSource).href;
-
 		if (!notifications.hasOwnProperty(options.key)) {
 			notifications[options.key] = {
 				icon: options.icon,
