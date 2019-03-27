@@ -56,6 +56,17 @@ $_documentContainer.innerHTML = `<div class="vertical-section-container centered
 				</template>
 			</demo-snippet>
 
+			<demo-snippet>
+				<template>
+					<d2l-organization-info href="../data/organization-future.json" token="1234a" show-semester-name></d2l-organization-info>
+				</template>
+			</demo-snippet>
+
+			<demo-snippet>
+				<template>
+					<d2l-organization-info href="../data/organization-past.json" token="1234a" show-organization-code show-semester-name></d2l-organization-info>
+				</template>
+			</demo-snippet>
 		</div>`;
 
 document.body.appendChild($_documentContainer.content);
