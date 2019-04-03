@@ -62,7 +62,7 @@ class OrganizationDate extends mixinBehaviors([
 
 	_getOrganizationDate(entity) {
 		if (!entity || !entity.properties) {
-			return; 
+			return;
 		}
 		this._startDate = entity.properties.startDate;
 		this._endDate = entity.properties.endDate;
@@ -96,7 +96,7 @@ class OrganizationDate extends mixinBehaviors([
 			}
 		}
 
-		if (this._statusText || (this._entityStatus!==undefined)) {
+		if (this._statusText || (this._entityStatus !== undefined)) {
 			this.fire('d2l-organization-date', {
 				active: !!this._entityStatus,
 				beforeStartDate: startDate ? startDate > nowDate : null,
