@@ -6,20 +6,10 @@ describe('d2l-organization-name', () => {
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
 
-		component = fixture('no-params');
+		component = fixture('org-name');
 
 		organizationEntity = {
-			properties: {
-				name: 'Course Name',
-				code: 'SCI100',
-				startDate: null,
-				endDate: null,
-				isActive: false
-			},
-			links: [{
-				rel: ['https://api.brightspace.com/rels/parent-semester'],
-				href: '/semester.json'
-			}]
+			name: function() { return 'Test Course Name'; }
 		};
 	});
 
@@ -39,8 +29,8 @@ describe('d2l-organization-name', () => {
 
 	describe('fetching organization', () => {
 		it('should set the _organizationName', () => {
-			component._loadData(organizationEntity);
-			expect(component._organizationName).to.equal('Course Name');
+			component._onOrganizationChange(organizationEntity);
+			expect(component._organizationName).to.equal('Test Course Name');
 		});
 
 	});
