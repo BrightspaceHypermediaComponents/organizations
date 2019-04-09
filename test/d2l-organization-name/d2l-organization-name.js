@@ -3,7 +3,7 @@ describe('d2l-organization-name', () => {
 		component,
 		organizationEntity;
 
-	beforeEach(() => {
+	beforeEach((done) => {
 		sandbox = sinon.sandbox.create();
 
 		component = fixture('org-name');
@@ -11,6 +11,9 @@ describe('d2l-organization-name', () => {
 		organizationEntity = {
 			name: function() { return 'Test Course Name'; }
 		};
+		requestAnimationFrame(() => {
+			done();
+		});
 	});
 
 	afterEach(() => {
