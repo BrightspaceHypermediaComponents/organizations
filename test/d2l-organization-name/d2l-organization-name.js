@@ -21,7 +21,6 @@ describe('d2l-organization-name', () => {
 
 	describe('observers', () => {
 		it('should call _sendVoiceReaderInfo upon changes to _organizationName', done => {
-			console.log(component._sendVoiceReaderInfo, component._onOrganizationChange);
 			var spy = sandbox.spy(component, '_sendVoiceReaderInfo');
 
 			component.set('_organizationName', 'Course Name');
