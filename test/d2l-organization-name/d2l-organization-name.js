@@ -1,3 +1,5 @@
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+
 describe('d2l-organization-name', () => {
 	var sandbox,
 		component,
@@ -18,19 +20,25 @@ describe('d2l-organization-name', () => {
 	});
 
 	describe('observers', () => {
-		it('should call _sendVoiceReaderInfo upon changes to _organizationName', () => {
+		it('should call _sendVoiceReaderInfo upon changes to _organizationName', done => {
 			var spy = sandbox.spy(component, '_sendVoiceReaderInfo');
 
 			component.set('_organizationName', 'Course Name');
-			expect(spy).to.have.been.calledOnce;
+			afterNextRender(component, () => {
+				expect(spy).to.have.been.calledOnce;
+				done();
+			});
 		});
 
 	});
 
 	describe('fetching organization', () => {
-		it('should set the _organizationName', () => {
+		it('should set the _organizationName', done => {
 			component._onOrganizationChange(organizationEntity);
-			expect(component._organizationName).to.equal('Test Course Name');
+			afterNextRender(component, () => {
+				expect(component._organizationName).to.equal('Test Course Name');
+				done();
+			});
 		});
 
 	});

@@ -44,7 +44,7 @@ class OrganizationName extends mixinBehaviors([
 	static get is() { return 'd2l-organization-name'; }
 
 	_onOrganizationChange(organization) {
-		this._organizationName = organization && organization.name();
+		this._organizationName = organization.name();
 	}
 
 	_sendVoiceReaderInfo(organizationName) {
