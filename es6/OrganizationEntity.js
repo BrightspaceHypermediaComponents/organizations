@@ -2,7 +2,7 @@
 
 import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-polymer-siren-behaviors/store/entity-store.js';
-import factory from './entityFactory.js';
+import factory from './EntityFactory.js';
 
 class Entity {
 	/**
