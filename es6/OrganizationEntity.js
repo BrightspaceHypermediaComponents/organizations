@@ -2,8 +2,8 @@
 
 import { Entity } from './Entity.js';
 import { Rels } from 'd2l-hypermedia-constants';
-
-export class OrganizationEntity extends Entity() {
+/* @memberOf es6 */
+export class OrganizationEntity extends Entity {
 	// Entity has a constructor that is called from the factory to keep track of what is required to be cleaned.
 	name() {
 		return this._entity && this._entity.properties && this._entity.properties.name;

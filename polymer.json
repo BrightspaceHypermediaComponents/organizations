@@ -2,5 +2,8 @@
   "npm": true,
   "lint": {
     "rules": ["polymer-3"]
-  }
+  },
+  "sources": [
+    "es6/**/*"
+  ]
 }
