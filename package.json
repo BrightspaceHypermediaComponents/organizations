@@ -57,6 +57,7 @@
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
     "siren-parser": "^8.0.0",
+    "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^0",
     "whatwg-fetch": "^3.0.0"
   }
 }
