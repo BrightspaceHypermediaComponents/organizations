@@ -19,7 +19,6 @@ export class Entity {
 			throw new TypeError('Cannot construct Entity instances directly');
 		}
 		this._entity = entity;
-		this._subEntities = new Map();
 		this._token = token;
 		this._listener = listener;
 	}
@@ -39,12 +38,7 @@ export class Entity {
 	 * @param {*} onChange callback function that accepts an {entityType} to be called when subentity changes.
 	 */
 	_subEntity(entityType, href, onChange) {
-		// Clean up if that href has already been added.
-		if (this._subEntities.has(href)) {
-			dispose(this._subEntities.get(href));
-		}
 		entityFactory(entityType, href, this._token, (entity) => {
-			this._subEntities.set(href, entity);
 			onChange(entity);
 		});
 	}
