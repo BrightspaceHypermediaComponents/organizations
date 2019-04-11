@@ -3,7 +3,5 @@
   "lint": {
     "rules": ["polymer-3"]
   },
-  "sources": [
-    "es6/**/*"
-  ]
+  "root": "components"
 }

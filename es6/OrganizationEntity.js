@@ -2,8 +2,18 @@
 
 import { Entity } from './Entity.js';
 import { Rels } from 'd2l-hypermedia-constants';
-/* @memberOf es6 */
-export class OrganizationEntity extends Entity() {
+/**
+ */
+export class OrganizationEntity extends Entity {
+	/**
+	 * Primes the object used by the entityFactory. Should never be called outside.
+	 * @param {Object} entity A hypermedia siren entity as defined by [the siren specification]{@link https://github.com/kevinswiber/siren}
+	 * @param {String|Function|null} token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)
+	 * @param {Function} listener Listener helper class
+	 */
+	constructor(entity, token, listener) {
+		super(entity, token, listener);
+	}
 	// Entity has a constructor that is called from the factory to keep track of what is required to be cleaned.
 	name() {
 		return this._entity && this._entity.properties && this._entity.properties.name;
