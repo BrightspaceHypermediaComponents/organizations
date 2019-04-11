@@ -51,7 +51,7 @@ class EntityListener {
  * @param {String|Token|Null} token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)
  * @param {Function} onChange Callback function that accepts an {entityType} to be called when entity changes.
  */
-export const entityFactory = (entityType, href, token, onChange) => {
+const entityFactory = (entityType, href, token, onChange) => {
 	const entityListener = new EntityListener();
 	const onChangeWrapped = (entity) => {
 		const entityWrapped = new entityType(entity, token, entityListener);
@@ -66,6 +66,8 @@ export const entityFactory = (entityType, href, token, onChange) => {
  * Some times the entity doesn't exists so this allows the cleanup code to be cleaner.
  * @param {Object|Null} entity Object that is of an Entity type.
  */
-export const dispose = (entity) => {
+const dispose = (entity) => {
 	entity && entity.decompose && entity.dispose();
 };
+
+export default {dispose, entityFactory};
