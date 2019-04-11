@@ -197,7 +197,7 @@ describe('d2l-organization-date', () => {
 		it('should send event with detail of inactive and before start date as true when organization starts in future.', done => {
 			sinon.spy(component, 'fire');
 			component._getOrganizationDate(futureOrganization);
-			expect(component.fire).to.have.been.called//With('d2l-organization-date', {active: true, beforeStartDate: true, afterEndDate: false});
+			expect(component.fire).to.have.been.calledWith('d2l-organization-date', {active: true, beforeStartDate: true, afterEndDate: false});
 			done();
 		});
 
