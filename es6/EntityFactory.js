@@ -2,32 +2,6 @@
 
 import 'd2l-polymer-siren-behaviors/store/entity-store.js';
 
-/**
- * This creates and fetch a new entity. Whenever the entity changes onChange is called.
- * @param {Function} entityType The type of the entity. For example OrganizationEntity
- * @param {String} href Href of the entity to be created
- * @param {String|Token|Null} token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)
- * @param {Function} onChange Callback function that accepts an {entityType} to be called when entity changes.
- */
-export function entityFactory(entityType, href, token, onChange) {
-	const entityListener = new EntityListener();
-	const onChangeWrapped = (entity) => {
-		const entityWrapped = new entityType(entity, token, entityListener);
-		onChange(entityWrapped);
-	};
-
-	// This add the listener then calls the fetch.
-	entityListener.add(href, token, onChangeWrapped);
-}
-
-/**
- * Some times the entity doesn't exists so this allows the cleanup code to be cleaner.
- * @param {Object|Null} entity Object that is of an Entity type.
- */
-export function dispose(entity) {
-	entity && entity.decompose && entity.dispose();
-}
-
 /** Allows one to manage the event store listeners. Makes it easy to update, add and remove a listener for the entity store. */
 class EntityListener {
 	constructor() {
@@ -69,3 +43,29 @@ class EntityListener {
 		return href && typeof onChange === 'function';
 	}
 }
+
+/**
+ * This creates and fetch a new entity. Whenever the entity changes onChange is called.
+ * @param {Function} entityType The type of the entity. For example OrganizationEntity
+ * @param {String} href Href of the entity to be created
+ * @param {String|Token|Null} token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)
+ * @param {Function} onChange Callback function that accepts an {entityType} to be called when entity changes.
+ */
+export const entityFactory = (entityType, href, token, onChange) => {
+	const entityListener = new EntityListener();
+	const onChangeWrapped = (entity) => {
+		const entityWrapped = new entityType(entity, token, entityListener);
+		onChange(entityWrapped);
+	};
+
+	// This add the listener then calls the fetch.
+	entityListener.add(href, token, onChangeWrapped);
+};
+
+/**
+ * Some times the entity doesn't exists so this allows the cleanup code to be cleaner.
+ * @param {Object|Null} entity Object that is of an Entity type.
+ */
+export const dispose = (entity) => {
+	entity && entity.decompose && entity.dispose();
+};
