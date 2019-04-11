@@ -5,7 +5,7 @@ import { entityFactory, dispose } from './entityFactory.js';
  * Abstract Entity class to help create entity classes.
  */
 /* @namespace es6 */
-export class Entity {
+export const Entity = superClass => class extends superClass {
 	/**
 	 * Primes the object used by the entityFactory. Should never be called outside.
 	 * @param {Object} entity A hypermedia siren entity as defined by [the siren specification]{@link https://github.com/kevinswiber/siren}
@@ -13,6 +13,7 @@ export class Entity {
 	 * @param {Function} listener Listener helper class
 	 */
 	constructor(entity, token, listener) {
+		super();
 		if (new.target === Entity) {
 			throw new TypeError('Cannot construct Entity instances directly');
 		}
