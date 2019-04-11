@@ -6,6 +6,7 @@ import { Rels } from 'd2l-hypermedia-constants';
 export class OrganizationEntity extends Entity {
 	// Entity has a constructor that is called from the factory to keep track of what is required to be cleaned.
 	name() {
+		console.log(this._entity.properties);
 		return this._entity && this._entity.properties && this._entity.properties.name;
 	}
 	code() {
@@ -17,6 +18,18 @@ export class OrganizationEntity extends Entity {
 		}
 
 		return this._entity.getLinkByRel(Rels.parentSemester).href;
+	}
+
+	endDate() {
+		return this._entity && this._entity.properties && this._entity.properties.endDate;
+	}
+
+	startDate() {
+		return this._entity && this._entity.properties && this._entity.properties.startDate;
+	}
+
+	isActive() {
+		return this._entity && this._entity.properties && this._entity.properties.isActive;
 	}
 
 	onSemesterChange(onChange) {
