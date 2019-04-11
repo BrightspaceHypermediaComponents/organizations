@@ -1,6 +1,4 @@
 'use strict';
-import { entityFactory, dispose } from './entityFactory.js';
-
 /**
  * Abstract Entity class to help create entity classes.
  * @type Entity
@@ -27,19 +25,6 @@ export class Entity {
 	 * Cleans up this entity by deleting the callbacks listeners stored in the entity store.
 	 */
 	dispose() {
-		this._subEntities.forEach(entity => dispose(entity));
 		this._listener.remove();
-	}
-
-	/**
-	 * Protected: Add a listener to a subentity of this entity.
-	 * @param {*} entityType A entity class that extends this class.
-	 * @param {*} href Href of the entity to be created
-	 * @param {*} onChange callback function that accepts an {entityType} to be called when subentity changes.
-	 */
-	_subEntity(entityType, href, onChange) {
-		entityFactory(entityType, href, this._token, (entity) => {
-			onChange(entity);
-		});
 	}
 }
