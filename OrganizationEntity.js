@@ -3,6 +3,12 @@
 import { Entity } from 'siren-sdk/es6/Entity.js';
 import { Rels } from 'd2l-hypermedia-constants';
 
+export const classes = {
+	course: 'course',
+	active: 'active',
+	inactive: 'inactive'
+};
+
 export class OrganizationEntity extends Entity {
 	// Entity has a constructor that is called from the factory to keep track of what is required to be cleaned.
 	name() {
