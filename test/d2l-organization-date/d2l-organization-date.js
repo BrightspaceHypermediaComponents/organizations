@@ -42,10 +42,10 @@ describe('d2l-organization-date', () => {
 
 		it('should call _setOrganizationDate upon changes to startDate or endDate or entityStatus or hideCourseStartDate and hideCourseEndDate', () => {
 			var spy = sandbox.spy(component, '_setOrganizationDate');
-			component.entity = futureOrganization;
+			component._getOrganizationDate(futureOrganization);
 			component.hideCourseStartDate = true;
 			component.hideCourseEndDate = true;
-			expect(spy).to.have.been.calledTwice;
+			expect(spy).to.have.been.calledThrice;
 		});
 
 		it('should call _sendVoiceReaderInfo upon changes to _statusText', () => {
