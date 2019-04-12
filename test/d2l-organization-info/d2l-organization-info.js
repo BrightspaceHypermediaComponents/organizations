@@ -1,21 +1,27 @@
 describe('d2l-organization-info', () => {
 	var sandbox,
 		component,
-		organizationEntity;
+		organizationEntity,
+		semesterEntity,
+		onSemesterChangeStub;
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
 
 		component = fixture('org-info');
+		onSemesterChangeStub = sinon.stub();
 
 		organizationEntity = {
-			properties: {
-				name: 'Course Name',
-				code: 'SCI100'
-			},
-			hasLinkByRel: function() { return true; },
-			getLinkByRel: function() { return { href: 'fake.json' }; }
+			name: function() { return 'Org Name'; },
+			code: function() { return 'SCI100'; },
+			onSemesterChange: onSemesterChangeStub
 		};
+
+		semesterEntity = {
+			name: function() { return 'Course Name'; },
+		};
+
+		onSemesterChangeStub.callsArgWith(0, semesterEntity);
 	});
 
 	afterEach(() => {
@@ -23,25 +29,24 @@ describe('d2l-organization-info', () => {
 	});
 
 	describe('fetching organization', () => {
-		it('should set the _organizationCode and _semesterHref', () => {
+		it('should set the _organizationCode', () => {
 			component.showSemesterName = true;
-			component.entity = organizationEntity;
+			component._entity = organizationEntity;
 			expect(component._organizationCode).to.equal('SCI100');
-			expect(component._semesterHref).to.equal('fake.json');
 		});
 
-		it('should not set _semesterHref when showSemesterName is false', () => {
-			component.entity = organizationEntity;
-			expect(component._organizationCode).to.equal('SCI100');
-			expect(component._semesterHref).to.equal(undefined);
+		it('should not set _semesterName when showSemesterName is false', () => {
+			component._entity = organizationEntity;
+			expect(onSemesterChangeStub).to.have.not.been.called;
+			expect(component._semesterName).to.equal(undefined);
 		});
-	});
 
-	describe('Set semesterHref', () => {
-		it('should set _semesterHref', () => {
-			component.entity = organizationEntity;
+		it('should set _semesterName when showSemesterName is true', () => {
+			component._entity = organizationEntity;
 			component.showSemesterName = true;
-			expect(component._semesterHref).to.equal('fake.json');
+
+			expect(onSemesterChangeStub).to.have.been.calledOnce;
+			expect(component._semesterName).to.equal(semesterEntity.name());
 		});
 	});
 
@@ -73,7 +78,7 @@ describe('d2l-organization-info', () => {
 			component.showOrganizationCode = true;
 			component.showSemesterName = true;
 			component._semesterName = 'Course Name';
-			component.entity = organizationEntity;
+			component._entity = organizationEntity;
 			expect(component.fire).to.have.been.calledWith('d2l-organization-accessible', {
 				organization: {
 					code: 'SCI100'

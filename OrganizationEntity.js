@@ -35,6 +35,6 @@ export class OrganizationEntity extends Entity {
 		const semesterHref = this.semesterHref();
 		// _subEntity builds new sub entity and allows this object to track it.
 		// So all sub entities are dispose when this object is disposed.
-		semesterHref && this._subEntity(OrganizationEntity, semesterHref, this._token, onChange);
+		semesterHref && this._subEntity(OrganizationEntity, semesterHref, onChange);
 	}
 }

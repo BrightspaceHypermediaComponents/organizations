@@ -5,9 +5,10 @@ Polymer-based web component for a organization info such as course code and seme
 
 @demo demo/d2l-organization-info/d2l-organization-info-demo.html Organization Name
 */
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
+import { OrganizationEntity } from '../../OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
@@ -17,9 +18,13 @@ import '../d2l-organization-behavior.js';
  * @polymer
  */
 class OrganizationInfo extends mixinBehaviors([
-	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Organization.Behavior
-], PolymerElement) {
+], EntityMixin(PolymerElement)) {
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
+
 	static get template() {
 		return html`
 			<style>
@@ -41,7 +46,7 @@ class OrganizationInfo extends mixinBehaviors([
 			<span>
 				<span hidden$="[[!showOrganizationCode]]" class="d2l-organization-code">[[_organizationCode]]</span>
 				<d2l-icon hidden$="[[!_computeShowSeparator(showOrganizationCode, showSemesterName)]]" icon="d2l-tier1:bullet"></d2l-icon>
-				<span hidden$="[[!showSemesterName]]"><d2l-organization-name href="[[_semesterHref]]" token="[[token]]"></d2l-organization-name></span>
+				<span hidden$="[[!showSemesterName]]">[[_semesterName]]</span>
 			</span>
 		`;
 	}
@@ -64,8 +69,8 @@ class OrganizationInfo extends mixinBehaviors([
 
 	static get observers() {
 		return [
-			'_loadData(entity)',
-			'_setSemesterHref(showSemesterName)',
+			'_onOrganizationChange(_entity)',
+			'_setSemesterName(showSemesterName)',
 			'_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)'
 		];
 	}
@@ -74,28 +79,23 @@ class OrganizationInfo extends mixinBehaviors([
 
 	ready() {
 		super.ready();
-		this.addEventListener('d2l-organization-accessible', this._onD2lOrganizationAccessible.bind(this));
 	}
 
-	_loadData(entity) {
-		this._organizationCode = entity && entity.properties && entity.properties.code;
-		this._setSemesterHref(this.showSemesterName);
+	_onOrganizationChange(organization) {
+		this._organizationCode = organization.code();
+		this._setSemesterName(this.showSemesterName);
 	}
 
-	_setSemesterHref(showSemesterName) {
-		if (showSemesterName) {
-			this._semesterHref = this.entity && this.entity.hasLinkByRel(Rels.parentSemester) && this.entity.getLinkByRel(Rels.parentSemester).href;
+	_setSemesterName(showSemesterName) {
+		if (showSemesterName && this._entity) {
+			this._entity.onSemesterChange((semester) => {
+				this._semesterName = semester.name();
+			});
 		}
 	}
 
 	_computeShowSeparator(showOrganizationCode, showSemester) {
 		return showSemester && showOrganizationCode;
-	}
-
-	_onD2lOrganizationAccessible(e) {
-		if (e.detail.organization.name) {
-			this._semesterName = e.detail.organization.name;
-		}
 	}
 
 	_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, organizationCode, semesterName) {
