@@ -9,7 +9,6 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
 import { OrganizationEntity } from '../../OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
 import '../d2l-organization-behavior.js';
