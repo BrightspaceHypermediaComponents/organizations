@@ -19,6 +19,18 @@ export class OrganizationEntity extends Entity {
 		return this._entity.getLinkByRel(Rels.parentSemester).href;
 	}
 
+	endDate() {
+		return this._entity && this._entity.properties && this._entity.properties.endDate;
+	}
+
+	startDate() {
+		return this._entity && this._entity.properties && this._entity.properties.startDate;
+	}
+
+	isActive() {
+		return this._entity && this._entity.properties && this._entity.properties.isActive;
+	}
+
 	onSemesterChange(onChange) {
 		const semesterHref = this.semesterHref();
 		// _subEntity builds new sub entity and allows this object to track it.

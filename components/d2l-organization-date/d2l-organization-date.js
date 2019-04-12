@@ -5,8 +5,9 @@ Polymer-based web component for a organization date such as start and end date f
 */
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
+import { OrganizationEntity } from '../../OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import '../d2l-organization-behavior.js';
 import './localize-behavior.js';
 
@@ -15,10 +16,13 @@ import './localize-behavior.js';
  * @polymer
  */
 class OrganizationDate extends mixinBehaviors([
-	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Organization.Date.LocalizeBehavior,
 	D2L.PolymerBehaviors.Organization.Behavior
-], PolymerElement) {
+], EntityMixin(PolymerElement)) {
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
 	static get template() {
 		return html`
             <span hidden$="[[!_statusText]]">[[_statusText]]</span>
@@ -27,9 +31,6 @@ class OrganizationDate extends mixinBehaviors([
 
 	static get properties() {
 		return {
-			entity: {
-				type: Object
-			},
 			hideCourseStartDate: {
 				type: Boolean,
 				value: false
@@ -50,7 +51,7 @@ class OrganizationDate extends mixinBehaviors([
 
 	static get observers() {
 		return [
-			'_getOrganizationDate(entity)',
+			'_getOrganizationDate(_entity)',
 			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
 			'_sendVoiceReaderInfo(_statusText)'
 		];
@@ -60,13 +61,14 @@ class OrganizationDate extends mixinBehaviors([
 		return 'd2l-organization-date';
 	}
 
-	_getOrganizationDate(entity) {
-		if (!entity || !entity.properties) {
+	_getOrganizationDate(organization) {
+		if (!organization) {
 			return;
 		}
-		this._startDate = entity.properties.startDate;
-		this._endDate = entity.properties.endDate;
-		this._entityStatus = entity.properties.isActive;
+
+		this._startDate = organization.startDate();
+		this._endDate = organization.endDate();
+		this._entityStatus = organization.isActive();
 		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
 	}
 
