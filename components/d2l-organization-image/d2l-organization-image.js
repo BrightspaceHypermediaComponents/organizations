@@ -1,15 +1,19 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
-import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
+import { OrganizationEntity } from '../../OrganizationEntity.js';
+import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import 'd2l-course-image/d2l-course-image.js';
-import { Classes } from 'd2l-hypermedia-constants';
-import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 
 /**
  * @customElement
  * @polymer
  */
-class D2lOrganizationImage extends mixinBehaviors([ D2L.PolymerBehaviors.Siren.EntityBehavior ], PolymerElement) {
+class D2lOrganizationImage extends EntityMixin(PolymerElement) {
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
+
 	static get template() {
 		return html`
 			<d2l-course-image image="[[_image]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
@@ -45,7 +49,7 @@ class D2lOrganizationImage extends mixinBehaviors([ D2L.PolymerBehaviors.Siren.E
 	}
 	static get observers() {
 		return [
-			'_handleOrganizationResponse(entity)'
+			'_onOrganizationChange(_entity)'
 		];
 	}
 
@@ -62,23 +66,18 @@ class D2lOrganizationImage extends mixinBehaviors([ D2L.PolymerBehaviors.Siren.E
 		image.removeEventListener('course-image-loaded', this._imageLoaded.bind(this));
 	}
 
-	_handleOrganizationResponse(organization) {
-		if (!organization) {
+	_onOrganizationChange(organization) {
+		const imageEntity = organization.imageEntity();
+		if (!imageEntity) {
 			return;
 		}
 
-		if (organization.hasSubEntityByClass(Classes.courseImage.courseImage)) {
-			const imageEntity = organization.getSubEntityByClass(Classes.courseImage.courseImage);
-			if (imageEntity.href) {
-				if (imageEntity.href !== this._imageEntityUrl || (typeof this.token !== 'string' && typeof this.token !== 'function')) {
-					window.D2L.Siren.EntityStore.removeListener(imageEntity.href, this.token, this._handleImageResponse.bind(this));
-				}
-				this._imageEntityUrl = imageEntity.href;
-				window.D2L.Siren.EntityStore.addListener(imageEntity.href, this.token, this._handleImageResponse.bind(this));
-				window.D2L.Siren.EntityStore.fetch(imageEntity.href, this.token);
-			} else {
-				this._image = imageEntity;
-			}
+		if (imageEntity.href) {
+			this._entity.onImageChange((image) => {
+				this._image = image.entity();
+			});
+		} else {
+			this._image = imageEntity;
 		}
 	}
 
@@ -87,10 +86,6 @@ class D2lOrganizationImage extends mixinBehaviors([ D2L.PolymerBehaviors.Siren.E
 			bubbles: true,
 			composed: true
 		}));
-	}
-
-	_handleImageResponse(hydratedImageEntity) {
-		this._image = hydratedImageEntity;
 	}
 }
 
