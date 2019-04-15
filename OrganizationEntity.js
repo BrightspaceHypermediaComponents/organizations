@@ -1,7 +1,8 @@
 'use strict';
 
 import { Entity } from 'siren-sdk/es6/Entity.js';
-import { Rels } from 'd2l-hypermedia-constants';
+import { SimpleEntity } from 'siren-sdk/es6/SimpleEntity.js';
+import { Rels, Classes } from 'd2l-hypermedia-constants';
 
 export const classes = {
 	course: 'course',
@@ -14,15 +15,9 @@ export class OrganizationEntity extends Entity {
 	name() {
 		return this._entity && this._entity.properties && this._entity.properties.name;
 	}
+
 	code() {
 		return this._entity && this._entity.properties && this._entity.properties.code;
-	}
-	semesterHref() {
-		if (!this._entity || !this._entity.hasLinkByRel(Rels.parentSemester)) {
-			return;
-		}
-
-		return this._entity.getLinkByRel(Rels.parentSemester).href;
 	}
 
 	endDate() {
@@ -37,10 +32,28 @@ export class OrganizationEntity extends Entity {
 		return this._entity && this._entity.properties && this._entity.properties.isActive;
 	}
 
+	imageEntity() {
+		return this._entity && this._entity.getSubEntityByClass(Classes.courseImage.courseImage);
+	}
+
 	onSemesterChange(onChange) {
-		const semesterHref = this.semesterHref();
+		const semesterHref = this._semesterHref();
 		// _subEntity builds new sub entity and allows this object to track it.
 		// So all sub entities are dispose when this object is disposed.
 		semesterHref && this._subEntity(OrganizationEntity, semesterHref, onChange);
+	}
+
+	onImageChange(onChange) {
+		const image = this.imageEntity();
+		const imageHref = image && image.href;
+		imageHref && this._subEntity(SimpleEntity, imageHref, onChange);
+	}
+
+	_semesterHref() {
+		if (!this._entity || !this._entity.hasLinkByRel(Rels.parentSemester)) {
+			return;
+		}
+
+		return this._entity.getLinkByRel(Rels.parentSemester).href;
 	}
 }
