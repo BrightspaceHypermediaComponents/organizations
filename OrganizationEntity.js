@@ -47,7 +47,7 @@ export class OrganizationEntity extends Entity {
 
 	organizationHomepageUrl() {
 		if (!this._entity || !this._entity.hasSubEntityByRel(Rels.organizationHomepage)) {
-			return undefined;
+			return;
 		}
 
 		var homepageEntity = this._entity.getSubEntityByRel(Rels.organizationHomepage);
