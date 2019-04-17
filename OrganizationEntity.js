@@ -32,6 +32,30 @@ export class OrganizationEntity extends Entity {
 		return this._entity && this._entity.properties && this._entity.properties.isActive;
 	}
 
+	description() {
+		let description = this._entity && this._entity.properties && this.properties.description;
+		if (description) {
+			description = description.replace(/<[^>]*>/g, '');
+		}
+		return description;
+	}
+
+	sequenceLink() {
+		return this._entity && this._entity.hasLinkByRel('https://api.brightspace.com/rels/sequence') &&
+		this._entity.getLinkByRel('https://api.brightspace.com/rels/sequence').href;
+	}
+
+	organizationHomepageUrl() {
+		if (!this._entity || !this._entity.hasSubEntityByRel(Rels.organizationHomepage)) {
+			return;
+		}
+
+		var homepageEntity = this._entity.getSubEntityByRel(Rels.organizationHomepage);
+		return homepageEntity
+			&& homepageEntity.properties
+			&& homepageEntity.properties.path;
+	}
+
 	imageEntity() {
 		return this._entity && this._entity.getSubEntityByClass(Classes.courseImage.courseImage);
 	}
