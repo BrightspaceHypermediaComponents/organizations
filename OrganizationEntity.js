@@ -107,10 +107,10 @@ class NotificationEntity {
 
 	getLink() {
 		if (!this._entity.hasLinkByRel(Rels.Notifications.updatesSource)) {
-	  		return;
+			return;
 		}
 
 		return this._entity.getLinkByRel(Rels.Notifications.updatesSource).href;
-  	}
+	}
 
 }

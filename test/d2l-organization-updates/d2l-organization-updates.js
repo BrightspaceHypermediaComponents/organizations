@@ -22,7 +22,7 @@ describe('d2l-organization-updates', () => {
 				getLink: function() { return '/discussions'; }
 			},
 			{
-				count: function() { return 1000 },
+				count: function() { return 1000; },
 				type: function() { return 'UnreadAssignmentFeedback'; },
 				getLink: function() { return '/assignment'; }
 			},
