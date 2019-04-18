@@ -15,7 +15,6 @@ import 'd2l-icons/d2l-icon.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import './d2l-organization-updates-behavior.js';
-import { Rels} from 'd2l-hypermedia-constants';
 
 /**
  * @customElement
@@ -190,16 +189,15 @@ class OrganizationUpdates extends mixinBehaviors([
 		return 'd2l-organization-updates';
 	}
 
-	_getNotificationsEntity(entity) {
-		const NotificationsEntity = entity;
+	_getNotificationsEntity(notificationsCollectionEntity) {
 
-		if (!NotificationsEntity._entity) {
+		if (!notificationsCollectionEntity._entity) {
 			return;
 		}
 
-		this._entity.onNotificationsChange(
-			(NotificationCollection) => {
-				this._notificationList = NotificationCollection.getNotifications();
+		notificationsCollectionEntity.onNotificationsChange(
+			(notificationCollection) => {
+				this._notificationList = notificationCollection.getNotifications();
 
 				this._getNotifications(this.combined, this.showDropboxUnreadFeedback,
 					this.showUnattemptedQuizzes, this.showUngradedQuizAttempts,

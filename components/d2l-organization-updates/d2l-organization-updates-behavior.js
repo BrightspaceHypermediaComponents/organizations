@@ -1,5 +1,4 @@
 import '@polymer/polymer/polymer-legacy.js';
-import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/tier1-icons.js';
 import '../d2l-organization-icons.js';
 import '../d2l-organization-behavior.js';
@@ -97,13 +96,13 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return a.order - b.order;
 		});
 	},
-	_orgUpdates_fetch: function(entity, presentation) {
+	_orgUpdates_fetch: function(notificationList, presentation) {
 
-		if (!entity || !presentation) {
+		if (!notificationList || !presentation) {
 			return {};
 		}
 
-		if (entity.length == 0){
+		if (notificationList.length === 0) {
 			return {};
 		}
 		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
@@ -113,8 +112,8 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		}
 
 		var notifications = {};
-		for (var i = 0; i < entity.length; i++) {
-			this.__orgUpdates_prepareNotification(notifications, presentation, entity[i]);
+		for (var i = 0; i < notificationList.length; i++) {
+			this.__orgUpdates_prepareNotification(notifications, presentation, notificationList[i]);
 		}
 
 		return notifications;
@@ -134,7 +133,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var currentLink = updateEntity && updateEntity.getLink();
+		var currentLink = updateEntity.getLink();
 		if (!notifications.hasOwnProperty(options.key)) {
 			notifications[options.key] = {
 				icon: options.icon,
@@ -148,7 +147,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var numberOfUpdates = updateEntity && updateEntity.count();
+		var numberOfUpdates = updateEntity.count();
 		notifications[options.key].updateCount += numberOfUpdates;
 		if (numberOfUpdates) {
 			notifications[options.key].toolTip.push([options.toolTip, numberOfUpdates]);

@@ -36,10 +36,6 @@ export class OrganizationEntity extends Entity {
 		return this._entity && this._entity.getSubEntityByClass(Classes.courseImage.courseImage);
 	}
 
-	notificationCollectionEntity() {
-		return this._entity && this._entity.getSubEntities(Rels.Notifications);
-	}
-
 	onSemesterChange(onChange) {
 		const semesterHref = this._semesterHref();
 		// _subEntity builds new sub entity and allows this object to track it.
@@ -78,10 +74,9 @@ export class OrganizationEntity extends Entity {
 class NotificationCollectionEntity extends Entity {
 
 	getNotifications() {
-		var i;
 		var notificationEntityList = [];
 		const notificationCollectionEntity = this._notificationCollectionEntity();
-		for (i = 0; i < this._size(); i++) {
+		for (var i = 0; i < this._size(); i++) {
 			notificationEntityList.push(new NotificationEntity(notificationCollectionEntity[i]));
 		}
 		return notificationEntityList;
@@ -99,23 +94,23 @@ class NotificationCollectionEntity extends Entity {
 
 class NotificationEntity {
 	constructor(_entity) {
-		this._entity = _entity
+		this._entity = _entity;
 	}
 
 	count() {
 		return this._entity && this._entity.properties && this._entity.properties.count;
- 	}
+	}
 
-  	type() {
+	type() {
 		return this._entity && this._entity.properties && this._entity.properties.type;
-  	}
+	}
 
-  	getLink() {
+	getLink() {
 		if (!this._entity.hasLinkByRel(Rels.Notifications.updatesSource)) {
-	  	return;
+	  		return;
 		}
 
 		return this._entity.getLinkByRel(Rels.Notifications.updatesSource).href;
-  }
+  	}
 
 }

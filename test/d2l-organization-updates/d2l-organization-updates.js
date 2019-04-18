@@ -12,67 +12,67 @@ describe('d2l-organization-updates', () => {
 
 		notificationEntityList = [
 			{
-				count: function() { return 20 },
-				type: function() { return 'UnreadDiscussions' },
-				getLink: function() { return '/discussions' }
+				count: function() { return 20; },
+				type: function() { return 'UnreadDiscussions'; },
+				getLink: function() { return '/discussions'; }
 			},
 			{
-				count: function() { return 79 },
-				type: function() { return 'UnapprovedDiscussions' },
-				getLink: function() { return '/discussions' }
+				count: function() { return 79; },
+				type: function() { return 'UnapprovedDiscussions'; },
+				getLink: function() { return '/discussions'; }
 			},
 			{
 				count: function() { return 1000 },
-				type: function() { return 'UnreadAssignmentFeedback' },
-				getLink: function() { return '/assignment' }
+				type: function() { return 'UnreadAssignmentFeedback'; },
+				getLink: function() { return '/assignment'; }
 			},
 			{
-				count: function() { return 200 },
-				type: function() { return 'UnreadAssignmentSubmissions' },
-				getLink: function() { return '/assignment' }
+				count: function() { return 200; },
+				type: function() { return 'UnreadAssignmentSubmissions'; },
+				getLink: function() { return '/assignment'; }
 			},
 			{
-				count: function() { return 4 },
-				type: function() { return 'UngradedQuizzes' },
-				getLink: function() { return '/quizzes' }
+				count: function() { return 4; },
+				type: function() { return 'UngradedQuizzes'; },
+				getLink: function() { return '/quizzes'; }
 			},
 			{
-				count: function() { return -20 },
-				type: function() { return 'UnattemptedQuizzes' },
-				getLink: function() { return '/quizzes' }
+				count: function() { return -20; },
+				type: function() { return 'UnattemptedQuizzes'; },
+				getLink: function() { return '/quizzes'; }
 			}
 		],
 
 		notificationEntityAllFullList = [
 			{
-				count: function() { return 20 },
-				type: function() { return 'UnreadDiscussions' },
-				getLink: function() { return '/discussions' }
+				count: function() { return 20; },
+				type: function() { return 'UnreadDiscussions'; },
+				getLink: function() { return '/discussions'; }
 			},
 			{
-				count: function() { return 79 },
-				type: function() { return 'UnapprovedDiscussions' },
-				getLink: function() { return '/discussions' }
+				count: function() { return 79; },
+				type: function() { return 'UnapprovedDiscussions'; },
+				getLink: function() { return '/discussions'; }
 			},
 			{
-				count: function() { return 40 },
-				type: function() { return 'UnreadAssignmentFeedback' },
-				getLink: function() { return '/assignment' }
+				count: function() { return 40; },
+				type: function() { return 'UnreadAssignmentFeedback'; },
+				getLink: function() { return '/assignment'; }
 			},
 			{
-				count: function() { return 200 },
-				type: function() { return 'UnreadAssignmentSubmissions' },
-				getLink: function() { return '/assignment' }
+				count: function() { return 200; },
+				type: function() { return 'UnreadAssignmentSubmissions'; },
+				getLink: function() { return '/assignment'; }
 			},
 			{
-				count: function() { return 4 },
-				type: function() { return 'UngradedQuizzes' },
-				getLink: function() { return '/quizzes' }
+				count: function() { return 4; },
+				type: function() { return 'UngradedQuizzes'; },
+				getLink: function() { return '/quizzes'; }
 			},
 			{
-				count: function() { return 30 },
-				type: function() { return 'UnattemptedQuizzes' },
-				getLink: function() { return '/quizzes' }
+				count: function() { return 30; },
+				type: function() { return 'UnattemptedQuizzes'; },
+				getLink: function() { return '/quizzes'; }
 			}
 		],
 
@@ -223,7 +223,6 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			//component._entity = notif;
 			component._notificationList = notificationEntityList;
 			component.showDropboxUnreadFeedback = true;
 			component.showUnattemptedQuizzes = true;
