@@ -102,14 +102,16 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		if (!entity || !presentation) {
 			return {};
 		}
+
+		if (entity.length == 0){
+			return {};
+		}
 		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
 			return !presentation[this.__organizationUpdates.notificationMap[notificationKey].presentationLink];
 		}.bind(this))) {
 			return {};
 		}
-		if (!(entity = entity.getSubEntities(Rels.Notifications.updates))) {
-			return {};
-		}
+
 		var notifications = {};
 		for (var i = 0; i < entity.length; i++) {
 			this.__orgUpdates_prepareNotification(notifications, presentation, entity[i]);
@@ -118,7 +120,8 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		return notifications;
 	},
 	__orgUpdates_prepareNotification: function(notifications, presentation, updateEntity) {
-		var notification = updateEntity.properties && updateEntity.properties.type;
+		var notification = updateEntity && updateEntity.type();
+
 		if (!notification && !this.__organizationUpdates.notificationMap.hasOwnProperty(notification)) {
 			return;
 		}
@@ -131,8 +134,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var currentLink = updateEntity.hasLinkByRel(Rels.Notifications.updatesSource)
-			&& updateEntity.getLinkByRel(Rels.Notifications.updatesSource).href;
+		var currentLink = updateEntity && updateEntity.getLink();
 		if (!notifications.hasOwnProperty(options.key)) {
 			notifications[options.key] = {
 				icon: options.icon,
@@ -146,7 +148,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var numberOfUpdates = updateEntity.properties.count;
+		var numberOfUpdates = updateEntity && updateEntity.count();
 		notifications[options.key].updateCount += numberOfUpdates;
 		if (numberOfUpdates) {
 			notifications[options.key].toolTip.push([options.toolTip, numberOfUpdates]);

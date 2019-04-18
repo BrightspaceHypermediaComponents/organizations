@@ -4,10 +4,77 @@ describe('d2l-organization-updates', () => {
 	var sandbox,
 		component,
 		notificationEntity,
-		notificationEntityAllFull;
+		notificationEntityAllFullList,
+		notificationEntityList;
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
+
+		notificationEntityList = [
+			{
+				count: function() { return 20 },
+				type: function() { return 'UnreadDiscussions' },
+				getLink: function() { return '/discussions' }
+			},
+			{
+				count: function() { return 79 },
+				type: function() { return 'UnapprovedDiscussions' },
+				getLink: function() { return '/discussions' }
+			},
+			{
+				count: function() { return 1000 },
+				type: function() { return 'UnreadAssignmentFeedback' },
+				getLink: function() { return '/assignment' }
+			},
+			{
+				count: function() { return 200 },
+				type: function() { return 'UnreadAssignmentSubmissions' },
+				getLink: function() { return '/assignment' }
+			},
+			{
+				count: function() { return 4 },
+				type: function() { return 'UngradedQuizzes' },
+				getLink: function() { return '/quizzes' }
+			},
+			{
+				count: function() { return -20 },
+				type: function() { return 'UnattemptedQuizzes' },
+				getLink: function() { return '/quizzes' }
+			}
+		],
+
+		notificationEntityAllFullList = [
+			{
+				count: function() { return 20 },
+				type: function() { return 'UnreadDiscussions' },
+				getLink: function() { return '/discussions' }
+			},
+			{
+				count: function() { return 79 },
+				type: function() { return 'UnapprovedDiscussions' },
+				getLink: function() { return '/discussions' }
+			},
+			{
+				count: function() { return 40 },
+				type: function() { return 'UnreadAssignmentFeedback' },
+				getLink: function() { return '/assignment' }
+			},
+			{
+				count: function() { return 200 },
+				type: function() { return 'UnreadAssignmentSubmissions' },
+				getLink: function() { return '/assignment' }
+			},
+			{
+				count: function() { return 4 },
+				type: function() { return 'UngradedQuizzes' },
+				getLink: function() { return '/quizzes' }
+			},
+			{
+				count: function() { return 30 },
+				type: function() { return 'UnattemptedQuizzes' },
+				getLink: function() { return '/quizzes' }
+			}
+		],
 
 		notificationEntity = {
 			entities: [{
@@ -104,87 +171,10 @@ describe('d2l-organization-updates', () => {
 				rel: ['https://api.brightspace.com/rels/organization'],
 				href: 'https://98739553-44af-4933-b09c-f3798cdb13f5.organizations.api.proddev.d2l/6609'
 			}]
-		};
 
-		notificationEntityAllFull = {
-			entities: [{
-				rel: ['https://notifications.api.brightspace.com/rels/updates'],
-				properties: {
-					count: 20,
-					type: 'UnreadDiscussions'
-				},
-				links: [{
-					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
-					title: 'UnreadDiscussions',
-					href: '/discussions'
-				}]
-			}, {
-				rel: ['https://notifications.api.brightspace.com/rels/updates'],
-				properties: {
-					count: 79,
-					type: 'UnapprovedDiscussions'
-				},
-				links: [{
-					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
-					title: 'UnapprovedDiscussions',
-					href: '/discussions'
-				}]
-			}, {
-				rel: ['https://notifications.api.brightspace.com/rels/updates'],
-				properties: {
-					count: 40,
-					type: 'UnreadAssignmentFeedback'
-				},
-				links: [{
-					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
-					title: 'UnreadAssignmentFeedback',
-					href: '/assignment'
-				}]
-			}, {
-				rel: ['https://notifications.api.brightspace.com/rels/updates'],
-				properties: {
-					count: 200,
-					type: 'UnreadAssignmentSubmissions'
-				},
-				links: [{
-					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
-					title: 'UnreadAssignmentSubmissions',
-					href: '/assignment'
-				}]
-			}, {
-				rel: ['https://notifications.api.brightspace.com/rels/updates'],
-				properties: {
-					count: 4,
-					type: 'UngradedQuizzes'
-				},
-				links: [{
-					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
-					title: 'UngradedQuizzes',
-					href: '/quizzes'
-				}]
-			}, {
-				rel: ['https://notifications.api.brightspace.com/rels/updates'],
-				properties: {
-					count: 30,
-					type: 'UnattemptedQuizzes'
-				},
-				links: [{
-					rel: ['https://notifications.api.brightspace.com/rels/updates-source'],
-					title: 'UnattemptedQuizzes',
-					href: '/quizzes'
-				}]
-			}],
-			links: [{
-				rel: ['self'],
-				href: '/data/notification.json'
-			}, {
-				rel: ['https://api.brightspace.com/rels/organization'],
-				href: 'https://98739553-44af-4933-b09c-f3798cdb13f5.organizations.api.proddev.d2l/6609'
-			}]
 		};
 
 		notificationEntity = SirenParse(notificationEntity);
-		notificationEntityAllFull = SirenParse(notificationEntityAllFull);
 
 	});
 
@@ -199,7 +189,7 @@ describe('d2l-organization-updates', () => {
 
 		it('should call _getNotificationsEntity upon changes to entity', done => {
 			var spy = sandbox.spy(component, '_getNotificationsEntity');
-			component.entity = notificationEntity;
+			component._entity = notificationEntity;
 			expect(spy).to.have.been.calledOnce;
 			done();
 		});
@@ -233,7 +223,8 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			component.entity = notificationEntity;
+			//component._entity = notif;
+			component._notificationList = notificationEntityList;
 			component.showDropboxUnreadFeedback = true;
 			component.showUnattemptedQuizzes = true;
 			component.showUnreadDiscussionMessages = true;
@@ -274,7 +265,7 @@ describe('d2l-organization-updates', () => {
 	describe('Counts and icons correct.', () => {
 		beforeEach(done => {
 			component = fixture('org-updates');
-			component.entity = notificationEntityAllFull;
+			component._notificationList = notificationEntityAllFullList;
 			setTimeout(() => {
 				done();
 			}, 100);
