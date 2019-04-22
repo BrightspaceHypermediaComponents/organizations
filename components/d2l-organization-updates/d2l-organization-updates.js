@@ -8,6 +8,8 @@ Polymer-based web component for a organization updates.
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { OrganizationEntity } from '../../OrganizationEntity.js';
+import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
 import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-tooltip/d2l-tooltip.js';
@@ -22,7 +24,11 @@ import './d2l-organization-updates-behavior.js';
 class OrganizationUpdates extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Organization.Updates.Behavior
-], PolymerElement) {
+], EntityMixin(PolymerElement)) {
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
 	static get template() {
 		return html`
 			<style>
@@ -136,9 +142,6 @@ class OrganizationUpdates extends mixinBehaviors([
 
 	static get properties() {
 		return {
-			entity: {
-				type: Object,
-			},
 			combined: {
 				type: Boolean,
 				reflectToAttribute: true,
@@ -167,13 +170,17 @@ class OrganizationUpdates extends mixinBehaviors([
 			_notifications: {
 				type: Array,
 				value: function() { return []; }
+			},
+			_notificationList: {
+				type: Array,
+				value: function() { return []; }
 			}
 		};
 	}
 
 	static get observers() {
 		return [
-			'_getNotificationsEntity(entity)',
+			'_getNotificationsEntity(_entity)',
 			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions)'
 		];
 	}
@@ -182,11 +189,21 @@ class OrganizationUpdates extends mixinBehaviors([
 		return 'd2l-organization-updates';
 	}
 
-	_getNotificationsEntity(entity) {
-		this.entity = entity;
-		this._getNotifications(this.combined, this.showDropboxUnreadFeedback,
-			this.showUnattemptedQuizzes, this.showUngradedQuizAttempts,
-			this.showUnreadDiscussionMessages, this.showUnreadDropboxSubmissions);
+	_getNotificationsEntity(notificationsCollectionEntity) {
+
+		if (!notificationsCollectionEntity._entity) {
+			return;
+		}
+
+		notificationsCollectionEntity.onNotificationsChange(
+			(notificationCollection) => {
+				this._notificationList = notificationCollection.getNotifications();
+
+				this._getNotifications(this.combined, this.showDropboxUnreadFeedback,
+					this.showUnattemptedQuizzes, this.showUngradedQuizAttempts,
+					this.showUnreadDiscussionMessages, this.showUnreadDropboxSubmissions);
+			}
+		);
 	}
 
 	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes,
@@ -200,11 +217,11 @@ class OrganizationUpdates extends mixinBehaviors([
 			'ShowUnreadDropboxSubmissions': showUnreadDropboxSubmissions,
 		};
 
-		if (!this.entity || !presentationAttributes) {
+		if (!this._notificationList || !presentationAttributes) {
 			return Promise.resolve();
 		}
 
-		var notification = this._orgUpdates_fetch(this.entity, presentationAttributes);
+		var notification = this._orgUpdates_fetch(this._notificationList, presentationAttributes);
 		this._notifications = this._orgUpdates_notifications(notification, combined);
 	}
 }

@@ -1,5 +1,4 @@
 import '@polymer/polymer/polymer-legacy.js';
-import { Rels } from 'd2l-hypermedia-constants';
 import 'd2l-icons/tier1-icons.js';
 import '../d2l-organization-icons.js';
 import '../d2l-organization-behavior.js';
@@ -97,9 +96,13 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return a.order - b.order;
 		});
 	},
-	_orgUpdates_fetch: function(entity, presentation) {
+	_orgUpdates_fetch: function(notificationList, presentation) {
 
-		if (!entity || !presentation) {
+		if (!notificationList || !presentation) {
+			return {};
+		}
+
+		if (notificationList.length === 0) {
 			return {};
 		}
 		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
@@ -107,18 +110,17 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		}.bind(this))) {
 			return {};
 		}
-		if (!(entity = entity.getSubEntities(Rels.Notifications.updates))) {
-			return {};
-		}
+
 		var notifications = {};
-		for (var i = 0; i < entity.length; i++) {
-			this.__orgUpdates_prepareNotification(notifications, presentation, entity[i]);
+		for (var i = 0; i < notificationList.length; i++) {
+			this.__orgUpdates_prepareNotification(notifications, presentation, notificationList[i]);
 		}
 
 		return notifications;
 	},
 	__orgUpdates_prepareNotification: function(notifications, presentation, updateEntity) {
-		var notification = updateEntity.properties && updateEntity.properties.type;
+		var notification = updateEntity && updateEntity.type();
+
 		if (!notification && !this.__organizationUpdates.notificationMap.hasOwnProperty(notification)) {
 			return;
 		}
@@ -131,8 +133,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var currentLink = updateEntity.hasLinkByRel(Rels.Notifications.updatesSource)
-			&& updateEntity.getLinkByRel(Rels.Notifications.updatesSource).href;
+		var currentLink = updateEntity.getLink();
 		if (!notifications.hasOwnProperty(options.key)) {
 			notifications[options.key] = {
 				icon: options.icon,
@@ -146,7 +147,7 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 			return;
 		}
 
-		var numberOfUpdates = updateEntity.properties.count;
+		var numberOfUpdates = updateEntity.count();
 		notifications[options.key].updateCount += numberOfUpdates;
 		if (numberOfUpdates) {
 			notifications[options.key].toolTip.push([options.toolTip, numberOfUpdates]);
