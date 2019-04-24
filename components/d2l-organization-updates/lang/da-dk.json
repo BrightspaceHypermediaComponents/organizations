@@ -1,0 +1,11 @@
+{
+   "unapprovedDiscussions" : "{number} ikke-godkendte diskussioner",
+   "unattemptedQuizzes" : "{number} ikke-afholdte eksaminationer",
+   "ungradedQuizzes" : "{number} eksaminationer uden karakter",
+   "unreadAssignmentFeedback" : "{number} ulæst opgavefeedback",
+   "unreadAssignmentSubmissions" : "{number} ulæste opgaveafleveringer",
+   "unreadDiscussionFeedback" : "{number} ulæst diskussionsfeedback",
+   "unreadDiscussions" : "{number} ulæste diskussioner",
+   "unreadQuizzesFeedback" : "{number} ulæst eksaminationsfeedback",
+   "updates" : "opdateringer"
+}
