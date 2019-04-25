@@ -189,13 +189,9 @@ class OrganizationUpdates extends mixinBehaviors([
 		return 'd2l-organization-updates';
 	}
 
-	_getNotificationsEntity(notificationsCollectionEntity) {
+	_getNotificationsEntity(organizationEntity) {
 
-		if (!notificationsCollectionEntity._entity) {
-			return;
-		}
-
-		notificationsCollectionEntity.onNotificationsChange(
+		organizationEntity.onNotificationsChange(
 			(notificationCollection) => {
 				this._notificationList = notificationCollection.getNotifications();
 
