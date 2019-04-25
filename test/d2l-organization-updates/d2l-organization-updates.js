@@ -187,13 +187,6 @@ describe('d2l-organization-updates', () => {
 			component = fixture('org-updates');
 		});
 
-		it('should call _getNotificationsEntity upon changes to entity', done => {
-			var spy = sandbox.spy(component, '_getNotificationsEntity');
-			component._entity = notificationEntity;
-			expect(spy).to.have.been.calledOnce;
-			done();
-		});
-
 		it('should call _getNotifications upon changes to showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions or combined', done => {
 			var spyNotification = sandbox.spy(component, '_getNotifications');
 			component.showDropboxUnreadFeedback = true;
