@@ -19,9 +19,14 @@
  ],
   "links": [{
     "rel": ["self"],
-    "href": "data/organization.json"
+    "href": "../data/organization.json"
   }, {
     "rel": ["https://api.brightspace.com/rels/parent-semester"],
     "href": "../data/semester.json"
+  },{
+    "rel":[
+       "https://notifications.api.brightspace.com/rels/organization-notifications"
+    ],
+    "href":"../data/notification.json"
   }]
 }
