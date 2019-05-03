@@ -87,11 +87,11 @@ export class OrganizationEntity extends Entity {
 	}
 
 	_notificationCollectionHref() {
-		if (!this._entity || !this._entity.hasLinkByRel(Rels.Notifications)) {
+		if (!this._entity || !this._entity.hasLinkByRel(Rels.Notifications.organizationNotifications)) {
 			return;
 		}
 
-		return this._entity.getLinkByRel(Rels.Notifications).href;
+		return this._entity.getLinkByRel(Rels.Notifications.organizationNotifications).href;
 	}
 }
 
@@ -111,7 +111,7 @@ class NotificationCollectionEntity extends Entity {
 	}
 
 	_notificationCollectionEntity() {
-		return this._entity && this._entity.getSubEntities(Rels.Notifications);
+		return this._entity && this._entity.getSubEntities(Rels.Notifications.updates);
 	}
 
 }
