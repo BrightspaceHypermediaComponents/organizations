@@ -10,7 +10,7 @@
         {
           "rel": [ "https://notifications.api.brightspace.com/rels/updates-source" ],
           "title": "UnreadDiscussions",
-          "href": "http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/p/le/discussions/6609"
+          "href": "http://example.com"
         }
       ]
     },{
@@ -23,7 +23,7 @@
         {
           "rel": [ "https://notifications.api.brightspace.com/rels/updates-source" ],
           "title": "UnapprovedDiscussions",
-          "href": "http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/p/le/discussions/6609"
+          "href": "http://example.com"
         }
       ]
     },{
@@ -36,7 +36,7 @@
         {
           "rel": [ "https://notifications.api.brightspace.com/rels/updates-source" ],
           "title": "UnreadAssignmentFeedback",
-          "href": "http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/dropbox/dropbox.d2l?ou=6609"
+          "href": "http://example.com"
         }
       ]
     },{
@@ -49,7 +49,7 @@
         {
           "rel": [ "https://notifications.api.brightspace.com/rels/updates-source" ],
           "title": "UnreadAssignmentSubmissions",
-          "href": "http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/dropbox/dropbox.d2l?ou=6609"
+          "href": "http://example.com"
         }
       ]
     },{
@@ -62,7 +62,7 @@
         {
           "rel": [ "https://notifications.api.brightspace.com/rels/updates-source" ],
           "title": "UngradedQuizzes",
-          "href": "http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609"
+          "href": "http://example.com"
         }
       ]
     },{
@@ -75,7 +75,7 @@
         {
           "rel": [ "https://notifications.api.brightspace.com/rels/updates-source" ],
           "title": "UnattemptedQuizzes",
-        "href": "http://kdx0-nstonehouse.desire2learn.d2l:44444/d2l/lms/quizzing/user/quizzes_list.d2l?ou=6609"
+        "href": "http://example.com"
         }
       ]
     }
@@ -83,10 +83,10 @@
   "links": [
       {
         "rel": [ "self" ],
-        "href": "https://98739553-44af-4933-b09c-f3798cdb13f5.notifications.api.proddev.d2l/my-notifications/organizations/6609"
+        "href": "../data/base/notification.json"
       },{
         "rel": [ "https://api.brightspace.com/rels/organization" ],
-        "href": "https://98739553-44af-4933-b09c-f3798cdb13f5.organizations.api.proddev.d2l/6609"
+        "href": "http://example.com"
       }
   ]
 }
