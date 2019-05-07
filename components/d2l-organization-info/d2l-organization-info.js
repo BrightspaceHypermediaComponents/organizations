@@ -44,7 +44,7 @@ class OrganizationInfo extends mixinBehaviors([
 
 			<span>
 				<span hidden$="[[!showOrganizationCode]]" class="d2l-organization-code">[[_organizationCode]]</span>
-				<d2l-icon hidden$="[[!_computeShowSeparator(showOrganizationCode, showSemesterName)]]" icon="d2l-tier1:bullet"></d2l-icon>
+				<d2l-icon hidden$="[[!_computeShowSeparator(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)]]" icon="d2l-tier1:bullet"></d2l-icon>
 				<span hidden$="[[!showSemesterName]]">[[_semesterName]]</span>
 			</span>
 		`;
@@ -93,8 +93,10 @@ class OrganizationInfo extends mixinBehaviors([
 		}
 	}
 
-	_computeShowSeparator(showOrganizationCode, showSemester) {
-		return showSemester && showOrganizationCode;
+	_computeShowSeparator(showOrganizationCode, showSemester, organizationCode, semesterName) {
+		return showSemester && showOrganizationCode
+			&& semesterName && semesterName.length > 0
+			&& organizationCode && organizationCode.length > 0;
 	}
 
 	_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, organizationCode, semesterName) {

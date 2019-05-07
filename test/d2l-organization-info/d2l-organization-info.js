@@ -52,22 +52,27 @@ describe('d2l-organization-info', () => {
 
 	describe('Show separator', () => {
 		it('should show separator when both semester name and semester code are showing', () => {
-			var showSeparator = component._computeShowSeparator(true, true);
+			var showSeparator = component._computeShowSeparator(true, true, 'code', 'name');
 			expect(showSeparator).to.be.true;
 		});
 
+		it('should not show separator when both semester name and semester code are showing but one of their length is 0', () => {
+			var showSeparator = component._computeShowSeparator(true, true, 'code');
+			expect(showSeparator).to.be.undefined;
+		});
+
 		it('should not show separator when only semester name is showing', () => {
-			var showSeparator = component._computeShowSeparator(false, true);
+			var showSeparator = component._computeShowSeparator(false, true, 'code', 'name');
 			expect(showSeparator).to.be.false;
 		});
 
 		it('should not show separator when only semester code is showing', () => {
-			var showSeparator = component._computeShowSeparator(true, false);
+			var showSeparator = component._computeShowSeparator(true, false, 'code', 'name');
 			expect(showSeparator).to.be.false;
 		});
 
 		it('should not show separator when neither semester name nor semester code are showing', () => {
-			var showSeparator = component._computeShowSeparator(false, false);
+			var showSeparator = component._computeShowSeparator(false, false, 'code', 'name');
 			expect(showSeparator).to.be.false;
 		});
 	});
