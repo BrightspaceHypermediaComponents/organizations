@@ -56,6 +56,14 @@ export class OrganizationEntity extends Entity {
 			&& homepageEntity.properties.path;
 	}
 
+	courseInfoUrl() {
+		if (!this._entity || !this._entity.hasLinkByRel(Rels.courseOfferingInfoPage)) {
+			return;
+		}
+
+		return this._entity.getLinkByRel(Rels.courseOfferingInfoPage).href;
+	}
+
 	imageEntity() {
 		return this._entity && this._entity.getSubEntityByClass(Classes.courseImage.courseImage);
 	}
