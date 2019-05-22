@@ -60,7 +60,7 @@
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "siren-parser": "^8.0.0",
-    "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^0",
+    "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1",
     "whatwg-fetch": "^3.0.0"
   }
 }
