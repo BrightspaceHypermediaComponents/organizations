@@ -86,6 +86,14 @@ export class OrganizationEntity extends Entity {
 		notificationsHref && this._subEntity(NotificationCollectionEntity, notificationsHref, onChange);
 	}
 
+	self() {
+		if (!this._entity || !this._entity.hasLinkByRel('self')) {
+			return;
+		}
+
+		return this._entity.getLinkByRel('self').href;
+	}
+
 	_semesterHref() {
 		if (!this._entity || !this._entity.hasLinkByRel(Rels.parentSemester)) {
 			return;
