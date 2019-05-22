@@ -24,7 +24,7 @@
     "@webcomponents/webcomponentsjs": "^2.2.6",
     "babel-eslint": "^10.0.1",
     "chai-dom": "^1.8.0",
-    "d2l-typography": "BrightspaceUI/typography#semver:^7",
+    "del": "^3.0.0",
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.4.0",
     "eslint-plugin-html": "^4.0.1",
@@ -58,6 +58,7 @@
     "d2l-resize-aware": "github:BrightspaceUI/resize-aware#semver:^1",
     "d2l-sequences": "github:brightspaceHypermediaComponents/sequences",
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
+    "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "siren-parser": "^8.0.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^0",
     "whatwg-fetch": "^3.0.0"
