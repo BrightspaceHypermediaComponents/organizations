@@ -6,7 +6,7 @@ Polymer-based web component for a organization date such as start and end date f
 
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
-import { OrganizationEntity } from '../../OrganizationEntity.js';
+import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import '../d2l-organization-behavior.js';
 import './localize-behavior.js';

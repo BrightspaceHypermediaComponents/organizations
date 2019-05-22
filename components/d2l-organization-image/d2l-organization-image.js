@@ -1,6 +1,6 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
-import { OrganizationEntity } from '../../OrganizationEntity.js';
+import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import 'd2l-course-image/d2l-course-image.js';
 
