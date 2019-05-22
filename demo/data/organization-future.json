@@ -8,7 +8,7 @@
   },
   "links": [{
     "rel": ["self"],
-    "href": "data/organization.json"
+    "href": "../data/organization-future.json"
   }, {
     "rel": ["https://api.brightspace.com/rels/parent-semester"],
     "href": "../data/semester.json"

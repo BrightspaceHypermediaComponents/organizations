@@ -4,7 +4,8 @@
     "code": "SCI100",
     "startDate": "2000-01-01T00:00:00.000Z",
     "endDate": "2100-01-01T00:00:00.000Z",
-    "isActive": true
+    "isActive": true,
+    "description": "Financial Planning & Analysis: Building a Company's Budget from Scratch guides you through the core principles of Financial Planning and helps..."
   },
   "entities":[
     {
@@ -19,7 +20,7 @@
  ],
   "links": [{
     "rel": ["self"],
-    "href": "../data/organization.json"
+    "href": "../data/organization-current.json"
   }, {
     "rel": ["https://api.brightspace.com/rels/parent-semester"],
     "href": "../data/semester.json"
