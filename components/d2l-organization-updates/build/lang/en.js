@@ -14,7 +14,7 @@ D2L.PolymerBehaviors.Organization.Updates.LangEnBehavior = {
 		"ungradedQuizzes": "{number} Ungraded Quizzes",
 		"unreadDiscussions": "{number} Unread Discussions",
 		"unapprovedDiscussions": "{number} Unapproved Discussions",
-		"unreadAssignmentSubmissions": "{number} Unread Assignment Submissions",
+		"unreadAssignmentSubmissions": "{number} Unread Assignment Submission Files",
 		"unreadDiscussionFeedback": "{number} Unread Discussion Feedback",
 		"unreadQuizzesFeedback": "{number} Unread Quizzes Feedback",
 		"updates": "updates"
