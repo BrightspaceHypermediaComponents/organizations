@@ -2,33 +2,23 @@ describe('d2l-organization-date', () => {
 	var sandbox,
 		component,
 		organizationEntity,
-		futureOrganization,
-		endsOrganization,
-		endedOrganization;
+		date,
+		isActiveStub,
+		processedDateStub;
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
 
+		isActiveStub = sinon.stub();
+		processedDateStub = sinon.stub();
+		date = new Date(Date.parse('1998-01-01T00:00:00.000Z'));
+
 		organizationEntity = {
-			startDate: function() { return; },
-			endDate: function() { return; },
-			isActive: function() { return false; }
+			isActive: isActiveStub,
+			processedDate: processedDateStub
 		};
-		futureOrganization = {
-			startDate: function() { return '2099-01-01T00:00:00.000Z'; },
-			endDate: function() { return '2100-01-01T00:00:00.000Z'; },
-			isActive: function() { return true; }
-		};
-		endsOrganization = {
-			startDate: function() { return '1998-01-01T00:00:00.000Z'; },
-			endDate: function() { return '2040-01-01T00:00:00.000Z'; },
-			isActive: function() { return true; }
-		};
-		endedOrganization = {
-			startDate: function() { return '1999-01-01T00:00:00.000Z'; },
-			endDate: function() { return '2000-01-01T00:00:00.000Z'; },
-			isActive: function() { return true; }
-		};
+		isActiveStub.returns(false);
+		processedDateStub.returns(null);
 	});
 
 	afterEach(() => {
@@ -40,11 +30,12 @@ describe('d2l-organization-date', () => {
 			component = fixture('org-date');
 		});
 
-		it('should call _setOrganizationDate upon changes to startDate or endDate or entityStatus or hideCourseStartDate and hideCourseEndDate', () => {
+		it('should call _setOrganizationDate upon changes to OrganizationEntity or hideCourseStartDate and hideCourseEndDate', () => {
 			var spy = sandbox.spy(component, '_setOrganizationDate');
-			component._getOrganizationDate(futureOrganization);
 			component.hideCourseStartDate = true;
 			component.hideCourseEndDate = true;
+			component._entity = organizationEntity;
+
 			expect(spy).to.have.been.calledThrice;
 		});
 
@@ -60,7 +51,12 @@ describe('d2l-organization-date', () => {
 	describe('fetching organization', () => {
 		beforeEach(done => {
 			component = fixture('org-date');
-			component._getOrganizationDate(futureOrganization);
+			processedDateStub.returns({
+				type: 'startsAt',
+				date: date
+			});
+
+			component._entity = organizationEntity;
 			setTimeout(() => {
 				done();
 			}, 100);
@@ -74,7 +70,6 @@ describe('d2l-organization-date', () => {
 	describe('Testing attribute default', () => {
 		beforeEach(done => {
 			component = fixture('org-date');
-			component._getOrganizationDate(organizationEntity);
 			setTimeout(() => {
 				done();
 			}, 100);
@@ -90,9 +85,13 @@ describe('d2l-organization-date', () => {
 	});
 
 	describe('status text', () => {
-		it('should display the "Starts" text when organization starts in future', done => {
+		it('should display the "Starts" text when date type is startsAt', done => {
 			component = fixture('org-date');
-			component._getOrganizationDate(futureOrganization);
+			processedDateStub.returns({
+				type: 'startsAt',
+				date: date
+			});
+			component._entity = organizationEntity;
 
 			setTimeout(() => {
 				var text = component.$$('span:not([hidden])');
@@ -102,9 +101,13 @@ describe('d2l-organization-date', () => {
 
 		});
 
-		it('should display the "Ended" text when organization ended in past', done => {
+		it('should display the "Ended" text when date type is ended', done => {
 			component = fixture('org-date');
-			component._getOrganizationDate(endedOrganization);
+			processedDateStub.returns({
+				type: 'ended',
+				date: date
+			});
+			component._entity = organizationEntity;
 
 			setTimeout(() => {
 				var text = component.$$('span:not([hidden])');
@@ -114,9 +117,13 @@ describe('d2l-organization-date', () => {
 
 		});
 
-		it('should display the "Ends" text when organization ends in past', done => {
+		it('should display the "Ends" text when date type is endsAt', done => {
 			component = fixture('org-date');
-			component._getOrganizationDate(endsOrganization);
+			processedDateStub.returns({
+				type: 'endsAt',
+				date: date
+			});
+			component._entity = organizationEntity;
 
 			setTimeout(() => {
 				var text = component.$$('span:not([hidden])');
@@ -126,22 +133,9 @@ describe('d2l-organization-date', () => {
 
 		});
 
-		it('should display the nothing when organization is inactive and is after start date or has no start date', done => {
+		it ('should display nothing when processed date is null', done => {
 			component = fixture('org-date');
-			component._getOrganizationDate(organizationEntity);
-
-			setTimeout(() => {
-				var text = component.$$('span:not([hidden])');
-				expect(text).to.be.null;
-				done();
-			});
-
-		});
-
-		it ('should display nothing when organization starts in future and _hideCourseStartDate is true', done => {
-			component = fixture('org-date');
-			component._getOrganizationDate(futureOrganization);
-			component.hideCourseStartDate = true;
+			component._entity = organizationEntity;
 
 			setTimeout(() => {
 				var text = component.$$('span:not([hidden])');
@@ -149,44 +143,6 @@ describe('d2l-organization-date', () => {
 				done();
 			});
 		});
-
-		it ('should display nothing when organization ended in past and _hideCourseEndDate is true', done => {
-			component = fixture('org-date');
-			component._getOrganizationDate(endedOrganization);
-			component.hideCourseEndDate = true;
-
-			setTimeout(() => {
-				var text = component.$$('span:not([hidden])');
-				expect(text).to.be.null;
-				done();
-			});
-		});
-
-		it ('should display nothing when organization ends in past and _hideCourseEndDate is true', done => {
-			component = fixture('org-date');
-			component._getOrganizationDate(endsOrganization);
-			component.hideCourseEndDate = true;
-
-			setTimeout(() => {
-				var text = component.$$('span:not([hidden])');
-				expect(text).to.be.null;
-				done();
-			});
-		});
-
-		it ('should display the "Starts" text when organization starts in future and _hideCourseStartDate is null', done => {
-			component = fixture('org-date');
-			component._getOrganizationDate(futureOrganization);
-			component.hideCourseEndDate = null;
-			component.hideCourseStartDate = null;
-
-			setTimeout(() => {
-				var text = component.$$('span:not([hidden])');
-				expect(text.innerText).to.contain('Starts ');
-				done();
-			});
-		});
-
 	});
 
 	describe('Events', () => {
@@ -194,52 +150,82 @@ describe('d2l-organization-date', () => {
 			component = await fixture('org-date');
 		});
 
-		it('should send event with detail of inactive and before start date as true when organization starts in future.', done => {
-			sinon.spy(component, 'fire');
-			component._getOrganizationDate(futureOrganization);
-			expect(component.fire).to.have.been.calledWith('d2l-organization-date', {active: true, beforeStartDate: true, afterEndDate: false});
-			done();
+		it('should send event with detail of inactive as true', done => {
+			component.addEventListener('d2l-organization-date', function(e) {
+				expect(e.detail.active).to.be.true;
+				done();
+			});
+
+			processedDateStub.returns({
+				type: 'startsAt',
+				date: date
+			});
+			isActiveStub.returns(true);
+			component._entity = organizationEntity;
 		});
 
-		it('should send event with detail of is closed and after end date to be true when organization ends in past.', done => {
-			sinon.spy(component, 'fire');
-			component._getOrganizationDate(endedOrganization);
-			expect(component.fire).to.have.been.calledWith('d2l-organization-date', {active: true, beforeStartDate: false, afterEndDate: true});
-			done();
+		it('should send event with detail of beforeStartDate as true.', done => {
+			component.addEventListener('d2l-organization-date', function(e) {
+				expect(e.detail.beforeStartDate).to.be.true;
+				done();
+			});
+
+			processedDateStub.returns({
+				type: 'startsAt',
+				date: date,
+				beforeStartDate: true
+			});
+			component._entity = organizationEntity;
 		});
 
-		it('should have active false and the rest null when organization is inactive without start date.', done => {
-			sinon.spy(component, 'fire');
-			component._getOrganizationDate(organizationEntity);
-			expect(component.fire).to.have.been.calledWith('d2l-organization-date', {active: false, beforeStartDate: null, afterEndDate: null});
-			done();
+		it('should send event with detail of afterEndDate as true.', done => {
+			component.addEventListener('d2l-organization-date', function(e) {
+				expect(e.detail.afterEndDate).to.be.true;
+				done();
+			});
+
+			processedDateStub.returns({
+				type: 'startsAt',
+				date: date,
+				afterEndDate: true
+			});
+			component._entity = organizationEntity;
 		});
 
-		it('should send the "Starts" text when organization starts in future', done => {
+		it('should send the "Starts" text when date type is startsAt', done => {
 			component.addEventListener('d2l-organization-accessible', function(e) {
 				expect(e.detail.organization.date).to.contain('Starts ');
 				done();
 			});
-			component._getOrganizationDate(futureOrganization);
-
+			processedDateStub.returns({
+				type: 'startsAt',
+				date: date
+			});
+			component._entity = organizationEntity;
 		});
 
-		it('should send the "Ends" text when organization ends in past', done => {
+		it('should send the "Ends" text when date type is endsAt', done => {
 			component.addEventListener('d2l-organization-accessible', function(e) {
 				expect(e.detail.organization.date).to.contain('Ends ');
 				done();
 			});
-			component._getOrganizationDate(endsOrganization);
-
+			processedDateStub.returns({
+				type: 'endsAt',
+				date: date
+			});
+			component._entity = organizationEntity;
 		});
 
-		it('should send the "Ended" text when organization ended in past', done => {
+		it('should send the "Ended" text when date type is ended', done => {
 			component.addEventListener('d2l-organization-accessible', function(e) {
 				expect(e.detail.organization.date).to.contain('Ended ');
 				done();
 			});
-			component._getOrganizationDate(endedOrganization);
-
+			processedDateStub.returns({
+				type: 'ended',
+				date: date
+			});
+			component._entity = organizationEntity;
 		});
 
 	});

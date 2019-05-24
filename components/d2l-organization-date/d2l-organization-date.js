@@ -43,8 +43,6 @@ class OrganizationDate extends mixinBehaviors([
 				type: String,
 				value: null
 			},
-			_startDate: String,
-			_endDate: String,
 			_entityStatus: String
 		};
 	}
@@ -66,29 +64,27 @@ class OrganizationDate extends mixinBehaviors([
 			return;
 		}
 
-		this._startDate = organization.startDate();
-		this._endDate = organization.endDate();
 		this._entityStatus = organization.isActive();
 		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
 	}
 
 	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
-		var dateTime = this._entity && this._entity.processedDate(hideCourseStartDate, hideCourseEndDate);
-		if (!dateTime) {
+		var date = this._entity && this._entity.processedDate(hideCourseStartDate, hideCourseEndDate);
+		if (!date) {
 			return;
 		}
 
 		this._statusText = this.localize(
-			dateTime.type,
-			'date', this.formatDate(dateTime.date, {format: 'MMMM d, yyyy'}),
-			'time', this.formatTime(dateTime.date)
+			date.type,
+			'date', this.formatDate(date.date, {format: 'MMMM d, yyyy'}),
+			'time', this.formatTime(date.date)
 		);
 
 		if (this._statusText || (this._entityStatus !== undefined)) {
 			this.fire('d2l-organization-date', {
 				active: !!this._entityStatus,
-				beforeStartDate: dateTime.beforeStartDate,
-				afterEndDate: dateTime.afterEndDate
+				beforeStartDate: date.beforeStartDate,
+				afterEndDate: date.afterEndDate
 			});
 		}
 	}
