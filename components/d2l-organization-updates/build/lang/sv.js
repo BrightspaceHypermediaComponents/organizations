@@ -13,7 +13,7 @@ D2L.PolymerBehaviors.Organization.Updates.LangSvBehavior = {
 		"unattemptedQuizzes": "{number} ej gjorda förhör",
 		"ungradedQuizzes": "{number} ej betygsatta förhör",
 		"unreadAssignmentFeedback": "{number} oläst uppgift, feedback",
-		"unreadAssignmentSubmissions": "{number} olästa uppgifter, inlämningar",
+		"unreadAssignmentSubmissions": "{number} Unread Assignment Submission Files",
 		"unreadDiscussionFeedback": "{number} oläst diskussion, feedback",
 		"unreadDiscussions": "{number} olästa diskussioner",
 		"unreadQuizzesFeedback": "{number} olästa förhör, feedback",

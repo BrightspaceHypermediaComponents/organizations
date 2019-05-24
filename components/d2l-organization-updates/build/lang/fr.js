@@ -13,7 +13,7 @@ D2L.PolymerBehaviors.Organization.Updates.LangFrBehavior = {
 		"unattemptedQuizzes": "{number} questionnaires sans tentative",
 		"ungradedQuizzes": "{number} questionnaires non notés",
 		"unreadAssignmentFeedback": "{number} rétroaction(s) de travail non lue(s)",
-		"unreadAssignmentSubmissions": "{number} soumission(s) de travail non lue(s)",
+		"unreadAssignmentSubmissions": "{number} Unread Assignment Submission Files",
 		"unreadDiscussionFeedback": "{number} rétroaction(s) de discussion non lue(s)",
 		"unreadDiscussions": "{number} discussions non lues",
 		"unreadQuizzesFeedback": "{number} rétroaction(s) de questionnaire non lue(s)",

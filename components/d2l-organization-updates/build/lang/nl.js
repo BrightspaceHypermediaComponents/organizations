@@ -13,7 +13,7 @@ D2L.PolymerBehaviors.Organization.Updates.LangNlBehavior = {
 		"unattemptedQuizzes": "{number} niet-gestarte tests",
 		"ungradedQuizzes": "{number} niet-gescoorde tests",
 		"unreadAssignmentFeedback": "{number} ongelezen feedbackberichten voor opdracht",
-		"unreadAssignmentSubmissions": "{number} ongelezen opdrachtindieningen",
+		"unreadAssignmentSubmissions": "{number} Unread Assignment Submission Files",
 		"unreadDiscussionFeedback": "{number} ongelezen feedbackberichten voor discussie",
 		"unreadDiscussions": "{number} ongelezen discussies",
 		"unreadQuizzesFeedback": "{number} ongelezen feedbackberichten voor test",
