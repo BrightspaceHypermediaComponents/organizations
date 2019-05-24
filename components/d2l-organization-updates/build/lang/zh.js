@@ -13,7 +13,7 @@ D2L.PolymerBehaviors.Organization.Updates.LangZhBehavior = {
 		"unattemptedQuizzes": "{number} 个未尝试的测验",
 		"ungradedQuizzes": "{number} 个未分级的测验",
 		"unreadAssignmentFeedback": "{number} 个未读作业反馈",
-		"unreadAssignmentSubmissions": "{number} 个未读作业提交",
+		"unreadAssignmentSubmissions": "{number} Unread Assignment Submission Files",
 		"unreadDiscussionFeedback": "{number} 个未读讨论反馈",
 		"unreadDiscussions": "{number} 个未读讨论",
 		"unreadQuizzesFeedback": "{number} 个未读测验反馈",
