@@ -13,7 +13,7 @@ D2L.PolymerBehaviors.Organization.Updates.LangTrBehavior = {
 		"unattemptedQuizzes": "{number} Denenmemiş Sınav",
 		"ungradedQuizzes": "{number} Notlandırılmamış Sınav",
 		"unreadAssignmentFeedback": "{number} Okunmamış Ödev Geri Bildirimi",
-		"unreadAssignmentSubmissions": "{number} Okunmamış Ödev Teslimi",
+		"unreadAssignmentSubmissions": "{number} Unread Assignment Submission Files",
 		"unreadDiscussionFeedback": "{number} Okunmamış Tartışma Geri Bildirimi",
 		"unreadDiscussions": "{number} Okunmamış Tartışma",
 		"unreadQuizzesFeedback": "{number} Okunmamış Sınav Geri Bildirimi",

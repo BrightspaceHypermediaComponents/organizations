@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+		<title>d2l-activities demos</title>
+
+		<script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+		<script type="module">
+			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
+			import '@polymer/iron-demo-helpers/demo-snippet';
+
+			const $_documentContainer = document.createElement('template');
+			$_documentContainer.innerHTML = `
+				<custom-style>
+					<style is="custom-style" include="demo-pages-shared-styles"></style>
+					<style is="custom-style" include="d2l-typography">
+							html {
+								font-size: 20px;
+							}
+							.fixedSize {
+								max-width: 1600px;
+							}
+					</style>
+				</custom-style>
+			`;
+			document.body.appendChild($_documentContainer.content);
+		</script>
+	</head>
+	<body class="d2l-typography">
+		<div class="vertical-section-container fixedSize">
+			<h3>Demos</h3>
+			<ul>
+				<h4>Organization Components</h4>
+				<li><a href="d2l-organization-date/d2l-organization-date-demo.html">d2l-organization-date</a></li>
+				<li><a href="d2l-organization-detail-card/d2l-organization-detail-card-demo.html">d2l-organization-detail-card</a></li>
+				<li><a href="d2l-organization-image/d2l-organization-image-demo.html">d2l-organization-image</a></li>
+				<li><a href="d2l-organization-info/d2l-organization-info-demo.html">d2l-organization-info</a></li>
+				<li><a href="d2l-organization-name/d2l-organization-name-demo.html">d2l-organization-name</a></li>
+				<li><a href="d2l-organization-updates/d2l-organization-updates-demo.html">d2l-organization-updates</a></li>
+			</ul>
+		</div>
+	</body>
+</html>

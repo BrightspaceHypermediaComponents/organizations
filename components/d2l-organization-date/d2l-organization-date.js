@@ -4,9 +4,9 @@ Polymer-based web component for a organization date such as start and end date f
 @demo demo/d2l-organization-date/d2l-organization-date-demo.html Organization Name
 */
 
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import { EntityMixin } from 'siren-sdk/mixin/entity-mixin.js';
-import { OrganizationEntity } from '../../OrganizationEntity.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import '../d2l-organization-behavior.js';
 import './localize-behavior.js';
@@ -43,8 +43,6 @@ class OrganizationDate extends mixinBehaviors([
 				type: String,
 				value: null
 			},
-			_startDate: String,
-			_endDate: String,
 			_entityStatus: String
 		};
 	}
@@ -66,43 +64,27 @@ class OrganizationDate extends mixinBehaviors([
 			return;
 		}
 
-		this._startDate = organization.startDate();
-		this._endDate = organization.endDate();
 		this._entityStatus = organization.isActive();
 		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
 	}
 
 	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
-		var nowDate = Date.now();
-		var startDate = Date.parse(this._startDate);
-		var endDate = Date.parse(this._endDate);
-		if (startDate > nowDate) {
-			startDate = new Date(startDate);
-			this._statusText = this.localize('startsAt', 'date', this.formatDate(startDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(startDate));
-			if (hideCourseStartDate) {
-				this._statusText = null;
-			}
-
-		} else if (endDate < nowDate) {
-			endDate = new Date(endDate);
-			this._statusText = this.localize('ended', 'date', this.formatDate(endDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(endDate));
-			if (hideCourseEndDate) {
-				this._statusText = null;
-			}
-
-		} else if (endDate >= nowDate) {
-			endDate = new Date(endDate);
-			this._statusText = this.localize('endsAt', 'date', this.formatDate(endDate, {format: 'MMMM d, yyyy'}), 'time', this.formatTime(endDate));
-			if (hideCourseEndDate) {
-				this._statusText = null;
-			}
+		var date = this._entity && this._entity.processedDate(hideCourseStartDate, hideCourseEndDate);
+		if (!date) {
+			return;
 		}
+
+		this._statusText = this.localize(
+			date.type,
+			'date', this.formatDate(date.date, {format: 'MMMM d, yyyy'}),
+			'time', this.formatTime(date.date)
+		);
 
 		if (this._statusText || (this._entityStatus !== undefined)) {
 			this.fire('d2l-organization-date', {
 				active: !!this._entityStatus,
-				beforeStartDate: startDate ? startDate > nowDate : null,
-				afterEndDate: endDate ? endDate <= nowDate : null
+				beforeStartDate: date.beforeStartDate,
+				afterEndDate: date.afterEndDate
 			});
 		}
 	}
