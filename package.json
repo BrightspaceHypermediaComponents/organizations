@@ -55,12 +55,8 @@
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-siren-behaviors": "Brightspace/polymer-siren-behaviors#semver:^1",
-<<<<<<< HEAD
-    "d2l-tabs": "BrightspaceUI/tabs#semver:^1",
-=======
     "d2l-resize-aware": "github:BrightspaceUI/resize-aware#semver:^1",
     "d2l-sequences": "github:brightspaceHypermediaComponents/sequences",
->>>>>>> origin/master
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "siren-parser": "^8.0.0",
