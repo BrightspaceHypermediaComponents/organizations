@@ -26,13 +26,15 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		<style>
 			a {
 				color: white;
-				padding: 5px 10px;
+				font-size: 12px;
+				padding: 0px 5px;
 				text-decoration: none;
 			}
 			.tab {
 				background: rgb(0,0,0,.4);
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
+				line-height: 17px;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
