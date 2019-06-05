@@ -58,11 +58,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		</div>
 		`;
 	}
-	_navigate(e) {
-		if (!this._isSelected(e.model.item)) {
-			window.location = e.model.item.organizationHomepageUrl;
-		}
-	}
 	_isSelected(item) {
 		return item.name === 'c1' ? 'selected' : false;
 	}
