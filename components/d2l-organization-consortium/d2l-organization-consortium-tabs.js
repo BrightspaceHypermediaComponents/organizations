@@ -30,13 +30,13 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				text-decoration: none;
 			}
 			.tab {
-				align-self: center;
 				background: rgb(0,0,0,.4);
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
-				border-width:thin;
-				justify-self: stretch;
-
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				word-break: break-all;
 			}
 			#selected {
 				background: white;
@@ -45,17 +45,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				color: grey;
 			}
 			#tabBox {
-				-ms-display: grid;
-				display: grid;
-				grid-auto-columns: minmax(min-content, max-content);
-				grid-auto-flow: column;
-				grid-row: 1;
+				display: flex;
+				flex-wrap: nowrap;
 			}
 		</style>
 		<div id="tabBox">
 			<template items="[[parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
 				<div class="tab" id$="[[_isSelected(item)]]">
-					<a href="[[item.value]]">[[item.name]]</a>
+					<a href="[[item.href]]">[[item.name]]</a>
 				</div>
 			</template>
 		</div>
@@ -93,7 +90,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		return Object.keys(currentOrganizations).map(function(key) {
 			return {
 				name: key,
-				value: currentOrganizations[key]
+				href: currentOrganizations[key]
 			};
 		});
 	}
