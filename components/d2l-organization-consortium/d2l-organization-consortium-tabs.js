@@ -1,5 +1,5 @@
 /**
-`d2l-organization-name`
+`d2l-organization-consortium-tabs`
 
 Polymer-based web component for displaying all organizations a user is enrolled in for a consortium
 
@@ -23,9 +23,42 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get template() {
 		return html`
-		<template items="[[parsedOrganizations]]" is="dom-repeat">
-			<a href="[[item.value]]">[[item.name]]</a>
-		</template>
+		<style>
+			a {
+				color: white;
+				padding: 5px 10px;
+				text-decoration: none;
+			}
+			.tab {
+				align-self: center;
+				background: rgb(0,0,0,.4);
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				border-width:thin;
+				justify-self: stretch;
+
+			}
+			#selected {
+				background: white;
+			}
+			#selected > a {
+				color: grey;
+			}
+			#tabBox {
+				-ms-display: grid;
+				display: grid;
+				grid-auto-columns: minmax(min-content, max-content);
+				grid-auto-flow: column;
+				grid-row: 1;
+			}
+		</style>
+		<div id="tabBox">
+			<template items="[[parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
+				<div class="tab" id$="[[_isSelected(item)]]">
+					<a href="[[item.value]]">[[item.name]]</a>
+				</div>
+			</template>
+		</div>
 		`;
 	}
 	_navigate(e) {
@@ -33,13 +66,12 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			window.location = e.model.item.organizationHomepageUrl;
 		}
 	}
-	_isSelected(organization) {
-		const windowHost = new URL(window.location).host;
-		const orgHost = new URL(organization.organizationHomepageUrl).host;
-
-		return windowHost === orgHost;
+	_isSelected(item) {
+		return item.name === 'c1' ? 'selected' : false;
 	}
-
+	_sortOrder(item1, item2) {
+		return item1.name.localeCompare(item2.name);
+	}
 	_onConsortiumChange(consotriumTokenCollection) {
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
