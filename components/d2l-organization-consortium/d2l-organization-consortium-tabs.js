@@ -61,7 +61,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		`;
 	}
 	_isSelected(item) {
-		return item.name === 'c1' ? 'selected' : false;
+		return this.selected === item.name ? 'selected' : false;
 	}
 	_sortOrder(item1, item2) {
 		return item1.name.localeCompare(item2.name);
@@ -94,6 +94,10 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get properties() {
 		return {
+			selected: {
+				type: String,
+				reflectToAttribute: true
+			},
 			organizations: {
 				type: Object,
 				value: {},
