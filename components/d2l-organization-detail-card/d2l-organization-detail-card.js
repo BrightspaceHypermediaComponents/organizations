@@ -446,7 +446,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 		window.fastdom.measure(() => {
 			const height = window.getComputedStyle(measureP).getPropertyValue('line-height').match(/\d+/);
 			const lineHeight = height && height[0];
-			currentLineNumber = measureP.offsetHeight / lineHeight;
+			currentLineNumber = lineHeight ? measureP.offsetHeight / lineHeight : 0;
 		});
 		window.fastdom.mutate(() => {
 			if (currentLineNumber <= this._descriptionLineCount || currentLineNumber <= 1) {
