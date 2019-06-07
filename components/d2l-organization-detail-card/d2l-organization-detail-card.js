@@ -6,6 +6,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import '../d2l-organization-date/d2l-organization-date.js';
 import '../d2l-organization-image/d2l-organization-image.js';
 import '../d2l-organization-name/d2l-organization-name.js';
+import 'd2l-offscreen/d2l-offscreen.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-sequences/components/d2l-sequences-module-list.js';
 import 'd2l-resize-aware/d2l-resize-aware.js';
@@ -70,16 +71,26 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				}
 				.dedc-description-container {
 					margin: 0.1rem 0;
+					height: 3.15rem;
+					overflow: hidden;
+					position: relative;
 				}
 				.dedc-description-container p {
 					@apply --d2l-body-small-text;
 					color: var(--d2l-color-ferrite);
-					height: 3.15rem;
 					letter-spacing: 0.4px;
 					line-height: 1.5;
 					margin: 0;
-					overflow: hidden;
 					padding: 0;
+				}
+				.dedc-description-container-offscreen {
+					@apply --d2l-offscreen;
+					height: unset;
+					width: 100%;
+					white-space: unset;
+				}
+				:host(:dir(rtl)) .dedc-description-container-offscreen {
+					@apply --d2l-offscreen-rtl;
 				}
 				.dedc-description-placeholder {
 					display: block;
@@ -310,7 +321,8 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 									</span>
 							</div>
 							<div class="dedc-description-container">
-								<p>[[_description]]</p>
+								<p class="dedc-description-container-offscreen"> [[_description]] </p>
+								<p class="dedc-description-p"></p>
 							</div>
 						</div>
 					</div>
@@ -337,7 +349,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				computed: '_computeActive(moduleListFocus, baseFocus)',
 				reflectToAttribute: true
 			},
-			_description: String,
+			_description: {
+				type: String,
+				observer: '_onDescriptionChange'
+			},
 			_image: String,
 			_organizationUrl: String,
 			_sequenceLink: String,
@@ -352,7 +367,11 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				value: false
 			},
 			_organizationHomepageUrl: String,
-			_ariaText: String
+			_ariaText: String,
+			_descriptionLineCount: {
+				type: Number,
+				value: 3
+			}
 		};
 	}
 	static get observers() {
@@ -414,6 +433,40 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	}
 	_onResize(e) {
 		this._mobile = e.detail.current.width <= 389;
+		this._clampDescription(this._description);
+	}
+	_onDescriptionChange(description) {
+		this._clampDescription(description);
+	}
+	_clampDescription(description) {
+		if (!description) return;
+		const p = this.shadowRoot.querySelector('.dedc-description-p');
+		const measureP = this.shadowRoot.querySelector('.dedc-description-container-offscreen');
+		let currentLineNumber = 0;
+		window.fastdom.measure(() => {
+			const height = window.getComputedStyle(measureP).getPropertyValue('line-height').match(/\d+/);
+			const lineHeight = height && height[0];
+			currentLineNumber = measureP.offsetHeight / lineHeight;
+		});
+		window.fastdom.mutate(() => {
+			if (currentLineNumber <= this._descriptionLineCount || currentLineNumber <= 1) {
+				return;
+			}
+			/**
+			 * Let l be the number of lines
+			 * Let n(l) be the number of chars as a function of l
+			 * let a be the average number of chars per line
+			 * Then: a/l < n(l) / 2(l-1) < a < n(l)/(l-1) < a + 1/l
+			 * Average of the two bounds around a is 3 * n(l) / 4(l-1) ~ a and as l -> infinity this value tends to a
+			 * n(l) grows on par with 4 (l-1) so it probably converages by inspection. If it does converge then it will to a.
+			 */
+			const avgCharPerLine = 3 * description.length / (4 * (currentLineNumber - 1));
+			description = description.substring(0, avgCharPerLine * (this._descriptionLineCount));
+			description = description.replace(/\W*\s(\S)*$/, '');
+			description += '...';
+			p.textContent = description;
+
+		});
 	}
 }
 
