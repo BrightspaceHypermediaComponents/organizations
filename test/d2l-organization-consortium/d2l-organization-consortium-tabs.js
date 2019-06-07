@@ -1,6 +1,5 @@
 import {organization1, organization2, root1, root2, consortium} from './data.js';
 
-
 describe('d2l-organization-consortium-tabs', () => {
 	var sandbox;
 	beforeEach(() => {
