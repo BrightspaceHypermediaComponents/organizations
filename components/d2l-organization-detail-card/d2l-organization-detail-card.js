@@ -368,7 +368,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			},
 			_organizationHomepageUrl: String,
 			_ariaText: String,
-			_descriptionLineCount: {
+			_maxLinesToShow: {
 				type: Number,
 				value: 3
 			}
@@ -449,7 +449,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			currentLineNumber = lineHeight ? measureP.offsetHeight / lineHeight : 0;
 		});
 		window.fastdom.mutate(() => {
-			if (currentLineNumber <= this._descriptionLineCount || currentLineNumber <= 1) {
+			if (currentLineNumber <= this._maxLinesToShow || currentLineNumber <= 1) {
 				return;
 			}
 			/**
@@ -461,7 +461,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			 * n(l) grows on par with 4 (l-1) so it probably converages by inspection. If it does converge then it will to a.
 			 */
 			const avgCharPerLine = 3 * description.length / (4 * (currentLineNumber - 1));
-			description = description.substring(0, avgCharPerLine * (this._descriptionLineCount));
+			description = description.substring(0, avgCharPerLine * (this._maxLinesToShow));
 			description = description.replace(/\W*\s(\S)*$/, '');
 			description += '...';
 			p.textContent = description;
