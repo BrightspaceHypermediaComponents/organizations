@@ -61,10 +61,10 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				white-space: nowrap;
 				word-break: break-all;
 			}
-			#selected {
+			div[selected] {
 				background: white;
 			}
-			#selected > a {
+			div[selected] > a {
 				color: grey;
 			}
 			#tabBox {
@@ -74,7 +74,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		</style>
 		<div id="tabBox">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<div class="tab" id$="[[_isSelected(item)]]">
+				<div class="tab" selected$="[[_isSelected(item)]]">
 					<a href="[[item.href]]">[[item.name]]</a>
 				</div>
 			</template>
@@ -88,7 +88,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	}
 
 	_isSelected(item) {
-		return this.selected === item.name ? 'selected' : false;
+		return this.selected === item.name;
 	}
 
 	_sortOrder(item1, item2) {
