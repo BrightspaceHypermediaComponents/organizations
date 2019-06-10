@@ -16,9 +16,30 @@ import '../d2l-organization-behavior.js';
  * @polymer
  */
 class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
-	constructor() {
-		super();
-		this._setEntityType(ConsortiumTokenCollectionEntity);
+
+	static get is() { return 'd2l-organization-consortium-tabs'; }
+
+	static get properties() {
+		return {
+			selected: {
+				type: String,
+				reflectToAttribute: true
+			},
+			_organizations: {
+				type: Object,
+				value: {}
+			},
+			_parsedOrganizations: {
+				type: Array,
+				computed: '_computeParsedOrganizations(_organizations.*)'
+			}
+		};
+	}
+
+	static get observers() {
+		return [
+			'_onConsortiumChange(_entity)'
+		];
 	}
 
 	static get template() {
@@ -26,7 +47,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		<style>
 			a {
 				color: white;
-				font-size: 12px;
+				font-size: 0.6rem;
 				padding: 0px 5px;
 				text-decoration: none;
 			}
@@ -34,7 +55,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				background: rgb(0,0,0,.4);
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
-				line-height: 17px;
+				line-height: 1.0625rem;
 				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -52,7 +73,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			}
 		</style>
 		<div id="tabBox">
-			<template items="[[parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
+			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
 				<div class="tab" id$="[[_isSelected(item)]]">
 					<a href="[[item.href]]">[[item.name]]</a>
 				</div>
@@ -60,30 +81,32 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		</div>
 		`;
 	}
+
+	constructor() {
+		super();
+		this._setEntityType(ConsortiumTokenCollectionEntity);
+	}
+
 	_isSelected(item) {
 		return this.selected === item.name ? 'selected' : false;
 	}
+
 	_sortOrder(item1, item2) {
 		return item1.name.localeCompare(item2.name);
 	}
+
 	_onConsortiumChange(consotriumTokenCollection) {
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
-					this.set(`organizations.${orgEntity.code() || orgEntity.name()}`, orgEntity.fullyQualifiedOrganizationHomepageUrl());
+					this.set(`_organizations.${orgEntity.code() || orgEntity.name()}`, orgEntity.fullyQualifiedOrganizationHomepageUrl());
 				});
 			});
 		});
 	}
 
-	static get observers() {
-		return [
-			'_onConsortiumChange(_entity)'
-		];
-	}
-
 	_computeParsedOrganizations() {
-		const currentOrganizations = this.organizations;
+		const currentOrganizations = this._organizations;
 		return Object.keys(currentOrganizations).map(function(key) {
 			return {
 				name: key,
@@ -91,26 +114,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			};
 		});
 	}
-
-	static get properties() {
-		return {
-			selected: {
-				type: String,
-				reflectToAttribute: true
-			},
-			organizations: {
-				type: Object,
-				value: {},
-				notify: true
-			},
-			parsedOrganizations: {
-				type: Array,
-				computed: '_computeParsedOrganizations(organizations.*)'
-			}
-		};
-	}
-
-	static get is() { return 'd2l-organization-consortium-tabs'; }
 
 }
 
