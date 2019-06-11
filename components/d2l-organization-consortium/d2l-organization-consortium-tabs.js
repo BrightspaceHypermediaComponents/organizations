@@ -58,7 +58,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			div[selected] > a {
 				color: grey;
 			}
-			.tab {
+			.d2l-consortium-tab {
 				background: rgb(0,0,0,.4);
 				border-top-left-radius: 5px;
 				border-top-right-radius: 5px;
@@ -68,14 +68,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				white-space: nowrap;
 				word-break: break-all;
 			}
-			.tabBox {
+			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
 			}
 		</style>
-		<div class="tabBox">
+		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<div class="tab" selected$="[[_isSelected(item)]]">
+				<div class="d2l-consortium-tab" selected$="[[_isSelected(item)]]">
 					<a href="[[item.href]]">[[item.name]]</a>
 				</div>
 			</template>
