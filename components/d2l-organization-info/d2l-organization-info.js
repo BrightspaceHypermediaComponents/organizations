@@ -19,11 +19,30 @@ import '../d2l-organization-behavior.js';
 class OrganizationInfo extends mixinBehaviors([
 	D2L.PolymerBehaviors.Organization.Behavior
 ], EntityMixin(PolymerElement)) {
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
+	static get is() { return 'd2l-organization-info'; }
+	static get observers() {
+		return [
+			'_onOrganizationChange(_entity)',
+			'_setSemesterName(showSemesterName)',
+			'_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)'
+		];
 	}
+	static get properties() {
+		return {
+			showOrganizationCode: {
+				type: Boolean,
+				value: false
+			},
+			showSemesterName: {
+				type: Boolean,
+				value: false
+			},
 
+			_semesterHref: String,
+			_organizationCode: String,
+			_semesterName: String,
+		};
+	}
 	static get template() {
 		return html`
 			<style>
@@ -49,37 +68,13 @@ class OrganizationInfo extends mixinBehaviors([
 			</span>
 		`;
 	}
-	static get properties() {
-		return {
-			showOrganizationCode: {
-				type: Boolean,
-				value: false
-			},
-			showSemesterName: {
-				type: Boolean,
-				value: false
-			},
-
-			_semesterHref: String,
-			_organizationCode: String,
-			_semesterName: String,
-		};
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
 	}
-
-	static get observers() {
-		return [
-			'_onOrganizationChange(_entity)',
-			'_setSemesterName(showSemesterName)',
-			'_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)'
-		];
-	}
-
-	static get is() { return 'd2l-organization-info'; }
-
 	ready() {
 		super.ready();
 	}
-
 	_onOrganizationChange(organization) {
 		this._organizationCode = organization.code();
 		this._setSemesterName(this.showSemesterName);
