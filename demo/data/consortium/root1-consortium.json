@@ -1,0 +1,18 @@
+{
+  "properties": { },
+  "classes": [],
+  "entities": [],
+  "links": [
+    {
+      "rel": ["https://api.brightspace.com/rels/enrollments"],
+      "href": "../enrollments.json"
+    },
+    {
+      "rel": ["self"],
+      "href": "root1-consortium.json"
+    }, {
+      "rel": ["https://api.brightspace.com/rels/organization"],
+      "href": "../data/consortium/organization1-consortium.json"
+    }
+  ]
+}
