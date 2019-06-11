@@ -61,7 +61,6 @@
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "siren-parser": "^8.0.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1",
-    "sort-class-members-codemod": "^0.5.1",
     "whatwg-fetch": "^3.0.0"
   }
 }
