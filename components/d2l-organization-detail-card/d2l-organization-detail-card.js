@@ -19,9 +19,47 @@ import 'fastdom/fastdom.min.js';
 class D2lOrganizationDetailCard extends mixinBehaviors([
 	D2L.PolymerBehaviors.FocusableBehavior
 ], EntityMixin(PolymerElement)) {
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
+
+	static get observers() {
+		return [
+			'_onOrganizationChange(_entity)'
+		];
+	}
+
+	static get properties() {
+		return {
+			baseFocus: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			moduleListFocus: {
+				type: Boolean,
+				value: false,
+				reflectToAttribute: true
+			},
+			active: {
+				type: Boolean,
+				computed: '_computeActive(moduleListFocus, baseFocus)',
+				reflectToAttribute: true
+			},
+			_description: String,
+			_image: String,
+			_organizationUrl: String,
+			_sequenceLink: String,
+			_showTags: {
+				type: Boolean,
+				value: false
+			},
+			_tags: String,
+			_title: String,
+			_mobile: {
+				type: Boolean,
+				value: false
+			},
+			_organizationHomepageUrl: String,
+			_ariaText: String
+		};
 	}
 
 	static get template() {
@@ -319,46 +357,9 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			</d2l-resize-aware>
 		`;
 	}
-
-	static get properties() {
-		return {
-			baseFocus: {
-				type: Boolean,
-				value: false,
-				reflectToAttribute: true
-			},
-			moduleListFocus: {
-				type: Boolean,
-				value: false,
-				reflectToAttribute: true
-			},
-			active: {
-				type: Boolean,
-				computed: '_computeActive(moduleListFocus, baseFocus)',
-				reflectToAttribute: true
-			},
-			_description: String,
-			_image: String,
-			_organizationUrl: String,
-			_sequenceLink: String,
-			_showTags: {
-				type: Boolean,
-				value: false
-			},
-			_tags: String,
-			_title: String,
-			_mobile: {
-				type: Boolean,
-				value: false
-			},
-			_organizationHomepageUrl: String,
-			_ariaText: String
-		};
-	}
-	static get observers() {
-		return [
-			'_onOrganizationChange(_entity)'
-		];
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
 	}
 	connectedCallback() {
 		super.connectedCallback();

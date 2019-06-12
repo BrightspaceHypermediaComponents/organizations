@@ -25,10 +25,53 @@ class OrganizationUpdates extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Organization.Updates.Behavior
 ], EntityMixin(PolymerElement)) {
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
+	static get is() {
+		return 'd2l-organization-updates';
 	}
+	static get observers() {
+		return [
+			'_getNotificationsEntity(_entity)',
+			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions)'
+		];
+	}
+	static get properties() {
+		return {
+			combined: {
+				type: Boolean,
+				reflectToAttribute: true,
+				value: false
+			},
+			showDropboxUnreadFeedback: {
+				type: Boolean,
+				value: false
+			},
+			showUnattemptedQuizzes: {
+				type: Boolean,
+				value: false
+			},
+			showUngradedQuizAttempts: {
+				type: Boolean,
+				value: false
+			},
+			showUnreadDiscussionMessages: {
+				type: Boolean,
+				value: false
+			},
+			showUnreadDropboxSubmissions: {
+				type: Boolean,
+				value: false
+			},
+			_notifications: {
+				type: Array,
+				value: function() { return []; }
+			},
+			_notificationList: {
+				type: Array,
+				value: function() { return []; }
+			}
+		};
+	}
+
 	static get template() {
 		return html`
 			<style>
@@ -139,56 +182,10 @@ class OrganizationUpdates extends mixinBehaviors([
 			</template>
 		`;
 	}
-
-	static get properties() {
-		return {
-			combined: {
-				type: Boolean,
-				reflectToAttribute: true,
-				value: false
-			},
-			showDropboxUnreadFeedback: {
-				type: Boolean,
-				value: false
-			},
-			showUnattemptedQuizzes: {
-				type: Boolean,
-				value: false
-			},
-			showUngradedQuizAttempts: {
-				type: Boolean,
-				value: false
-			},
-			showUnreadDiscussionMessages: {
-				type: Boolean,
-				value: false
-			},
-			showUnreadDropboxSubmissions: {
-				type: Boolean,
-				value: false
-			},
-			_notifications: {
-				type: Array,
-				value: function() { return []; }
-			},
-			_notificationList: {
-				type: Array,
-				value: function() { return []; }
-			}
-		};
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
 	}
-
-	static get observers() {
-		return [
-			'_getNotificationsEntity(_entity)',
-			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions)'
-		];
-	}
-
-	static get is() {
-		return 'd2l-organization-updates';
-	}
-
 	_getNotificationsEntity(organizationEntity) {
 
 		organizationEntity.onNotificationsChange(
