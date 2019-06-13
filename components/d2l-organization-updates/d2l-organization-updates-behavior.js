@@ -81,13 +81,14 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 				}.bind(this))
 				: null;
 
+			var ariaLabel = toolTip && toolTip.join(', ');
 			var element = {
 				key: key,
 				order: notification[key].order,
 				isDisabled: (notification[key].updateCount <= 0),
 				updateCount: (notification[key].updateCount > maxCount) ? maxCount + '+' : notification[key].updateCount,
 				toolTip: toolTip,
-				ariaLabel: this.localize(key, 'number', notification[key].updateCount),
+				ariaLabel: ariaLabel,
 				icon: notification[key].icon,
 				link: notification[key].link
 			};
