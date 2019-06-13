@@ -20,17 +20,7 @@ class OrganizationDate extends mixinBehaviors([
 	D2L.PolymerBehaviors.Organization.Behavior
 ], EntityMixin(PolymerElement)) {
 
-	static get is() {
-		return 'd2l-organization-date';
-	}
-
-	static get observers() {
-		return [
-			'_getOrganizationDate(_entity)',
-			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
-			'_sendVoiceReaderInfo(_statusText)'
-		];
-	}
+	static get is() { return 'd2l-organization-date'; }
 
 	static get properties() {
 		return {
@@ -48,6 +38,14 @@ class OrganizationDate extends mixinBehaviors([
 			},
 			_entityStatus: String
 		};
+	}
+
+	static get observers() {
+		return [
+			'_getOrganizationDate(_entity)',
+			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
+			'_sendVoiceReaderInfo(_statusText)'
+		];
 	}
 
 	static get template() {

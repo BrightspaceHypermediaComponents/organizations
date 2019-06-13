@@ -10,11 +10,6 @@ import 'd2l-course-image/d2l-course-image.js';
  */
 class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 
-	static get observers() {
-		return [
-			'_onOrganizationChange(_entity)'
-		];
-	}
 	static get properties() {
 		return {
 			tileSizes: {
@@ -42,15 +37,24 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 			_image: String
 		};
 	}
+
+	static get observers() {
+		return [
+			'_onOrganizationChange(_entity)'
+		];
+	}
+
 	static get template() {
 		return html`
 			<d2l-course-image image="[[_image]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
 		`;
 	}
+
 	constructor() {
 		super();
 		this._setEntityType(OrganizationEntity);
 	}
+
 	attached() {
 		super.attached();
 		afterNextRender(this, () => {

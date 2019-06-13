@@ -19,14 +19,9 @@ import '../d2l-organization-behavior.js';
 class OrganizationInfo extends mixinBehaviors([
 	D2L.PolymerBehaviors.Organization.Behavior
 ], EntityMixin(PolymerElement)) {
+
 	static get is() { return 'd2l-organization-info'; }
-	static get observers() {
-		return [
-			'_onOrganizationChange(_entity)',
-			'_setSemesterName(showSemesterName)',
-			'_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)'
-		];
-	}
+
 	static get properties() {
 		return {
 			showOrganizationCode: {
@@ -43,6 +38,15 @@ class OrganizationInfo extends mixinBehaviors([
 			_semesterName: String,
 		};
 	}
+
+	static get observers() {
+		return [
+			'_onOrganizationChange(_entity)',
+			'_setSemesterName(showSemesterName)',
+			'_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, _organizationCode, _semesterName)'
+		];
+	}
+
 	static get template() {
 		return html`
 			<style>
@@ -68,13 +72,16 @@ class OrganizationInfo extends mixinBehaviors([
 			</span>
 		`;
 	}
+
 	constructor() {
 		super();
 		this._setEntityType(OrganizationEntity);
 	}
+
 	ready() {
 		super.ready();
 	}
+
 	_onOrganizationChange(organization) {
 		this._organizationCode = organization.code();
 		this._setSemesterName(this.showSemesterName);

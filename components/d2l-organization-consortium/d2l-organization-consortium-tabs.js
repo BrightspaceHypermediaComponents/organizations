@@ -19,12 +19,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get is() { return 'd2l-organization-consortium-tabs'; }
 
-	static get observers() {
-		return [
-			'_onConsortiumChange(_entity)'
-		];
-	}
-
 	static get properties() {
 		return {
 			selected: {
@@ -40,6 +34,12 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				computed: '_computeParsedOrganizations(_organizations.*)'
 			}
 		};
+	}
+
+	static get observers() {
+		return [
+			'_onConsortiumChange(_entity)'
+		];
 	}
 
 	static get template() {
