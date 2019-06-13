@@ -20,12 +20,6 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	D2L.PolymerBehaviors.FocusableBehavior
 ], EntityMixin(PolymerElement)) {
 
-	static get observers() {
-		return [
-			'_onOrganizationChange(_entity)'
-		];
-	}
-
 	static get properties() {
 		return {
 			baseFocus: {
@@ -60,6 +54,12 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			_organizationHomepageUrl: String,
 			_ariaText: String
 		};
+	}
+
+	static get observers() {
+		return [
+			'_onOrganizationChange(_entity)'
+		];
 	}
 
 	static get template() {

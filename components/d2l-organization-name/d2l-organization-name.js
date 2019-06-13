@@ -18,27 +18,33 @@ import '../d2l-organization-behavior.js';
 class OrganizationName extends mixinBehaviors([
 	D2L.PolymerBehaviors.Organization.Behavior
 ], EntityMixin(PolymerElement)) {
+
 	static get is() { return 'd2l-organization-name'; }
+
+	static get properties() {
+		return {
+			_organizationName: String
+		};
+	}
+
 	static get observers() {
 		return [
 			'_onOrganizationChange(_entity)',
 			'_sendVoiceReaderInfo(_organizationName)'
 		];
 	}
-	static get properties() {
-		return {
-			_organizationName: String
-		};
-	}
+
 	static get template() {
 		return html`
 			[[_organizationName]]
 		`;
 	}
+
 	constructor() {
 		super();
 		this._setEntityType(OrganizationEntity);
 	}
+
 	_onOrganizationChange(organization) {
 		this._organizationName = organization.name();
 	}

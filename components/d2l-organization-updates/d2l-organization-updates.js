@@ -25,15 +25,9 @@ class OrganizationUpdates extends mixinBehaviors([
 	D2L.PolymerBehaviors.Siren.EntityBehavior,
 	D2L.PolymerBehaviors.Organization.Updates.Behavior
 ], EntityMixin(PolymerElement)) {
-	static get is() {
-		return 'd2l-organization-updates';
-	}
-	static get observers() {
-		return [
-			'_getNotificationsEntity(_entity)',
-			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions)'
-		];
-	}
+
+	static get is() { return 'd2l-organization-updates'; }
+
 	static get properties() {
 		return {
 			combined: {
@@ -70,6 +64,13 @@ class OrganizationUpdates extends mixinBehaviors([
 				value: function() { return []; }
 			}
 		};
+	}
+
+	static get observers() {
+		return [
+			'_getNotificationsEntity(_entity)',
+			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions)'
+		];
 	}
 
 	static get template() {
@@ -182,10 +183,12 @@ class OrganizationUpdates extends mixinBehaviors([
 			</template>
 		`;
 	}
+
 	constructor() {
 		super();
 		this._setEntityType(OrganizationEntity);
 	}
+
 	_getNotificationsEntity(organizationEntity) {
 
 		organizationEntity.onNotificationsChange(
