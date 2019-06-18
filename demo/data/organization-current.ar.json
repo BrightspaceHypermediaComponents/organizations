@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "name": "Course Name",
+    "code": "SCI100",
+    "startDate": "2000-01-01T00:00:00.000Z",
+    "endDate": "2100-01-01T00:00:00.000Z",
+    "isActive": true,
+    "description": "سجلات الحضور هي إدخالات تقوم بإنشائها لتعقب الحضور في جميع النشاطات في مؤسستك أو مقررك التعليمي. يمكنك مثلاً إنشاء سجلات حضور لتعقب الحضور في جلسات المحادثة أو الندوات الأسبوعية أو الاجتماعات الإلزامية. استخدم السجلات لتحديد جلسات العمل وتوقعات الحضور والمستخدمين القابلين للتطبيق وإدخال البيانات لدى إكمال كل جلسة عمل. انقر فوق اسم سجل لعرض تغييرات أو إجرائها على بيانات الحضور."
+  },
+  "entities":[
+    {
+       "class":[
+          "course-image"
+       ],
+       "rel":[
+          "https://api.brightspace.com/rels/organization-image"
+       ],
+       "href":"../data/image.json"
+    }
+ ],
+  "links": [{
+    "rel": ["self"],
+    "href": "../data/organization-current.json"
+  }, {
+    "rel": ["https://api.brightspace.com/rels/parent-semester"],
+    "href": "../data/semester.json"
+  },{
+    "rel":[
+       "https://notifications.api.brightspace.com/rels/organization-notifications"
+    ],
+    "href":"../data/notification.json"
+  }]
+}

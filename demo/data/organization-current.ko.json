@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "name": "Course Name",
+    "code": "SCI100",
+    "startDate": "2000-01-01T00:00:00.000Z",
+    "endDate": "2100-01-01T00:00:00.000Z",
+    "isActive": true,
+    "description": "출석 등록부는 조직 또는 강의에 포함된 활동에 대한 출석 상태를 추적하기 위해 생성하는 항목입니다. 예를 들어, 필수 채팅 세션, 매주 세미나 또는 회합에 대한 출석 상태를 추적하기 위한 목적으로 출석 등록부를 생성할 수 있습니다. 세션, 출석 기대 사항 및 해당 사용자를 정의하기 위한 용도로 등록부를 사용하고, 각 세션을 마칠 때 데이터를 입력하십시오. 출석 데이터를 보거나 변경하려면 등록부의 이름을 클릭하십시오."
+  },
+  "entities":[
+    {
+       "class":[
+          "course-image"
+       ],
+       "rel":[
+          "https://api.brightspace.com/rels/organization-image"
+       ],
+       "href":"../data/image.json"
+    }
+ ],
+  "links": [{
+    "rel": ["self"],
+    "href": "../data/organization-current.json"
+  }, {
+    "rel": ["https://api.brightspace.com/rels/parent-semester"],
+    "href": "../data/semester.json"
+  },{
+    "rel":[
+       "https://notifications.api.brightspace.com/rels/organization-notifications"
+    ],
+    "href":"../data/notification.json"
+  }]
+}

@@ -1,0 +1,33 @@
+{
+  "properties": {
+    "name": "Course Name",
+    "code": "SCI100",
+    "startDate": "2000-01-01T00:00:00.000Z",
+    "endDate": "2100-01-01T00:00:00.000Z",
+    "isActive": true,
+    "description": "考勤簿是创建用于跟踪组织或课程活动考勤的条目。 例如，您可以创建考勤簿，以跟踪强制聊天会话、每周研讨会或会议的考勤。 使用考勤簿定义会话、预期考勤和适用用户，并在完成每次会话时输入数据。单击考勤簿的名称可查看考勤数据或对其进行更改"
+  },
+  "entities":[
+    {
+       "class":[
+          "course-image"
+       ],
+       "rel":[
+          "https://api.brightspace.com/rels/organization-image"
+       ],
+       "href":"../data/image.json"
+    }
+ ],
+  "links": [{
+    "rel": ["self"],
+    "href": "../data/organization-current.json"
+  }, {
+    "rel": ["https://api.brightspace.com/rels/parent-semester"],
+    "href": "../data/semester.json"
+  },{
+    "rel":[
+       "https://notifications.api.brightspace.com/rels/organization-notifications"
+    ],
+    "href":"../data/notification.json"
+  }]
+}

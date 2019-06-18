@@ -440,6 +440,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	}
 	_clampDescription(description) {
 		if (!description) return;
+
 		const p = this.shadowRoot.querySelector('.dedc-description-p');
 		const measureP = this.shadowRoot.querySelector('.dedc-description-container-offscreen');
 		let currentLineNumber = 0;
@@ -462,8 +463,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			 */
 			const avgCharPerLine = 3 * description.length / (4 * (currentLineNumber - 1));
 			description = description.substring(0, avgCharPerLine * (this._maxLinesToShow));
-			description = description.replace(/\W*\s(\S)*$/, '');
-			description += '...';
+			description = description.replace(/[^\s\S]*(\s\S)*$/, '...');
 			p.textContent = description;
 
 		});
