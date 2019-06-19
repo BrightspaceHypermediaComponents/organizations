@@ -1,11 +1,38 @@
 {
-   "unapprovedDiscussions" : "{number} nicht genehmigte Diskussionen",
-   "unattemptedQuizzes" : "{number} nicht beantwortete Tests",
-   "ungradedQuizzes" : "{number} nicht bewertete Tests",
-   "unreadAssignmentFeedback" : "{number} ungelesene Feedbacks zu Aufgaben",
-   "unreadAssignmentSubmissions" : "{number} ungelesene abgegebene Aufgaben",
-   "unreadDiscussionFeedback" : "{number} ungelesene Feedbacks zu Diskussionen",
-   "unreadDiscussions" : "{number} ungelesene Diskussionen",
-   "unreadQuizzesFeedback" : "{number} ungelesene Feedbacks zu Tests",
-   "updates" : "Aktualisierungen"
+  "unapprovedDiscussions": {
+    "translation": "{number} nicht genehmigte Diskussionen",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{number} nicht beantwortete Tests",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{number} nicht bewertete Tests",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{number} ungelesene Feedbacks zu Aufgaben",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{number} ungelesene abgegebene Aufgaben",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{number} ungelesene Feedbacks zu Diskussionen",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{number} ungelesene Diskussionen",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{number} ungelesene Feedbacks zu Tests",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "Aktualisierungen",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }

@@ -9,16 +9,15 @@ import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import '../d2l-organization-behavior.js';
-import './localize-behavior.js';
+import { OrganizationDateLocalize } from './OrganizationDateLocalize.js';
 
 /**
  * @customElement
  * @polymer
  */
 class OrganizationDate extends mixinBehaviors([
-	D2L.PolymerBehaviors.Organization.Date.LocalizeBehavior,
 	D2L.PolymerBehaviors.Organization.Behavior
-], EntityMixin(PolymerElement)) {
+], EntityMixin(OrganizationDateLocalize(PolymerElement))) {
 
 	static get is() { return 'd2l-organization-date'; }
 

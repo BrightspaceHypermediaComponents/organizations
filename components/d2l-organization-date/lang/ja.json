@@ -1,5 +1,14 @@
 {
-   "ended" : "{date} {time} に終了済み",
-   "endsAt" : "{date} {time} に終了",
-   "startsAt" : "{date} {time} に開始"
+  "ended": {
+    "translation": "{date} {time} に終了済み",
+    "context": "End date and time that is in the past"
+  },
+  "endsAt": {
+    "translation": "{date} {time} に終了",
+    "context": "End date and time that is in the future."
+  },
+  "startsAt": {
+    "translation": "{date} {time} に開始",
+    "context": "Start date and time that is in the future"
+  }
 }

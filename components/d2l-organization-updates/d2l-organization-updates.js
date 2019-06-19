@@ -6,25 +6,20 @@ Polymer-based web component for a organization updates.
 @demo demo/d2l-organization-updates/d2l-organization-updates-demo.html Organization Updates
 */
 
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
-import 'd2l-polymer-siren-behaviors/store/entity-behavior.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
-import './d2l-organization-updates-behavior.js';
+import { OrganizationUpdatesMixin } from './OrganizationUpdatesMixin.js';
 
 /**
  * @customElement
  * @polymer
  */
 
-class OrganizationUpdates extends mixinBehaviors([
-	D2L.PolymerBehaviors.Siren.EntityBehavior,
-	D2L.PolymerBehaviors.Organization.Updates.Behavior
-], EntityMixin(PolymerElement)) {
+class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-updates'; }
 
@@ -190,7 +185,6 @@ class OrganizationUpdates extends mixinBehaviors([
 	}
 
 	_getNotificationsEntity(organizationEntity) {
-
 		organizationEntity.onNotificationsChange(
 			(notificationCollection) => {
 				this._notificationList = notificationCollection.getNotifications();
