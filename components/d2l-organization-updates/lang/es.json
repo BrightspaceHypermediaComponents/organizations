@@ -1,11 +1,38 @@
 {
-   "unapprovedDiscussions" : "{number} debates no aprobados",
-   "unattemptedQuizzes" : "{number} cuestionarios sin responder",
-   "ungradedQuizzes" : "{number} cuestionarios no calificados",
-   "unreadAssignmentFeedback" : "{number} comentarios de asignación sin leer",
-   "unreadAssignmentSubmissions" : "{number} envíos de asignación sin leer",
-   "unreadDiscussionFeedback" : "{number} comentarios de debate sin leer",
-   "unreadDiscussions" : "{number} debates sin leer",
-   "unreadQuizzesFeedback" : "{number} comentarios de cuestionario sin leer",
-   "updates" : "actualizaciones"
+  "unapprovedDiscussions": {
+    "translation": "{number} debates no aprobados",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{number} cuestionarios sin responder",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{number} cuestionarios no calificados",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{number} comentarios de asignación sin leer",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{number} envíos de asignación sin leer",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{number} comentarios de debate sin leer",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{number} debates sin leer",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{number} comentarios de cuestionario sin leer",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "actualizaciones",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const sergeDirectories = require('../organizations.serge.json');
 const englishFile = 'en.json';
+
 sergeDirectories.forEach((sergeComponent) => {
 	const directory = sergeComponent.source_dir + '/';
 	fs.readdir(directory, (err, filenames) => {
@@ -34,9 +35,9 @@ sergeDirectories.forEach((sergeComponent) => {
 						throw err;
 					}
 
-					const obj = JSON.parse(data);
-					const sortedObject = {};
-					Object.keys(obj).sort((a, b) => {
+					const currentLang = JSON.parse(data);
+					const sortedcurrentLang = {};
+					Object.keys(englishContent).sort((a, b) => {
 						a = a.toLowerCase();
 						b = b.toLowerCase();
 						if (a < b) {
@@ -46,18 +47,17 @@ sergeDirectories.forEach((sergeComponent) => {
 						}
 						return 0;
 					}).forEach((key) => {
-						if (englishContent[key] && englishContent[key].context) {
-							sortedObject[key] = {
-								translation: obj[key].translation,
+						if (englishContent[key]) {
+							sortedcurrentLang[key] = {
+								translation: (currentLang[key] && currentLang[key].translation) || englishContent[key].translation,
 								context: englishContent[key].context
 							};
 						}
 					});
 
-					var json = JSON.stringify(sortedObject, null, 2);
+					var json = JSON.stringify(sortedcurrentLang, null, 2);
 					fs.writeFile(filename, json, (err) => {
 						if (err) throw err;
-						console.log('The file has been saved!');
 					});
 				});
 			});

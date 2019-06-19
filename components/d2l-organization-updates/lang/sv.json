@@ -1,11 +1,38 @@
 {
-   "unapprovedDiscussions" : "{number} ej godkända diskussioner",
-   "unattemptedQuizzes" : "{number} ej gjorda förhör",
-   "ungradedQuizzes" : "{number} ej betygsatta förhör",
-   "unreadAssignmentFeedback" : "{number} oläst uppgift, feedback",
-   "unreadAssignmentSubmissions" : "{number} olästa uppgifter, inlämningar",
-   "unreadDiscussionFeedback" : "{number} oläst diskussion, feedback",
-   "unreadDiscussions" : "{number} olästa diskussioner",
-   "unreadQuizzesFeedback" : "{number} olästa förhör, feedback",
-   "updates" : "uppdateringar"
+  "unapprovedDiscussions": {
+    "translation": "{number} ej godkända diskussioner",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{number} ej gjorda förhör",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{number} ej betygsatta förhör",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{number} oläst uppgift, feedback",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{number} olästa uppgifter, inlämningar",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{number} oläst diskussion, feedback",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{number} olästa diskussioner",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{number} olästa förhör, feedback",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "uppdateringar",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }

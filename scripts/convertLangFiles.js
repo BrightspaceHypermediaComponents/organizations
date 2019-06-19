@@ -12,28 +12,29 @@ sergeDirectories.forEach((sergeComponent) => {
 
 			fs.exists(filename, exists => {
 				if (!exists) {
-					console.log("file not exists");
-					return;
+					throw 'file not exists';
 				}
 
 				fs.readFile(filename, (err, data) => {
 					if (err) {
-						console.log(err);
-						return;
+						throw err;
 					}
 
 					const obj = JSON.parse(data);
 					Object.keys(obj).forEach((key) => {
-						obj[key] = {
-							translation: obj[key],
-							context: ''
-						};
+						if (typeof(obj[key]) === 'string') {
+							obj[key] = {
+								translation: obj[key],
+								context: ''
+							};
+						}
 					});
 
 					var json = JSON.stringify(obj, null, 2);
 					fs.writeFile(filename, json, (err) => {
-						if (err) throw err;
-						console.log('The file has been saved!');
+						if (err) {
+							throw err;
+						}
 					});
 				});
 			});

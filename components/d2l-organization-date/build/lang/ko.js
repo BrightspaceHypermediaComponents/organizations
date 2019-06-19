@@ -1,16 +1,18 @@
-/* eslint-disable quotes, indent */
-window.D2L = window.D2L || {};
-window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
-window.D2L.PolymerBehaviors.Organization = window.D2L.PolymerBehaviors.Organization || {};
-window.D2L.PolymerBehaviors.Organization.Date = window.D2L.PolymerBehaviors.Organization.Date || {};
-/**
- * This file is auto-generated. Do not modify.
- * @polymerBehavior D2L.PolymerBehaviors.Organization.Date.LangKoBehavior
- */
-D2L.PolymerBehaviors.Organization.Date.LangKoBehavior = {
-	'ko': {
-		"ended": "{date}일 {time}에 종료됨",
-		"endsAt": "{date}일 {time}에 종료",
-		"startsAt": "{date}일 {time}에 시작"
-}
+'use strict';
+
+import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+
+/* @polymerMixin */
+const LangKoImpl = (superClass) => class extends superClass {
+	constructor() {
+		super();
+		this.ko = {
+			'ended': '{date}일 {time}에 종료됨',
+			'endsAt': '{date}일 {time}에 종료',
+			'startsAt': '{date}일 {time}에 시작'
+		};
+	}
 };
+
+export const LangKo = dedupingMixin(LangKoImpl);
+
