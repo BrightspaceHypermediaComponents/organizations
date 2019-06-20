@@ -3,6 +3,9 @@
     "name": "Date",
     "source_dir": "components/d2l-organization-date/lang",
     "output_file_path": "components/d2l-organization-date/lang/%LANG%.json",
+    "parser_plugin": {
+      "plugin": "parse_d2l_fra"
+    },
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",
@@ -25,6 +28,9 @@
     "name": "Updates",
     "source_dir": "components/d2l-organization-updates/lang",
     "output_file_path": "components/d2l-organization-updates/lang/%LANG%.json",
+    "parser_plugin": {
+      "plugin": "parse_d2l_fra"
+    },
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",
