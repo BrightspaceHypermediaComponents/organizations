@@ -11,7 +11,7 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} ikke-afholdte eksaminationer',
 			'ungradedQuizzes': '{number} eksaminationer uden karakter',
 			'unreadAssignmentFeedback': '{number} ulæst opgavefeedback',
-			'unreadAssignmentSubmissions': '{number} Unread Assignment Submission Files',
+			'unreadAssignmentSubmissions': '{number} Ulæste opgaveafleveringsfiler',
 			'unreadDiscussionFeedback': '{number} ulæst diskussionsfeedback',
 			'unreadDiscussions': '{number} ulæste diskussioner',
 			'unreadQuizzesFeedback': '{number} ulæst eksaminationsfeedback',
@@ -21,4 +21,3 @@ const LangDadkImpl = (superClass) => class extends superClass {
 };
 
 export const LangDadk = dedupingMixin(LangDadkImpl);
-
