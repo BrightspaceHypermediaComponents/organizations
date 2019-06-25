@@ -11,7 +11,7 @@ const LangSvImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} ej gjorda förhör',
 			'ungradedQuizzes': '{number} ej betygsatta förhör',
 			'unreadAssignmentFeedback': '{number} oläst uppgift, feedback',
-			'unreadAssignmentSubmissions': '{number} olästa uppgifter, inlämningar',
+			'unreadAssignmentSubmissions': '{number} olästa uppgiftsinlämningsfiler',
 			'unreadDiscussionFeedback': '{number} oläst diskussion, feedback',
 			'unreadDiscussions': '{number} olästa diskussioner',
 			'unreadQuizzesFeedback': '{number} olästa förhör, feedback',
@@ -21,4 +21,3 @@ const LangSvImpl = (superClass) => class extends superClass {
 };
 
 export const LangSv = dedupingMixin(LangSvImpl);
-

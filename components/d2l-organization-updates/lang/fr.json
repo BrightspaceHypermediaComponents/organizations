@@ -16,7 +16,7 @@
     "context": "The amount of feedback comments that a user has not read about assignments"
   },
   "unreadAssignmentSubmissions": {
-    "translation": "{number} soumission(s) de travail non lue(s)",
+    "translation": "{number} Fichiers de soumission de travaux non lus",
     "context": "The number of assignment files that still need to be read."
   },
   "unreadDiscussionFeedback": {

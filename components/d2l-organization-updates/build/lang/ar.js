@@ -11,7 +11,7 @@ const LangArImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} من الاختبارات التي لم تتم أي محاولة لإجرائها',
 			'ungradedQuizzes': '{number} من الاختبارات التي لم توضَع علامة عليها',
 			'unreadAssignmentFeedback': '{number} من ملاحظات الفرض غير المقروءة',
-			'unreadAssignmentSubmissions': '{number} من إرسالات الفروض غير المقروءة',
+			'unreadAssignmentSubmissions': '{number} من ملفات إرسال الفروض غير المقروءة',
 			'unreadDiscussionFeedback': '{number} من ملاحظات المناقشة غير المقروءة',
 			'unreadDiscussions': '{number} من المناقشات غير المقروءة',
 			'unreadQuizzesFeedback': '{number} من ملاحظات الاختبارات غير المقروءة',
@@ -21,4 +21,3 @@ const LangArImpl = (superClass) => class extends superClass {
 };
 
 export const LangAr = dedupingMixin(LangArImpl);
-

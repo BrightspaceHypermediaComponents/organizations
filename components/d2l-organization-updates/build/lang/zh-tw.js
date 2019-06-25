@@ -11,7 +11,7 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} 個未嘗試測驗',
 			'ungradedQuizzes': '{number} 個未評分測驗',
 			'unreadAssignmentFeedback': '{number} 個未讀取的作業意見反應',
-			'unreadAssignmentSubmissions': '{number} 個未讀取的作業提交',
+			'unreadAssignmentSubmissions': '{number} 個未讀取的作業提交檔案',
 			'unreadDiscussionFeedback': '{number} 個未讀取的討論意見反應',
 			'unreadDiscussions': '{number} 個未讀取討論',
 			'unreadQuizzesFeedback': '{number} 個未讀取的測驗意見反應',
@@ -21,4 +21,3 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 };
 
 export const LangZhtw = dedupingMixin(LangZhtwImpl);
-

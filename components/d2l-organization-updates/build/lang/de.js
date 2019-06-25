@@ -11,7 +11,7 @@ const LangDeImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} nicht beantwortete Tests',
 			'ungradedQuizzes': '{number} nicht bewertete Tests',
 			'unreadAssignmentFeedback': '{number} ungelesene Feedbacks zu Aufgaben',
-			'unreadAssignmentSubmissions': '{number} ungelesene abgegebene Aufgaben',
+			'unreadAssignmentSubmissions': '{number} Ungelesene Übungs-Abgabedateien',
 			'unreadDiscussionFeedback': '{number} ungelesene Feedbacks zu Diskussionen',
 			'unreadDiscussions': '{number} ungelesene Diskussionen',
 			'unreadQuizzesFeedback': '{number} ungelesene Feedbacks zu Tests',
@@ -21,4 +21,3 @@ const LangDeImpl = (superClass) => class extends superClass {
 };
 
 export const LangDe = dedupingMixin(LangDeImpl);
-
