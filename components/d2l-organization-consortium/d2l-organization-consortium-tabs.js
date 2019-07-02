@@ -11,6 +11,7 @@ import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
+import 'd2l-polymer-behaviors/d2l-id.js';
 
 /**
  * @customElement
@@ -114,20 +115,16 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		});
 	}
 
-	_getId(name) {
-		return name.split(" ").join("-").toLowerCase();
-	}
-
 	_computeParsedOrganizations() {
 		const currentOrganizations = this._organizations;
 		return Object.keys(currentOrganizations).map(function(key) {
 			return {
-				id: this._getId(key),
+				id: D2L.Id.getUniqueId(),
 				name: key,
 				fullName: currentOrganizations[key].name,
 				href: currentOrganizations[key].href
 			};
-		}.bind(this));
+		});
 	}
 
 }
