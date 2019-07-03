@@ -23,12 +23,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get properties() {
 		return {
-			/**
-			 * A string to be used as the accessible label, which overrides text content.
-			*/
-			ariaLabel: {
-				type: String
-			},
 			selected: {
 				type: String,
 				reflectToAttribute: true
@@ -84,7 +78,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
 				<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
-					<a href="[[item.href]]" aria-label$="[[ariaLabel]]">[[item.name]]</a>
+					<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
 				</div>
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="top">
 					[[item.fullName]]
