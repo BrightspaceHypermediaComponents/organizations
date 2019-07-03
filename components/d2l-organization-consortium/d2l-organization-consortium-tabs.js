@@ -10,6 +10,8 @@ import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import '../d2l-organization-behavior.js';
+import 'd2l-tooltip/d2l-tooltip.js';
+import 'd2l-polymer-behaviors/d2l-id.js';
 
 /**
  * @customElement
@@ -75,9 +77,12 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		</style>
 		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<div class="d2l-consortium-tab" selected$="[[_isSelected(item)]]">
+				<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
 					<a href="[[item.href]]">[[item.name]]</a>
 				</div>
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="top">
+					[[item.fullName]]
+				</d2l-tooltip>
 			</template>
 		</div>
 		`;
@@ -100,7 +105,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
-					this.set(`_organizations.${orgEntity.code() || orgEntity.name()}`, orgEntity.fullyQualifiedOrganizationHomepageUrl());
+					this.set(`_organizations.${orgEntity.code() || orgEntity.name()}`, {
+						name: orgEntity.name(),
+						code: orgEntity.code(),
+						href: orgEntity.fullyQualifiedOrganizationHomepageUrl()
+					});
 				});
 			});
 		});
@@ -110,8 +119,10 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		const currentOrganizations = this._organizations;
 		return Object.keys(currentOrganizations).map(function(key) {
 			return {
+				id: D2L.Id.getUniqueId(),
 				name: key,
-				href: currentOrganizations[key]
+				fullName: currentOrganizations[key].name,
+				href: currentOrganizations[key].href
 			};
 		});
 	}
