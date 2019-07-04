@@ -77,9 +77,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		</style>
 		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
-					<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
-				</div>
+				<nav>
+					<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
+						<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
+					</div>
+				</nav>
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="top">
 					[[item.fullName]]
 				</d2l-tooltip>
