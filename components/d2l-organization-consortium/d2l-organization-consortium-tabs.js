@@ -9,6 +9,7 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
+import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
@@ -34,6 +35,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			_parsedOrganizations: {
 				type: Array,
 				computed: '_computeParsedOrganizations(_organizations.*)'
+			},
+			intervalId: Number,
+			alertsMap: {
+				type: Object,
+				value: {}
 			}
 		};
 	}
@@ -93,6 +99,24 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		this._setEntityType(ConsortiumTokenCollectionEntity);
 	}
 
+	connectedCallback() {
+		super.connectedCallback();
+		this.intervalId = window.setInterval(this.updateAlerts.bind(this), 60 * 1000);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.clearInterval(this.intervalId);
+	}
+
+	updateAlerts() {
+		for (var key in this.alertsMap) {
+			if (this.alertsMap.hasOwnProperty(key)) {
+				updateEntity(key, this.alertsMap[key]);
+			}
+		}
+	}
+
 	_isSelected(item) {
 		return this.selected === item.name;
 	}
@@ -105,11 +129,19 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
-					this.set(`_organizations.${orgEntity.code() || orgEntity.name()}`, {
-						name: orgEntity.name(),
-						code: orgEntity.code(),
-						href: orgEntity.fullyQualifiedOrganizationHomepageUrl()
+					orgEntity.onAlertsChange(alertsEntity => {
+						const unread = alertsEntity.hasUnread();
+						this.set(`_organizations.${orgEntity.code() || orgEntity.name()}`, {
+							name: orgEntity.name(),
+							code: orgEntity.code(),
+							href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
+							unread: unread
+						});
 					});
+
+					if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
+						this.alertsMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
+					}
 				});
 			});
 		});

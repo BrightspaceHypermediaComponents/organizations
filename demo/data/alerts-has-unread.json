@@ -1,0 +1,16 @@
+{
+    "class": [
+        "alerts"
+    ],
+    "properties": {
+        "hasUnread": true
+    },
+    "links": [
+        {
+            "rel": [
+                "self"
+            ],
+            "href": "../data/alerts-has-unread.json"
+        }
+    ]
+}
