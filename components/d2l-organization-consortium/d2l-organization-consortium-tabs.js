@@ -101,7 +101,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	connectedCallback() {
 		super.connectedCallback();
-		this.intervalId = window.setInterval(this.updateAlerts.bind(this), 60 * 1000);
+		this.intervalId = window.setInterval(this.updateAlerts.bind(this), 60 * 1000 * 3);
 	}
 
 	disconnectedCallback() {
