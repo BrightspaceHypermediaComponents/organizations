@@ -12,6 +12,7 @@ import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/Consor
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
+import 'd2l-navigation/d2l-navigation-notification-icon.js'
 
 /**
  * @customElement
@@ -74,12 +75,19 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				display: flex;
 				flex-wrap: nowrap;
 			}
+			.d2l-tab-container {
+				display: inline-block;
+				position: relative;
+			}
 		</style>
 		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
-					<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
-				</div>
+				<span class="d2l-tab-container">
+					<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
+						<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
+						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
+					</div>
+				</span>
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="top">
 					[[item.fullName]]
 				</d2l-tooltip>
@@ -122,7 +130,8 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				id: D2L.Id.getUniqueId(),
 				name: key,
 				fullName: currentOrganizations[key].name,
-				href: currentOrganizations[key].href
+				href: currentOrganizations[key].href,
+				hasNotification: true
 			};
 		});
 	}
