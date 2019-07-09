@@ -78,6 +78,9 @@ export const organization1 = {
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=1'
+	}, {
+		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
+		'href': '../data/alerts-has-unread.json'
 	}]
 };
 
@@ -115,8 +118,31 @@ export const organization2 = {
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=2'
+	}, {
+		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
+		'href': '../data/alerts-no-unread.json'
 	}]
 };
+
+export const alerts1 = {
+	'properties': {
+		'hasUnread': true
+	},
+	'links': [{
+		'rel': ['self'],
+		'href': '../data/alerts-has-unread.json'
+	}]
+}
+
+export const alerts2 = {
+	'properties': {
+		'hasUnread': false
+	},
+	'links': [{
+		'rel': ['self'],
+		'href': '../data/alerts-no-unread.json'
+	}]
+}
 
 export const root1 = {
 	'properties': {},

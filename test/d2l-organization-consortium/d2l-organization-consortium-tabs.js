@@ -1,4 +1,4 @@
-import {organization1, organization2, root1, root2, consortium} from './data.js';
+import {organization1, organization2, root1, root2, alerts1, alerts2, consortium} from './data.js';
 
 describe('d2l-organization-consortium-tabs', () => {
 	var sandbox;
@@ -10,6 +10,8 @@ describe('d2l-organization-consortium-tabs', () => {
 				'../data/consortium/organization2-consortium.json': organization2,
 				'../data/consortium/root1-consortium.json': root1,
 				'../data/consortium/root2-consortium.json': root2,
+				'../data/alerts-has-unread.json': alerts1,
+				'../data/alerts-no-unread.json': alerts2,
 				'/consortium.json': consortium,
 			};
 			return Promise.resolve({
