@@ -13,7 +13,7 @@ window.D2L.Siren.WhitelistBehavior._testMode(true);
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
-import 'd2l-navigation/d2l-navigation-notification-icon.js'
+import 'd2l-navigation/d2l-navigation-notification-icon.js';
 
 /**
  * @customElement
