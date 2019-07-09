@@ -1,6 +1,6 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
-import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
+import { OrganizationEntity, classes as organizationClasses } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import 'd2l-course-image/d2l-course-image.js';
 
@@ -34,7 +34,9 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 				type: String,
 				value: 'tile'
 			},
-			_image: String
+			_primaryImage: String,
+			_secondaryImage: String,
+			_tertiaryImage: String
 		};
 	}
 
@@ -46,7 +48,69 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 
 	static get template() {
 		return html`
-			<d2l-course-image image="[[_image]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+			<style>
+				:host {
+					display: block;
+					position: relative;
+					height: 100%;
+					width: 100%;
+				}
+				:host([hidden]) {
+					display: none;
+				}
+				:host d2l-course-image {
+					display: flex;
+					height: 100%;
+					width: 100%;
+				}
+				.doi-flex {
+					position: absolute;
+					top: 0;
+					left: 0;
+					display: flex;
+					height: 100%;
+					width: 100%;
+				}
+				.doi-flex-inner {
+					display: flex;
+					flex-direction: column;
+					flex-basis: 33%;
+					border-left: white solid 1px;
+				}
+				:host([dir="rtl"]) .doi-flex-inner {
+					border-left: white solid 0px;
+					border-right: white solid 1px;
+				}
+				.doi-flex-inner[hidden] {
+					display: none;
+					margin-left: 0;
+				}
+				.doi-primary {
+					flex-basis: 66%;
+					flex-grow: 1;
+				}
+				.doi-secondary {
+					flex-grow: 1;
+					flex-basis: 50%;
+					border-bottom: white solid 1px;
+				}
+				.doi-tertiary {
+					flex-grow: 1;
+					flex-shrink: 0;
+					flex-basis: 50%;
+				}
+				.doi-tertiary[hidden] {
+					display: none;
+				}
+			</style>
+			<d2l-course-image image="[[_primaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+			<div class="doi-flex">
+				<div class="doi-primary"></div>
+				<div class="doi-flex-inner" hidden$=[[!_secondaryImage]]>
+					<d2l-course-image class="doi-secondary" image="[[_secondaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+					<d2l-course-image class="doi-tertiary" hidden$="[[!_tertiaryImage]]" image="[[_tertiaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+				</div>
+			</div>
 		`;
 	}
 
@@ -69,18 +133,41 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 	}
 
 	_onOrganizationChange(organization) {
-		const imageEntity = organization.imageEntity();
-		if (!imageEntity) {
-			return;
-		}
-
-		if (imageEntity.href) {
+		if (organization.hasClass(organizationClasses.courseOffering)) {
 			this._entity.onImageChange((image) => {
-				this._image = image.entity();
+				this._primaryImage = image.entity();
+				this._secondaryImage = null;
+				this._tertiaryImage = null;
 			});
-		} else {
-			this._image = imageEntity;
+		} else if (organization.hasClass(organizationClasses.learningPath)) {
+			organization.onSequenceChange(this._onRootSequenceChange.bind(this));
 		}
+	}
+
+	_onRootSequenceChange(rootSequence) {
+		const images = [];
+
+		rootSequence.onSubSequencesChange((subSequence) => {
+			images[subSequence.index()] = [];
+
+			subSequence.onSequencedActivityChange((sequencedActivity) => {
+				images[subSequence.index()][sequencedActivity.index()] = null;
+
+				sequencedActivity.onOrganizationChange((organizationEntity) => {
+					if (organizationEntity.hasClass(organizationClasses.courseOffering)) {
+						organizationEntity.onImageChange((image) => {
+							images[subSequence.index()][sequencedActivity.index()] = image.entity();
+
+							const filterImages = this._flattenDeep(images).filter(element => element);
+							this._primaryImage = filterImages[0] || null;
+							this._secondaryImage = filterImages[1] || null;
+							this._tertiaryImage = filterImages[2] || null;
+						});
+					}
+				});
+
+			});
+		});
 	}
 
 	_imageLoaded() {
@@ -88,6 +175,16 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 			bubbles: true,
 			composed: true
 		}));
+	}
+
+	getTileSizes() {
+		const image = this.shadowRoot.querySelector('d2l-course-image');
+		return image.getTileSizes();
+	}
+
+	// Couldn't use flat so I stole it from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat
+	_flattenDeep(arr1) {
+		return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(this._flattenDeep(val)) : acc.concat(val), []);
 	}
 }
 

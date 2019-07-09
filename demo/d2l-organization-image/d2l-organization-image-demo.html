@@ -48,10 +48,19 @@
 				</custom-style>
 			`;
 			document.body.appendChild($_documentContainer.content);
+			window.D2L.Siren.WhitelistBehavior._inTestMode = true;
 		</script>
 	</head>
 	<body class="d2l-typography">
 		<div class="vertical-section-container fixed-size">
+			<h3>Learning Path d2l-organization-image demo</h3>
+			<demo-snippet>
+				<template>
+					<div class="demo">
+						<d2l-organization-image href="../data/learningPath/organization-learning-path.json" token="whatever"></d2l-organization-image>
+					</div>
+				</template>
+			</demo-snippet>
 			<h3>Basic d2l-organization-image demo</h3>
 			<demo-snippet>
 				<template>
