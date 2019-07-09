@@ -1,3 +1,4 @@
+window.D2L.Siren.WhitelistBehavior._testMode(true);
 describe('d2l-organization-image', () => {
 	var sandbox,
 		component,

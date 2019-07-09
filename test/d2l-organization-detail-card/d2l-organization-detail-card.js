@@ -1,5 +1,5 @@
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
-
+window.D2L.Siren.WhitelistBehavior._testMode(true);
 describe('d2l-organization-detail-card', () => {
 
 	var component,

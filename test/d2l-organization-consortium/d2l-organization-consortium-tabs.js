@@ -1,5 +1,5 @@
 import {organization1, organization2, root1, root2, consortium, consortiumRoot} from './data.js';
-
+window.D2L.Siren.WhitelistBehavior._testMode(true);
 describe('d2l-organization-consortium-tabs', () => {
 	var sandbox;
 	beforeEach(() => {
