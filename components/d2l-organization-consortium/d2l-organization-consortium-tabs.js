@@ -21,7 +21,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get observers() {
 		return [
-			'_consortiumRootChange(_entity)'
+			'_onConsortiumRootChange(_entity)'
 		];
 	}
 
