@@ -132,7 +132,7 @@ export const alerts1 = {
 		'rel': ['self'],
 		'href': '../data/alerts-has-unread.json'
 	}]
-}
+};
 
 export const alerts2 = {
 	'properties': {
@@ -142,7 +142,7 @@ export const alerts2 = {
 		'rel': ['self'],
 		'href': '../data/alerts-no-unread.json'
 	}]
-}
+};
 
 export const root1 = {
 	'properties': {},
