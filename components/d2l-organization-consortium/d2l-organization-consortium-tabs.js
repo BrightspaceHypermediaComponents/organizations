@@ -8,7 +8,7 @@ Polymer-based web component for displaying all organizations a user is enrolled 
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 
-import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
+import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import '../d2l-organization-behavior.js';
 
 /**
@@ -21,7 +21,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get observers() {
 		return [
-			'_onConsortiumChange(_entity)'
+			'_consortiumRootChange(_entity)'
 		];
 	}
 
@@ -85,7 +85,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	constructor() {
 		super();
-		this._setEntityType(ConsortiumTokenCollectionEntity);
+		this._setEntityType(ConsortiumRootEntity);
 	}
 
 	_isSelected(item) {
@@ -95,7 +95,12 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	_sortOrder(item1, item2) {
 		return item1.name.localeCompare(item2.name);
 	}
-
+	_onConsortiumRootChange(rootEntity) {
+		const _self = this;
+		this._performAction(rootEntity.getConsortiumCollection(), (entity) => {
+			_self._onConsortiumChange(entity);
+		});
+	}
 	_onConsortiumChange(consotriumTokenCollection) {
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
