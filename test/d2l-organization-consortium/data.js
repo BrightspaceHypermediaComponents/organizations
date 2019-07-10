@@ -42,6 +42,12 @@ export const consortium = {
 				}
 			]
 		}
+	],
+	'links': [
+		{
+			'rel': ['self'],
+			'href': '/consortium.json'
+		}
 	]
 };
 

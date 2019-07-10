@@ -13,6 +13,7 @@ window.D2L.Siren.WhitelistBehavior._testMode(true);
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
+import { entityFactory } from 'siren-sdk/src/es6/EntityFactory';
 
 /**
  * @customElement
@@ -102,8 +103,9 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		return item1.name.localeCompare(item2.name);
 	}
 	_onConsortiumRootChange(rootEntity) {
+		var _self = this;
 		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
-			this._onConsortiumChange(new ConsortiumTokenCollectionEntity(entity));
+			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => { console.log('o hai', changed); _self._onConsortiumChange(changed);}, entity);
 		});
 	}
 	_onConsortiumChange(consotriumTokenCollection) {
