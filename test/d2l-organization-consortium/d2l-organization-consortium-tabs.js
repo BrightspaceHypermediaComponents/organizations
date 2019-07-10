@@ -10,7 +10,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				'../data/consortium/organization2-consortium.json': organization2,
 				'../data/consortium/root1-consortium.json': root1,
 				'../data/consortium/root2-consortium.json': root2,
-				'/consortium.json': consortium,
+				'http://localhost:8081/consortium.json': consortium,
 				'/consortium-root.json': consortiumRoot
 			};
 			return Promise.resolve({
