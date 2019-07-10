@@ -54,6 +54,7 @@
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
+    "d2l-navigation": "BrightspaceUI/navigation#semver:^3",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",
     "d2l-polymer-behaviors": "Brightspace/d2l-polymer-behaviors-ui#semver:^2",
     "d2l-resize-aware": "BrightspaceUI/resize-aware#semver:^1",
@@ -63,7 +64,6 @@
     "lie": "^3.3.0",
     "siren-parser": "^8.0.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1",
-    "whatwg-fetch": "^3.0.0",
-    "d2l-navigation": "BrightspaceUI/navigation#semver:^3"
+    "whatwg-fetch": "^3.0.0"
   }
 }
