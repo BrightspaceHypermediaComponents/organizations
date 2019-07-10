@@ -83,10 +83,10 @@
   "links": [
       {
         "rel": [ "self" ],
-        "href": "../data/base/notification.json"
+        "href": "../data/notification.json"
       },{
         "rel": [ "https://api.brightspace.com/rels/organization" ],
-        "href": "http://example.com"
+        "href": "../data/organization-current.json"
       }
   ]
 }

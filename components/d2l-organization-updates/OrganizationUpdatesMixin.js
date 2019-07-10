@@ -1,64 +1,61 @@
-import '@polymer/polymer/polymer-legacy.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-icons/tier1-icons.js';
 import '../d2l-organization-icons.js';
 import '../d2l-organization-behavior.js';
-import './localize-behavior.js';
-window.D2L = window.D2L || {};
-window.D2L.PolymerBehaviors = window.D2L.PolymerBehaviors || {};
-window.D2L.PolymerBehaviors.Organization = window.D2L.PolymerBehaviors.Organization || {};
-window.D2L.PolymerBehaviors.Organization.Updates = window.D2L.PolymerBehaviors.Organization.Updates || {};
-/*
- *	Methods to get the information about organization updates.
- * @polymerBehavior D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl
- */
-D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
-	__organizationUpdates: {
-		notificationMap: {
-			UnreadAssignmentFeedback: {
-				key: 'unreadAssignmentFeedback',
-				presentationLink: 'ShowDropboxUnreadFeedback',
-				toolTip: 'unreadAssignmentFeedback',
-				icon: 'd2l-tier1:assignments',
-				order: 1
-			},
-			UnreadAssignmentSubmissions: {
-				key: 'unreadAssignmentFeedback',
-				presentationLink: 'ShowUnreadDropboxSubmissions',
-				toolTip: 'unreadAssignmentSubmissions',
-				icon: 'd2l-tier1:assignments',
-				order: 1
-			},
-			UnattemptedQuizzes: {
-				key: 'unreadQuizzesFeedback',
-				presentationLink: 'ShowUnattemptedQuizzes',
-				toolTip: 'unattemptedQuizzes',
-				icon: 'd2l-organization-icons:quiz-submissions',
-				order: 3
-			},
-			UngradedQuizzes: {
-				key: 'unreadQuizzesFeedback',
-				presentationLink: 'ShowUngradedQuizAttempts',
-				toolTip: 'ungradedQuizzes',
-				icon: 'd2l-organization-icons:quiz-submissions',
-				order: 3
-			},
-			UnreadDiscussions: {
-				key: 'unreadDiscussionFeedback',
-				presentationLink: 'ShowUnreadDiscussionMessages',
-				toolTip: 'unreadDiscussions',
-				icon: 'd2l-tier1:comment-hollow',
-				order: 2
-			},
-			UnapprovedDiscussions: {
-				key: 'unreadDiscussionFeedback',
-				presentationLink: 'ShowUnreadDiscussionMessages',
-				toolTip: 'unapprovedDiscussions',
-				icon: 'd2l-tier1:comment-hollow',
-				order: 2
+import { OrganizationUpdatesLocalize } from './OrganizationUpdatesLocalize.js';
+
+/* @polymerMixin */
+const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2L.PolymerBehaviors.Organization.Behavior], OrganizationUpdatesLocalize(superClass)) {
+	get __organizationUpdates() {
+		return {
+			notificationMap: {
+				UnreadAssignmentFeedback: {
+					key: 'unreadAssignmentFeedback',
+					presentationLink: 'ShowDropboxUnreadFeedback',
+					toolTip: 'unreadAssignmentFeedback',
+					icon: 'd2l-tier1:assignments',
+					order: 1
+				},
+				UnreadAssignmentSubmissions: {
+					key: 'unreadAssignmentFeedback',
+					presentationLink: 'ShowUnreadDropboxSubmissions',
+					toolTip: 'unreadAssignmentSubmissions',
+					icon: 'd2l-tier1:assignments',
+					order: 1
+				},
+				UnattemptedQuizzes: {
+					key: 'unreadQuizzesFeedback',
+					presentationLink: 'ShowUnattemptedQuizzes',
+					toolTip: 'unattemptedQuizzes',
+					icon: 'd2l-organization-icons:quiz-submissions',
+					order: 3
+				},
+				UngradedQuizzes: {
+					key: 'unreadQuizzesFeedback',
+					presentationLink: 'ShowUngradedQuizAttempts',
+					toolTip: 'ungradedQuizzes',
+					icon: 'd2l-organization-icons:quiz-submissions',
+					order: 3
+				},
+				UnreadDiscussions: {
+					key: 'unreadDiscussionFeedback',
+					presentationLink: 'ShowUnreadDiscussionMessages',
+					toolTip: 'unreadDiscussions',
+					icon: 'd2l-tier1:comment-hollow',
+					order: 2
+				},
+				UnapprovedDiscussions: {
+					key: 'unreadDiscussionFeedback',
+					presentationLink: 'ShowUnreadDiscussionMessages',
+					toolTip: 'unapprovedDiscussions',
+					icon: 'd2l-tier1:comment-hollow',
+					order: 2
+				}
 			}
-		}
-	},
-	_orgUpdates_notifications: function(notification, combined) {
+		};
+	}
+	_orgUpdates_notifications(notification, combined) {
 		var maxCount = 99;
 		if (!notification) {
 			return [];
@@ -81,13 +78,14 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 				}.bind(this))
 				: null;
 
+			var ariaLabel = toolTip && toolTip.join(', ');
 			var element = {
 				key: key,
 				order: notification[key].order,
 				isDisabled: (notification[key].updateCount <= 0),
 				updateCount: (notification[key].updateCount > maxCount) ? maxCount + '+' : notification[key].updateCount,
 				toolTip: toolTip,
-				ariaLabel: this.localize(key, 'number', notification[key].updateCount),
+				ariaLabel: ariaLabel,
 				icon: notification[key].icon,
 				link: notification[key].link
 			};
@@ -95,8 +93,9 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		}.bind(this)).sort(function(a, b) {
 			return a.order - b.order;
 		});
-	},
-	_orgUpdates_fetch: function(notificationList, presentation) {
+	}
+
+	_orgUpdates_fetch(notificationList, presentation) {
 
 		if (!notificationList || !presentation) {
 			return {};
@@ -117,8 +116,8 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		}
 
 		return notifications;
-	},
-	__orgUpdates_prepareNotification: function(notifications, presentation, updateEntity) {
+	}
+	__orgUpdates_prepareNotification(notifications, presentation, updateEntity) {
 		var notification = updateEntity && updateEntity.type();
 
 		if (!notification && !this.__organizationUpdates.notificationMap.hasOwnProperty(notification)) {
@@ -152,14 +151,8 @@ D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl = {
 		if (numberOfUpdates) {
 			notifications[options.key].toolTip.push([options.toolTip, numberOfUpdates]);
 		}
-	},
+	}
 };
 
-/*
-* @polymerBehavior D2L.PolymerBehaviors.Organization.Updates.Behavior
-*/
-D2L.PolymerBehaviors.Organization.Updates.Behavior = [
-	D2L.PolymerBehaviors.Organization.Updates.LocalizeBehavior,
-	D2L.PolymerBehaviors.Organization.Behavior,
-	D2L.PolymerBehaviors.Organization.Updates.BehaviorImpl
-];
+export const OrganizationUpdatesMixin = dedupingMixin(OrganizationUpdatesImpl);
+

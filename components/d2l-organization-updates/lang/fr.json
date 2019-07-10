@@ -1,11 +1,38 @@
 {
-   "unapprovedDiscussions" : "{number} discussions non approuvées",
-   "unattemptedQuizzes" : "{number} questionnaires sans tentative",
-   "ungradedQuizzes" : "{number} questionnaires non notés",
-   "unreadAssignmentFeedback" : "{number} rétroaction(s) de travail non lue(s)",
-   "unreadAssignmentSubmissions" : "{number} soumission(s) de travail non lue(s)",
-   "unreadDiscussionFeedback" : "{number} rétroaction(s) de discussion non lue(s)",
-   "unreadDiscussions" : "{number} discussions non lues",
-   "unreadQuizzesFeedback" : "{number} rétroaction(s) de questionnaire non lue(s)",
-   "updates" : "mises à jour"
+  "unapprovedDiscussions": {
+    "translation": "{number} discussions non approuvées",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{number} questionnaires sans tentative",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{number} questionnaires non notés",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{number} rétroaction(s) de travail non lue(s)",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{number} Fichiers de soumission de travaux non lus",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{number} rétroaction(s) de discussion non lue(s)",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{number} discussions non lues",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{number} rétroaction(s) de questionnaire non lue(s)",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "mises à jour",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }

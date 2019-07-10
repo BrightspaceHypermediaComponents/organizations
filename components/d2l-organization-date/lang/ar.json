@@ -1,5 +1,14 @@
 {
-   "ended" : "Ended {date} at {time}",
-   "endsAt" : "Ends {date} at {time}",
-   "startsAt" : "Starts {date} at {time}"
+  "ended": {
+    "translation": "Ended {date} at {time}",
+    "context": "End date and time that is in the past"
+  },
+  "endsAt": {
+    "translation": "Ends {date} at {time}",
+    "context": "End date and time that is in the future."
+  },
+  "startsAt": {
+    "translation": "Starts {date} at {time}",
+    "context": "Start date and time that is in the future"
+  }
 }

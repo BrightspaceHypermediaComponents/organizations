@@ -9,28 +9,17 @@ import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import '../d2l-organization-behavior.js';
-import './localize-behavior.js';
+import { OrganizationDateLocalize } from './OrganizationDateLocalize.js';
 
 /**
  * @customElement
  * @polymer
  */
 class OrganizationDate extends mixinBehaviors([
-	D2L.PolymerBehaviors.Organization.Date.LocalizeBehavior,
 	D2L.PolymerBehaviors.Organization.Behavior
-], EntityMixin(PolymerElement)) {
+], EntityMixin(OrganizationDateLocalize(PolymerElement))) {
 
-	static get is() {
-		return 'd2l-organization-date';
-	}
-
-	static get observers() {
-		return [
-			'_getOrganizationDate(_entity)',
-			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
-			'_sendVoiceReaderInfo(_statusText)'
-		];
-	}
+	static get is() { return 'd2l-organization-date'; }
 
 	static get properties() {
 		return {
@@ -48,6 +37,14 @@ class OrganizationDate extends mixinBehaviors([
 			},
 			_entityStatus: String
 		};
+	}
+
+	static get observers() {
+		return [
+			'_getOrganizationDate(_entity)',
+			'_setOrganizationDate(hideCourseStartDate, hideCourseEndDate)',
+			'_sendVoiceReaderInfo(_statusText)'
+		];
 	}
 
 	static get template() {

@@ -1,11 +1,38 @@
 {
-   "unapprovedDiscussions" : "{number} 个未批准的讨论",
-   "unattemptedQuizzes" : "{number} 个未尝试的测验",
-   "ungradedQuizzes" : "{number} 个未分级的测验",
-   "unreadAssignmentFeedback" : "{number} 个未读作业反馈",
-   "unreadAssignmentSubmissions" : "{number} 个未读作业提交",
-   "unreadDiscussionFeedback" : "{number} 个未读讨论反馈",
-   "unreadDiscussions" : "{number} 个未读讨论",
-   "unreadQuizzesFeedback" : "{number} 个未读测验反馈",
-   "updates" : "更新"
+  "unapprovedDiscussions": {
+    "translation": "{number} 个未批准的讨论",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{number} 个未尝试的测验",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{number} 个未分级的测验",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{number} 个未读作业反馈",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{number} 个未读作业提交文件",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{number} 个未读讨论反馈",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{number} 个未读讨论",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{number} 个未读测验反馈",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "更新",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }
