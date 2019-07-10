@@ -105,7 +105,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	_onConsortiumRootChange(rootEntity) {
 		var _self = this;
 		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
-			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => { console.log('o hai', changed); _self._onConsortiumChange(changed);}, entity);
+			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
 		});
 	}
 	_onConsortiumChange(consotriumTokenCollection) {
