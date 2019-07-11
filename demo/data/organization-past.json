@@ -1,4 +1,8 @@
 {
+  "class":[
+    "active",
+    "course-offering"
+  ],
   "properties": {
     "name": "Course Name",
     "code": "SCI100",
@@ -6,9 +10,20 @@
     "endDate": "2000-01-01T00:00:00.000Z",
     "isActive": true
   },
+  "entities":[
+    {
+        "class":[
+          "course-image"
+        ],
+        "rel":[
+          "https://api.brightspace.com/rels/organization-image"
+        ],
+        "href":"../data/image.json"
+    }
+  ],
   "links": [{
     "rel": ["self"],
-    "href": "data/organization.json"
+    "href": "data/organization-past.json"
   }, {
     "rel": ["https://api.brightspace.com/rels/parent-semester"],
     "href": "../data/semester.json"
