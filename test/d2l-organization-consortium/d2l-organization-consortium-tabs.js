@@ -1,5 +1,5 @@
-import {organization1, organization2, root1, root2, consortium} from './data.js';
-
+import {organization1, organization2, root1, root2, consortium, consortiumRoot} from './data.js';
+window.D2L.Siren.WhitelistBehavior._testMode(true);
 describe('d2l-organization-consortium-tabs', () => {
 	var sandbox;
 	beforeEach(() => {
@@ -10,7 +10,8 @@ describe('d2l-organization-consortium-tabs', () => {
 				'../data/consortium/organization2-consortium.json': organization2,
 				'../data/consortium/root1-consortium.json': root1,
 				'../data/consortium/root2-consortium.json': root2,
-				'/consortium.json': consortium,
+				'http://localhost:8081/consortium.json': consortium,
+				'/consortium-root.json': consortiumRoot
 			};
 			return Promise.resolve({
 				ok: true,
@@ -25,7 +26,7 @@ describe('d2l-organization-consortium-tabs', () => {
 
 	it('populates data correctly', (done) => {
 		const component = fixture('org-consortium');
-		component.href = '/consortium.json';
+		component.href = '/consortium-root.json';
 
 		flush(function() {
 			const tabs = component.shadowRoot.querySelectorAll('a');

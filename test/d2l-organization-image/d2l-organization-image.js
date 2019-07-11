@@ -2,7 +2,6 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { sequenceRoot } from './learning-path-sequence-root.js';
 
 window.D2L.Siren.WhitelistBehavior._inTestMode = true;
-
 describe('d2l-organization-image', () => {
 	var sandbox,
 		component;

@@ -1,5 +1,5 @@
 import SirenParse from 'siren-parser';
-
+window.D2L.Siren.WhitelistBehavior._testMode(true);
 describe('d2l-organization-updates', () => {
 	var sandbox,
 		component,

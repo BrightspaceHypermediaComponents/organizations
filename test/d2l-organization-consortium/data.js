@@ -1,3 +1,4 @@
+export const consortiumRoot = {'class':['consortium'], 'actions':[{'href':'/consortium.json', 'name':'consortium-tokens', 'method':'POST'}]};
 export const consortium = {
 	'class': ['tokens'],
 	'entities': [
@@ -40,6 +41,12 @@ export const consortium = {
 					'href': '../data/consortium/root2-consortium.json'
 				}
 			]
+		}
+	],
+	'links': [
+		{
+			'rel': ['self'],
+			'href': '/consortium.json'
 		}
 	]
 };
