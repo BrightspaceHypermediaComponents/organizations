@@ -125,6 +125,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		});
 	}
 	_onConsortiumChange(consotriumTokenCollection) {
+		this.__tokenCollection = consotriumTokenCollection;
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
