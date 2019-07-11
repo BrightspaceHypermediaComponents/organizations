@@ -13,7 +13,7 @@ window.D2L.Siren.WhitelistBehavior._testMode(true);
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
-import { entityFactory } from 'siren-sdk/src/es6/EntityFactory';
+import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
 import 'd2l-navigation/d2l-navigation-notification-icon.js';
 
 /**
@@ -37,6 +37,9 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			_parsedOrganizations: {
 				type: Array,
 				computed: '_computeParsedOrganizations(_organizations.*)'
+			},
+			__tokenCollection: {
+				type: Object
 			}
 		};
 	}
@@ -102,7 +105,10 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		super();
 		this._setEntityType(ConsortiumRootEntity);
 	}
-
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		dispose(this.__tokenCollection);
+	}
 	_isSelected(item) {
 		return this.selected === item.name;
 	}
@@ -113,7 +119,9 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	_onConsortiumRootChange(rootEntity) {
 		var _self = this;
 		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
+			dispose(_self.__tokenCollection); //clean up the old one
 			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
+
 		});
 	}
 	_onConsortiumChange(consotriumTokenCollection) {
