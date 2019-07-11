@@ -16,9 +16,15 @@
 
 		<test-fixture id="with-href">
 			<template>
-				<d2l-organization-image href="organization/1"></d2l-organization-image>
+				<d2l-organization-image href="/organizations/1" token="whatever"></d2l-organization-image>
 			</template>
 		</test-fixture>
+
+		<test-fixture id="with-learning-paths">
+				<template>
+					<d2l-organization-image href="/learningPaths/1" token="whatever2"></d2l-organization-image>
+				</template>
+			</test-fixture>
 
 		<script type="module" src="./d2l-organization-image.js"></script>
 	</body>

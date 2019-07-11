@@ -1,4 +1,8 @@
 {
+  "class":[
+    "active",
+    "course-offering"
+  ],
   "properties": {
     "name": "Course Name",
     "code": "SCI100",
@@ -6,6 +10,17 @@
     "endDate": null,
     "isActive": false
   },
+  "entities":[
+    {
+        "class":[
+          "course-image"
+        ],
+        "rel":[
+          "https://api.brightspace.com/rels/organization-image"
+        ],
+        "href":"../data/image.json"
+    }
+  ],
   "links": [{
     "rel": ["self"],
     "href": "../data/organization-future.json"

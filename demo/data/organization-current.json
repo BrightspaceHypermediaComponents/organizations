@@ -1,4 +1,8 @@
 {
+  "class":[
+    "active",
+    "course-offering"
+  ],
   "properties": {
     "name": "Course Name",
     "code": "SCI100",
