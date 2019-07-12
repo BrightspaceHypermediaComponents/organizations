@@ -139,6 +139,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	}
 
 	_onConsortiumChange(consotriumTokenCollection) {
+		this._resetMaps();
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
@@ -166,6 +167,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				});
 			});
 		});
+	}
+
+	_resetMaps(){
+		this.set('_organizations', {});
+		this.set('_alertTokensMap', {});
 	}
 
 	_computeParsedOrganizations() {

@@ -1,4 +1,4 @@
-import {organization1, organization2, root1, root2, alerts1, alerts2, consortium} from './data.js';
+import { organization1, organization2, organization3, organization4, root1, root2, root3, root4, hasUnread, noUnread, consortium1, consortium2 } from './data.js';
 
 describe('d2l-organization-consortium-tabs', () => {
 	var sandbox;
@@ -19,9 +19,16 @@ describe('d2l-organization-consortium-tabs', () => {
 					'../data/consortium/organization2-consortium.json': organization2,
 					'../data/consortium/root1-consortium.json': root1,
 					'../data/consortium/root2-consortium.json': root2,
-					'../data/alerts-has-unread.json': alerts1,
-					'../data/alerts-no-unread.json': alerts2,
-					'/consortium.json': consortium,
+					'../data/alerts-has-unread.json': hasUnread,
+					'../data/alerts-no-unread.json': noUnread,
+					'/consortium1': consortium1,
+					'/organization3': organization3,
+					'/organization4': organization4,
+					'/root3': root3,
+					'/root4': root4,
+					'/no-unread': noUnread,
+					'/has-unread': hasUnread,
+					'/consortium2': consortium2,
 				};
 				return Promise.resolve({
 					ok: true,
@@ -32,7 +39,7 @@ describe('d2l-organization-consortium-tabs', () => {
 
 		it('populates data correctly', (done) => {
 			const component = fixture('org-consortium');
-			component.href = '/consortium.json';
+			component.href = '/consortium1';
 
 			flush(function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
@@ -44,15 +51,15 @@ describe('d2l-organization-consortium-tabs', () => {
 
 				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 				assert.equal(dots.length, 2);
-				assert.isFalse(dots[0].hasAttribute("hidden"));
-				assert.isTrue(dots[1].hasAttribute("hidden"));
+				assert.isFalse(dots[0].hasAttribute('hidden'));
+				assert.isTrue(dots[1].hasAttribute('hidden'));
 				done();
 			});
 		});
 
 		it('alerts use correct token', (done) => {
 			const component = fixture('org-consortium');
-			component.href = '/consortium.json';
+			component.href = '/consortium1';
 
 			flush(function() {
 				const alerts = component._alertTokensMap;
@@ -60,6 +67,22 @@ describe('d2l-organization-consortium-tabs', () => {
 				assert.equal(alerts['../data/alerts-no-unread.json'], 'token2');
 				done();
 			});
+		});
+
+		it('alerts stay the same when org is updated', (done) => {
+			const component = fixture('org-consortium-with-url-change');
+			component.href = '/consortium1';
+			setTimeout(() => {
+				component.href = '/consortium2';
+
+				flush(function() {
+					const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+					assert.equal(dots.length, 2);
+					assert.isTrue(dots[0].hasAttribute('hidden'));
+					assert.isFalse(dots[1].hasAttribute('hidden'));
+					done();
+				});
+			}, 200);
 		});
 	});
 
@@ -73,7 +96,7 @@ describe('d2l-organization-consortium-tabs', () => {
 					'../data/consortium/root2-consortium.json': root2,
 					'../data/alerts-has-unread.json': null,
 					'../data/alerts-no-unread.json': null,
-					'/consortium.json': consortium,
+					'/consortium1': consortium1
 				};
 				return Promise.resolve({
 					ok: !!whatToFetch[input],
@@ -84,7 +107,7 @@ describe('d2l-organization-consortium-tabs', () => {
 
 		it('org tabs should render with no dots when alerts entities are null', (done) => {
 			const component = fixture('org-consortium');
-			component.href = '/consortium.json';
+			component.href = '/consortium1';
 
 			flush(function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
@@ -96,8 +119,8 @@ describe('d2l-organization-consortium-tabs', () => {
 
 				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 				assert.equal(dots.length, 2);
-				assert.isTrue(dots[0].hasAttribute("hidden"));
-				assert.isTrue(dots[1].hasAttribute("hidden"));
+				assert.isTrue(dots[0].hasAttribute('hidden'));
+				assert.isTrue(dots[1].hasAttribute('hidden'));
 				done();
 			});
 		});
