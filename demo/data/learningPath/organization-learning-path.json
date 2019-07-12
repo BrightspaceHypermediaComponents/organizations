@@ -1,0 +1,57 @@
+{
+  "class":[
+     "active",
+     "learning-path"
+  ],
+  "properties":{
+     "name":"Actuators & Power",
+     "code":"MTE320",
+     "startDate":null,
+     "endDate":null,
+     "isActive":true,
+     "description": "Financial Planning & Analysis: Building a Company's Budget from Scratch guides you through the core principles of Financial Planning and helps you to understand how a company prepares its budget. The video lessons touch on several awesome. Ultra-Financial Planning & Analysis in the 20th Century: Building a Successful Budget"
+  },
+  "entities":[
+     {
+        "class":[
+           "course-image"
+        ],
+        "rel":[
+           "https://api.brightspace.com/rels/organization-image"
+        ],
+        "href":"../data/image.json"
+     },
+     {
+        "rel":[
+          "https://api.brightspace.com/rels/organization-homepage"
+        ],
+        "properties": {
+          "path": "http://example.com"
+        }
+     }
+  ],
+  "links":[
+     {
+        "rel":[
+           "https://notifications.api.brightspace.com/rels/organization-notifications"
+        ],
+        "href":"../data/notification.json"
+     },
+     {
+        "rel":[
+           "https://api.brightspace.com/rels/parent-semester"
+        ],
+        "href":"../data/semester.json"
+     },
+     {
+        "rel":[
+           "self"
+        ],
+        "href":"../data/learningPath/organization-learning-path.json"
+     },
+     {
+        "href": "../data/learningPath/learning-path-sequence-root.json",
+        "rel": ["https://api.brightspace.com/rels/sequence"]
+     }
+  ]
+}

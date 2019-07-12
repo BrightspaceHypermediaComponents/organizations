@@ -1,0 +1,8 @@
+{
+	"class":["consortium"], 
+	"actions":[{
+		"href": "../data/consortium/consortium.json",
+		"name": "consortium-tokens",
+		"method": "POST"
+	}]
+}

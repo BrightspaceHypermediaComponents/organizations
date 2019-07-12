@@ -7,13 +7,14 @@ Polymer-based web component for displaying all organizations a user is enrolled 
 */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
-
+import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
 window.D2L.Siren.WhitelistBehavior._testMode(true);
 import '../d2l-organization-behavior.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
+import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
 import 'd2l-navigation/d2l-navigation-notification-icon.js';
 
 /**
@@ -46,13 +47,16 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			_alertTokensMap: {
 				type: Object,
 				value: {}
+			},
+			__tokenCollection: {
+				type: Object
 			}
 		};
 	}
 
 	static get observers() {
 		return [
-			'_onConsortiumChange(_entity)'
+			'_onConsortiumRootChange(_entity)'
 		];
 	}
 
@@ -109,7 +113,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	constructor() {
 		super();
-		this._setEntityType(ConsortiumTokenCollectionEntity);
+		this._setEntityType(ConsortiumRootEntity);
 	}
 
 	connectedCallback() {
@@ -120,6 +124,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	disconnectedCallback() {
 		super.disconnectedCallback();
 		window.clearInterval(this._intervalId);
+		dispose(this.__tokenCollection);
 	}
 
 	updateAlerts() {
@@ -138,9 +143,20 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		return item1.name.localeCompare(item2.name);
 	}
 
+	_onConsortiumRootChange(rootEntity) {
+		var _self = this;
+		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
+			dispose(_self.__tokenCollection); //clean up the old one
+			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
+		});
+	}
+
 	_onConsortiumChange(consotriumTokenCollection) {
+		console.log(consotriumTokenCollection);
 		this._resetMaps();
+		this.__tokenCollection = consotriumTokenCollection;
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
+			console.log(consortiumEntity);
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
 					const key = orgEntity.code() || orgEntity.name();
