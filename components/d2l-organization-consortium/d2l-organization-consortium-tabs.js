@@ -183,7 +183,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		});
 	}
 
-	_resetMaps(){
+	_resetMaps() {
 		this.set('_organizations', {});
 		this.set('_alertTokensMap', {});
 	}
