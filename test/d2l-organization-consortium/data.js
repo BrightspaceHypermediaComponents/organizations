@@ -222,8 +222,8 @@ export const consortium2 = {
 
 export const organization3 = {
 	'properties': {
-		'name': 'Consortium 1',
-		'code': 'c1',
+		'name': 'Consortium 3',
+		'code': 'c3',
 		'startDate': null,
 		'endDate': null,
 		'isActive': true,
@@ -231,7 +231,7 @@ export const organization3 = {
 	},
 	'links': [{
 		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
-		'href': '/404'
+		'href': '/no-unread'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=3'
@@ -240,7 +240,7 @@ export const organization3 = {
 
 export const organization4 = {
 	'properties': {
-		'name': 'Consortium 2',
+		'name': 'Consortium 4',
 		'code': null,
 		'startDate': null,
 		'endDate': null,
@@ -249,7 +249,7 @@ export const organization4 = {
 	},
 	'links': [{
 		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
-		'href': '/404'
+		'href': '/has-unread'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=4'

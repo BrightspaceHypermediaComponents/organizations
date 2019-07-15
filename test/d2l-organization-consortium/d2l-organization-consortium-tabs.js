@@ -29,8 +29,7 @@ describe('d2l-organization-consortium-tabs', () => {
 					'/root3': root3,
 					'/root4': root4,
 					'http://localhost:8081/consortium2.json': consortium2,
-					'/consortium-root2.json': consortiumRoot2,
-					'/404': undefined
+					'/consortium-root2.json': consortiumRoot2
 				};
 				return Promise.resolve({
 					ok: !!whatToFetch[input],
@@ -71,7 +70,7 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 		});
 
-		it('alerts stay the same when org is updated', (done) => {
+		it('alerts and orgs gets updated when entity changes', (done) => {
 			const component = fixture('org-consortium-with-url-change');
 			component.href = '/consortium-root1.json';
 			setTimeout(() => {
@@ -81,7 +80,7 @@ describe('d2l-organization-consortium-tabs', () => {
 					const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 					assert.equal(dots.length, 2);
 					assert.isTrue(dots[0].hasAttribute('hidden'));
-					assert.isTrue(dots[1].hasAttribute('hidden'));
+					assert.isFalse(dots[1].hasAttribute('hidden'));
 					done();
 				});
 			}, 100);

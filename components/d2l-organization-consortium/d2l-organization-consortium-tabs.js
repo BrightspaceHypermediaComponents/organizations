@@ -48,10 +48,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				type: Object,
 				value: {}
 			},
-			_previousAlerts: {
-				type: Object,
-				value: {}
-			},
 			__tokenCollection: {
 				type: Object
 			}
@@ -165,8 +161,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 					this.set(`_organizations.${key}`, {
 						name: orgEntity.name(),
 						code: orgEntity.code(),
-						href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
-						unread: this._previousAlerts[key] && this._previousAlerts[key].unread
+						href: orgEntity.fullyQualifiedOrganizationHomepageUrl()
 					});
 
 					if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
@@ -175,12 +170,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 					orgEntity.onAlertsChange(alertsEntity => {
 						const unread = alertsEntity.hasUnread();
-						this.set(`_organizations.${key}`, {
-							name: orgEntity.name(),
-							code: orgEntity.code(),
-							href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
-							unread: unread
-						});
+						this.set(`_organizations.${key}.unread`, unread);
 					});
 				});
 			});
@@ -188,11 +178,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	}
 
 	_resetMaps() {
-		this.set('_previousAlerts', {});
-		Object.keys(this._organizations).map(function(key) {
-			this._previousAlerts[key] = this._organizations[key].unread;
-		}.bind(this));
-
 		this.set('_organizations', {});
 		this.set('_alertTokensMap', {});
 	}
