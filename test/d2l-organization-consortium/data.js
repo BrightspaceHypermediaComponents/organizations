@@ -1,4 +1,4 @@
-export const consortiumRoot = {'class':['consortium'], 'actions':[{'href':'/consortium.json', 'name':'consortium-tokens', 'method':'POST'}]};
+export const consortiumRoot1 = {'class':['consortium'], 'actions':[{'href':'/consortium1.json', 'name':'consortium-tokens', 'method':'POST'}]};
 export const consortium1 = {
 	'class': ['tokens'],
 	'entities': [
@@ -9,7 +9,7 @@ export const consortium1 = {
 			'rel': [],
 			'properties': {
 				'tenant': '1cb16d6a-8557-4850-8846-3fa9b6174494',
-				'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidGVuYW50aWQiOiIxY2IxNmQ2YS04NTU3LTQ4NTAtODg0Ni0zZmE5YjYxNzQ0OTQiLCJpYXQiOjE1MTYyMzkwMjJ9.z5hMu02Cx8p7Lw0a_1nBVTkMD2UncN5UZre3l0SWo7c'
+				'token': 'token1'
 			},
 			'links': [
 				{
@@ -29,7 +29,7 @@ export const consortium1 = {
 			'rel': [],
 			'properties': {
 				'tenant': '8b33e567-c616-4667-868b-fdfe9edc3a78',
-				'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwidGVuYW50aWQiOiI4YjMzZTU2Ny1jNjE2LTQ2NjctODY4Yi1mZGZlOWVkYzNhNzgiLCJpYXQiOjE1MTYyMzkwMjJ9.cQjR28qT_c-os_FeFy4-L1NhCIY-9utPLzSHrzIMuOc'
+				'token': 'token2'
 			},
 			'links': [
 				{
@@ -46,7 +46,7 @@ export const consortium1 = {
 	'links': [
 		{
 			'rel': ['self'],
-			'href': '/consortium.json'
+			'href': '/consortium1.json'
 		}
 	]
 };
@@ -85,6 +85,9 @@ export const organization1 = {
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=1'
+	}, {
+		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
+		'href': '/has-unread'
 	}]
 };
 
@@ -122,6 +125,9 @@ export const organization2 = {
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=2'
+	}, {
+		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
+		'href': '/no-unread'
 	}]
 };
 
@@ -163,6 +169,7 @@ export const root2 = {
 	]
 };
 
+export const consortiumRoot2 = {'class':['consortium'], 'actions':[{'href':'/consortium2.json', 'name':'consortium-tokens', 'method':'POST'}]};
 export const consortium2 = {
 	'class': ['tokens'],
 	'entities': [
@@ -203,6 +210,12 @@ export const consortium2 = {
 					'href': '/root4'
 				}
 			]
+		}
+	],
+	'links': [
+		{
+			'rel': ['self'],
+			'href': '/consortium2.json'
 		}
 	]
 };
@@ -264,11 +277,23 @@ export const root4 = {
 export const hasUnread = {
 	'properties': {
 		'hasUnread': true
-	}
+	},
+	'links': [
+		{
+			'rel': ['self'],
+			'href': '/hasUnread'
+		}
+	]
 };
 
 export const noUnread = {
 	'properties': {
 		'hasUnread': false
-	}
+	},
+	'links': [
+		{
+			'rel': ['self'],
+			'href': '/noUnread'
+		}
+	]
 };

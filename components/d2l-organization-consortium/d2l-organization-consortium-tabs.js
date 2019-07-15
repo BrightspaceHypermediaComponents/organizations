@@ -147,16 +147,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		var _self = this;
 		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
 			dispose(_self.__tokenCollection); //clean up the old one
+			this._resetMaps();
 			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
 		});
 	}
 
 	_onConsortiumChange(consotriumTokenCollection) {
-		console.log(consotriumTokenCollection);
-		this._resetMaps();
 		this.__tokenCollection = consotriumTokenCollection;
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
-			console.log(consortiumEntity);
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
 					const key = orgEntity.code() || orgEntity.name();
