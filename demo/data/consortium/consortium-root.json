@@ -1,1 +1,20 @@
-{"class":["consortium"], "actions":[{"href":"/consortium.json", "name":"consortium-tokens", "method":"POST"}],"links":[{"rel":["self"], "href":"/consortium-root.json"}]}
+{
+  "class": [
+    "consortium"
+  ],
+  "actions": [
+    {
+      "href": "/consortium.json",
+      "name": "consortium-tokens",
+      "method": "POST"
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "/consortium-root.json"
+    }
+  ]
+}
