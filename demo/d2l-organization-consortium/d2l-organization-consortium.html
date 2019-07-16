@@ -16,24 +16,24 @@
 			import '@polymer/iron-demo-helpers/demo-snippet';
 			import 'd2l-typography/d2l-typography.js';
 			import '../../components/d2l-organization-consortium/d2l-organization-consortium-tabs.js';
-			import {consortium} from '../data/consortium/consortium.js'
+			import {consortium} from '../data/consortium/consortium.js';
 			const existingFetch = window.fetch;
 			// override window.fetch, but defer if we haven't provided an explicit mock
 			window.fetch = 	(input, init) => {
-			const whatToFetch = {
-				'http://localhost:8081/consortium.json': {method: 'POST', response: consortium},
-			};
-			if(whatToFetch[input.url] && whatToFetch[input.url].method === input.method) {
-				return Promise.resolve({
-					ok: true,
-					json: () => { return Promise.resolve(whatToFetch[input.url].response); }
-				});
-			} else {
-				//if we haven't explicity coded a mock, let's leave it be
-				return existingFetch(input, init);
-			}
+				const whatToFetch = {
+					'http://localhost:8081/consortium.json': {method: 'POST', response: consortium},
+				};
+				if (whatToFetch[input.url] && whatToFetch[input.url].method === input.method) {
+					return Promise.resolve({
+						ok: true,
+						json: () => { return Promise.resolve(whatToFetch[input.url].response); }
+					});
+				} else {
+					//if we haven't explicity coded a mock, let's leave it be
+					return existingFetch(input, init);
+				}
 
-		}
+			};
 			const $_documentContainer = document.createElement('template');
 			$_documentContainer.innerHTML = `
 				<custom-style>
