@@ -32,6 +32,10 @@
   },{
     "rel": ["https://api.brightspace.com/rels/organization-homepage"],
     "href": "?consortium=2"
+  }, {
+    "rel": [
+        "https://api.brightspace.com/rels/notification-alerts"
+    ],
+    "href": "../data/alerts-no-unread.json"
   }]
 }
-
