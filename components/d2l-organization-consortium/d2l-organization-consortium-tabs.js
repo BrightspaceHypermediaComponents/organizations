@@ -26,13 +26,19 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get properties() {
 		return {
+			pollIntervalInSeconds: {
+				type: Number,
+				reflectToAttribute: true,
+				value: 300
+			},
 			selected: {
 				type: String,
 				reflectToAttribute: true
 			},
-			pollIntervalInSeconds: {
+			tabRenderThreshold: {
 				type: Number,
-				value: 300
+				reflectToAttribute: true,
+				value: 2
 			},
 			_organizations: {
 				type: Object,
@@ -183,7 +189,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	_computeParsedOrganizations() {
 		const currentOrganizations = this._organizations;
-		return Object.keys(currentOrganizations).map(function(key) {
+		const orgs = Object.keys(currentOrganizations).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
 				name: key,
@@ -193,7 +199,9 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			};
 			return org;
 		});
+		return orgs.length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
 	}
+
 }
 
 window.customElements.define(OrganizationConsortiumTabs.is, OrganizationConsortiumTabs);
