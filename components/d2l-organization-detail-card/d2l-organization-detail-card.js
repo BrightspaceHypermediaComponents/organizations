@@ -52,7 +52,32 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				value: false
 			},
 			_organizationHomepageUrl: String,
-			_ariaText: String
+			_ariaText: String,
+			_revealTimeoutMs: {
+				type: Number,
+				value: 2000
+			},
+			_revealTimerId: Number,
+			_revealOnLoad: {
+				type: Boolean,
+				value: false
+			},
+			_isImageLoaded: {
+				type: Boolean,
+				value: false
+			},
+			_isTextLoaded: {
+				type: Boolean,
+				value: false
+			},
+			_forceShowImage: {
+				type: Boolean,
+				computed: '_computeForceShowImage(_isImageLoaded, _revealOnLoad)'
+			},
+			_forceShowText: {
+				type: Boolean,
+				computed: '_computeForceShowText(_isTextLoaded, _revealOnLoad)'
+			}
 		};
 	}
 
@@ -313,12 +338,24 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					line-height: 1.75;
 				}
 			</style>
-			<d2l-resize-aware class="dedc-container" mobile$="[[_mobile]]">
+			<!-- Force show styles here -->
+			<style>
+				.dedc-image[show-image] > .dedc-image-shimmer {
+					display: none;
+				}
+				.dedc-container[show-text] .dedc-base-info-placeholder {
+					display: none;
+				}
+				.dedc-container[show-text] .dedc-module-list {
+					display: block;
+				}
+			</style>
+			<d2l-resize-aware class="dedc-container" mobile$="[[_mobile]]" show-text$=[[_forceShowText]]>
 				<div class="dedc-base-container" has-link$="[[_organizationHomepageUrl]]">
 					<a class="d2l-focusable" href$="[[_organizationHomepageUrl]]">
 						<span class="dedc-link-text">[[_title]]</span>
 					</a>
-					<div class="dedc-image">
+					<div class="dedc-image" show-image$=[[_forceShowImage]]>
 						<div class="dedc-image-shimmer"></div>
 						<d2l-organization-image href="[[_organizationUrl]]" token="[[token]]"></d2l-organization-image>
 					</div>
@@ -364,6 +401,8 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	connectedCallback() {
 		super.connectedCallback();
 		afterNextRender(this, () => {
+			this._revealTimerId = setTimeout(this._onRevealTimeout.bind(this), this._revealTimeoutMs);
+
 			const resizeAware = this.shadowRoot.querySelector('d2l-resize-aware');
 			resizeAware.addEventListener('d2l-resize-aware-resized', this._onResize.bind(this));
 			resizeAware._onResize();
@@ -375,11 +414,15 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			const moduleList = this.shadowRoot.querySelector('.dedc-module-list');
 			moduleList.addEventListener('blur', this._onLinkBlurModuleList.bind(this));
 			moduleList.addEventListener('focus', this._onLinkFocusModuleList.bind(this));
+
+			this.addEventListener('d2l-organization-image-loaded', this._onImageLoaded.bind(this));
 		});
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
+		clearTimeout(this._revealTimerId);
+
 		const resizeAware = this.shadowRoot.querySelector('d2l-resize-aware');
 		resizeAware.removeEventListener('d2l-resize-aware-resized', this._onResize.bind(this));
 
@@ -393,6 +436,12 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	}
 	_computeActive(base, moduleList) {
 		return base || moduleList;
+	}
+	_computeForceShowImage(isImageLoaded, revealOnLoad) {
+		return isImageLoaded && revealOnLoad;
+	}
+	_computeForceShowText(isTextLoaded, revealOnLoad) {
+		return isTextLoaded && revealOnLoad;
 	}
 	_onLinkBlurBase() {
 		this.baseFocus = false;
@@ -412,9 +461,27 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 		this._sequenceLink = organization.sequenceLink();
 		this._organizationHomepageUrl = organization.organizationHomepageUrl();
 		this._showTags = organization.startDate() || organization.endDate();
+
+		const loadedEvent = new CustomEvent(
+			'd2l-organization-detail-card-text-loaded',
+			{ composed: true, bubbles: true }
+		);
+		this.dispatchEvent(loadedEvent);
+		this._isTextLoaded = true;
 	}
 	_onResize(e) {
 		this._mobile = e.detail.current.width <= 389;
+	}
+	_onRevealTimeout() {
+		this._revealOnLoad = true;
+	}
+	_onImageLoaded() {
+		const loadedEvent = new CustomEvent(
+			'd2l-organization-detail-card-image-loaded',
+			{ composed: true, bubbles: true }
+		);
+		this.dispatchEvent(loadedEvent);
+		this._isImageLoaded = true;
 	}
 }
 
