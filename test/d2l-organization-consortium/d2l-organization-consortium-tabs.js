@@ -58,6 +58,20 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 		});
 
+		it('threshold greater than the number of tabs causes no render', (done) => {
+			const component = fixture('org-consortium');
+			component.href = '/consortium-root1.json';
+			component.tabRenderThreshold = 7;
+
+			flush(function() {
+				const tabs = component.shadowRoot.querySelectorAll('a');
+				assert.equal(tabs.length, 0, 'should have no tabs');
+				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+				assert.equal(dots.length, 0, 'should have no notification dots');
+				done();
+			});
+		});
+
 		it('alerts use correct token', (done) => {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
