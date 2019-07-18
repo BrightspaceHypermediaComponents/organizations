@@ -40,4 +40,83 @@ describe('d2l-organization-detail-card', () => {
 			done();
 		});
 	});
+
+	describe('Check if loaded events fire.', () => {
+		beforeEach(done => {
+			component = fixture('d2l-organization-detail-card-fixture');
+			afterNextRender(component, done);
+		});
+
+		it('should fire the text loaded event', (done) => {
+			var eventSpy = sandbox.spy();
+			component.addEventListener('d2l-organization-detail-card-text-loaded', eventSpy);
+
+			component._entity = organizationEntity;
+
+			setTimeout(() => {
+				sinon.assert.called(eventSpy);
+				done();
+			});
+
+		});
+
+		it('should fire the image loaded event', (done) => {
+			var eventSpy = sandbox.spy();
+			component.addEventListener('d2l-organization-detail-card-image-loaded', eventSpy);
+
+			component.dispatchEvent(new CustomEvent('d2l-organization-image-loaded', {
+				bubbles: true,
+				composed: true
+			}));
+			setTimeout(() => {
+				sinon.assert.called(eventSpy);
+				done();
+			});
+
+		});
+
+	});
+
+	describe('Check if content is revealed after the reveal timeout has passed.', () => {
+		beforeEach(done => {
+			component = fixture('d2l-organization-detail-card-fixture');
+			afterNextRender(component, done);
+		});
+
+		it('should reveal loaded text content', (done) => {
+			component._entity = organizationEntity;
+
+			setTimeout(() => {
+				expect(component._forceShowText).to.equal(true);
+				done();
+			}, component._revealTimeoutMs);
+		});
+
+		it('should not reveal loading text content', (done) => {
+			setTimeout(() => {
+				expect(component._forceShowText).to.equal(false);
+				done();
+			}, component._revealTimeoutMs);
+		});
+
+		it('should reveal loaded image content', (done) => {
+			component.dispatchEvent(new CustomEvent('d2l-organization-image-loaded', {
+				bubbles: true,
+				composed: true
+			}));
+
+			setTimeout(() => {
+				expect(component._forceShowImage).to.equal(true);
+				done();
+			}, component._revealTimeoutMs);
+		});
+
+		it('should not reveal loading image content', (done) => {
+			setTimeout(() => {
+				expect(component._forceShowImage).to.equal(false);
+				done();
+			}, component._revealTimeoutMs);
+		});
+
+	});
 });

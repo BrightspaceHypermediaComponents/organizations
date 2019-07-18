@@ -52,7 +52,32 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				value: false
 			},
 			_organizationHomepageUrl: String,
-			_ariaText: String
+			_ariaText: String,
+			_revealTimeoutMs: {
+				type: Number,
+				value: 2000
+			},
+			_revealTimerId: Number,
+			_revealOnLoad: {
+				type: Boolean,
+				value: false
+			},
+			_isImageLoaded: {
+				type: Boolean,
+				value: false
+			},
+			_isTextLoaded: {
+				type: Boolean,
+				value: false
+			},
+			_forceShowImage: {
+				type: Boolean,
+				computed: '_computeForceShowImage(_isImageLoaded, _revealOnLoad)'
+			},
+			_forceShowText: {
+				type: Boolean,
+				computed: '_computeForceShowText(_isTextLoaded, _revealOnLoad)'
+			}
 		};
 	}
 
@@ -125,9 +150,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					margin: 0.45rem 0;
 					width: 95%;
 				}
-				@keyframes loadingShimmer {
-					0% { transform: translate3d(-100%, 0, 0); }
-					100% { transform: translate3d(100%, 0, 0); }
+				@keyframes loadingPulse {
+					0% { background-color: var(--d2l-color-sylvite); }
+					50% { background-color: var(--d2l-color-regolith); }
+					100% { background-color: var(--d2l-color-sylvite); }
 				}
 				.dedc-image {
 					background-color: var(--d2l-color-regolith);
@@ -138,9 +164,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					position: relative;
 					width: 220px;
 				}
-				.dedc-image-shimmer {
-					background-color: var(--d2l-color-regolith);
-					display: var(--d2l-organization-detail-card-image-shimmer-display, none);
+				.dedc-image-pulse {
+					animation: loadingPulse 1.8s linear infinite;
+					background-color: var(--d2l-color-sylvite);
+					display: var(--d2l-organization-detail-card-image-pulse-display, none);
 					height: 100%;
 					left: 0;
 					position: absolute;
@@ -150,17 +177,6 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				}
 				.dedc-image d2l-course-image {
 					height: 100%;
-					width: 100%;
-				}
-				.dedc-image-shimmer::after {
-					animation: loadingShimmer 1.5s ease-in-out infinite;
-					background: linear-gradient(90deg, rgba(249, 250, 251, 0.1), rgba(114, 119, 122, 0.1), rgba(249, 250, 251, 0.1));
-					background-color: var(--d2l-color-regolith);
-					content: '';
-					height: 100%;
-					left: 0;
-					position: absolute;
-					top: 0;
 					width: 100%;
 				}
 				.dedc-base-info-container {
@@ -215,6 +231,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					width: 5rem;
 				}
 				.dedc-text-placeholder {
+					animation: loadingPulse 1.8s linear infinite;
 					background-color: var(--d2l-color-sylvite);
 					border-radius: 4px;
 				}
@@ -313,13 +330,25 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					line-height: 1.75;
 				}
 			</style>
-			<d2l-resize-aware class="dedc-container" mobile$="[[_mobile]]">
+			<!-- Force show styles here -->
+			<style>
+				.dedc-image[show-image] > .dedc-image-pulse {
+					display: none;
+				}
+				.dedc-container[show-text] .dedc-base-info-placeholder {
+					display: none;
+				}
+				.dedc-container[show-text] .dedc-module-list {
+					display: block;
+				}
+			</style>
+			<d2l-resize-aware class="dedc-container" mobile$="[[_mobile]]" show-text$=[[_forceShowText]]>
 				<div class="dedc-base-container" has-link$="[[_organizationHomepageUrl]]">
 					<a class="d2l-focusable" href$="[[_organizationHomepageUrl]]">
 						<span class="dedc-link-text">[[_title]]</span>
 					</a>
-					<div class="dedc-image">
-						<div class="dedc-image-shimmer"></div>
+					<div class="dedc-image" show-image$=[[_forceShowImage]]>
+						<div class="dedc-image-pulse"></div>
 						<d2l-organization-image href="[[_organizationUrl]]" token="[[token]]"></d2l-organization-image>
 					</div>
 					<div  class="dedc-base-info-container">
@@ -364,6 +393,8 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	connectedCallback() {
 		super.connectedCallback();
 		afterNextRender(this, () => {
+			this._revealTimerId = setTimeout(this._onRevealTimeout.bind(this), this._revealTimeoutMs);
+
 			const resizeAware = this.shadowRoot.querySelector('d2l-resize-aware');
 			resizeAware.addEventListener('d2l-resize-aware-resized', this._onResize.bind(this));
 			resizeAware._onResize();
@@ -375,11 +406,15 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			const moduleList = this.shadowRoot.querySelector('.dedc-module-list');
 			moduleList.addEventListener('blur', this._onLinkBlurModuleList.bind(this));
 			moduleList.addEventListener('focus', this._onLinkFocusModuleList.bind(this));
+
+			this.addEventListener('d2l-organization-image-loaded', this._onImageLoaded.bind(this));
 		});
 	}
 
 	disconnectedCallback() {
 		super.disconnectedCallback();
+		clearTimeout(this._revealTimerId);
+
 		const resizeAware = this.shadowRoot.querySelector('d2l-resize-aware');
 		resizeAware.removeEventListener('d2l-resize-aware-resized', this._onResize.bind(this));
 
@@ -393,6 +428,12 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	}
 	_computeActive(base, moduleList) {
 		return base || moduleList;
+	}
+	_computeForceShowImage(isImageLoaded, revealOnLoad) {
+		return isImageLoaded && revealOnLoad;
+	}
+	_computeForceShowText(isTextLoaded, revealOnLoad) {
+		return isTextLoaded && revealOnLoad;
 	}
 	_onLinkBlurBase() {
 		this.baseFocus = false;
@@ -412,9 +453,27 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 		this._sequenceLink = organization.sequenceLink();
 		this._organizationHomepageUrl = organization.organizationHomepageUrl();
 		this._showTags = organization.startDate() || organization.endDate();
+
+		const loadedEvent = new CustomEvent(
+			'd2l-organization-detail-card-text-loaded',
+			{ composed: true, bubbles: true }
+		);
+		this.dispatchEvent(loadedEvent);
+		this._isTextLoaded = true;
 	}
 	_onResize(e) {
 		this._mobile = e.detail.current.width <= 389;
+	}
+	_onRevealTimeout() {
+		this._revealOnLoad = true;
+	}
+	_onImageLoaded() {
+		const loadedEvent = new CustomEvent(
+			'd2l-organization-detail-card-image-loaded',
+			{ composed: true, bubbles: true }
+		);
+		this.dispatchEvent(loadedEvent);
+		this._isImageLoaded = true;
 	}
 }
 
@@ -429,7 +488,7 @@ $_documentContainer.innerHTML = `
 		html {
 
 			--d2l-organization-detail-card-loading: {
-				--d2l-organization-detail-card-image-shimmer-display: block;
+				--d2l-organization-detail-card-image-pulse-display: block;
 				--d2l-organization-detail-card-module-list-display: none;
 				--d2l-organization-detail-card-text-placeholder-display: block;
 			};
@@ -440,7 +499,7 @@ $_documentContainer.innerHTML = `
 			};
 
 			--d2l-organization-detail-card-loading-image: {
-				--d2l-organization-detail-card-image-shimmer-display: block;
+				--d2l-organization-detail-card-image-pulse-display: block;
 			};
 
 		}
