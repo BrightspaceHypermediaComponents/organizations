@@ -150,9 +150,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					margin: 0.45rem 0;
 					width: 95%;
 				}
-				@keyframes loadingShimmer {
-					0% { transform: translate3d(-100%, 0, 0); }
-					100% { transform: translate3d(100%, 0, 0); }
+				@keyframes loadingPulse {
+					0% { background-color: var(--d2l-color-sylvite); }
+					50% { background-color: var(--d2l-color-regolith); }
+					100% { background-color: var(--d2l-color-sylvite); }
 				}
 				.dedc-image {
 					background-color: var(--d2l-color-regolith);
@@ -163,9 +164,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					position: relative;
 					width: 220px;
 				}
-				.dedc-image-shimmer {
-					background-color: var(--d2l-color-regolith);
-					display: var(--d2l-organization-detail-card-image-shimmer-display, none);
+				.dedc-image-pulse {
+					animation: loadingPulse 1.8s linear infinite;
+					background-color: var(--d2l-color-sylvite);
+					display: var(--d2l-organization-detail-card-image-pulse-display, none);
 					height: 100%;
 					left: 0;
 					position: absolute;
@@ -175,17 +177,6 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				}
 				.dedc-image d2l-course-image {
 					height: 100%;
-					width: 100%;
-				}
-				.dedc-image-shimmer::after {
-					animation: loadingShimmer 1.5s ease-in-out infinite;
-					background: linear-gradient(90deg, rgba(249, 250, 251, 0.1), rgba(114, 119, 122, 0.1), rgba(249, 250, 251, 0.1));
-					background-color: var(--d2l-color-regolith);
-					content: '';
-					height: 100%;
-					left: 0;
-					position: absolute;
-					top: 0;
 					width: 100%;
 				}
 				.dedc-base-info-container {
@@ -240,6 +231,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					width: 5rem;
 				}
 				.dedc-text-placeholder {
+					animation: loadingPulse 1.8s linear infinite;
 					background-color: var(--d2l-color-sylvite);
 					border-radius: 4px;
 				}
@@ -340,7 +332,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			</style>
 			<!-- Force show styles here -->
 			<style>
-				.dedc-image[show-image] > .dedc-image-shimmer {
+				.dedc-image[show-image] > .dedc-image-pulse {
 					display: none;
 				}
 				.dedc-container[show-text] .dedc-base-info-placeholder {
@@ -356,7 +348,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 						<span class="dedc-link-text">[[_title]]</span>
 					</a>
 					<div class="dedc-image" show-image$=[[_forceShowImage]]>
-						<div class="dedc-image-shimmer"></div>
+						<div class="dedc-image-pulse"></div>
 						<d2l-organization-image href="[[_organizationUrl]]" token="[[token]]"></d2l-organization-image>
 					</div>
 					<div  class="dedc-base-info-container">
@@ -496,7 +488,7 @@ $_documentContainer.innerHTML = `
 		html {
 
 			--d2l-organization-detail-card-loading: {
-				--d2l-organization-detail-card-image-shimmer-display: block;
+				--d2l-organization-detail-card-image-pulse-display: block;
 				--d2l-organization-detail-card-module-list-display: none;
 				--d2l-organization-detail-card-text-placeholder-display: block;
 			};
@@ -507,7 +499,7 @@ $_documentContainer.innerHTML = `
 			};
 
 			--d2l-organization-detail-card-loading-image: {
-				--d2l-organization-detail-card-image-shimmer-display: block;
+				--d2l-organization-detail-card-image-pulse-display: block;
 			};
 
 		}
