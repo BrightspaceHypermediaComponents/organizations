@@ -92,9 +92,9 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 				.doi-secondary {
 					flex-grow: 1;
 					flex-basis: 50%;
-					border-bottom: white solid 1px;
 				}
 				.doi-tertiary {
+					border-top: white solid 1px;
 					flex-grow: 1;
 					flex-shrink: 0;
 					flex-basis: 50%;
