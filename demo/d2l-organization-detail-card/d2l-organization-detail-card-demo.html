@@ -48,8 +48,9 @@
 				</custom-style>
 				<custom-style include="d2l-organization-detail-card">
 					<style>
-						.demo d2l-organization-detail-card[loading] {
+						.demo d2l-organization-detail-card {
 							@apply --d2l-organization-detail-card-loading;
+							margin-top: 20px;
 						}
 					</style>
 				</custom-style>
@@ -66,8 +67,6 @@
 					<div class="demo">
 						<d2l-organization-detail-card href="../data/organization-current.json" token="whatever"></d2l-organization-detail-card>
 						<d2l-organization-detail-card href="../data/learningPath/organization-learning-path.json" token="whatever"></d2l-organization-detail-card>
-						<d2l-organization-detail-card loading href="../data/organization-current.json" token="whatever"></d2l-organization-detail-card>
-						<d2l-organization-detail-card loading href="../data/learningPath/organization-learning-path.json" token="whatever"></d2l-organization-detail-card>
 					</div>
 				</template>
 			</demo-snippet>

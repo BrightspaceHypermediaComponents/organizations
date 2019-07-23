@@ -3,12 +3,15 @@ import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
+import '@brightspace-ui/core/components/meter/meter-circle.js';
+import { OrganizationDetailCardLocalize } from './OrganizationDetailCardLocalize.js';
 import '../d2l-organization-date/d2l-organization-date.js';
 import '../d2l-organization-image/d2l-organization-image.js';
 import '../d2l-organization-name/d2l-organization-name.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-sequences/components/d2l-sequences-module-list.js';
 import 'd2l-resize-aware/d2l-resize-aware.js';
+import 'd2l-offscreen/d2l-offscreen-shared-styles.js';
 import 'd2l-polymer-behaviors/d2l-focusable-behavior.js';
 import 'fastdom/fastdom.min.js';
 
@@ -18,7 +21,7 @@ import 'fastdom/fastdom.min.js';
  */
 class D2lOrganizationDetailCard extends mixinBehaviors([
 	D2L.PolymerBehaviors.FocusableBehavior
-], EntityMixin(PolymerElement)) {
+], OrganizationDetailCardLocalize(EntityMixin(PolymerElement))) {
 
 	static get properties() {
 		return {
@@ -38,7 +41,6 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				reflectToAttribute: true
 			},
 			_description: String,
-			_image: String,
 			_organizationUrl: String,
 			_sequenceLink: String,
 			_showTags: {
@@ -77,6 +79,15 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			_forceShowText: {
 				type: Boolean,
 				computed: '_computeForceShowText(_isTextLoaded, _revealOnLoad)'
+			},
+			_modulesComplete: {
+				type: Object,
+				value: function() {
+					return {
+						value: 0,
+						max: 0
+					};
+				}
 			}
 		};
 	}
@@ -98,7 +109,6 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					box-sizing: border-box;
 					display: inline-block;
 					max-width: 780px;
-					overflow: hidden;
 					position: relative;
 					width: 100%;
 					z-index: 0;
@@ -250,6 +260,15 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				.dedc-module-list {
 					display: var(--d2l-organization-detail-card-module-list-display, block);
 				}
+				.dedc-module-completion-meter {
+					--d2l-meter-circle-fill: #ffffff;
+					display: var(--d2l-organization-detail-card-module-completion-meter-display, block);
+					position: absolute;
+					height: 2.4rem;
+					top: -1.2rem;
+					right: -1.2rem;
+					z-index: 100;
+				}
 			</style>
 			<!-- focus and hover styles styles here -->
 			<style>
@@ -332,14 +351,16 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			</style>
 			<!-- Force show styles here -->
 			<style>
-				.dedc-image[show-image] > .dedc-image-pulse {
-					display: none;
-				}
+				.dedc-image[show-image] > .dedc-image-pulse,
 				.dedc-container[show-text] .dedc-base-info-placeholder {
 					display: none;
 				}
-				.dedc-container[show-text] .dedc-module-list {
+				.dedc-container[show-text] .dedc-module-list,
+				.dedc-container[show-text] ~ .dedc-module-completion-meter:not([hidden]) {
 					display: block;
+				}
+				.dedc-module-completion-meter[hidden] {
+					display: none;
 				}
 			</style>
 			<d2l-resize-aware class="dedc-container" mobile$="[[_mobile]]" show-text$=[[_forceShowText]]>
@@ -369,7 +390,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 						</div>
 						<!-- Real text part -->
 						<div class="dedc-base-info">
-							<h3 class="dedc-title"><d2l-organization-name href="[[_organizationUrl]]"  token="[[token]]"></d2l-organization-name></h3>
+							<h3 class="dedc-title">[[_title]]</d2l-organization-name></h3>
 							<div class="dedc-tag-container" hidden=[[_showTags]]>
 									<span>
 										<d2l-icon icon="d2l-tier1:bullet"></d2l-icon>
@@ -384,6 +405,13 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				</div>
 				<d2l-sequences-module-list class="dedc-module-list" href="[[_sequenceLink]]" token="[[token]]"></d2l-sequences-module-list>
 			</d2l-resize-aware>
+			<d2l-meter-circle
+				hidden$="[[!_modulesComplete.max]]"
+				class="dedc-module-completion-meter"
+				value$="[[_modulesComplete.value]]"
+				max$="[[_modulesComplete.max]]"
+				text$="[[localize('CompletedModulesProgress', 'title', _title)]]">
+			</d2l-meter-circle>
 		`;
 	}
 	constructor() {
@@ -449,10 +477,14 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	}
 	_onOrganizationChange(organization) {
 		this._organizationUrl = organization.self();
+		this._title = organization.name();
 		this._description = organization.description();
 		this._sequenceLink = organization.sequenceLink();
 		this._organizationHomepageUrl = organization.organizationHomepageUrl();
 		this._showTags = organization.startDate() || organization.endDate();
+
+		this._resetCompletion();
+		organization.onSequenceChange(this._onSequenceRootChange.bind(this));
 
 		const loadedEvent = new CustomEvent(
 			'd2l-organization-detail-card-text-loaded',
@@ -460,6 +492,26 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 		);
 		this.dispatchEvent(loadedEvent);
 		this._isTextLoaded = true;
+	}
+	_onSequenceRootChange(sequenceRoot) {
+		const modulesBySequence = [];
+		this._resetCompletion();
+
+		sequenceRoot.onSubSequencesChange((subSequence) => {
+			const completion = subSequence.completion();
+			const isCompleted = completion && completion.isCompleted;
+			const isOptional = !completion || !completion.total;
+
+			modulesBySequence[subSequence.index()] = {
+				isOptional,
+				isCompleted
+			};
+
+			this._modulesComplete = {
+				value: modulesBySequence.filter(element => typeof(element) !== 'undefined' && element.isCompleted).length,
+				max: modulesBySequence.filter(element => typeof(element) !== 'undefined' && !element.isOptional).length
+			};
+		});
 	}
 	_onResize(e) {
 		this._mobile = e.detail.current.width <= 389;
@@ -474,6 +526,12 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 		);
 		this.dispatchEvent(loadedEvent);
 		this._isImageLoaded = true;
+	}
+	_resetCompletion() {
+		this._modulesComplete = {
+			value: 0,
+			max: 0
+		};
 	}
 }
 
@@ -490,11 +548,13 @@ $_documentContainer.innerHTML = `
 			--d2l-organization-detail-card-loading: {
 				--d2l-organization-detail-card-image-pulse-display: block;
 				--d2l-organization-detail-card-module-list-display: none;
+				--d2l-organization-detail-card-module-completion-meter-display: none;
 				--d2l-organization-detail-card-text-placeholder-display: block;
 			};
 
 			--d2l-organization-detail-card-loading-text: {
 				--d2l-organization-detail-card-module-list-display: none;
+				--d2l-organization-detail-card-module-completion-meter-display: none;
 				--d2l-organization-detail-card-text-placeholder-display: block;
 			};
 
