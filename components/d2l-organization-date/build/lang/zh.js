@@ -15,4 +15,3 @@ const LangZhImpl = (superClass) => class extends superClass {
 };
 
 export const LangZh = dedupingMixin(LangZhImpl);
-

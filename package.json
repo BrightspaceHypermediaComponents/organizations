@@ -49,6 +49,7 @@
   },
   "main": "d2l-organizations.js",
   "dependencies": {
+    "@brightspace-ui/core": "^0.2.1",
     "@polymer/polymer": "^3.0.0",
     "d2l-course-image": "Brightspace/course-image#semver:^3",
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",

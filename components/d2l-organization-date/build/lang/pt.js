@@ -15,4 +15,3 @@ const LangPtImpl = (superClass) => class extends superClass {
 };
 
 export const LangPt = dedupingMixin(LangPtImpl);
-

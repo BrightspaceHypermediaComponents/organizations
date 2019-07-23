@@ -4,25 +4,71 @@ describe('d2l-organization-detail-card', () => {
 
 	var component,
 		sandbox,
-		organizationEntity,
-		onOrganizationChangeStub;
+		organizationEntity;
 
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
 
 		component = fixture('d2l-organization-detail-card-fixture');
-		onOrganizationChangeStub = sinon.stub();
+		const onSequenceChangeStub = sinon.stub();
 
 		organizationEntity = {
 			self: function() { return 'organizationHref'; },
+			name: function() { return 'organization'; },
 			description: function() { return 'description'; },
 			sequenceLink: function() { return 'sequenceLink'; },
 			organizationHomepageUrl: function() { return 'organizationHomepageUrl'; },
 			startDate: function() { return undefined; },
-			endDate: function() { return undefined; }
+			endDate: function() { return undefined; },
+			onSequenceChange: onSequenceChangeStub
 		};
 
-		onOrganizationChangeStub.callsArgWith(0, organizationEntity);
+		const module1 = {
+			self: function() { return 'module1'; },
+			index: function() { return 0; },
+			completion: function() {
+				return {
+					total: 5,
+					completed: 5,
+					isCompleted: true
+				};
+			}
+		};
+
+		const module2 = {
+			self: function() { return 'module2'; },
+			index: function() { return 1; },
+			completion: function() {
+				return {
+					total: 6,
+					completed: 2,
+					isCompleted: false
+				};
+			}
+		};
+
+		const module3 = {
+			self: function() { return 'module3'; },
+			index: function() { return 2; },
+			completion: function() {
+				return {
+					total: 0,
+					completed: 0,
+					isCompleted: false
+				};
+			}
+		};
+
+		const rootSequenceEntity = {
+			self: function() { return 'rootSequenceHref'; },
+			onSubSequencesChange: function(onChange) {
+				onChange(module1);
+				onChange(module3);
+				onChange(module2);
+			}
+		};
+
+		onSequenceChangeStub.callsArgWith(0, rootSequenceEntity);
 	});
 
 	afterEach(() => {
@@ -39,6 +85,20 @@ describe('d2l-organization-detail-card', () => {
 			expect(!!component._showTags).to.equal(false);
 			done();
 		});
+	});
+
+	describe('Show the proper progress', () => {
+		beforeEach(done => {
+			component = fixture('d2l-organization-detail-card-fixture');
+			afterNextRender(component, done);
+		});
+
+		it('Progress should track modules', () => {
+			component._entity = organizationEntity;
+			expect(component._modulesComplete.value).to.equal(1);
+			expect(component._modulesComplete.max).to.equal(2);
+		});
+
 	});
 
 	describe('Check if loaded events fire.', () => {
@@ -87,14 +147,14 @@ describe('d2l-organization-detail-card', () => {
 			component._entity = organizationEntity;
 
 			setTimeout(() => {
-				expect(component._forceShowText).to.equal(true);
+				expect(!!component._forceShowText).to.be.true;
 				done();
 			}, component._revealTimeoutMs);
 		});
 
 		it('should not reveal loading text content', (done) => {
 			setTimeout(() => {
-				expect(component._forceShowText).to.equal(false);
+				expect(!!component._forceShowText).to.be.false;
 				done();
 			}, component._revealTimeoutMs);
 		});
@@ -106,14 +166,14 @@ describe('d2l-organization-detail-card', () => {
 			}));
 
 			setTimeout(() => {
-				expect(component._forceShowImage).to.equal(true);
+				expect(!!component._forceShowImage).to.be.true;
 				done();
 			}, component._revealTimeoutMs);
 		});
 
 		it('should not reveal loading image content', (done) => {
 			setTimeout(() => {
-				expect(component._forceShowImage).to.equal(false);
+				expect(!!component._forceShowImage).to.be.false;
 				done();
 			}, component._revealTimeoutMs);
 		});
