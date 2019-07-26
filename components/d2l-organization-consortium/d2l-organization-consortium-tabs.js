@@ -6,15 +6,16 @@ Polymer-based web component for displaying all organizations a user is enrolled 
 @demo demo/d2l-organization-consortium/d2l-organization-consortium.html organization consortium tab
 */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import '../d2l-organization-behavior.js';
+import 'd2l-navigation/d2l-navigation-notification-icon.js';
+import 'd2l-polymer-behaviors/d2l-id.js';
+import 'd2l-tooltip/d2l-tooltip.js';
+import 'd2l-typography/d2l-typography-shared-styles.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
-import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
-import '../d2l-organization-behavior.js';
-import 'd2l-tooltip/d2l-tooltip.js';
-import 'd2l-polymer-behaviors/d2l-id.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
-import 'd2l-navigation/d2l-navigation-notification-icon.js';
+import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
 
 /**
  * @customElement
