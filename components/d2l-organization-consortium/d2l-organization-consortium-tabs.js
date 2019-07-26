@@ -67,33 +67,44 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get template() {
 		return html`
-		<style>
+		<style include="d2l-typography-shared-styles">
 			a {
 				color: white;
+				display: inline-block;
 				font-size: 0.6rem;
+				overflow: hidden;
 				padding: 0px 5px;
 				text-decoration: none;
-			}
-
-			div[selected] {
-				background: white;
-			}
-			div[selected] > a {
-				color: grey;
-			}
-			.d2l-consortium-tab {
-				background: rgb(0,0,0,.4);
-				border-top-left-radius: 5px;
-				border-top-right-radius: 5px;
-				line-height: 1.0625rem;
-				overflow: hidden;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				word-break: break-all;
+				vertical-align: middle;
+			}
+			.d2l-consortium-tab {
+				background: rgb(0, 0, 0, .54);
+				border: rgb(255, 255, 255, .30) outset 1px;
+				border-bottom: none;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				box-sizing: border-box;
+				line-height: 1.0625rem;
+				max-width: 5,5rem;
+				padding: 0 12px;
+			}
+			.d2l-consortium-tab[selected] {
+				background: white;
+				border: rgb(0, 0, 0, .54) outset 1px;
+				border-bottom: none;
+			}
+			.d2l-consortium-tab[selected] > a {
+				color: var(--d2l-color-ferrite);
 			}
 			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
+			}
+			.d2l-consortium-tab-box :not(:first-child) {
+				margin-left: -1px;
 			}
 			.d2l-tab-container {
 				display: inline-block;
@@ -108,7 +119,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</div>
 				</span>
-				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="top">
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
 					[[item.fullName]]
 				</d2l-tooltip>
 			</template>
