@@ -143,10 +143,11 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				}
 				.dedc-description-container {
 					margin: 0.1rem 0;
+					margin-top: 0.3rem;
 				}
 				.dedc-description-container p {
 					@apply --d2l-body-small-text;
-					color: var(--d2l-color-ferrite);
+					color: var(--d2l-color-tungsten);
 					height: 3.15rem;
 					letter-spacing: 0.4px;
 					line-height: 1.5;
@@ -213,11 +214,12 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				.dedc-tag-container,
 				.dedc-tag-container span d2l-icon {
 					@apply --d2l-body-small-text;
-					color: var(--d2l-color-ferrite);
+					color: var(--d2l-color-tungsten);
 					flex-shrink: 0;
 				}
 				.dedc-tag-container {
-					margin: 0.7rem 0px;
+					margin: 0.15rem 0;
+					margin-top: 0.55rem;
 					letter-spacing: 0.4px;
 					line-height: 0.86;
 				}
@@ -391,7 +393,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 						<!-- Real text part -->
 						<div class="dedc-base-info">
 							<h3 class="dedc-title">[[_title]]</d2l-organization-name></h3>
-							<div class="dedc-tag-container" hidden=[[_showTags]]>
+							<div class="dedc-tag-container" hidden=[[!_showTags]]>
 									<span>
 										<d2l-icon icon="d2l-tier1:bullet"></d2l-icon>
 										<d2l-organization-date href="[[_organizationUrl]]"></d2l-organization-date>
