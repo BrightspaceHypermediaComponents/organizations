@@ -490,10 +490,13 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 
 		const loadedEvent = new CustomEvent(
 			'd2l-organization-detail-card-text-loaded',
-			{ composed: true, bubbles: true }
+			{ composed: true, bubbles: true, detail: { href: this._organizationUrl } }
 		);
-		this.dispatchEvent(loadedEvent);
-		this._isTextLoaded = true;
+		// Stop-gap solution to delay loaded event firing until the module sequences have loaded until we can get the sequence count from the siren-sdk
+		setTimeout(() => {
+			this.dispatchEvent(loadedEvent);
+			this._isTextLoaded = true;
+		}, 200);
 	}
 	_onSequenceRootChange(sequenceRoot) {
 		const modulesBySequence = [];
@@ -524,10 +527,13 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	_onImageLoaded() {
 		const loadedEvent = new CustomEvent(
 			'd2l-organization-detail-card-image-loaded',
-			{ composed: true, bubbles: true }
+			{ composed: true, bubbles: true, detail: { href: this._organizationUrl } }
 		);
-		this.dispatchEvent(loadedEvent);
-		this._isImageLoaded = true;
+		// Stop-gap solution to delay loaded event firing until the module sequences have loaded until we can get the sequence count from the siren-sdk
+		setTimeout(() => {
+			this.dispatchEvent(loadedEvent);
+			this._isImageLoaded = true;
+		}, 200);
 	}
 	_resetCompletion() {
 		this._modulesComplete = {

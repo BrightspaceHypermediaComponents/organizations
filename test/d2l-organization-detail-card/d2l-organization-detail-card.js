@@ -116,7 +116,7 @@ describe('d2l-organization-detail-card', () => {
 			setTimeout(() => {
 				sinon.assert.called(eventSpy);
 				done();
-			});
+			}, 250);
 
 		});
 
@@ -131,7 +131,7 @@ describe('d2l-organization-detail-card', () => {
 			setTimeout(() => {
 				sinon.assert.called(eventSpy);
 				done();
-			});
+			}, 250);
 
 		});
 
