@@ -51,6 +51,8 @@
   "dependencies": {
     "@brightspace-ui/core": "^0.2.1",
     "@polymer/polymer": "^3.0.0",
+    "@polymer/iron-icon": "^3.0.1",
+    "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-course-image": "Brightspace/course-image#semver:^3",
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",

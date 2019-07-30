@@ -14,14 +14,14 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 					key: 'unreadAssignmentFeedback',
 					presentationLink: 'ShowDropboxUnreadFeedback',
 					toolTip: 'unreadAssignmentFeedback',
-					icon: 'd2l-tier1:assignments',
+					icon: 'd2l-tier1:d2l-icon-assignments',
 					order: 1
 				},
 				UnreadAssignmentSubmissions: {
 					key: 'unreadAssignmentFeedback',
 					presentationLink: 'ShowUnreadDropboxSubmissions',
 					toolTip: 'unreadAssignmentSubmissions',
-					icon: 'd2l-tier1:assignments',
+					icon: 'd2l-tier1:d2l-icon-assignments',
 					order: 1
 				},
 				UnattemptedQuizzes: {
@@ -42,14 +42,14 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 					key: 'unreadDiscussionFeedback',
 					presentationLink: 'ShowUnreadDiscussionMessages',
 					toolTip: 'unreadDiscussions',
-					icon: 'd2l-tier1:comment-hollow',
+					icon: 'd2l-tier1:d2l-icon-comment-hollow',
 					order: 2
 				},
 				UnapprovedDiscussions: {
 					key: 'unreadDiscussionFeedback',
 					presentationLink: 'ShowUnreadDiscussionMessages',
 					toolTip: 'unapprovedDiscussions',
-					icon: 'd2l-tier1:comment-hollow',
+					icon: 'd2l-tier1:d2l-icon-comment-hollow',
 					order: 2
 				}
 			}
@@ -155,4 +155,3 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 };
 
 export const OrganizationUpdatesMixin = dedupingMixin(OrganizationUpdatesImpl);
-
