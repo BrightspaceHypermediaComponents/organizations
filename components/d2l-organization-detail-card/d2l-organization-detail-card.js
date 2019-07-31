@@ -271,6 +271,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					right: -1.2rem;
 					z-index: 100;
 				}
+				:host(:dir(rtl)) .dedc-module-completion-meter {
+					left: -1.2rem;
+					right: unset;
+				}
 			</style>
 			<!-- focus and hover styles styles here -->
 			<style>
