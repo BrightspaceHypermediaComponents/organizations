@@ -9,8 +9,8 @@ Polymer-based web component for a organization updates.
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
-import '@polymer/iron-icon/iron-icon.js';
 import 'd2l-colors/d2l-colors.js';
+import 'd2l-icons/d2l-icon.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
 import { OrganizationUpdatesMixin } from './OrganizationUpdatesMixin.js';
@@ -92,8 +92,7 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 				:host(:dir(rtl)) .organization-updates-container ~ * {
 					margin: 0 1.95rem 0 0;
 				}
-				iron-icon {
-					fill: var(--d2l-color-ferrite);
+				d2l-icon {
 					height: var(--d2l-organization-updates-size, 18px);
 					vertical-align: top;
 					width: var(--d2l-organization-updates-size, 18px);
@@ -132,7 +131,7 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 				.container[disabled] .update-text-box {
 					display: none;
 				}
-				.container[disabled] iron-icon {
+				.container[disabled] d2l-icon {
 					color: var(--d2l-color-mica);
 				}
 				.icon-tooltip {
@@ -158,7 +157,7 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 				<template is="dom-if" if="[[item.icon]]">
 					<span class="organization-updates-container" disabled$="[[item.isDisabled]]" id="[[item.key]]">
 						<a href="[[item.link]]">
-							<iron-icon icon="[[item.icon]]"></iron-icon>
+							<d2l-icon icon="[[item.icon]]"></d2l-icon>
 						</a>
 						<span class="update-text-box-icon update-text-box">
 							<div class="update-text-icon" aria-hidden="true">[[item.updateCount]]</div>

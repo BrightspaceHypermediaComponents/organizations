@@ -1,7 +1,6 @@
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-icons/tier1-icons.js';
-import '../d2l-organization-icons.js';
 import '../d2l-organization-behavior.js';
 import { OrganizationUpdatesLocalize } from './OrganizationUpdatesLocalize.js';
 
@@ -14,42 +13,42 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 					key: 'unreadAssignmentFeedback',
 					presentationLink: 'ShowDropboxUnreadFeedback',
 					toolTip: 'unreadAssignmentFeedback',
-					icon: 'd2l-tier1:d2l-icon-assignments',
+					icon: 'd2l-tier1:assignments',
 					order: 1
 				},
 				UnreadAssignmentSubmissions: {
 					key: 'unreadAssignmentFeedback',
 					presentationLink: 'ShowUnreadDropboxSubmissions',
 					toolTip: 'unreadAssignmentSubmissions',
-					icon: 'd2l-tier1:d2l-icon-assignments',
+					icon: 'd2l-tier1:assignments',
 					order: 1
 				},
 				UnattemptedQuizzes: {
 					key: 'unreadQuizzesFeedback',
 					presentationLink: 'ShowUnattemptedQuizzes',
 					toolTip: 'unattemptedQuizzes',
-					icon: 'd2l-organization-icons:quiz-submissions',
+					icon: 'd2l-tier1:quizzing',
 					order: 3
 				},
 				UngradedQuizzes: {
 					key: 'unreadQuizzesFeedback',
 					presentationLink: 'ShowUngradedQuizAttempts',
 					toolTip: 'ungradedQuizzes',
-					icon: 'd2l-organization-icons:quiz-submissions',
+					icon: 'd2l-tier1:quizzing',
 					order: 3
 				},
 				UnreadDiscussions: {
 					key: 'unreadDiscussionFeedback',
 					presentationLink: 'ShowUnreadDiscussionMessages',
 					toolTip: 'unreadDiscussions',
-					icon: 'd2l-tier1:d2l-icon-comment-hollow',
+					icon: 'd2l-tier1:comment-filled',
 					order: 2
 				},
 				UnapprovedDiscussions: {
 					key: 'unreadDiscussionFeedback',
 					presentationLink: 'ShowUnreadDiscussionMessages',
 					toolTip: 'unapprovedDiscussions',
-					icon: 'd2l-tier1:d2l-icon-comment-hollow',
+					icon: 'd2l-tier1:comment-filled',
 					order: 2
 				}
 			}
