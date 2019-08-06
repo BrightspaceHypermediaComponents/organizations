@@ -49,7 +49,7 @@
   },
   "main": "d2l-organizations.js",
   "dependencies": {
-    "@brightspace-ui/core": "^0.2.1",
+    "@brightspace-ui/core": "^1",
     "@polymer/polymer": "^3.0.0",
     "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-course-image": "Brightspace/course-image#semver:^3",
