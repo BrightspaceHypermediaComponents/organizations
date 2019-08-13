@@ -248,7 +248,7 @@ describe('d2l-organization-updates', () => {
 				var notification = component.$$('.update-text-big');
 				expect(notification.innerHTML).is.equal('99+');
 				done();
-			});
+			}, 3000);
 
 		});
 
