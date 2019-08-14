@@ -69,13 +69,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	static get template() {
 		return html`
 		<style include="d2l-typography-shared-styles">
-			a {
+			.d2l-consortium-tab a {
 				color: white;
 				display: inline-block;
 				font-size: 0.6rem;
+				line-height: 1.25rem;
 				max-width: 100%;
 				overflow: hidden;
-				padding: 0px 0.25rem;
+				position: relative;
 				text-decoration: none;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -86,7 +87,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				background: rgba(0, 0, 0, .54);
 				border-bottom: none;
 				border-radius: 0.20rem 0.20rem 0 0;
-				line-height: 1.0625rem;
 				max-width: 5.5rem;
 				padding: 0 0.6rem;
 			}
@@ -104,7 +104,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				margin-left: -0.05rem;
 			}
 			.d2l-tab-container {
-				border: rgba(255, 255, 255, .30) solid 0.05rem;
+				border: rgba(255, 255, 255, .30) solid 1px;
 				border-radius: 0.25rem 0.25rem 0 0;
 				border-bottom: none;
 				display: inline-block;
@@ -112,7 +112,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				position: relative;
 			}
 			.d2l-tab-container[selected] {
-				border: rgba(0, 0, 0, .42) solid 0.05rem;
+				border: rgba(0, 0, 0, .42) solid 1px;
 				border-bottom: none;
 			}
 
@@ -124,7 +124,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 						<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</div>
-			</div>
+				</div>
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
 					[[item.fullName]]
 				</d2l-tooltip>
