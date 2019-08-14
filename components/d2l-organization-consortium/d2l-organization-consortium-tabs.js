@@ -73,7 +73,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				color: white;
 				display: inline-block;
 				font-size: 0.6rem;
-				line-height: 1.25rem;
 				max-width: 100%;
 				overflow: hidden;
 				position: relative;
@@ -108,6 +107,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				border-radius: 0.25rem 0.25rem 0 0;
 				border-bottom: none;
 				display: inline-block;
+				line-height: 1.2rem;
 				margin: 0.2rem 0 0 0;
 				position: relative;
 			}
