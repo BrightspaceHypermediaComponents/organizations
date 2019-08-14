@@ -83,7 +83,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				vertical-align: middle;
 			}
 			.d2l-consortium-tab {
-				background: rgb(0, 0, 0, .54);
+				background: rgba(0, 0, 0, .54);
 				border-bottom: none;
 				border-radius: 0.20rem 0.20rem 0 0;
 				line-height: 1.0625rem;
@@ -104,7 +104,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				margin-left: -0.05rem;
 			}
 			.d2l-tab-container {
-				border: rgb(255, 255, 255, .30) solid 0.05rem;
+				border: rgba(255, 255, 255, .30) solid 0.05rem;
 				border-radius: 0.25rem 0.25rem 0 0;
 				border-bottom: none;
 				display: inline-block;
@@ -112,7 +112,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				position: relative;
 			}
 			.d2l-tab-container[selected] {
-				border: rgb(0, 0, 0, .42) solid 0.05rem;
+				border: rgba(0, 0, 0, .42) solid 0.05rem;
 				border-bottom: none;
 			}
 
