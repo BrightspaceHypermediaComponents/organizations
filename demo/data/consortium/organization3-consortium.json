@@ -1,0 +1,41 @@
+{
+  "properties": {
+    "name": "Consortium 3",
+    "code": null,
+    "startDate": null,
+    "endDate": null,
+    "isActive": true,
+    "description": ""
+  },
+  "entities":[
+    {
+       "class":[
+          "course-image"
+       ],
+       "rel":[
+          "https://api.brightspace.com/rels/organization-image"
+       ],
+       "href":"../../data/image.json"
+    }
+ ],
+  "links": [{
+    "rel": ["self"],
+    "href": "../../data/organization-current.json"
+  }, {
+    "rel": ["https://api.brightspace.com/rels/parent-semester"],
+    "href": "../../data/semester.json"
+  },{
+    "rel":[
+       "https://notifications.api.brightspace.com/rels/organization-notifications"
+    ],
+    "href":"../../data/notification.json"
+  },{
+    "rel": ["https://api.brightspace.com/rels/organization-homepage"],
+    "href": "?consortium=3"
+  }, {
+    "rel": [
+        "https://api.brightspace.com/rels/notification-alerts"
+    ],
+    "href": "../data/alerts-no-unread.json"
+  }]
+}

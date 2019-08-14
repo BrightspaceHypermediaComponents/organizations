@@ -73,8 +73,9 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				color: white;
 				display: inline-block;
 				font-size: 0.6rem;
+				max-width: 100%;
 				overflow: hidden;
-				padding: 0px 5px;
+				padding: 0px 0.25rem;
 				text-decoration: none;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -83,21 +84,16 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			}
 			.d2l-consortium-tab {
 				background: rgb(0, 0, 0, .54);
-				border: rgb(255, 255, 255, .30) outset 1px;
 				border-bottom: none;
-				border-top-left-radius: 5px;
-				border-top-right-radius: 5px;
-				box-sizing: border-box;
+				border-radius: 0.20rem 0.20rem 0 0;
 				line-height: 1.0625rem;
-				max-width: 5,5rem;
-				padding: 0 12px;
+				max-width: 5.5rem;
+				padding: 0 0.6rem;
 			}
-			.d2l-consortium-tab[selected] {
+			[selected] .d2l-consortium-tab {
 				background: white;
-				border: rgb(0, 0, 0, .54) outset 1px;
-				border-bottom: none;
 			}
-			.d2l-consortium-tab[selected] > a {
+			[selected] .d2l-consortium-tab > a {
 				color: var(--d2l-color-ferrite);
 			}
 			.d2l-consortium-tab-box {
@@ -105,21 +101,30 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				flex-wrap: nowrap;
 			}
 			.d2l-consortium-tab-box :not(:first-child) {
-				margin-left: -1px;
+				margin-left: -0.05rem;
 			}
 			.d2l-tab-container {
+				border: rgb(255, 255, 255, .30) solid 0.05rem;
+				border-radius: 0.25rem 0.25rem 0 0;
+				border-bottom: none;
 				display: inline-block;
+				margin: 0.2rem 0 0 0;
 				position: relative;
 			}
+			.d2l-tab-container[selected] {
+				border: rgb(0, 0, 0, .42) solid 0.05rem;
+				border-bottom: none;
+			}
+
 		</style>
 		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<span class="d2l-tab-container">
-					<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
+				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
+					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 						<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</div>
-				</span>
+			</div>
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
 					[[item.fullName]]
 				</d2l-tooltip>
