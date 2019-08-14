@@ -114,6 +114,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			.d2l-tab-container[selected] {
 				border: rgba(0, 0, 0, .42) solid 1px;
 				border-bottom: none;
+				z-index: 1;
 			}
 
 		</style>
