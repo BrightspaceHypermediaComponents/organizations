@@ -74,10 +74,18 @@
 			<demo-snippet>
 				<template>
 					<div class="demo">
-						<d2l-organization-consortium-tabs href="../data/consortium/consortium-root.json" selected="Consortium 3"></d2l-organization-consortium-tabs>
+						<d2l-organization-consortium-tabs id="tabs" href="../data/consortium/consortium-root.json"></d2l-organization-consortium-tabs>
 					</div>
 				</template>
 			</demo-snippet>
 		</div>
 	</body>
+	<script type="module">
+		var consortiumQueryParam = decodeURI(window.location.search).replace('?', '').split('&').map(param => param.split('=')).filter(pair => pair[0] === 'consortium')[0];
+		var selectedTab = decodeURI(consortiumQueryParam[1]);
+
+		window.requestAnimationFrame(function() {
+			document.querySelector('#tabs').selected = selectedTab;
+		});
+	</script>
 </html>
