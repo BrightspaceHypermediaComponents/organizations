@@ -23,6 +23,7 @@
     "@polymer/iron-demo-helpers": "^3.0.0",
     "@polymer/iron-test-helpers": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.2.6",
+    "axe-core": "^3",
     "babel-eslint": "^10.0.1",
     "chai-dom": "^1.8.0",
     "del": "^3.0.0",
