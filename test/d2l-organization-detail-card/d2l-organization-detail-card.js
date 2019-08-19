@@ -13,10 +13,10 @@ describe('d2l-organization-detail-card', () => {
 		const onSequenceChangeStub = sinon.stub();
 
 		organizationEntity = {
-			self: function() { return 'organizationHref'; },
+			self: function() { return '/organization'; },
 			name: function() { return 'organization'; },
 			description: function() { return 'description'; },
-			sequenceLink: function() { return 'sequenceLink'; },
+			sequenceLink: function() { return '/rootSequenceHref'; },
 			organizationHomepageUrl: function() { return 'organizationHomepageUrl'; },
 			startDate: function() { return undefined; },
 			endDate: function() { return undefined; },
@@ -24,7 +24,7 @@ describe('d2l-organization-detail-card', () => {
 		};
 
 		const module1 = {
-			self: function() { return 'module1'; },
+			self: function() { return '/module1'; },
 			index: function() { return 0; },
 			completion: function() {
 				return {
@@ -36,7 +36,7 @@ describe('d2l-organization-detail-card', () => {
 		};
 
 		const module2 = {
-			self: function() { return 'module2'; },
+			self: function() { return '/module2'; },
 			index: function() { return 1; },
 			completion: function() {
 				return {
@@ -48,7 +48,7 @@ describe('d2l-organization-detail-card', () => {
 		};
 
 		const module3 = {
-			self: function() { return 'module3'; },
+			self: function() { return '/module3'; },
 			index: function() { return 2; },
 			completion: function() {
 				return {
@@ -60,7 +60,7 @@ describe('d2l-organization-detail-card', () => {
 		};
 
 		const rootSequenceEntity = {
-			self: function() { return 'rootSequenceHref'; },
+			self: function() { return '/rootSequenceHref'; },
 			onSubSequencesChange: function(onChange) {
 				onChange(module1);
 				onChange(module3);
@@ -69,6 +69,20 @@ describe('d2l-organization-detail-card', () => {
 		};
 
 		onSequenceChangeStub.callsArgWith(0, rootSequenceEntity);
+
+		sandbox.stub(window.d2lfetch, 'fetch', (input) => {
+			const whatToFetch = {
+				'/organization': organizationEntity,
+				'/rootSequenceHref': rootSequenceEntity,
+				'/module1': module1,
+				'/module2': module2,
+				'/module3': module3
+			};
+			return Promise.resolve({
+				ok: true,
+				json: () => { return Promise.resolve(whatToFetch[input]); }
+			});
+		});
 	});
 
 	afterEach(() => {
@@ -78,9 +92,9 @@ describe('d2l-organization-detail-card', () => {
 	it('should fetch the organization', done => {
 		component._entity = organizationEntity;
 		afterNextRender(component, () => {
-			expect(component._organizationUrl).to.equal('organizationHref');
+			expect(component._organizationUrl).to.equal('/organization');
 			expect(component._description).to.equal('description');
-			expect(component._sequenceLink).to.equal('sequenceLink');
+			expect(component._sequenceLink).to.equal('/rootSequenceHref');
 			expect(component._organizationHomepageUrl).to.equal('organizationHomepageUrl');
 			expect(!!component._showTags).to.equal(false);
 			done();
@@ -116,7 +130,7 @@ describe('d2l-organization-detail-card', () => {
 			setTimeout(() => {
 				sinon.assert.called(eventSpy);
 				done();
-			});
+			}, 250);
 
 		});
 
@@ -131,7 +145,7 @@ describe('d2l-organization-detail-card', () => {
 			setTimeout(() => {
 				sinon.assert.called(eventSpy);
 				done();
-			});
+			}, 250);
 
 		});
 

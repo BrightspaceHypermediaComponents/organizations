@@ -50,8 +50,9 @@
   },
   "main": "d2l-organizations.js",
   "dependencies": {
-    "@brightspace-ui/core": "^0.2.1",
+    "@brightspace-ui/core": "^1",
     "@polymer/polymer": "^3.0.0",
+    "d2l-colors": "BrightspaceUI/colors#semver:^4",
     "d2l-course-image": "Brightspace/course-image#semver:^3",
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
@@ -66,6 +67,7 @@
     "lie": "^3.3.0",
     "siren-parser": "^8.0.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1",
-    "whatwg-fetch": "^3.0.0"
+    "whatwg-fetch": "^3.0.0",
+    "lit-element": "^2.2.1"
   }
 }
