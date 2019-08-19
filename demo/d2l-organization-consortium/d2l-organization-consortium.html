@@ -81,11 +81,8 @@
 		</div>
 	</body>
 	<script type="module">
-		var consortiumQueryParam = decodeURI(window.location.search).replace('?', '').split('&').map(param => param.split('=')).filter(pair => pair[0] === 'consortium')[0];
-		var selectedTab = decodeURI(consortiumQueryParam[1]);
-
 		window.requestAnimationFrame(function() {
-			document.querySelector('#tabs').selected = selectedTab;
+			document.querySelector('#tabs').selected = new URL(window.location).searchParams.get('consortium') || 'c1';
 		});
 	</script>
 </html>
