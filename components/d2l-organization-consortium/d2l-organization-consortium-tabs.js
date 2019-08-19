@@ -6,15 +6,16 @@ Polymer-based web component for displaying all organizations a user is enrolled 
 @demo demo/d2l-organization-consortium/d2l-organization-consortium.html organization consortium tab
 */
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import '../d2l-organization-behavior.js';
+import 'd2l-navigation/d2l-navigation-notification-icon.js';
+import 'd2l-polymer-behaviors/d2l-id.js';
+import 'd2l-tooltip/d2l-tooltip.js';
+import 'd2l-typography/d2l-typography-shared-styles.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
-import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
-import '../d2l-organization-behavior.js';
-import 'd2l-tooltip/d2l-tooltip.js';
-import 'd2l-polymer-behaviors/d2l-id.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
-import 'd2l-navigation/d2l-navigation-notification-icon.js';
+import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
 
 /**
  * @customElement
@@ -67,48 +68,64 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 
 	static get template() {
 		return html`
-		<style>
-			a {
+		<style include="d2l-typography-shared-styles">
+			.d2l-consortium-tab a {
+				@apply --d2l-body-small-text;
 				color: white;
-				font-size: 0.6rem;
-				padding: 0px 5px;
-				text-decoration: none;
-			}
-
-			div[selected] {
-				background: white;
-			}
-			div[selected] > a {
-				color: grey;
-			}
-			.d2l-consortium-tab {
-				background: rgb(0,0,0,.4);
-				border-top-left-radius: 5px;
-				border-top-right-radius: 5px;
-				line-height: 1.0625rem;
+				display: inline-block;
+				max-width: 100%;
 				overflow: hidden;
+				text-decoration: none;
 				text-overflow: ellipsis;
 				white-space: nowrap;
 				word-break: break-all;
+				vertical-align: middle;
+			}
+			.d2l-consortium-tab {
+				background: rgba(0, 0, 0, .54);
+				border-bottom: none;
+				border-radius: 4px 4px 0 0;
+				max-width: 5.5rem;
+				padding: 0 0.6rem;
+			}
+			[selected] .d2l-consortium-tab {
+				background: white;
+			}
+			[selected] .d2l-consortium-tab > a {
+				color: var(--d2l-color-ferrite);
 			}
 			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
 			}
+			.d2l-consortium-tab-box :not(:first-child) {
+				margin-left: -1px;
+			}
 			.d2l-tab-container {
+				border: rgba(255, 255, 255, .30) solid 1px;
+				border-radius: 5px 5px 0 0;
+				border-bottom: none;
 				display: inline-block;
+				line-height: 1rem;
+				margin: 0.2rem 0 0 0;
 				position: relative;
 			}
+			.d2l-tab-container[selected] {
+				border: rgba(0, 0, 0, .42) solid 1px;
+				border-bottom: none;
+				z-index: 1;
+			}
+
 		</style>
 		<div class="d2l-consortium-tab-box">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
-				<span class="d2l-tab-container">
-					<div class="d2l-consortium-tab" id$="[[item.id]]" selected$="[[_isSelected(item)]]">
+				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
+					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 						<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</div>
-				</span>
-				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="top">
+				</div>
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
 					[[item.fullName]]
 				</d2l-tooltip>
 			</template>

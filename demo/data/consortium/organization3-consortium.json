@@ -1,6 +1,6 @@
 {
   "properties": {
-    "name": "Consortium 2",
+    "name": "Consortium 3",
     "code": null,
     "startDate": null,
     "endDate": null,
@@ -31,7 +31,7 @@
     "href":"../../data/notification.json"
   },{
     "rel": ["https://api.brightspace.com/rels/organization-homepage"],
-    "href": "?consortium=Consortium 2"
+    "href": "?consortium=Consortium 3"
   }, {
     "rel": [
         "https://api.brightspace.com/rels/notification-alerts"

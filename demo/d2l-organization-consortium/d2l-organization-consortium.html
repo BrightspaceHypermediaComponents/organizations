@@ -9,6 +9,7 @@
 
 		<!-- For IE11 -->
 		<script src="../../node_modules/lie/dist/lie.polyfill.min.js"></script>
+		<script src="../../node_modules/@ungap/url-search-params/min.js"></script>
 		<script type="module" src="../../node_modules/whatwg-fetch/fetch.js"></script>
 
 		<script type="module">
@@ -58,7 +59,7 @@
 						}
 						.demo {
 							align-items: center;
-  							background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
+							background-color: var(--d2l-color-carnelian);
 							padding: 50px;
 							height: 100px;
 						}
@@ -74,10 +75,15 @@
 			<demo-snippet>
 				<template>
 					<div class="demo">
-						<d2l-organization-consortium-tabs href="../data/consortium/consortium-root.json" selected="c1"></d2l-organization-consortium-tabs>
+						<d2l-organization-consortium-tabs id="tabs" href="../data/consortium/consortium-root.json"></d2l-organization-consortium-tabs>
 					</div>
 				</template>
 			</demo-snippet>
 		</div>
 	</body>
+	<script type="module">
+		window.requestAnimationFrame(function() {
+			document.querySelector('#tabs').selected = new URLSearchParams(window.location.search).get('consortium') || 'c1';
+		});
+	</script>
 </html>
