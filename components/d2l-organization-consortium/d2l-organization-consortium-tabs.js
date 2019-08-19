@@ -70,12 +70,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		return html`
 		<style include="d2l-typography-shared-styles">
 			.d2l-consortium-tab a {
+				@apply --d2l-body-small-text;
 				color: white;
 				display: inline-block;
-				font-size: 0.6rem;
 				max-width: 100%;
 				overflow: hidden;
-				position: relative;
 				text-decoration: none;
 				text-overflow: ellipsis;
 				white-space: nowrap;
@@ -100,14 +99,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				flex-wrap: nowrap;
 			}
 			.d2l-consortium-tab-box :not(:first-child) {
-				margin-left: -0.05rem;
+				margin-left: -1px;
 			}
 			.d2l-tab-container {
 				border: rgba(255, 255, 255, .30) solid 1px;
-				border-radius: 0.25rem 0.25rem 0 0;
+				border-radius: 5px 5px 0 0;
 				border-bottom: none;
 				display: inline-block;
-				line-height: 1.2rem;
+				line-height: 1rem;
 				margin: 0.2rem 0 0 0;
 				position: relative;
 			}
