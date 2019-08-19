@@ -9,7 +9,6 @@
 
 		<!-- For IE11 -->
 		<script src="../../node_modules/lie/dist/lie.polyfill.min.js"></script>
-		<script src="../../node_modules/@ungap/url-search-params/min.js"></script>
 		<script type="module" src="../../node_modules/whatwg-fetch/fetch.js"></script>
 
 		<script type="module">
@@ -83,7 +82,7 @@
 	</body>
 	<script type="module">
 		window.requestAnimationFrame(function() {
-			document.querySelector('#tabs').selected = new URLSearchParams(window.location.search).get('consortium') || 'c1';
+			document.querySelector('#tabs').selected = decodeURI(window.location.search) || '?consortium=c1';
 		});
 	</script>
 </html>

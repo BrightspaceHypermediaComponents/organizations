@@ -11,7 +11,43 @@ describe('d2l-organization-consortium-tabs', () => {
 		sandbox.restore();
 		window.D2L.Siren.EntityStore.clear();
 	});
+	describe('error cases', () =>{
+		beforeEach(() => {
+			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
+				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
+				const whatToFetch = {
+					'../data/consortium/organization1-consortium.json': organization1,
+					'../data/consortium/organization2-consortium.json': org2DupeName,
+					'../data/consortium/root1-consortium.json': root1,
+					'../data/consortium/root2-consortium.json': root2,
+					'http://localhost:8081/consortium1.json': consortium1,
+					'/consortium-root1.json': consortiumRoot1,
+					'http://localhost:8081/consortium2.json': consortium1,
+					'/consortium-root2.json': consortiumRoot2
+				};
+				return Promise.resolve({
+					ok: !!whatToFetch[input],
+					json: () => { return Promise.resolve(whatToFetch[input]); }
+				});
+			});
+		});
 
+		it('populates tabs that have the same data but are accessed differently', (done) => {
+			const component = fixture('org-consortium');
+			component.href = '/consortium-root1.json';
+
+			flush(function() {
+				const tabs = component.shadowRoot.querySelectorAll('a');
+				assert.equal(tabs.length, 2, 'should have 2 tabs');
+				assert.equal(tabs[0].text, 'c1');
+				assert.equal(tabs[1].text, 'c1');
+				assert.include(tabs[0].href, '?consortium=1');
+				assert.include(tabs[1].href, '?consortium=2');
+
+				done();
+			});
+		});
+	});
 	describe('With proper fetch', () => {
 		beforeEach(() => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
