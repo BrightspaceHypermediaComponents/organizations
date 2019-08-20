@@ -158,7 +158,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	}
 
 	_isSelected(item) {
-		return this.selected === item.name;
+		return this.selected === item.tenant;
 	}
 
 	_sortOrder(item1, item2) {
@@ -179,7 +179,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
-					const key = orgEntity.code() || orgEntity.name();
+					const key = consortiumEntity.consortiumTenant();
 					this.set(`_organizations.${key}`, {
 						name: orgEntity.name(),
 						code: orgEntity.code(),
@@ -209,10 +209,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		const orgs = Object.keys(currentOrganizations).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
-				name: key,
+				name: currentOrganizations[key].code || currentOrganizations[key].name,
 				fullName: currentOrganizations[key].name,
 				href: currentOrganizations[key].href,
-				hasNotification: currentOrganizations[key].unread
+				hasNotification: currentOrganizations[key].unread,
+				tenant: key,
 			};
 			return org;
 		});
