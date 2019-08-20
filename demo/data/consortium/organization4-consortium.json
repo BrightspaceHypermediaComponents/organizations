@@ -31,7 +31,7 @@
     "href":"../../data/notification.json"
   },{
     "rel": ["https://api.brightspace.com/rels/organization-homepage"],
-    "href": "?consortium=Spicy jalapeno bacon ipsum dolor amet cupim tri-tip pastrami filet mignon short ribs, jerky drumstick ribeye kielbasa"
+    "href": "?consortium=8b9766e6-77ad-4f89-8d5f-f52a36b9bf20"
   }, {
     "rel": [
         "https://api.brightspace.com/rels/notification-alerts"

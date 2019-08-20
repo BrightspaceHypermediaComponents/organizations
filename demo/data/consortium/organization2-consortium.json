@@ -31,7 +31,7 @@
     "href":"../../data/notification.json"
   },{
     "rel": ["https://api.brightspace.com/rels/organization-homepage"],
-    "href": "?consortium=Consortium 2"
+    "href": "?consortium=8b33e567-c616-4667-868b-fdfe9edc3a78"
   }, {
     "rel": [
         "https://api.brightspace.com/rels/notification-alerts"
