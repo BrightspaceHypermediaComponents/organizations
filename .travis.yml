@@ -13,8 +13,20 @@ script:
     echo "Not a pull request and/or no secure environment variables, running headless tests...";
     npm run test:polymer:local || travis_terminate 1;
   fi
+after_success:
+- frauci-update-version && export TRAVIS_TAG=$(frauci-get-version)
+deploy:
+  provider: releases
+  api_key: "$GITHUB_RELEASE_TOKEN"
+  on:
+    tags: true
 env:
   global:
+  - OWNER_NAME: Brightspacehypermediacomponents
+  - REPO_NAME: organizations
+  - DEFAULT_INCREMENT: patch
   - SAUCE_USERNAME: Desire2Learn
+  # SAUCE_ACCESS_KEY
   - secure: AiB1QY95SRvrPzA9Qw+P7hjARAL46CFLcmDC8vGT3XqWWtr9EH6m+DIwdMnVPPybqtO27f0w3fEJtEtxJjhdVfpUEBuAalWjMHwXEuDmTYKagzhyfT0hf6DVyrlv2D1IHgtFa0BqFJHYDlKDPPgIMv6pvJuvu4QDzazK0/eqi1aZGFgsz5MWg1mbHNVj1sLx1sw1MUfm3ffZPk+Wj2G1Pe+yTcoVIgpHQnvo72DftkgfF4LUd9XnJqkY0rfgq4u80LNd8wt3Kg6Rz7kGkvaKRdN/RG+yXPdvhValdKrLXj5KMNXhxddMnRN1yL6eFd3x4QPB771GWM/PDtuOBsCMB5x50ENx6D8N+4USpi4Qvsahw2+eNFN1DYkDRRqBKsPmJKPclS7gDrKwD/hkZ4/G6X2g68VmtQpNfkghEPZFsZnKyWo6OrvPVG56TomN+HsJpSn+HKMCwpkBUK43jrfopzaZkw4/VtPg5vJw9kWNYNivvP7W8lahH0K+v/bRfc16V0UCVQv7OQvttTJVG/C9LSGPupSnPwM+QoPeFC+OPu27ZU8vA/DA+ilyu8BXTgQ0ADzErWwUI5TKdt3Eec4gKV5Q4zAF3tixFl7A5e777rZXu17xnTqsaJRwvL6HmRRXLHIqJrHoxNSsqMz5tMMwBdsvDxhE0US4s/DyE2Dao4k=
-  - secure: cphhaDkX9rPilZAuxh/J+od8+QSHaea6TbqNPixdHHRWxkjQS5urXFLI2X5LJc5ttjorLXjZHXoXPhVslHKHA+JeQD28dyWjKa3TgzdyqM8Le0FoLeJ/duN+E42HJfSZzfPMYZZ7dhjU4mfo+8lcGj6QVtVztFkS8K15+zWxp/ldME8h6quhX5kyiulPlpGASBJY0QKCRaKEt/ueRGuY69leKkNYjYZgJi6aYTMBPX7t8kWcM+EG8KFx/goOw6dO40i7ViV/ohcR170Wl4InMB1ptr3Jc+IKMfi+RomgbSJRTa/FKl9zFjCL9RDmoE7YJUQ2AY/sF8ZCgOKiwFvz+lU9jy4VQrgf2UL12/OhPeHErx34h5SgH6eMb8N0xR8mXd7fLl8nXFmQNewHkVxj697l0r5hcURlUiSBLvgUoFHtrkTFElxTOVlSZOdPu6acMlsEZSr2ZUbmB5ciekPw5SI2P/p19artMLKvGIvdtbl6PU2xfzrpOUDOlOZ3A99E7cMiEXbE6eEUt61Zo49Yqh9kYZp8UTMAVg0JT3YrbYXAo0YcVVzLvl0OQcsOV4JwFgonklisj18Lk58HIXa/mVetRRbdXtHVZ3QfyfxLivcc2MhNT9UA+GGiyuv6qHO7Zb7c0yzqj4J+iXtu4eG7Oz092tG3E68qHGa34FerkIg=
+  # GITHUB_RELEASE_TOKEN (b49f......d306)
+  - secure: hqmDRExi6EZeIrQAs/0PpSA/pPltdHmONP/wXiTptKIi9LoUo1BZjLS+dCLG9w8284UsEFcRuRwtwb8f8q1lqFNA64u/r4M3cSvv6eC2saHAcvMjik5/65L5A57Sr0SDb++woCVQ86rg3PUXx/k8aeCdeHuSrBW6Sx2w5/AcnaWKmU2VdGT0IsCuaOOQgGyXoGZ+3ceR2gtvbsTsZuqbWxR+WPsvm84l0lJA5buG/R2iq9hhwLmX4QsySWmuE7Gv0CrjdTSkFA56L2swozVDRn6QWjLc7jvBApXlEc4C2ERqA6Zz1sQhHJOncy/F8c0JtL/pXn/JfP5IoXeGmxZmlS4rMwAaMZdl9fq9zworhM6dTnfnR+w+yNsNiZPmWStpVeD1wsvJ6I3ea94NveM5xCsvZXYg7JaBfY//C2pK09d1GSvQbYBmyH75MBb8BK3xzVIasa1+Rz2X13VP5nJeFxQ8Q8uq6zRsoJZ/Kr3kKkAeGzsZO5u7LGVW9E8BF/Ixl3aY5wee4NOT4I7slaiZrXiVP2V0FU7j5FQxk7CN/wh+caJrnBC2ffyDt0WZE3UFlG8mF2nyIQGAwFSFrUMOsrBrFHC9L0ySn0lvs14CKu9KBVvXDPBNX0vBB5K4vRvhTMFlpV791XOsmrnQT8zl8r/eoU6RIOQ+9Sr2i2/ZcxM=

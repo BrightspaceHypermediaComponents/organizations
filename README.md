@@ -46,3 +46,9 @@ To lint AND run local unit tests:
 ```shell
 npm test
 ```
+
+## Versioning, Releasing & Deploying
+
+By default, when a pull request is merged the patch version in the `package.json` will be incremented, a tag will be created, and a Github release will be created.
+
+Include `[increment major]`, `[increment minor]` or `[skip version]` in your merge commit message to change the default versioning behavior.
