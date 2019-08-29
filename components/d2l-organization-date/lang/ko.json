@@ -1,14 +1,14 @@
 {
-  "ended": {
-    "translation": "{date}일 {time}에 종료됨",
-    "context": "End date and time that is in the past"
-  },
-  "endsAt": {
-    "translation": "{date}일 {time}에 종료",
-    "context": "End date and time that is in the future."
-  },
-  "startsAt": {
-    "translation": "{date}일 {time}에 시작",
-    "context": "Start date and time that is in the future"
-  }
+    "ended" : {
+        "context" : "End date and time that is in the past",
+        "translation" : "{date}일 {time}에 종료됨"
+    },
+    "endsAt" : {
+        "context" : "End date and time that is in the future.",
+        "translation" : "{date}일 {time}에 종료"
+    },
+    "startsAt" : {
+        "context" : "Start date and time that is in the future",
+        "translation" : "{date}일 {time}에 시작"
+    }
 }
