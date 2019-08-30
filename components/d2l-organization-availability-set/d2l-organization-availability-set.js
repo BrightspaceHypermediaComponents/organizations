@@ -17,7 +17,9 @@ const wc = class extends LitElement {
 
 	constructor() {
 		super();
-		this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect);
+		if (D2L.Dialog && D2L.Dialog.OrgUnitSelector){
+			this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect);
+		}
 	}
 
 	render() {
@@ -29,7 +31,9 @@ const wc = class extends LitElement {
 	}
 
 	handleAddOrgUnits() {
-		this._dialog.Open();
+		if (this._dialog.Open){
+			this._dialog.Open();
+		}
 	}
 };
 
