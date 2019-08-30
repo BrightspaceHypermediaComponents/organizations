@@ -1,14 +1,14 @@
 {
-  "ended": {
-    "translation": "Beendet am {date} um {time}",
-    "context": "End date and time that is in the past"
-  },
-  "endsAt": {
-    "translation": "Endet am {date} um {time}",
-    "context": "End date and time that is in the future."
-  },
-  "startsAt": {
-    "translation": "Beginnt am {date} um {time}",
-    "context": "Start date and time that is in the future"
-  }
+    "ended" : {
+        "context" : "End date and time that is in the past",
+        "translation" : "Beendet am {date} um {time}"
+    },
+    "endsAt" : {
+        "context" : "End date and time that is in the future.",
+        "translation" : "Endet am {date} um {time}"
+    },
+    "startsAt" : {
+        "context" : "Start date and time that is in the future",
+        "translation" : "Beginnt am {date} um {time}"
+    }
 }

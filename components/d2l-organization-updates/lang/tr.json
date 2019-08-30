@@ -1,38 +1,38 @@
 {
-  "unapprovedDiscussions": {
-    "translation": "{number} Onaylanmamış Tartışma",
-    "context": "The number of discussion post that need to be reviewed"
-  },
-  "unattemptedQuizzes": {
-    "translation": "{number} Denenmemiş Sınav",
-    "context": "The amount of quizes that a user has not done."
-  },
-  "ungradedQuizzes": {
-    "translation": "{number} Notlandırılmamış Sınav",
-    "context": "The number of quizzes that need to be marked"
-  },
-  "unreadAssignmentFeedback": {
-    "translation": "{number} Okunmamış Ödev Geri Bildirimi",
-    "context": "The amount of feedback comments that a user has not read about assignments"
-  },
-  "unreadAssignmentSubmissions": {
-    "translation": "{number} Okunmamış Gönderilen Ödev Dosyaları",
-    "context": "The number of assignment files that still need to be read."
-  },
-  "unreadDiscussionFeedback": {
-    "translation": "{number} Okunmamış Tartışma Geri Bildirimi",
-    "context": "The amount of feedback comments that a user has not read about discussion"
-  },
-  "unreadDiscussions": {
-    "translation": "{number} Okunmamış Tartışma",
-    "context": "The number of new discussion posts"
-  },
-  "unreadQuizzesFeedback": {
-    "translation": "{number} Okunmamış Sınav Geri Bildirimi",
-    "context": "The amount of feedback comments that a user has not read about quizzes"
-  },
-  "updates": {
-    "translation": "güncellemeler",
-    "context": "The total number of updates a course has for a user. Sum of all the other terms."
-  }
+    "unapprovedDiscussions" : {
+        "context" : "The number of discussion post that need to be reviewed",
+        "translation" : "{number} Onaylanmamış Tartışma"
+    },
+    "unattemptedQuizzes" : {
+        "context" : "The amount of quizes that a user has not done.",
+        "translation" : "{number} Denenmemiş Sınav"
+    },
+    "ungradedQuizzes" : {
+        "context" : "The number of quizzes that need to be marked",
+        "translation" : "{number} Notlandırılmamış Sınav"
+    },
+    "unreadAssignmentFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about assignments",
+        "translation" : "{number} Okunmamış Ödev Geri Bildirimi"
+    },
+    "unreadAssignmentSubmissions" : {
+        "context" : "The number of assignment files that still need to be read.",
+        "translation" : "{number} Okunmamış Ödev Gönderimi Dosyaları"
+    },
+    "unreadDiscussionFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about discussion",
+        "translation" : "{number} Okunmamış Tartışma Geri Bildirimi"
+    },
+    "unreadDiscussions" : {
+        "context" : "The number of new discussion posts",
+        "translation" : "{number} Okunmamış Tartışma"
+    },
+    "unreadQuizzesFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about quizzes",
+        "translation" : "{number} Okunmamış Sınav Geri Bildirimi"
+    },
+    "updates" : {
+        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
+        "translation" : "güncellemeler"
+    }
 }

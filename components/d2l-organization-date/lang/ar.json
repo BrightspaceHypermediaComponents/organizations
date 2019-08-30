@@ -1,14 +1,14 @@
 {
-  "ended": {
-    "translation": "Ended {date} at {time}",
-    "context": "End date and time that is in the past"
-  },
-  "endsAt": {
-    "translation": "Ends {date} at {time}",
-    "context": "End date and time that is in the future."
-  },
-  "startsAt": {
-    "translation": "Starts {date} at {time}",
-    "context": "Start date and time that is in the future"
-  }
+    "ended" : {
+        "context" : "End date and time that is in the past",
+        "translation" : "تم الانتهاء بتاريخ {date} عند {time}"
+    },
+    "endsAt" : {
+        "context" : "End date and time that is in the future.",
+        "translation" : "ينتهي بتاريخ {date} عند {time}"
+    },
+    "startsAt" : {
+        "context" : "Start date and time that is in the future",
+        "translation" : "يبدأ بتاريخ {date} عند {time}"
+    }
 }
