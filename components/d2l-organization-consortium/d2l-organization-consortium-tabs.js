@@ -151,9 +151,11 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 					</template>
 					</div>
 				</div>
-				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
-					[[item.fullName]]
-				</d2l-tooltip>
+				<template is="dom-if" if="[[item.loading]]">
+					<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
+						[[item.fullName]]
+					</d2l-tooltip>
+				</template>
 			</template>
 		</div>
 		`;
