@@ -18,7 +18,7 @@ import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
 
-/**z
+/**
  * @customElement
  * @polymer
  */
