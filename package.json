@@ -57,7 +57,6 @@
     "d2l-course-image": "Brightspace/course-image#semver:^3",
     "d2l-fetch": "Brightspace/d2l-fetch.git#semver:^2",
     "d2l-icons": "BrightspaceUI/icons#semver:^6",
-    "d2l-loading-spinner": "BrightspaceUI/loading-spinner#semver:^7",
     "d2l-localize-behavior": "BrightspaceUI/localize-behavior#semver:^2",
     "d2l-navigation": "BrightspaceUI/navigation#semver:^4",
     "d2l-offscreen": "BrightspaceUI/offscreen#semver:^4",

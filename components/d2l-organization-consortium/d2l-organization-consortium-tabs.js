@@ -11,7 +11,6 @@ import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
-import 'd2l-loading-spinner/d2l-loading-spinner.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -125,9 +124,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				border-bottom: none;
 				z-index: 1;
 			}
-			.d2l-tab-container d2l-loading-spinner {
-				vertical-align: middle;
-			}
+
 			.d2l-consortium-tab-growIn {
 				max-height: 1.5rem;
 				transform-origin: top;
@@ -143,19 +140,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading]]">
-						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]">[[item.name]]</a>
+						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]" title$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
-							<d2l-loading-spinner size="16"></d2l-loading-spinner>
+							<div class="d2l-consortium-tab-content" title="Loading" aria-label="Loading">...</div>
 					</template>
 					</div>
 				</div>
-				<template is="dom-if" if="[[item.loading]]">
-					<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
-						[[item.fullName]]
-					</d2l-tooltip>
-				</template>
 			</template>
 		</div>
 		`;
@@ -255,6 +247,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 					});
 
 				});
+
 			});
 		});
 	}
