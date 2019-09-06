@@ -16,12 +16,13 @@ import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/Consor
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
+import { OrganizationConsortiumLocalize } from './organization-consortium-localize.js';
 
 /**
  * @customElement
  * @polymer
  */
-class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
+class OrganizationConsortiumTabs extends  EntityMixin(OrganizationConsortiumLocalize(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-consortium-tabs'; }
 
@@ -124,7 +125,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				border-bottom: none;
 				z-index: 1;
 			}
-
 			.d2l-consortium-tab-growIn {
 				max-height: 1.5rem;
 				transform-origin: top;
@@ -144,7 +144,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
-							<div class="d2l-consortium-tab-content" title="Loading" aria-label="Loading">...</div>
+							<div class="d2l-consortium-tab-content" title$="[[localize('loading')]]" aria-label$="[[localize('loading')]]">...</div>
 					</template>
 					</div>
 				</div>
@@ -156,7 +156,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	constructor() {
 		super();
 		this._setEntityType(ConsortiumRootEntity);
-
 	}
 	getCacheKey() {
 		return `consortium-tabs-${this.token}`;
@@ -245,7 +244,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 						this.set(`_organizations.${key}.unread`, unread);
 						this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
 					});
-
 				});
 
 			});
