@@ -10,6 +10,8 @@ import '../d2l-organization-behavior.js';
 import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
+import 'd2l-icons/d2l-icon.js';
+import 'd2l-icons/tier1-icons.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -44,7 +46,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			_cache: {
 				type:Object
 			},
-
+			_errors: {
+				type:Array
+			},
 			_shouldRender: {
 				type: Boolean,
 				value: false
@@ -148,6 +152,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					</div>
 				</div>
 			</template>
+			<template is="dom-if" if="[[_errors.length > 0]]">
+				<div class="d2l-tab-container" >
+					<div class="d2l-consortium-tab" >
+						<div class="d2l-consortium-tab-content" title$="[[localize('errorFull','num', _errors.length)]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]">[[localize('errorShort')]]</div>
+					</div>
+				</div>
+			</template>
 		</div>
 		`;
 	}
@@ -177,6 +188,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 		}
 	}
+
 	_tabBoxClasses(_shouldRender, _hasCache) {
 		const classes = [];
 		if (_hasCache) {
@@ -199,13 +211,18 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_trySetItemSessionStorage(itemName, value) {
 		try {
-			sessionStorage.setItem(itemName, value);
+			const itemCopied = JSON.parse(value);
+			for (const errorKey of this._computeErrors(itemCopied)) {
+				delete itemCopied[errorKey];
+			}
+			sessionStorage.setItem(itemName, JSON.stringify(itemCopied));
 		} catch (_) {
 			//noop we don't want to blow up if we exceed a quota or are in safari private browsing mode
 		}
 	}
 	_sortOrder(item1, item2) {
-		return item1.name.localeCompare(item2.name);
+		const safeItem = item1 || {name:''};
+		return safeItem.name.localeCompare(item2.name);
 	}
 
 	_onConsortiumRootChange(rootEntity) {
@@ -225,25 +242,42 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			if (!this._cache || !this._cache[key]) {
 				this.set(`_organizations.${key}`, {name:key, loading:true});
 			}
-			consortiumEntity.rootOrganizationEntity((rootEntity) => {
-				rootEntity.organization((orgEntity) => {
+			consortiumEntity.rootOrganizationEntity((rootEntity, err) => {
+				if (err) {
 					this.set(`_organizations.${key}`, {
-						name: orgEntity.name(),
-						code: orgEntity.code(),
-						href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
-						loading: false
+						name: 'error',
+						error: true
 					});
+				} else {
+					rootEntity.organization((orgEntity, err) => {
+						if (orgEntity) {
+							this.set(`_organizations.${key}`, {
+								name: orgEntity.name(),
+								code: orgEntity.code(),
+								href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
+								loading: false,
+								error: false
+							});
 
-					if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
-						this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
-					}
-					this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
-					orgEntity.onAlertsChange(alertsEntity => {
-						const unread = alertsEntity.hasUnread();
-						this.set(`_organizations.${key}.unread`, unread);
-						this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
+							if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
+								this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
+							}
+							this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
+
+							orgEntity.onAlertsChange(alertsEntity => {
+								const unread = alertsEntity.hasUnread();
+								this.set(`_organizations.${key}.unread`, unread);
+								this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
+							});
+						}
+						if (err) {
+							this.set(`_organizations.${key}`, {
+								name: 'error',
+								error: true
+							});
+						}
 					});
-				});
+				}
 
 			});
 		});
@@ -253,10 +287,15 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		this.set('_organizations', {});
 		this.set('_alertTokensMap', {});
 	}
-
+	_computeErrors(organizations) {
+		return Object.keys(organizations).filter(key => organizations[key].error);
+	}
 	_computeParsedOrganizations() {
 		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
-		const orgs = Object.keys(currentOrganizations).map(function(key) {
+		this._errors = this._computeErrors(this._organizations);
+		const orgs = Object.keys(currentOrganizations).filter(function(key) {
+			return currentOrganizations[key].error !== true;
+		}).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
 				name: currentOrganizations[key].code || currentOrganizations[key].name,
@@ -268,7 +307,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			};
 			return org;
 		});
-		return orgs.length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
+		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
 	}
 
 }

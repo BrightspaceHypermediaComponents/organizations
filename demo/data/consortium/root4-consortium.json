@@ -12,7 +12,7 @@
       "href": "root4-consortium.json"
     }, {
       "rel": ["https://api.brightspace.com/rels/organization"],
-      "href": "../data/consortium/organization4-consortium.json"
+      "href": "../data/consortium/organization44-consortium.json"
     }
   ]
 }
