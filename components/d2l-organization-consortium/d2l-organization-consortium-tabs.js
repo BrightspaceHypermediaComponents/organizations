@@ -9,7 +9,6 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '../d2l-organization-behavior.js';
 import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
-import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
@@ -22,7 +21,7 @@ import { OrganizationConsortiumLocalize } from './organization-consortium-locali
  * @customElement
  * @polymer
  */
-class OrganizationConsortiumTabs extends  EntityMixin(OrganizationConsortiumLocalize(PolymerElement)) {
+class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocalize(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-consortium-tabs'; }
 
