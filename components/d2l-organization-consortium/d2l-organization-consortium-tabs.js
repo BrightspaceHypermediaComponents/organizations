@@ -9,19 +9,19 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '../d2l-organization-behavior.js';
 import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
-import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
+import { OrganizationConsortiumLocalize } from './organization-consortium-localize.js';
 
 /**
  * @customElement
  * @polymer
  */
-class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
+class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocalize(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-consortium-tabs'; }
 
@@ -41,9 +41,16 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				reflectToAttribute: true,
 				value: 2
 			},
+			_cache: {
+				type:Object
+			},
+
+			_shouldRender: {
+				type: Boolean,
+				value: false
+			},
 			_organizations: {
-				type: Object,
-				value: {}
+				type: Object
 			},
 			_parsedOrganizations: {
 				type: Array,
@@ -69,7 +76,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	static get template() {
 		return html`
 		<style include="d2l-typography-shared-styles">
-			.d2l-consortium-tab a {
+			.d2l-consortium-tab-content {
 				@apply --d2l-body-small-text;
 				color: white;
 				display: inline-block;
@@ -91,12 +98,14 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			[selected] .d2l-consortium-tab {
 				background: white;
 			}
-			[selected] .d2l-consortium-tab > a {
+			[selected] .d2l-consortium-tab > .d2l-consortium-tab-content {
 				color: var(--d2l-color-ferrite);
 			}
 			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
+				max-height:0;
+				overflow: hidden;
 			}
 			.d2l-consortium-tab-box :not(:first-child) {
 				margin-left: -1px;
@@ -115,19 +124,29 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				border-bottom: none;
 				z-index: 1;
 			}
+			.d2l-consortium-tab-growIn {
+				max-height: 1.5rem;
+				transform-origin: top;
+				transition: max-height 500ms ease-in;
+			}
+			.d2l-consortium-tab-showTabs {
+				max-height: 1.5rem;
+			}
 
 		</style>
-		<div class="d2l-consortium-tab-box">
-			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder">
+		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
+			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
-						<a href="[[item.href]]" aria-label$="[[item.fullName]]">[[item.name]]</a>
+					<template is="dom-if" if="[[!item.loading]]">
+						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]" title$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
+					</template>
+					<template is="dom-if" if="[[item.loading]]">
+							<div class="d2l-consortium-tab-content" title$="[[localize('loading')]]" aria-label$="[[localize('loading')]]">...</div>
+					</template>
 					</div>
 				</div>
-				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" position="bottom">
-					[[item.fullName]]
-				</d2l-tooltip>
 			</template>
 		</div>
 		`;
@@ -137,10 +156,13 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		super();
 		this._setEntityType(ConsortiumRootEntity);
 	}
-
+	getCacheKey() {
+		return `consortium-tabs-${this.token}`;
+	}
 	connectedCallback() {
 		super.connectedCallback();
 		this._intervalId = window.setInterval(this.updateAlerts.bind(this), this.pollIntervalInSeconds * 1000);
+		this._cache = this._tryGetItemSessionStorage(this.getCacheKey());
 	}
 
 	disconnectedCallback() {
@@ -148,7 +170,6 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 		window.clearInterval(this._intervalId);
 		dispose(this.__tokenCollection);
 	}
-
 	updateAlerts() {
 		for (var key in this._alertTokensMap) {
 			if (this._alertTokensMap.hasOwnProperty(key)) {
@@ -156,11 +177,33 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 			}
 		}
 	}
-
+	_tabBoxClasses(_shouldRender, _hasCache) {
+		const classes = [];
+		if (_hasCache) {
+			classes.push('d2l-consortium-tab-showTabs');
+		} else if (_shouldRender) {
+			classes.push('d2l-consortium-tab-growIn');
+		}
+		return classes.join(' ');
+	}
 	_isSelected(item) {
 		return this.selected === item.tenant;
 	}
-
+	_tryGetItemSessionStorage(itemName) {
+		try {
+			return JSON.parse(sessionStorage.getItem(itemName));
+		} catch (_) {
+			//noop if session storage isn't available or has bad data
+			return;
+		}
+	}
+	_trySetItemSessionStorage(itemName, value) {
+		try {
+			sessionStorage.setItem(itemName, value);
+		} catch (_) {
+			//noop we don't want to blow up if we exceed a quota or are in safari private browsing mode
+		}
+	}
 	_sortOrder(item1, item2) {
 		return item1.name.localeCompare(item2.name);
 	}
@@ -177,24 +220,31 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	_onConsortiumChange(consotriumTokenCollection) {
 		this.__tokenCollection = consotriumTokenCollection;
 		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
+			const key = consortiumEntity.consortiumTenant();
+			this._shouldRender = true;
+			if (!this._cache || !this._cache[key]) {
+				this.set(`_organizations.${key}`, {name:key, loading:true});
+			}
 			consortiumEntity.rootOrganizationEntity((rootEntity) => {
 				rootEntity.organization((orgEntity) => {
-					const key = consortiumEntity.consortiumTenant();
 					this.set(`_organizations.${key}`, {
 						name: orgEntity.name(),
 						code: orgEntity.code(),
-						href: orgEntity.fullyQualifiedOrganizationHomepageUrl()
+						href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
+						loading: false
 					});
 
 					if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
 						this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
 					}
-
+					this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
 					orgEntity.onAlertsChange(alertsEntity => {
 						const unread = alertsEntity.hasUnread();
 						this.set(`_organizations.${key}.unread`, unread);
+						this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
 					});
 				});
+
 			});
 		});
 	}
@@ -205,7 +255,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 	}
 
 	_computeParsedOrganizations() {
-		const currentOrganizations = this._organizations;
+		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
 		const orgs = Object.keys(currentOrganizations).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
@@ -214,6 +264,7 @@ class OrganizationConsortiumTabs extends EntityMixin(PolymerElement) {
 				href: currentOrganizations[key].href,
 				hasNotification: currentOrganizations[key].unread,
 				tenant: key,
+				loading: currentOrganizations[key].loading
 			};
 			return org;
 		});

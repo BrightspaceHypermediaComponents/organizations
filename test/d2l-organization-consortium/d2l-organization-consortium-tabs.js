@@ -5,6 +5,7 @@ describe('d2l-organization-consortium-tabs', () => {
 	var sandbox;
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
+		sessionStorage.clear();
 	});
 
 	afterEach(() => {
