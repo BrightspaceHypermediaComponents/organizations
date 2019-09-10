@@ -13,7 +13,7 @@ describe('d2l-organization-consortium-tabs', () => {
 		window.D2L.Siren.EntityStore.clear();
 	});
 	describe('error cases', () =>{
-		beforeEach(() => {
+		it('populates tabs that have the same data but are accessed differently', (done) => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
 				const whatToFetch = {
@@ -31,20 +31,47 @@ describe('d2l-organization-consortium-tabs', () => {
 					json: () => { return Promise.resolve(whatToFetch[input]); }
 				});
 			});
-		});
-
-		it('populates tabs that have the same data but are accessed differently', (done) => {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
 			flush(function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
-				assert.equal(tabs.length, 2, 'should have 2 tabs');
+				assert.equal(tabs.length, 2, 'should have 2 links');
 				assert.equal(tabs[0].text, 'c1');
 				assert.equal(tabs[1].text, 'c1');
 				assert.include(tabs[0].href, '?consortium=1');
 				assert.include(tabs[1].href, '?consortium=2');
-
+				done();
+			});
+		});
+		it('displays the error tab with the correct number of errored organizations', (done) => {
+			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
+				const whatToFetch = {
+					'../data/consortium/root1-consortium.json': root1,
+					'../data/consortium/root2-consortium.json': root2,
+					'http://localhost:8081/consortium1.json': consortium1,
+					'/consortium-root1.json': consortiumRoot1,
+					'http://localhost:8081/consortium2.json': consortium1,
+					'/consortium-root2.json': consortiumRoot2
+				};
+				return Promise.resolve({
+					ok: !!whatToFetch[input],
+					json: () => { return Promise.resolve(whatToFetch[input]); }
+				});
+			});
+			const component = fixture('org-consortium');
+			component.href = '/consortium-root1.json';
+			flush(function() {
+				const tabs = component.shadowRoot.querySelectorAll('a');
+				assert.equal(tabs.length, 0, 'should have 0 links');
+				const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
+				assert.lengthOf(alertIcon, 1)
+				assert.equal(alertIcon[0].icon, 'tier1:alert');
+				const errorMessage = component.shadowRoot.querySelectorAll('.d2l-consortium-tab-content');
+				assert.lengthOf(errorMessage, 1);
+				assert.include(errorMessage[0].value, 'Oops');
+				assert.include(errorMessage.title, 'Oops');
+				assert.include(errorMessage.title, '2');
 				done();
 			});
 		});
