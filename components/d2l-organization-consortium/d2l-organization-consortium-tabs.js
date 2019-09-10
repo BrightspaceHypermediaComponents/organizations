@@ -80,6 +80,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	static get template() {
 		return html`
 		<style include="d2l-typography-shared-styles">
+
 			.d2l-consortium-tab-content {
 				@apply --d2l-body-small-text;
 				color: white;
@@ -91,6 +92,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				white-space: nowrap;
 				word-break: break-all;
 				vertical-align: middle;
+			}
+			.d2l-consortium-tab-content d2l-icon {
+				--d2l-icon-fill-color: white;
+				padding-right: 6px;
+				vertical-align: top;
 			}
 			.d2l-consortium-tab {
 				background: rgba(0, 0, 0, .54);
@@ -142,7 +148,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
-					<template is="dom-if" if="[[!item.loading]]">
+					<template is="dom-if" if="[[!item.loading && !item.error]]">
 						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]" title$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</template>
@@ -153,9 +159,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				</div>
 			</template>
 			<template is="dom-if" if="[[_errors.length > 0]]">
-				<div class="d2l-tab-container" >
-					<div class="d2l-consortium-tab" >
-						<div class="d2l-consortium-tab-content" title$="[[localize('errorFull','num', _errors.length)]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]">[[localize('errorShort')]]</div>
+				<div class="d2l-tab-container">
+					<div class="d2l-consortium-tab">
+						<div class="d2l-consortium-tab-content" title$="[[localize('errorFull','num', _errors.length)]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="d2l-tier1:alert"></d2l-icon>[[localize('errorShort')]]</div>
 					</div>
 				</div>
 			</template>
@@ -211,7 +217,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_trySetItemSessionStorage(itemName, value) {
 		try {
-			const itemCopied = JSON.parse(value);
+			const itemCopied = JSON.parse(JSON.stringify(value));
 			for (const errorKey of this._computeErrors(itemCopied)) {
 				delete itemCopied[errorKey];
 			}
@@ -262,12 +268,12 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 							if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
 								this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
 							}
-							this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
+							this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
 
 							orgEntity.onAlertsChange(alertsEntity => {
 								const unread = alertsEntity.hasUnread();
 								this.set(`_organizations.${key}.unread`, unread);
-								this._trySetItemSessionStorage(this.getCacheKey(), JSON.stringify(Object.assign({}, this._cache, this._organizations)));
+								this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
 							});
 						}
 						if (err) {
