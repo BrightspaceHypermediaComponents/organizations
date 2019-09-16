@@ -44,35 +44,69 @@ describe('d2l-organization-consortium-tabs', () => {
 				done();
 			});
 		});
-		it('displays the error tab with the correct number of errored organizations', (done) => {
-			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
-				const whatToFetch = {
-					'../data/consortium/root1-consortium.json': root1,
-					'../data/consortium/root2-consortium.json': root2,
-					'http://localhost:8081/consortium1.json': consortium1,
-					'/consortium-root1.json': consortiumRoot1,
-					'http://localhost:8081/consortium2.json': consortium1,
-					'/consortium-root2.json': consortiumRoot2
-				};
-				return Promise.resolve({
-					ok: !!whatToFetch[input],
-					json: () => { return Promise.resolve(whatToFetch[input]); }
+		[{
+			whatToFetch:{
+				'../data/consortium/root1-consortium.json': root1,
+				'../data/consortium/root2-consortium.json': root2,
+				'http://localhost:8081/consortium1.json': consortium1,
+				'/consortium-root1.json': consortiumRoot1,
+				'http://localhost:8081/consortium2.json': consortium1,
+				'/consortium-root2.json': consortiumRoot2
+			},
+			name:'displays the error tab when org fails',
+			numOfFailures: 2,
+			expectedLinks: 0
+		},
+		{
+			whatToFetch:{	'http://localhost:8081/consortium1.json': consortium1,
+				'/consortium-root1.json': consortiumRoot1,
+				'http://localhost:8081/consortium2.json': consortium1,
+				'/consortium-root2.json': consortiumRoot2
+			},
+			name:'displays the error tab when root call fails',
+			numOfFailures: 2,
+			expectedLinks: 0
+		},
+		{
+			whatToFetch:{
+				'../data/consortium/organization1-consortium.json': organization1,
+				'../data/consortium/root1-consortium.json': root1,
+				'../data/consortium/root2-consortium.json': root2,
+				'http://localhost:8081/consortium1.json': consortium1,
+				'/consortium-root1.json': consortiumRoot1,
+				'http://localhost:8081/consortium2.json': consortium1,
+				'/consortium-root2.json': consortiumRoot2
+			},
+
+			name:'displays the error tab when partial failure occurs',
+			numOfFailures: 1,
+			expectedLinks: 1
+		}].forEach(({name, whatToFetch, numOfFailures, expectedLinks}) => {
+			it(name, (done) => {
+				sandbox.stub(window.d2lfetch, 'fetch', (input) => {
+					const ok = !!whatToFetch[input];
+					return Promise.resolve({
+						ok,
+						status: ok ? 200 : 500,
+						json: () => { return Promise.resolve(whatToFetch[input]); }
+					});
 				});
-			});
-			const component = fixture('org-consortium');
-			component.href = '/consortium-root1.json';
-			flush(function() {
-				const tabs = component.shadowRoot.querySelectorAll('a');
-				assert.equal(tabs.length, 0, 'should have 0 links');
-				const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
-				assert.lengthOf(alertIcon, 1)
-				assert.equal(alertIcon[0].icon, 'tier1:alert');
-				const errorMessage = component.shadowRoot.querySelectorAll('.d2l-consortium-tab-content');
-				assert.lengthOf(errorMessage, 1);
-				assert.include(errorMessage[0].value, 'Oops');
-				assert.include(errorMessage.title, 'Oops');
-				assert.include(errorMessage.title, '2');
-				done();
+				const component = fixture('org-consortium');
+				component.href = '/consortium-root1.json';
+				setTimeout(
+					flush(function() {
+						const tabs = component.shadowRoot.querySelectorAll('a');
+						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
+						assert.lengthOf(alertIcon, 1);
+						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
+						const errorMessage = component.shadowRoot.querySelector('div.d2l-consortium-tab-content');
+						assert.include(errorMessage.innerText, 'Oops');
+						const toolTip = component.shadowRoot.querySelector('d2l-tooltip');
+						assert.include(toolTip.innerText, 'Oops');
+						assert.include(toolTip.innerText, numOfFailures);
+						done();
+					}), 100);
 			});
 		});
 	});

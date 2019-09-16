@@ -158,12 +158,14 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
-							<div class="d2l-consortium-tab-content" title$="[[localize('loading')]]" aria-label$="[[localize('loading')]]">...</div>
+							<div class="d2l-consortium-tab-content" id$="[[item.id]]" aria-label$="[[localize('loading')]]">...</div>
 					</template>
 					</div>
 				</div>
+
+
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" delay="200" position="bottom">
-					[[item.fullName]]
+					[[_successfulTabToolTipText(item)]]
 				</d2l-tooltip>
 			</template>
 			<template is="dom-if" if="[[_errors.length > 0]]">
@@ -262,14 +264,16 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			if (!this._cache || !this._cache[key]) {
 				this.set(`_organizations.${key}`, {name:key, loading:true});
 			}
-			consortiumEntity.rootOrganizationEntity((rootEntity, err) => {
-				if (err) {
+
+			consortiumEntity.rootOrganizationEntity((rootEntity, rootErr) => {
+				if (rootErr) {
 					this.set(`_organizations.${key}`, {
 						name: 'error',
+						loading: false,
 						error: true
 					});
 				} else {
-					rootEntity.organization((orgEntity, err) => {
+					rootEntity.organization((orgEntity, orgErr) => {
 						if (orgEntity) {
 							this.set(`_organizations.${key}`, {
 								name: orgEntity.name(),
@@ -285,14 +289,17 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 							this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
 
 							orgEntity.onAlertsChange(alertsEntity => {
-								const unread = alertsEntity.hasUnread();
-								this.set(`_organizations.${key}.unread`, unread);
-								this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
+								if (alertsEntity) {
+									const unread = alertsEntity.hasUnread();
+									this.set(`_organizations.${key}.unread`, unread);
+									this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
+								}
 							});
 						}
-						if (err) {
+						if (orgErr) {
 							this.set(`_organizations.${key}`, {
 								name: 'error',
+								loading: false,
 								error: true
 							});
 						}
@@ -328,6 +335,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			return org;
 		});
 		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
+	}
+	_successfulTabToolTipText(item) {
+		return item.loading ? this.localize('loading') : item.fullName;
 	}
 
 }
