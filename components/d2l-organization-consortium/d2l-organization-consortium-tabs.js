@@ -12,6 +12,7 @@ import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-icons/tier1-icons.js';
+import 'd2l-tooltip/d2l-tooltip.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -67,6 +68,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			},
 			__tokenCollection: {
 				type: Object
+			},
+			__errorId: {
+				type: String,
+				value: D2L.Id.getUniqueId()
 			}
 		};
 	}
@@ -149,7 +154,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading && !item.error]]">
-						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]" title$="[[item.fullName]]">[[item.name]]</a>
+						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
@@ -157,13 +162,22 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					</template>
 					</div>
 				</div>
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" delay="200" position="bottom">
+					[[item.fullName]]
+				</d2l-tooltip>
 			</template>
 			<template is="dom-if" if="[[_errors.length > 0]]">
 				<div class="d2l-tab-container">
 					<div class="d2l-consortium-tab">
-						<div class="d2l-consortium-tab-content" title$="[[localize('errorFull','num', _errors.length)]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="d2l-tier1:alert"></d2l-icon>[[localize('errorShort')]]</div>
+						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="d2l-tier1:alert"></d2l-icon>[[localize('errorShort')]]
+						</div>
+
 					</div>
 				</div>
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[__errorId]]" delay="200" position="bottom">
+						[[localize('errorFull','num', _errors.length)]]
+				</d2l-tooltip>
+
 			</template>
 		</div>
 		`;
