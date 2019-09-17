@@ -16,19 +16,20 @@ describe('d2l-organization-consortium-tabs', () => {
 		it('populates tabs that have the same data but are accessed differently', (done) => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
+				const hostStrippedInput = input.replace(location.origin, '');
 				const whatToFetch = {
 					'../data/consortium/organization1-consortium.json': organization1,
 					'../data/consortium/organization2-consortium.json': org2DupeName,
 					'../data/consortium/root1-consortium.json': root1,
 					'../data/consortium/root2-consortium.json': root2,
-					'http://localhost:8081/consortium1.json': consortium1,
+					'/consortium1.json': consortium1,
 					'/consortium-root1.json': consortiumRoot1,
-					'http://localhost:8081/consortium2.json': consortium1,
+					'/consortium2.json': consortium1,
 					'/consortium-root2.json': consortiumRoot2
 				};
 				return Promise.resolve({
-					ok: !!whatToFetch[input],
-					json: () => { return Promise.resolve(whatToFetch[input]); }
+					ok: !!whatToFetch[hostStrippedInput],
+					json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 				});
 			});
 			const component = fixture('org-consortium');
@@ -48,9 +49,9 @@ describe('d2l-organization-consortium-tabs', () => {
 			whatToFetch:{
 				'../data/consortium/root1-consortium.json': root1,
 				'../data/consortium/root2-consortium.json': root2,
-				'http://localhost:8081/consortium1.json': consortium1,
+				'/consortium1.json': consortium1,
 				'/consortium-root1.json': consortiumRoot1,
-				'http://localhost:8081/consortium2.json': consortium1,
+				'/consortium2.json': consortium1,
 				'/consortium-root2.json': consortiumRoot2
 			},
 			name:'displays the error tab when org fails',
@@ -58,9 +59,9 @@ describe('d2l-organization-consortium-tabs', () => {
 			expectedLinks: 0
 		},
 		{
-			whatToFetch:{	'http://localhost:8081/consortium1.json': consortium1,
+			whatToFetch:{	'/consortium1.json': consortium1,
 				'/consortium-root1.json': consortiumRoot1,
-				'http://localhost:8081/consortium2.json': consortium1,
+				'/consortium2.json': consortium1,
 				'/consortium-root2.json': consortiumRoot2
 			},
 			name:'displays the error tab when root call fails',
@@ -72,9 +73,9 @@ describe('d2l-organization-consortium-tabs', () => {
 				'../data/consortium/organization1-consortium.json': organization1,
 				'../data/consortium/root1-consortium.json': root1,
 				'../data/consortium/root2-consortium.json': root2,
-				'http://localhost:8081/consortium1.json': consortium1,
+				'/consortium1.json': consortium1,
 				'/consortium-root1.json': consortiumRoot1,
-				'http://localhost:8081/consortium2.json': consortium1,
+				'/consortium2.json': consortium1,
 				'/consortium-root2.json': consortiumRoot2
 			},
 
@@ -84,11 +85,12 @@ describe('d2l-organization-consortium-tabs', () => {
 		}].forEach(({name, whatToFetch, numOfFailures, expectedLinks}) => {
 			it(name, (done) => {
 				sandbox.stub(window.d2lfetch, 'fetch', (input) => {
-					const ok = !!whatToFetch[input];
+					const hostStrippedInput = input.replace(location.origin, '');
+					const ok = !!whatToFetch[hostStrippedInput];
 					return Promise.resolve({
 						ok,
 						status: ok ? 200 : 500,
-						json: () => { return Promise.resolve(whatToFetch[input]); }
+						json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 					});
 				});
 				const component = fixture('org-consortium');
@@ -100,11 +102,11 @@ describe('d2l-organization-consortium-tabs', () => {
 						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
 						assert.lengthOf(alertIcon, 1);
 						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelector('div.d2l-consortium-tab-content');
+						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
 						assert.include(errorMessage.innerText, 'Oops');
-						const toolTip = component.shadowRoot.querySelector('d2l-tooltip');
-						assert.include(toolTip.innerText, 'Oops');
-						assert.include(toolTip.innerText, numOfFailures);
+						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+						assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
 						done();
 					}), 100);
 			});
@@ -118,7 +120,7 @@ describe('d2l-organization-consortium-tabs', () => {
 					'../data/consortium/organization2-consortium.json': organization2,
 					'../data/consortium/root1-consortium.json': root1,
 					'../data/consortium/root2-consortium.json': root2,
-					'http://localhost:8081/consortium1.json': consortium1,
+					'/consortium1.json': consortium1,
 					'/consortium-root1.json': consortiumRoot1,
 					'/no-unread': noUnread,
 					'/has-unread': hasUnread,
@@ -126,12 +128,13 @@ describe('d2l-organization-consortium-tabs', () => {
 					'/organization4': organization4,
 					'/root3': root3,
 					'/root4': root4,
-					'http://localhost:8081/consortium2.json': consortium2,
+					'/consortium2.json': consortium2,
 					'/consortium-root2.json': consortiumRoot2
 				};
+				const hostStrippedInput = input.replace(location.origin, '');
 				return Promise.resolve({
-					ok: !!whatToFetch[input],
-					json: () => { return Promise.resolve(whatToFetch[input]); }
+					ok: !!whatToFetch[hostStrippedInput],
+					json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 				});
 			});
 		});
@@ -202,19 +205,20 @@ describe('d2l-organization-consortium-tabs', () => {
 	describe('Do not fetch alert entities', () => {
 		beforeEach(() => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
+				const hostStrippedInput = input.replace(location.origin, '');
 				const whatToFetch = {
 					'../data/consortium/organization1-consortium.json': organization1,
 					'../data/consortium/organization2-consortium.json': organization2,
 					'../data/consortium/root1-consortium.json': root1,
 					'../data/consortium/root2-consortium.json': root2,
-					'http://localhost:8081/consortium1.json': consortium1,
+					'/consortium1.json': consortium1,
 					'/consortium-root1.json': consortiumRoot1,
 					'/no-unread': null,
 					'/has-unread': null,
 				};
 				return Promise.resolve({
-					ok: !!whatToFetch[input],
-					json: () => { return Promise.resolve(whatToFetch[input]); }
+					ok: !!whatToFetch[hostStrippedInput],
+					json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 				});
 			});
 		});
