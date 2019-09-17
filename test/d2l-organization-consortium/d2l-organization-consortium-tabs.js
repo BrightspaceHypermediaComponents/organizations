@@ -13,6 +13,15 @@ describe('d2l-organization-consortium-tabs', () => {
 		sandbox.restore();
 	});
 	describe('error cases', () =>{
+		beforeEach(() => {
+			sandbox = sinon.sandbox.create();
+			sessionStorage.clear();
+			window.D2L.Siren.EntityStore.clear();
+		});
+
+		afterEach(() => {
+			sandbox.restore();
+		});
 		it('populates tabs that have the same data but are accessed differently', (done) => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
