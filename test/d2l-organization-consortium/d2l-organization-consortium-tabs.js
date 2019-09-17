@@ -95,20 +95,20 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
-				setTimeout(
-					flush(function() {
-						const tabs = component.shadowRoot.querySelectorAll('a');
-						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
-						assert.lengthOf(alertIcon, 1);
-						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
-						assert.include(errorMessage.innerText, 'Oops');
-						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
-						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-						assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
-						done();
-					}), 100);
+
+				flush(function() {
+					const tabs = component.shadowRoot.querySelectorAll('a');
+					assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+					const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
+					assert.lengthOf(alertIcon, 1);
+					assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
+					const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
+					assert.include(errorMessage.innerText, 'Oops');
+					const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+					assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+					assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+					done();
+				});
 			});
 		});
 	});
