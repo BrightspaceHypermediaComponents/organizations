@@ -53,7 +53,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			name: 'displays the error tab when partial failure occurs',
 			numOfFailures: 1,
 			expectedLinks: 1
-		}].forEach(function({ name, whatToFetch, numOfFailures, expectedLinks }) {
+		}].forEach(function({ name, whatToFetch }) {
 			it(name, function(done) {
 				sandbox.stub(sessionStorage, 'setItem');
 				sandbox.stub(sessionStorage, 'getItem', () => '{}');
