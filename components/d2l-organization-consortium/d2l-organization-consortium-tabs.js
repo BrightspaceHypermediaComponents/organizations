@@ -164,7 +164,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				</div>
 
 
-				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" delay="200" position="bottom">
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" delay="500" position="bottom">
 					[[_successfulTabToolTipText(item)]]
 				</d2l-tooltip>
 			</template>
@@ -176,7 +176,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 					</div>
 				</div>
-				<d2l-tooltip class="consortium-tab-tooltip" for="[[__errorId]]" delay="200" position="bottom">
+				<d2l-tooltip class="consortium-tab-tooltip" for="[[__errorId]]" delay="500" position="bottom">
 						[[localize('errorFull','num', _errors.length)]]
 				</d2l-tooltip>
 
