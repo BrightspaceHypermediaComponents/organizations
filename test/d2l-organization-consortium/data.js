@@ -18,7 +18,7 @@ export const consortium1 = {
 				},
 				{
 					'rel': ['https://api.brightspace.com/rels/root'],
-					'href': '../data/consortium/root1-consortium.json'
+					'href': '/consortium/root1-consortium.json'
 				}
 			]
 		},
@@ -38,7 +38,7 @@ export const consortium1 = {
 				},
 				{
 					'rel': ['https://api.brightspace.com/rels/root'],
-					'href': '../data/consortium/root2-consortium.json'
+					'href': '/consortium/root2-consortium.json'
 				}
 			]
 		}
@@ -68,20 +68,20 @@ export const organization1 = {
 			'rel': [
 				'https://api.brightspace.com/rels/organization-image'
 			],
-			'href': '../../data/image.json'
+			'href': '..//image.json'
 		}
 	],
 	'links': [{
 		'rel': ['self'],
-		'href': '../../data/organization-current.json'
+		'href': '..//organization-current.json'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/parent-semester'],
-		'href': '../../data/semester.json'
+		'href': '..//semester.json'
 	}, {
 		'rel': [
 			'https://notifications.api.brightspace.com/rels/organization-notifications'
 		],
-		'href': '../../data/notification.json'
+		'href': '..//notification.json'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=1'
@@ -108,20 +108,20 @@ export const organization2 = {
 			'rel': [
 				'https://api.brightspace.com/rels/organization-image'
 			],
-			'href': '../../data/image.json'
+			'href': '..//image.json'
 		}
 	],
 	'links': [{
 		'rel': ['self'],
-		'href': '../../data/organization-current.json'
+		'href': '..//organization-current.json'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/parent-semester'],
-		'href': '../../data/semester.json'
+		'href': '..//semester.json'
 	}, {
 		'rel': [
 			'https://notifications.api.brightspace.com/rels/organization-notifications'
 		],
-		'href': '../../data/notification.json'
+		'href': '..//notification.json'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=2'
@@ -145,7 +145,7 @@ export const root1 = {
 			'href': 'root1-consortium.json'
 		}, {
 			'rel': ['https://api.brightspace.com/rels/organization'],
-			'href': '../data/consortium/organization1-consortium.json'
+			'href': '/consortium/organization1-consortium.json'
 		}
 	]
 };
@@ -164,7 +164,7 @@ export const root2 = {
 			'href': 'root2-consortium.json'
 		}, {
 			'rel': ['https://api.brightspace.com/rels/organization'],
-			'href': '../data/consortium/organization2-consortium.json'
+			'href': '/consortium/organization2-consortium.json'
 		}
 	]
 };

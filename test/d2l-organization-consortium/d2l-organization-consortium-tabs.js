@@ -18,10 +18,10 @@ describe('d2l-organization-consortium-tabs', () => {
 				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
 				const hostStrippedInput = input.replace(location.origin, '');
 				const whatToFetch = {
-					'../data/consortium/organization1-consortium.json': organization1,
-					'../data/consortium/organization2-consortium.json': org2DupeName,
-					'../data/consortium/root1-consortium.json': root1,
-					'../data/consortium/root2-consortium.json': root2,
+					'/consortium/organization1-consortium.json': organization1,
+					'/consortium/organization2-consortium.json': org2DupeName,
+					'/consortium/root1-consortium.json': root1,
+					'/consortium/root2-consortium.json': root2,
 					'/consortium1.json': consortium1,
 					'/consortium-root1.json': consortiumRoot1,
 					'/consortium2.json': consortium1,
@@ -47,8 +47,8 @@ describe('d2l-organization-consortium-tabs', () => {
 		});
 		[{
 			whatToFetch:{
-				'../data/consortium/root1-consortium.json': root1,
-				'../data/consortium/root2-consortium.json': root2,
+				'/consortium/root1-consortium.json': root1,
+				'/consortium/root2-consortium.json': root2,
 				'/consortium1.json': consortium1,
 				'/consortium-root1.json': consortiumRoot1,
 				'/consortium2.json': consortium1,
@@ -70,9 +70,9 @@ describe('d2l-organization-consortium-tabs', () => {
 		},
 		{
 			whatToFetch:{
-				'../data/consortium/organization1-consortium.json': organization1,
-				'../data/consortium/root1-consortium.json': root1,
-				'../data/consortium/root2-consortium.json': root2,
+				'/consortium/organization1-consortium.json': organization1,
+				'/consortium/root1-consortium.json': root1,
+				'/consortium/root2-consortium.json': root2,
 				'/consortium1.json': consortium1,
 				'/consortium-root1.json': consortiumRoot1,
 				'/consortium2.json': consortium1,
@@ -84,7 +84,7 @@ describe('d2l-organization-consortium-tabs', () => {
 			expectedLinks: 1
 		}].forEach(({name, whatToFetch, numOfFailures, expectedLinks}) => {
 			it(name, (done) => {
-				sandbox.stub(window.d2lfetch, 'fetch', (input) => {
+				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 					const hostStrippedInput = input.replace(location.origin, '');
 					const ok = !!whatToFetch[hostStrippedInput];
 					return Promise.resolve({
@@ -95,21 +95,23 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
-				setTimeout(function() {
-					flush(function() {
-						const tabs = component.shadowRoot.querySelectorAll('a');
-						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
-						assert.lengthOf(alertIcon, 1);
-						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
-						assert.include(errorMessage.innerText, 'Oops');
-						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
-						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-						assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
-						done();
-					});
-				}, 500);
+
+				flush(function() {
+					assert.equal(fetchStub.called, true);
+					const tabs = component.shadowRoot.querySelectorAll('a');
+					assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+					const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
+					assert.lengthOf(alertIcon, 1);
+					assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
+					const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
+					assert.include(errorMessage.innerText, 'Oops');
+					const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+					assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+					assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+
+					done();
+				});
+
 			});
 		});
 	});
@@ -117,10 +119,10 @@ describe('d2l-organization-consortium-tabs', () => {
 		beforeEach(() => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const whatToFetch = {
-					'../data/consortium/organization1-consortium.json': organization1,
-					'../data/consortium/organization2-consortium.json': organization2,
-					'../data/consortium/root1-consortium.json': root1,
-					'../data/consortium/root2-consortium.json': root2,
+					'/consortium/organization1-consortium.json': organization1,
+					'/consortium/organization2-consortium.json': organization2,
+					'/consortium/root1-consortium.json': root1,
+					'/consortium/root2-consortium.json': root2,
 					'/consortium1.json': consortium1,
 					'/consortium-root1.json': consortiumRoot1,
 					'/no-unread': noUnread,
@@ -208,10 +210,10 @@ describe('d2l-organization-consortium-tabs', () => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const hostStrippedInput = input.replace(location.origin, '');
 				const whatToFetch = {
-					'../data/consortium/organization1-consortium.json': organization1,
-					'../data/consortium/organization2-consortium.json': organization2,
-					'../data/consortium/root1-consortium.json': root1,
-					'../data/consortium/root2-consortium.json': root2,
+					'/consortium/organization1-consortium.json': organization1,
+					'/consortium/organization2-consortium.json': organization2,
+					'/consortium/root1-consortium.json': root1,
+					'/consortium/root2-consortium.json': root2,
 					'/consortium1.json': consortium1,
 					'/consortium-root1.json': consortiumRoot1,
 					'/no-unread': null,
