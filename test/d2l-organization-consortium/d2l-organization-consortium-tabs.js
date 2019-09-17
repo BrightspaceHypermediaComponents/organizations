@@ -13,15 +13,6 @@ describe('d2l-organization-consortium-tabs', () => {
 		sandbox.restore();
 	});
 	describe('error cases', () =>{
-		beforeEach(() => {
-			sandbox = sinon.sandbox.create();
-			sessionStorage.clear();
-			window.D2L.Siren.EntityStore.clear();
-		});
-
-		afterEach(() => {
-			sandbox.restore();
-		});
 		it('populates tabs that have the same data but are accessed differently', (done) => {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
@@ -43,16 +34,18 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
+			setTimeout(() => {
+				flush(function() {
+					const tabs = component.shadowRoot.querySelectorAll('a');
+					assert.equal(tabs.length, 2, 'should have 2 links');
+					assert.equal(tabs[0].text, 'c1');
+					assert.equal(tabs[1].text, 'c1');
+					assert.include(tabs[0].href, '?consortium=1');
+					assert.include(tabs[1].href, '?consortium=2');
+					done();
+				});
+			}, 500);
 
-			flush(function() {
-				const tabs = component.shadowRoot.querySelectorAll('a');
-				assert.equal(tabs.length, 2, 'should have 2 links');
-				assert.equal(tabs[0].text, 'c1');
-				assert.equal(tabs[1].text, 'c1');
-				assert.include(tabs[0].href, '?consortium=1');
-				assert.include(tabs[1].href, '?consortium=2');
-				done();
-			});
 		});
 		[{
 			whatToFetch:{
