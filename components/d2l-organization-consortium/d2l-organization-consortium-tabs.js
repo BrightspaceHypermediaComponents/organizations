@@ -148,6 +148,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			.d2l-consortium-tab-showTabs {
 				max-height: 1.5rem;
 			}
+			d2l-navigation-notification-icon {
+				pointer-events: none;
+			}
 
 		</style>
 		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
