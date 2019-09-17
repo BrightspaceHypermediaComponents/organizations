@@ -84,6 +84,8 @@ describe('d2l-organization-consortium-tabs', function() {
 			expectedLinks: 1
 		}].forEach(function({name, whatToFetch, numOfFailures, expectedLinks}) {
 			it(name, function(done) {
+				sessionStorage.clear();
+				window.D2L.Siren.EntityStore.clear();
 				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 					const hostStrippedInput = input.replace(location.origin, '');
 					const ok = !!whatToFetch[hostStrippedInput];
