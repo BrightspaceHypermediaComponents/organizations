@@ -1,4 +1,5 @@
 import { organization1, organization2, organization3, organization4, root1, root2, root3, root4, hasUnread, noUnread, consortium1, consortium2, consortiumRoot1, consortiumRoot2 } from './data.js';
+import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
 window.D2L.Siren.WhitelistBehavior._testMode(true);
 
 describe('d2l-organization-consortium-tabs', function() {
@@ -12,9 +13,9 @@ describe('d2l-organization-consortium-tabs', function() {
 	afterEach(function() {
 		sandbox.restore();
 	});
-	describe('error cases', () =>{
+	describe('error cases', () => {
 		[{
-			whatToFetch:{
+			whatToFetch: {
 				'/consortium/root1-consortium.json': root1,
 				'/consortium/root2-consortium.json': root2,
 				'/consortium1.json': consortium1,
@@ -22,22 +23,23 @@ describe('d2l-organization-consortium-tabs', function() {
 				'/consortium2.json': consortium1,
 				'/consortium-root2.json': consortiumRoot2
 			},
-			name:'displays the error tab when org fails',
+			name: 'displays the error tab when org fails',
 			numOfFailures: 2,
 			expectedLinks: 0
 		},
 		{
-			whatToFetch:{	'/consortium1.json': consortium1,
+			whatToFetch: {
+				'/consortium1.json': consortium1,
 				'/consortium-root1.json': consortiumRoot1,
 				'/consortium2.json': consortium1,
 				'/consortium-root2.json': consortiumRoot2
 			},
-			name:'displays the error tab when root call fails',
+			name: 'displays the error tab when root call fails',
 			numOfFailures: 2,
 			expectedLinks: 0
 		},
 		{
-			whatToFetch:{
+			whatToFetch: {
 				'/consortium/organization1-consortium.json': organization1,
 				'/consortium/root1-consortium.json': root1,
 				'/consortium/root2-consortium.json': root2,
@@ -47,10 +49,10 @@ describe('d2l-organization-consortium-tabs', function() {
 				'/consortium-root2.json': consortiumRoot2
 			},
 
-			name:'displays the error tab when partial failure occurs',
+			name: 'displays the error tab when partial failure occurs',
 			numOfFailures: 1,
 			expectedLinks: 1
-		}].forEach(function({name, whatToFetch, numOfFailures, expectedLinks}) {
+		}].forEach(function({ name, whatToFetch, numOfFailures, expectedLinks }) {
 			it(name, function(done) {
 				sandbox.stub(sessionStorage, 'setItem');
 				sandbox.stub(sessionStorage, 'getItem', () => '{}');
@@ -67,30 +69,27 @@ describe('d2l-organization-consortium-tabs', function() {
 				});
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
-				setTimeout(function() {
 
-					flush(function() {
-						assert.equal(fetchStub.called, true);
-						const tabs = component.shadowRoot.querySelectorAll('a');
-						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
-						assert.lengthOf(alertIcon, 1);
-						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
-						assert.include(errorMessage.innerText, 'Oops');
-						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
-						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-						assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
-
-						done();
-					});
-				}, 3000);
+				afterNextRender(component, function() {
+					assert.equal(fetchStub.called, true);
+					const tabs = component.shadowRoot.querySelectorAll('a');
+					assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+					const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
+					assert.lengthOf(alertIcon, 1);
+					assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
+					const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
+					assert.include(errorMessage.innerText, 'Oops');
+					const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+					assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+					assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+					done();
+				});
 
 			});
 		});
 		it('populates tabs that have the same data but are accessed differently', function(done) {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
-				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
+				const org2DupeName = Object.assign({}, organization2, { 'properties': { 'code': 'c1' } });
 				const hostStrippedInput = input.replace(location.origin, '');
 				const whatToFetch = {
 					'/consortium/organization1-consortium.json': organization1,
@@ -110,7 +109,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
-			flush(function() {
+			afterNextRender(component, function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
 				assert.equal(tabs.length, 2, 'should have 2 links');
 				assert.equal(tabs[0].text, 'c1');
@@ -152,7 +151,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
-			flush(function() {
+			afterNextRender(component, function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
 				assert.equal(tabs.length, 2, 'should have 2 tabs');
 				assert.equal(tabs[0].text, 'c1');
@@ -173,7 +172,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			component.href = '/consortium-root1.json';
 			component.tabRenderThreshold = 7;
 
-			flush(function() {
+			afterNextRender(component, function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
 				assert.equal(tabs.length, 0, 'should have no tabs');
 				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
@@ -186,7 +185,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
-			flush(function() {
+			afterNextRender(component, function() {
 				const alerts = component._alertTokensMap;
 				assert.equal(alerts['/has-unread'], 'token1');
 				assert.equal(alerts['/no-unread'], 'token2');
@@ -200,7 +199,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			setTimeout(function() {
 				component.href = '/consortium-root2.json';
 
-				flush(function() {
+				afterNextRender(component, function() {
 					const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 					assert.equal(dots.length, 2);
 					assert.isTrue(dots[0].hasAttribute('hidden'));
@@ -236,7 +235,7 @@ describe('d2l-organization-consortium-tabs', function() {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
-			flush(function() {
+			afterNextRender(component, function() {
 				const tabs = component.shadowRoot.querySelectorAll('a');
 				assert.equal(tabs.length, 2, 'should have 2 tabs');
 				assert.equal(tabs[0].text, 'c1');
