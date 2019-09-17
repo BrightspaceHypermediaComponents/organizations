@@ -296,7 +296,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 							this.set(`_organizations.${key}`, {
 								name: 'error',
 								loading: false,
-								error: true
+								error: true,
+								errorMessage: orgErr
 							});
 						}
 					});
@@ -304,7 +305,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					this.set(`_organizations.${key}`, {
 						name: 'error',
 						loading: false,
-						error: true
+						error: true,
+						errorMessage: rootErr
 					});
 
 				}
