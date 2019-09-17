@@ -48,7 +48,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type:Object
 			},
 			_errors: {
-				type:Array
+				type:Array,
+				value: []
 			},
 			_shouldRender: {
 				type: Boolean,
@@ -268,6 +269,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 
 			consortiumEntity.rootOrganizationEntity((rootEntity, rootErr) => {
+				// eslint-disable-next-line no-console
+				console.log('root', rootEntity, rootErr);
 				if (rootErr) {
 					this.set(`_organizations.${key}`, {
 						name: 'error',
@@ -276,6 +279,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					});
 				} else {
 					rootEntity.organization((orgEntity, orgErr) => {
+						// eslint-disable-next-line no-console
+						console.log('root', orgEntity, orgErr);
 						if (orgEntity) {
 							this.set(`_organizations.${key}`, {
 								name: orgEntity.name(),
