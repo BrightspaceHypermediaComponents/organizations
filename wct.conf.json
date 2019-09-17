@@ -9,7 +9,6 @@
 			}
 		},
 		"sauce": {
-      "extendedDebugging": true,
 			"browsers": [
 				{
 					"browserName": "chrome",

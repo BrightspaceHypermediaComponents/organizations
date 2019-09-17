@@ -269,12 +269,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 
 			consortiumEntity.rootOrganizationEntity((rootEntity, rootErr) => {
-				// eslint-disable-next-line no-console
-				console.log('root entity', rootEntity, rootErr);
 				if (rootEntity) {
 					rootEntity.organization((orgEntity, orgErr) => {
-						// eslint-disable-next-line no-console
-						console.log('org entity', orgEntity, orgErr);
 						if (orgEntity) {
 							this.set(`_organizations.${key}`, {
 								name: orgEntity.name(),
