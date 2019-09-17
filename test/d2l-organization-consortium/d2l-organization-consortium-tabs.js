@@ -1,5 +1,6 @@
 import { organization1, organization2, organization3, organization4, root1, root2, root3, root4, hasUnread, noUnread, consortium1, consortium2, consortiumRoot1, consortiumRoot2 } from './data.js';
 import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
+import { flush } from '@polymer/polymer/lib/utils/flush';
 window.D2L.Siren.WhitelistBehavior._testMode(true);
 
 describe('d2l-organization-consortium-tabs', function() {
@@ -69,7 +70,7 @@ describe('d2l-organization-consortium-tabs', function() {
 				});
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
-
+				flush();
 				afterNextRender(component, function() {
 					assert.equal(fetchStub.called, true);
 					const tabs = component.shadowRoot.querySelectorAll('a');
