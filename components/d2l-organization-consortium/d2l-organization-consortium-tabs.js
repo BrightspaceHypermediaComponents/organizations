@@ -243,8 +243,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 	_sortOrder(item1, item2) {
-		const safeItem = item1 || {name:''};
-		return safeItem.name.localeCompare(item2.name);
+		if (item1 && item1.name) {
+			return item1.name.localeCompare(item2.name);
+		}
+		return 0;
 	}
 
 	_onConsortiumRootChange(rootEntity) {
