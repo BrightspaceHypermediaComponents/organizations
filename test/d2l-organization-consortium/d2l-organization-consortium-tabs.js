@@ -52,6 +52,8 @@ describe('d2l-organization-consortium-tabs', function() {
 			expectedLinks: 1
 		}].forEach(function({name, whatToFetch, numOfFailures, expectedLinks}) {
 			it(name, function(done) {
+				sandbox.stub(sessionStorage, 'setItem');
+				sandbox.stub(sessionStorage, 'getItem', () => '{}');
 				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 					const hostStrippedInput = input.replace(location.origin, '');
 					const ok = !!whatToFetch[hostStrippedInput];
@@ -63,22 +65,24 @@ describe('d2l-organization-consortium-tabs', function() {
 				});
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
+				setTimeout(function() {
 
-				flush(function() {
-					assert.equal(fetchStub.called, true);
-					const tabs = component.shadowRoot.querySelectorAll('a');
-					assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-					const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
-					assert.lengthOf(alertIcon, 1);
-					assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
-					const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
-					assert.include(errorMessage.innerText, 'Oops');
-					const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
-					assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-					assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+					flush(function() {
+						assert.equal(fetchStub.called, true);
+						const tabs = component.shadowRoot.querySelectorAll('a');
+						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
+						assert.lengthOf(alertIcon, 1);
+						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
+						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
+						assert.include(errorMessage.innerText, 'Oops');
+						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+						assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
 
-					done();
-				});
+						done();
+					});
+				}, 3000);
 
 			});
 		});
