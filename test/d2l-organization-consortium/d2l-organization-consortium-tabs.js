@@ -6,11 +6,11 @@ describe('d2l-organization-consortium-tabs', () => {
 	beforeEach(() => {
 		sandbox = sinon.sandbox.create();
 		sessionStorage.clear();
+		window.D2L.Siren.EntityStore.clear();
 	});
 
 	afterEach(() => {
 		sandbox.restore();
-		window.D2L.Siren.EntityStore.clear();
 	});
 	describe('error cases', () =>{
 		it('populates tabs that have the same data but are accessed differently', (done) => {
