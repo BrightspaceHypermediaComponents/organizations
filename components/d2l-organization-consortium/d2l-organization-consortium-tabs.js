@@ -243,7 +243,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 	_sortOrder(item1, item2) {
-		if (item1 && item1.name) {
+		if (item1 && item1.name && item2 && item2.name) {
 			return item1.name.localeCompare(item2.name);
 		}
 		return 0;

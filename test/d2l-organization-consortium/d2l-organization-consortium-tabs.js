@@ -57,6 +57,8 @@ describe('d2l-organization-consortium-tabs', function() {
 				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 					const hostStrippedInput = input.replace(location.origin, '');
 					const ok = !!whatToFetch[hostStrippedInput];
+					// eslint-disable-next-line no-console
+					console.log('debug stuff', ok, hostStrippedInput, input, whatToFetch[hostStrippedInput]);
 					return Promise.resolve({
 						ok,
 						status: ok ? 200 : 500,
