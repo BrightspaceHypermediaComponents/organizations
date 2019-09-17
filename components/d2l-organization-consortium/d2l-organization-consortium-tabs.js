@@ -90,6 +90,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			.d2l-consortium-tab-content {
 				@apply --d2l-body-small-text;
 				color: white;
+				cursor: pointer;
 				display: inline-block;
 				max-width: 100%;
 				overflow: hidden;
