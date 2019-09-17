@@ -1,19 +1,19 @@
 import { organization1, organization2, organization3, organization4, root1, root2, root3, root4, hasUnread, noUnread, consortium1, consortium2, consortiumRoot1, consortiumRoot2 } from './data.js';
 window.D2L.Siren.WhitelistBehavior._testMode(true);
 
-describe('d2l-organization-consortium-tabs', () => {
+describe('d2l-organization-consortium-tabs', function() {
 	var sandbox;
-	beforeEach(() => {
+	beforeEach(function() {
 		sandbox = sinon.sandbox.create();
 		sessionStorage.clear();
 		window.D2L.Siren.EntityStore.clear();
 	});
 
-	afterEach(() => {
+	afterEach(function() {
 		sandbox.restore();
 	});
 	describe('error cases', () =>{
-		it('populates tabs that have the same data but are accessed differently', (done) => {
+		it('populates tabs that have the same data but are accessed differently', function(done) {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const org2DupeName = Object.assign({}, organization2, {'properties':{'code':'c1'}});
 				const hostStrippedInput = input.replace(location.origin, '');
@@ -29,7 +29,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				};
 				return Promise.resolve({
 					ok: !!whatToFetch[hostStrippedInput],
-					json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
+					json: function() { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 				});
 			});
 			const component = fixture('org-consortium');
@@ -82,15 +82,15 @@ describe('d2l-organization-consortium-tabs', () => {
 			name:'displays the error tab when partial failure occurs',
 			numOfFailures: 1,
 			expectedLinks: 1
-		}].forEach(({name, whatToFetch, numOfFailures, expectedLinks}) => {
-			it(name, (done) => {
+		}].forEach(function({name, whatToFetch, numOfFailures, expectedLinks}) {
+			it(name, function(done) {
 				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 					const hostStrippedInput = input.replace(location.origin, '');
 					const ok = !!whatToFetch[hostStrippedInput];
 					return Promise.resolve({
 						ok,
 						status: ok ? 200 : 500,
-						json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
+						json: function() { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 					});
 				});
 				const component = fixture('org-consortium');
@@ -115,8 +115,8 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 		});
 	});
-	describe('With proper fetch', () => {
-		beforeEach(() => {
+	describe('With proper fetch', function() {
+		beforeEach(function() {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const whatToFetch = {
 					'/consortium/organization1-consortium.json': organization1,
@@ -137,12 +137,12 @@ describe('d2l-organization-consortium-tabs', () => {
 				const hostStrippedInput = input.replace(location.origin, '');
 				return Promise.resolve({
 					ok: !!whatToFetch[hostStrippedInput],
-					json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
+					json: function() { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 				});
 			});
 		});
 
-		it('populates data correctly', (done) => {
+		it('populates data correctly', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
@@ -162,7 +162,7 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 		});
 
-		it('threshold greater than the number of tabs causes no render', (done) => {
+		it('threshold greater than the number of tabs causes no render', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 			component.tabRenderThreshold = 7;
@@ -176,7 +176,7 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 		});
 
-		it('alerts use correct token', (done) => {
+		it('alerts use correct token', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
@@ -188,10 +188,10 @@ describe('d2l-organization-consortium-tabs', () => {
 			});
 		});
 
-		it('alerts and orgs gets updated when entity changes', (done) => {
+		it('alerts and orgs gets updated when entity changes', function(done) {
 			const component = fixture('org-consortium-with-url-change');
 			component.href = '/consortium-root1.json';
-			setTimeout(() => {
+			setTimeout(function() {
 				component.href = '/consortium-root2.json';
 
 				flush(function() {
@@ -205,8 +205,8 @@ describe('d2l-organization-consortium-tabs', () => {
 		});
 	});
 
-	describe('Do not fetch alert entities', () => {
-		beforeEach(() => {
+	describe('Do not fetch alert entities', function() {
+		beforeEach(function() {
 			sandbox.stub(window.d2lfetch, 'fetch', (input) => {
 				const hostStrippedInput = input.replace(location.origin, '');
 				const whatToFetch = {
@@ -221,12 +221,12 @@ describe('d2l-organization-consortium-tabs', () => {
 				};
 				return Promise.resolve({
 					ok: !!whatToFetch[hostStrippedInput],
-					json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
+					json: function() { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 				});
 			});
 		});
 
-		it('org tabs should render with no dots when alerts entities are null', (done) => {
+		it('org tabs should render with no dots when alerts entities are null', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
