@@ -154,7 +154,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
-					<template is="dom-if" if="[[!item.loading && !item.error]]">
+					<template is="dom-if" if="[[!item.loading]]">
 						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
 					</template>
@@ -327,9 +327,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	_computeParsedOrganizations() {
 		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
 		this._errors = this._computeErrors(this._organizations);
-		const orgs = Object.keys(currentOrganizations).filter(function(key) {
-			return currentOrganizations[key].error !== true;
-		}).map(function(key) {
+		const orgs = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].error !== true).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
 				name: currentOrganizations[key].code || currentOrganizations[key].name,
