@@ -270,17 +270,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 			consortiumEntity.rootOrganizationEntity((rootEntity, rootErr) => {
 				// eslint-disable-next-line no-console
-				console.log('root', rootEntity, rootErr);
-				if (rootErr) {
-					this.set(`_organizations.${key}`, {
-						name: 'error',
-						loading: false,
-						error: true
-					});
-				} else {
+				console.log('root entity', rootEntity, rootErr);
+				if (rootEntity) {
 					rootEntity.organization((orgEntity, orgErr) => {
 						// eslint-disable-next-line no-console
-						console.log('root', orgEntity, orgErr);
+						console.log('org entity', orgEntity, orgErr);
 						if (orgEntity) {
 							this.set(`_organizations.${key}`, {
 								name: orgEntity.name(),
@@ -302,8 +296,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 									this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
 								}
 							});
-						}
-						if (orgErr) {
+						} else {
 							this.set(`_organizations.${key}`, {
 								name: 'error',
 								loading: false,
@@ -311,6 +304,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 							});
 						}
 					});
+				} else {
+					this.set(`_organizations.${key}`, {
+						name: 'error',
+						loading: false,
+						error: true
+					});
+
 				}
 
 			});
