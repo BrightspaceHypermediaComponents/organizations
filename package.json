@@ -42,7 +42,7 @@
     "require-dir": "^1.0.0",
     "wct-browser-legacy": "^1.0.1"
   },
-  "version": "5.1.15",
+  "version": "5.1.16",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
