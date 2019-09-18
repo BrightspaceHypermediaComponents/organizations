@@ -49,7 +49,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			},
 			_errors: {
 				type:Array,
-				value: []
+				value: function() {
+					return [];
+				}
 			},
 			_shouldRender: {
 				type: Boolean,
@@ -65,7 +67,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			_intervalId: Number,
 			_alertTokensMap: {
 				type: Object,
-				value: {}
+				value: function() {
+					return {};
+				}
 			},
 			__tokenCollection: {
 				type: Object
@@ -273,47 +277,47 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 
 			consortiumEntity.rootOrganizationEntity((rootEntity, rootErr) => {
-				if (rootEntity) {
-					rootEntity.organization((orgEntity, orgErr) => {
-						if (orgEntity) {
-							this.set(`_organizations.${key}`, {
-								name: orgEntity.name(),
-								code: orgEntity.code(),
-								href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
-								loading: false,
-								error: false
-							});
-
-							if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
-								this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
-							}
-							this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
-
-							orgEntity.onAlertsChange(alertsEntity => {
-								if (alertsEntity) {
-									const unread = alertsEntity.hasUnread();
-									this.set(`_organizations.${key}.unread`, unread);
-									this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
-								}
-							});
-						} else {
-							this.set(`_organizations.${key}`, {
-								name: 'error',
-								loading: false,
-								error: true,
-								errorMessage: orgErr
-							});
-						}
-					});
-				} else {
+				if (!rootEntity) {
 					this.set(`_organizations.${key}`, {
 						name: 'error',
 						loading: false,
 						error: true,
 						errorMessage: rootErr
 					});
-
+					return;
 				}
+				rootEntity.organization((orgEntity, orgErr) => {
+					if (!orgEntity) {
+						this.set(`_organizations.${key}`, {
+							name: 'error',
+							loading: false,
+							error: true,
+							errorMessage: orgErr
+						});
+						return;
+					}
+					this.set(`_organizations.${key}`, {
+						name: orgEntity.name(),
+						code: orgEntity.code(),
+						href: orgEntity.fullyQualifiedOrganizationHomepageUrl(),
+						loading: false,
+						error: false
+					});
+
+					if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
+						this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
+					}
+					this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
+
+					orgEntity.onAlertsChange(alertsEntity => {
+						if (alertsEntity) {
+							const unread = alertsEntity.hasUnread();
+							this.set(`_organizations.${key}.unread`, unread);
+							this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
+						}
+					});
+
+				});
 
 			});
 		});
