@@ -177,7 +177,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					[[_successfulTabToolTipText(item)]]
 				</d2l-tooltip>
 			</template>
-			<template is="dom-if" if="[[_errors.length > 0]]">
+			<template is="dom-if" if="[[_hasErrors(_errors)]]">
 				<div class="d2l-tab-container">
 					<div class="d2l-consortium-tab">
 						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="d2l-tier1:alert"></d2l-icon>[[localize('errorShort')]]
@@ -349,6 +349,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_successfulTabToolTipText(item) {
 		return item.loading ? this.localize('loading') : item.fullName;
+	}
+	_hasErrors(errors) {
+		return errors.length > 0;
 	}
 
 }
