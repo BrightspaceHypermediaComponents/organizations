@@ -77,7 +77,7 @@ describe('d2l-organization-consortium-tabs', function() {
 						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon');
 						assert.lengthOf(alertIcon, 1);
 						assert.equal(alertIcon[0].icon, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon')[0].parentElement;
+						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
 						assert.include(errorMessage.innerText, 'Oops');
 						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
 						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
@@ -163,6 +163,8 @@ describe('d2l-organization-consortium-tabs', function() {
 				assert.equal(dots.length, 2);
 				assert.isFalse(dots[0].hasAttribute('hidden'));
 				assert.isTrue(dots[1].hasAttribute('hidden'));
+				const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]');
+				assert.equal(errorMessage.length, 0, 'Error tab should not be visible when no errors present');
 				done();
 			});
 		});
