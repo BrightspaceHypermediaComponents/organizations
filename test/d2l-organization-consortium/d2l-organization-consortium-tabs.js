@@ -69,19 +69,21 @@ describe('d2l-organization-consortium-tabs', function() {
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
 				setTimeout(function() {
-					afterNextRender(component, function() {
-						assert.equal(fetchStub.called, true);
-						// sauce doesn't seem to fully render things despite my best efforts.  uncomment if you want to verify local
-						// const tabs = component.shadowRoot.querySelectorAll('a');
-						// assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
-						assert.equal(alertIcon.length, 1, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
-						assert.include(errorMessage.innerText, 'Oops');
-						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
-						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-						// assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
-						done();
+					flush(function() {
+						afterNextRender(component, function() {
+							assert.equal(fetchStub.called, true);
+							// sauce doesn't seem to fully render things despite my best efforts.  uncomment if you want to verify local
+							// const tabs = component.shadowRoot.querySelectorAll('a');
+							// assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+							const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
+							assert.equal(alertIcon.length, 1, 'd2l-tier1:alert');
+							const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
+							assert.include(errorMessage.innerText, 'Oops');
+							const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+							assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+							// assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+							done();
+						});
 					});
 				}, 100);
 			});
