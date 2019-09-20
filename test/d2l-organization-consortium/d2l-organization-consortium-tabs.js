@@ -53,17 +53,24 @@ describe('d2l-organization-consortium-tabs', function() {
 			name: 'displays the error tab when partial failure occurs',
 			numOfFailures: 1,
 			expectedLinks: 1
-		}].forEach(function({ name, whatToFetch }) {
+		}].forEach(function({ name, whatToFetch, expectedLinks, numOfFailures }) {
 			it(name, function(done) {
 				sandbox.stub(sessionStorage, 'setItem');
 				sandbox.stub(sessionStorage, 'getItem', () => '{}');
 				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch', (input) => {
-					const hostStrippedInput = input.replace(location.origin, '');
+					let url;
+					if ('string' === typeof input) {
+						url = input;
+					}
+					if (input instanceof Request) {
+						url = input.url;
+					}
+					const hostStrippedInput = url.replace(location.origin, '');
 					const ok = !!whatToFetch[hostStrippedInput];
 					return Promise.resolve({
 						ok,
 						status: ok ? 200 : 500,
-						json: function() { return Promise.resolve(whatToFetch[hostStrippedInput]); }
+						json: function() { if (ok === true) { return Promise.resolve(whatToFetch[hostStrippedInput]); } else { return Promise.resolve({}); }}
 					});
 				});
 				const component = fixture('org-consortium');
@@ -83,15 +90,15 @@ describe('d2l-organization-consortium-tabs', function() {
 					afterNextRender(component, function() {
 						assert.equal(fetchStub.called, true);
 						// sauce doesn't seem to fully render things despite my best efforts.  uncomment if you want to verify local
-						// const tabs = component.shadowRoot.querySelectorAll('a');
-						// assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+						const tabs = component.shadowRoot.querySelectorAll('a');
+						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
 						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
 						assert.equal(alertIcon.length, 1, 'd2l-tier1:alert');
 						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
 						assert.include(errorMessage.innerText, 'Oops');
 						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
 						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-						// assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+						assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
 						done();
 					});
 				});
