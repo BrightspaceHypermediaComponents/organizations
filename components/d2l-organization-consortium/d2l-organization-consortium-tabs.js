@@ -260,11 +260,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 	_onConsortiumRootChange(rootEntity) {
 		var _self = this;
-		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
-			dispose(_self.__tokenCollection); //clean up the old one
-			this._resetMaps();
-			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
-		});
+		if (rootEntity && rootEntity.getConsortiumCollection()) {
+			this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
+				dispose(_self.__tokenCollection); //clean up the old one
+				this._resetMaps();
+				entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
+			});
+		}
 	}
 
 	_onConsortiumChange(consotriumTokenCollection) {
