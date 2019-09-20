@@ -151,7 +151,7 @@ describe('d2l-organization-consortium-tabs', function() {
 		});
 
 		it('populates data correctly', function(done) {
-			const component = fixture('org-consortium', {'_errors':['d6344102-2ff6-4536-9d04-1c45ebff1f46']});
+			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
 
 			afterNextRender(component, function() {
