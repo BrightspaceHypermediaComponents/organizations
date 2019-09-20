@@ -1,5 +1,5 @@
 import { organization1, organization2, organization3, organization4, root1, root2, root3, root4, hasUnread, noUnread, consortium1, consortium2, consortiumRoot1, consortiumRoot2 } from './data.js';
-import {afterNextRender, flush} from '@polymer/polymer/lib/utils/render-status.js';
+import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
 
 window.D2L.Siren.WhitelistBehavior._testMode(true);
 
@@ -69,13 +69,14 @@ describe('d2l-organization-consortium-tabs', function() {
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
 				const waitForTabs = (assertions) => {
-					flush();
-					const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
-					if (alertIcon.length > 0) {
-						assertions();
-					} else {
-						setTimeout(()=>waitForTabs(assertions), 50);
-					}
+					flush(function() {
+						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
+						if (alertIcon.length > 0) {
+							assertions();
+						} else {
+							setTimeout(() => waitForTabs(assertions), 30);
+						}
+					});
 				};
 
 				waitForTabs(function() {

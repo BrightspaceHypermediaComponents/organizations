@@ -332,7 +332,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_computeParsedOrganizations() {
 		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
-		this.set('_errors',  this._computeErrors(this._organizations));
+		this.set('_errors', this._computeErrors(currentOrganizations));
 		const orgs = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].error !== true).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
