@@ -1,5 +1,6 @@
 import { organization1, organization2, organization3, organization4, root1, root2, root3, root4, hasUnread, noUnread, consortium1, consortium2, consortiumRoot1, consortiumRoot2 } from './data.js';
 import {afterNextRender} from '@polymer/polymer/lib/utils/render-status.js';
+import { flush } from '@polymer/polymer/lib/utils/flush';
 
 window.D2L.Siren.WhitelistBehavior._testMode(true);
 
@@ -68,24 +69,25 @@ describe('d2l-organization-consortium-tabs', function() {
 				});
 				const component = fixture('org-consortium');
 				component.href = '/consortium-root1.json';
+				setTimeout(()=>flush(), 200);
 				setTimeout(function() {
-					flush(function() {
-						afterNextRender(component, function() {
-							assert.equal(fetchStub.called, true);
-							// sauce doesn't seem to fully render things despite my best efforts.  uncomment if you want to verify local
-							// const tabs = component.shadowRoot.querySelectorAll('a');
-							// assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-							const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
-							assert.equal(alertIcon.length, 1, 'd2l-tier1:alert');
-							const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
-							assert.include(errorMessage.innerText, 'Oops');
-							const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
-							assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
-							// assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
-							done();
-						});
+
+					afterNextRender(component, function() {
+						assert.equal(fetchStub.called, true);
+						// sauce doesn't seem to fully render things despite my best efforts.  uncomment if you want to verify local
+						// const tabs = component.shadowRoot.querySelectorAll('a');
+						// assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
+						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
+						assert.equal(alertIcon.length, 1, 'd2l-tier1:alert');
+						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
+						assert.include(errorMessage.innerText, 'Oops');
+						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
+						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
+						// assert.include(toolTip[toolTip.length - 1].innerText, numOfFailures);
+						done();
 					});
-				}, 100);
+
+				}, 500);
 			});
 		});
 		it('populates tabs that have the same data but are accessed differently', function(done) {
@@ -149,7 +151,7 @@ describe('d2l-organization-consortium-tabs', function() {
 		});
 
 		it('populates data correctly', function(done) {
-			const component = fixture('org-consortium');
+			const component = fixture('org-consortium', {'_errors':['d6344102-2ff6-4536-9d04-1c45ebff1f46']});
 			component.href = '/consortium-root1.json';
 
 			afterNextRender(component, function() {
