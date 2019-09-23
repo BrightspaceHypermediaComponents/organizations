@@ -180,7 +180,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template is="dom-if" if="[[_hasErrors(_errors)]]">
 				<div class="d2l-tab-container">
 					<div class="d2l-consortium-tab">
-						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="d2l-tier1:alert"></d2l-icon>[[localize('errorShort')]]
+						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="tier1:alert"></d2l-icon>[[localize('errorShort')]]
 						</div>
 
 					</div>
@@ -199,6 +199,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		this._setEntityType(ConsortiumRootEntity);
 	}
 	getCacheKey() {
+		if (typeof (this.token) === 'function') {
+			return  `consortium-tabs-${this.token()}`;
+		}
 		return `consortium-tabs-${this.token}`;
 	}
 	connectedCallback() {
