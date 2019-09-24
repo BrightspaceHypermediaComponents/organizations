@@ -1,0 +1,20 @@
+{
+  "class": [
+    "consortium"
+  ],
+  "actions": [
+    {
+      "href": "/consortium-with-error.json",
+      "name": "consortium-tokens",
+      "method": "POST"
+    }
+  ],
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "/consortium-root-with-error.json"
+    }
+  ]
+}

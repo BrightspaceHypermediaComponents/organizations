@@ -177,10 +177,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					[[_successfulTabToolTipText(item)]]
 				</d2l-tooltip>
 			</template>
-			<template is="dom-if" if="[[_errors.length > 0]]">
+			<template is="dom-if" if="[[_hasErrors(_errors)]]">
 				<div class="d2l-tab-container">
 					<div class="d2l-consortium-tab">
-						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="d2l-tier1:alert"></d2l-icon>[[localize('errorShort')]]
+						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="tier1:alert"></d2l-icon>[[localize('errorShort')]]
 						</div>
 
 					</div>
@@ -199,6 +199,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		this._setEntityType(ConsortiumRootEntity);
 	}
 	getCacheKey() {
+		if (typeof (this.token) === 'function') {
+			return  `consortium-tabs-${this.token()}`;
+		}
 		return `consortium-tabs-${this.token}`;
 	}
 	connectedCallback() {
@@ -260,11 +263,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 	_onConsortiumRootChange(rootEntity) {
 		var _self = this;
-		this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
-			dispose(_self.__tokenCollection); //clean up the old one
-			this._resetMaps();
-			entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
-		});
+		if (rootEntity && rootEntity.getConsortiumCollection()) {
+			this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
+				dispose(_self.__tokenCollection); //clean up the old one
+				this._resetMaps();
+				entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
+			});
+		}
 	}
 
 	_onConsortiumChange(consotriumTokenCollection) {
@@ -332,7 +337,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_computeParsedOrganizations() {
 		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
-		this._errors = this._computeErrors(this._organizations);
+		this.set('_errors', this._computeErrors(currentOrganizations));
 		const orgs = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].error !== true).map(function(key) {
 			const org = {
 				id: D2L.Id.getUniqueId(),
@@ -349,6 +354,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_successfulTabToolTipText(item) {
 		return item.loading ? this.localize('loading') : item.fullName;
+	}
+	_hasErrors(errors) {
+		return errors.length > 0;
 	}
 
 }
