@@ -83,7 +83,7 @@ describe('d2l-organization-consortium-tabs', function() {
 				component.href = '/consortium-root1.json';
 				const waitForTabs = (assertions) => {
 					flush(function() {
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
+						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="tier1:alert"]');
 						if (alertIcon.length > 0) {
 							assertions();
 						} else {
@@ -98,9 +98,9 @@ describe('d2l-organization-consortium-tabs', function() {
 
 						const tabs = component.shadowRoot.querySelectorAll('a');
 						assert.equal(tabs.length, expectedLinks, `should have ${expectedLinks} links`);
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="d2l-tier1:alert"]');
-						assert.equal(alertIcon.length, 1, 'd2l-tier1:alert');
-						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]')[0].parentElement;
+						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="tier1:alert"]');
+						assert.equal(alertIcon.length, 1, 'tier1:alert');
+						const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="tier1:alert"]')[0].parentElement;
 						assert.include(errorMessage.innerText, 'Oops');
 						const toolTip = component.shadowRoot.querySelectorAll('d2l-tooltip');
 						assert.include(toolTip[toolTip.length - 1].innerText, 'Oops');
@@ -187,7 +187,7 @@ describe('d2l-organization-consortium-tabs', function() {
 				assert.equal(dots.length, 2);
 				assert.isFalse(dots[0].hasAttribute('hidden'));
 				assert.isTrue(dots[1].hasAttribute('hidden'));
-				const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="d2l-tier1:alert"]');
+				const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="tier1:alert"]');
 				assert.equal(errorMessage.length, 0, 'Error tab should not be visible when no errors present');
 				done();
 			});
