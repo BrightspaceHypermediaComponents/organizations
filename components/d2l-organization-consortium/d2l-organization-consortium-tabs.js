@@ -126,6 +126,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				display: flex;
 				flex-wrap: nowrap;
 				max-height: 0;
+				overflow-x: unset;
+				overflow-y: hidden;
 			}
 			.d2l-consortium-tab-box :not(:first-child) {
 				margin-left: -1px;
