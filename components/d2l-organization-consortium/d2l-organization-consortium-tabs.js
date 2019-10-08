@@ -112,7 +112,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			.d2l-consortium-tab {
 				background: rgba(0, 0, 0, .54);
 				border-bottom: none;
-				border-radius: 4px 4px 0 0;
+				border-radius: 5px 5px 0 0;
 				max-width: 5.5rem;
 				padding: 0 0.6rem;
 			}
@@ -125,19 +125,20 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
-				max-height:0;
-				overflow: hidden;
+				max-height: 0;
+				overflow-x: unset;
+				overflow-y: hidden;
 			}
 			.d2l-consortium-tab-box :not(:first-child) {
 				margin-left: -1px;
 			}
 			.d2l-tab-container {
 				border: rgba(255, 255, 255, .30) solid 1px;
-				border-radius: 5px 5px 0 0;
+				border-radius: 6px 6px 0 0;
 				border-bottom: none;
 				display: inline-block;
-				line-height: 1rem;
-				margin: 0.2rem 0 0 0;
+				line-height: 1.3rem;
+				margin: 4px 0 0 0;
 				position: relative;
 			}
 			.d2l-tab-container[selected] {
