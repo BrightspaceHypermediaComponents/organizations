@@ -167,7 +167,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading]]">
 						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]">[[item.name]]</a>
-						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]"></d2l-navigation-notification-icon>
+						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
 							<div class="d2l-consortium-tab-content" id$="[[item.id]]" aria-label$="[[localize('loading')]]">...</div>
