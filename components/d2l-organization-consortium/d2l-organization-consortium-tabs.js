@@ -155,6 +155,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 			d2l-navigation-notification-icon {
 				pointer-events: none;
+				right: -1px;
+				top: -1px;
+				width: unset;
 			}
 
 		</style>
