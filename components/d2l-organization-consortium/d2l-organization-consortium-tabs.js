@@ -109,6 +109,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				padding-right: 6px;
 				vertical-align: top;
 			}
+			:host(:dir(rtl)) .d2l-consortium-tab-content d2l-icon {
+				padding-left: 6px;
+				padding-right: 0;
+			}
 			.d2l-consortium-tab {
 				background: rgba(0, 0, 0, .54);
 				border-bottom: none;
@@ -131,6 +135,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 			.d2l-consortium-tab-box :not(:first-child) {
 				margin-left: -1px;
+			}
+			:host(:dir(rtl)) .d2l-consortium-tab-box :not(:first-child) {
+				margin-left: 0;
+				margin-right: -1px;
 			}
 			.d2l-tab-container {
 				border: rgba(255, 255, 255, .30) solid 1px;
@@ -158,16 +166,19 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				pointer-events: none;
 				right: -1px;
 				top: -1px;
-				width: unset;
+				width: auto;
 			}
-
+			:host(:dir(rtl)) d2l-navigation-notification-icon {
+				left: -1px;
+				right: auto;
+			}
 		</style>
 		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading]]">
-						<a href="[[item.href]]" class="d2l-consortium-tab-content " aria-label$="[[item.fullName]]">[[item.name]]</a>
+						<a href="[[item.href]]" class="d2l-consortium-tab-content" aria-label$="[[item.fullName]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
