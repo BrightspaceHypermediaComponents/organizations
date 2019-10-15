@@ -10,5 +10,9 @@
   "errorFull": {
     "translation": "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page",
     "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
+  },
+  "newNotifications": {
+    "translation": "{name} - Vous avez de nouvelles alertes",
+    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
   }
 }

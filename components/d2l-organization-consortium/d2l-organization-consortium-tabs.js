@@ -10,9 +10,8 @@ import '../d2l-organization-behavior.js';
 import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
-import 'd2l-icons/d2l-icon.js';
-import 'd2l-icons/tier1-icons.js';
 import 'd2l-tooltip/d2l-tooltip.js';
+import '@brightspace-ui/core/components/icons/icon.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -178,7 +177,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading]]">
-						<a href="[[item.href]]" class="d2l-consortium-tab-content" aria-label$="[[item.fullName]]">[[item.name]]</a>
+						<a href="[[item.href]]" class="d2l-consortium-tab-content" aria-label$="[[_getLinkLabel(item)]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
@@ -369,6 +368,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	}
 	_successfulTabToolTipText(item) {
 		return item.loading ? this.localize('loading') : item.fullName;
+	}
+	_getLinkLabel(item) {
+		return item.hasNotification ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
 	}
 	_hasErrors(errors) {
 		return errors.length > 0;

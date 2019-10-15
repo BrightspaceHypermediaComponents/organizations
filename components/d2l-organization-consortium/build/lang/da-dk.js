@@ -9,7 +9,8 @@ const LangDadkImpl = (superClass) => class extends superClass {
 		this.dadk = {
 			'loading': 'Loading',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
+			'newNotifications': '{name} - Du har nye notifikationer'
 		};
 	}
 };

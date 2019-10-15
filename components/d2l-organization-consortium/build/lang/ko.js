@@ -9,7 +9,8 @@ const LangKoImpl = (superClass) => class extends superClass {
 		this.ko = {
 			'loading': 'Loading',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
+			'newNotifications': '{name}개 - 새로운 알림이 있습니다.'
 		};
 	}
 };
