@@ -7,9 +7,9 @@ const LangTrImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.tr = {
-			'loading': 'Loading',
-			'errorShort': 'Oops',
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
+			'errorShort': 'Oops',
+			'loading': 'Yükleniyor',
 			'newNotifications': '{name} - Yeni uyarılarınız var'
 		};
 	}

@@ -7,9 +7,9 @@ const LangPtImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.pt = {
-			'loading': 'Loading',
-			'errorShort': 'Oops',
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
+			'errorShort': 'Oops',
+			'loading': 'Carregando',
 			'newNotifications': '{name} - Você tem novos alertas'
 		};
 	}

@@ -7,9 +7,9 @@ const LangEsImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.es = {
-			'loading': 'Loading',
-			'errorShort': 'Oops',
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
+			'errorShort': 'Oops',
+			'loading': 'Cargando',
 			'newNotifications': '{name} - Tiene nuevas alertas'
 		};
 	}
