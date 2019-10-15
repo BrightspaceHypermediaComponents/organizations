@@ -177,7 +177,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading]]">
-						<a href="[[item.href]]" class="d2l-consortium-tab-content" aria-label$="[[_getLinkLabel(item)]]">[[item.name]]</a>
+						<a href="[[item.href]]" class="d2l-consortium-tab-content" aria-label$="[[_getTabAriaLabel(item)]]">[[item.name]]</a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
@@ -185,7 +185,6 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					</template>
 					</div>
 				</div>
-
 
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" delay="500" position="bottom">
 					[[_successfulTabToolTipText(item)]]
@@ -286,9 +285,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 
-	_onConsortiumChange(consotriumTokenCollection) {
-		this.__tokenCollection = consotriumTokenCollection;
-		consotriumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
+	_onConsortiumChange(consortiumTokenCollection) {
+		this.__tokenCollection = consortiumTokenCollection;
+		consortiumTokenCollection.consortiumTokenEntities((consortiumEntity) => {
 			const key = consortiumEntity.consortiumTenant();
 			this._shouldRender = true;
 			if (!this._cache || !this._cache[key]) {
@@ -369,7 +368,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	_successfulTabToolTipText(item) {
 		return item.loading ? this.localize('loading') : item.fullName;
 	}
-	_getLinkLabel(item) {
+	_getTabAriaLabel(item) {
 		return item.hasNotification ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
 	}
 	_hasErrors(errors) {
