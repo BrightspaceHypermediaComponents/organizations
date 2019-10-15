@@ -209,6 +209,20 @@ describe('d2l-organization-consortium-tabs', function() {
 			});
 		});
 
+		it('selected tab is not focusable', function(done) {
+			const component = fixture('org-consortium');
+			component.href = '/consortium-root1.json';
+			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
+
+			afterNextRender(component, function() {
+				const firstTab = component.shadowRoot.querySelector('.d2l-tab-container');
+				assert.notEqual(firstTab.querySelector('a'), '');
+				const selectedTab = component.shadowRoot.querySelector('.d2l-tab-container[selected]');
+				assert.equal(selectedTab.querySelector('a').href, '');
+				done();
+			});
+		});
+
 		it('alerts use correct token', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
