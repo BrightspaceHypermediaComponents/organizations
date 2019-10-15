@@ -1,14 +1,14 @@
 {
-  "loading": {
-    "translation": "Loading",
-    "context": "Placeholder loading text until content is ready"
-  },
-  "errorShort": {
-    "translation": "Oops",
-    "context": "Short error message if something went wrong"
-  },
-  "errorFull": {
-    "translation": "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page",
-    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
-  }
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "Oops"
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "Yükleniyor"
+    }
 }
