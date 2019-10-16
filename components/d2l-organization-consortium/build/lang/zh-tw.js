@@ -7,9 +7,10 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zhtw = {
-			'loading': 'Loading',
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'loading': '正在載入',
+			'newNotifications': '{name} - 您有新警示'
 		};
 	}
 };

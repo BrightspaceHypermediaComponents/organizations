@@ -7,9 +7,10 @@ const LangNlImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.nl = {
-			'loading': 'Loading',
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'loading': 'Laden',
+			'newNotifications': '{name} - U hebt nieuwe waarschuwingen'
 		};
 	}
 };

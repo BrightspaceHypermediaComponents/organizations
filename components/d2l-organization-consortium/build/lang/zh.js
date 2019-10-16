@@ -7,9 +7,10 @@ const LangZhImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zh = {
-			'loading': 'Loading',
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'loading': '正在加载',
+			'newNotifications': '{name} - 您有新提示'
 		};
 	}
 };

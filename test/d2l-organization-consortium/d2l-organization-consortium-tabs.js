@@ -186,7 +186,9 @@ describe('d2l-organization-consortium-tabs', function() {
 				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 				assert.equal(dots.length, 2);
 				assert.isFalse(dots[0].hasAttribute('hidden'));
+				assert.equal(tabs[0].getAttribute('aria-label'), 'Consortium 1 - You have new alerts');
 				assert.isTrue(dots[1].hasAttribute('hidden'));
+				assert.equal(tabs[1].getAttribute('aria-label'), 'Consortium 2');
 				const errorMessage = component.shadowRoot.querySelectorAll('div.d2l-consortium-tab-content > d2l-icon[icon="tier1:alert"]');
 				assert.equal(errorMessage.length, 0, 'Error tab should not be visible when no errors present');
 				done();

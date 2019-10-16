@@ -7,9 +7,10 @@ const LangJaImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.ja = {
-			'loading': 'Loading',
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'loading': '読み込み中',
+			'newNotifications': '{name} - 新しいお知らせがあります'
 		};
 	}
 };

@@ -10,5 +10,9 @@
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "Laddar"
+    },
+    "newNotifications": {
+      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
+      "translation": "{name} – Du har nya varningar"
     }
 }

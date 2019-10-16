@@ -7,9 +7,10 @@ const LangSvImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.sv = {
-			'loading': 'Loading',
+			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
 			'errorShort': 'Oops',
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page'
+			'loading': 'Laddar',
+			'newNotifications': '{name} – Du har nya varningar'
 		};
 	}
 };
