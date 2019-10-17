@@ -126,6 +126,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				color: var(--d2l-color-ferrite);
 				cursor: default;
 			}
+			.d2l-consortium-tab-content.d2l-consortium-tab-error,
+			.d2l-consortium-tab-content.d2l-consortium-tab-loading {
+				cursor: default;
+			}
 			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
@@ -182,7 +186,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
-							<div class="d2l-consortium-tab-content" id$="[[item.id]]" aria-label$="[[localize('loading')]]">...</div>
+							<div class="d2l-consortium-tab-content d2l-consortium-tab-loading" id$="[[item.id]]" aria-label$="[[localize('loading')]]">...</div>
 					</template>
 					</div>
 				</div>
@@ -194,7 +198,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template is="dom-if" if="[[_hasErrors(_errors)]]">
 				<div class="d2l-tab-container">
 					<div class="d2l-consortium-tab">
-						<div class="d2l-consortium-tab-content" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="tier1:alert"></d2l-icon>[[localize('errorShort')]]
+						<div class="d2l-consortium-tab-content d2l-consortium-tab-error" id="[[__errorId]]" aria-label$="[[localize('errorFull', 'num', _errors.length)]]"><d2l-icon icon="tier1:alert"></d2l-icon>[[localize('errorShort')]]
 						</div>
 
 					</div>
