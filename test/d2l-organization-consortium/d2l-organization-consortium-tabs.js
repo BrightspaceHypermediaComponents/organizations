@@ -236,6 +236,18 @@ describe('d2l-organization-consortium-tabs', function() {
 				});
 			}, 100);
 		});
+		it('scroll request is sent after loading complete', function(done) {
+			const component = fixture('org-consortium');
+
+			component.addEventListener('d2l-navigation-band-slot-scroll-request', function() {
+				assert.equal(Object.keys(component._organizations).filter(key => component._organizations[key].loading), 0);
+				assert.isTrue(component._requestedScroll);
+				done();
+			});
+			assert.isFalse(component._requestedScroll);
+			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
+			component.href = '/consortium-root1.json';
+		});
 	});
 
 	describe('Do not fetch alert entities', function() {

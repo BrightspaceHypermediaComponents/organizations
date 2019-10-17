@@ -56,6 +56,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type: Boolean,
 				value: false
 			},
+			_requestedScroll: {
+				type: Boolean,
+				value: false
+			},
 			_organizations: {
 				type: Object
 			},
@@ -90,6 +94,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		return html`
 		<style include="d2l-typography-shared-styles">
 
+			:host {
+				position: relative;
+			}
 			.d2l-consortium-tab-content {
 				@apply --d2l-body-small-text;
 				color: white;
@@ -363,7 +370,33 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			};
 			return org;
 		});
+
+		if (!this._requestedScroll && this.__tokenCollection && Object.keys(currentOrganizations).length === this.__tokenCollection.getConsortiumTokenEntitiesLength()) {
+			const stillLoading = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].loading);
+			if (stillLoading.length === 0) {
+				this._requestedScroll = true;
+				setTimeout(this._requestScroll.bind(this), 1000);
+			}
+		}
 		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
+	}
+	_requestScroll() {
+		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
+		if (selectedTab) {
+			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-navigation-band-slot-scroll-request',
+					{
+						detail: {
+							pointToCenter: distanceToCenter
+						},
+						bubbles: true,
+						composed: true
+					}
+				)
+			);
+		}
 	}
 	_successfulTabToolTipText(item) {
 		return item.loading ? this.localize('loading') : item.fullName;
