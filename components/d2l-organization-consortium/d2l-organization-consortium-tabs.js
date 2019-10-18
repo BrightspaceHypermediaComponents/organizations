@@ -11,6 +11,7 @@ import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-tooltip/d2l-tooltip.js';
+import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
@@ -95,6 +96,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				color: white;
 				cursor: pointer;
 				display: inline-block;
+				line-height: 1.25rem;
 				max-width: 100%;
 				overflow: hidden;
 				text-decoration: none;
@@ -106,7 +108,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			.d2l-consortium-tab-content d2l-icon {
 				--d2l-icon-fill-color: white;
 				padding-right: 6px;
-				vertical-align: top;
+				vertical-align: middle;
 			}
 			:host(:dir(rtl)) .d2l-consortium-tab-content d2l-icon {
 				padding-left: 6px;
@@ -116,8 +118,18 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				background: rgba(0, 0, 0, .54);
 				border-bottom: none;
 				border-radius: 5px 5px 0 0;
+				display: block;
 				max-width: 5.5rem;
+				outline: none;
 				padding: 0 0.6rem;
+			}
+			.d2l-consortium-tab:hover {
+				background: rgba(0, 0, 0, .70);
+			}
+			.d2l-tab-container a:focus {
+				box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .54),
+							inset 0 0 0 2px var(--d2l-branding-primary-color, var(--d2l-color-celestine)),
+							inset 0 0 0 4px white;
 			}
 			[selected] .d2l-consortium-tab {
 				background: white;
@@ -137,10 +149,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				overflow-x: unset;
 				overflow-y: hidden;
 			}
-			.d2l-consortium-tab-box :not(:first-child) {
+			.d2l-consortium-tab-box .d2l-tab-container:not(:first-child) {
 				margin-left: -1px;
 			}
-			:host(:dir(rtl)) .d2l-consortium-tab-box :not(:first-child) {
+			:host(:dir(rtl)) .d2l-consortium-tab-box .d2l-tab-container:not(:first-child) {
 				margin-left: 0;
 				margin-right: -1px;
 			}
@@ -149,9 +161,12 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				border-radius: 6px 6px 0 0;
 				border-bottom: none;
 				display: inline-block;
-				line-height: 1.3rem;
 				margin: 4px 0 0 0;
 				position: relative;
+			}
+			.d2l-tab-container:hover {
+				border: rgba(255, 255, 255, .60) solid 1px;
+				border-bottom: none;
 			}
 			.d2l-tab-container[selected] {
 				border: rgba(0, 0, 0, .42) solid 1px;
@@ -180,15 +195,15 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
-					<div class="d2l-consortium-tab" id$="[[item.id]]" >
 					<template is="dom-if" if="[[!item.loading]]">
-						<a href="[[_getTabHref(item)]]" class="d2l-consortium-tab-content" aria-label$="[[_getTabAriaLabel(item)]]">[[item.name]]</a>
+						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content">[[item.name]]</div></a>
 						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
+						<div class="d2l-consortium-tab">
 							<div class="d2l-consortium-tab-content d2l-consortium-tab-loading" id$="[[item.id]]" aria-label$="[[localize('loading')]]">...</div>
+						</div>
 					</template>
-					</div>
 				</div>
 
 				<d2l-tooltip class="consortium-tab-tooltip" for="[[item.id]]" delay="500" position="bottom">
@@ -374,7 +389,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		return item.loading ? this.localize('loading') : item.fullName;
 	}
 	_getTabHref(item) {
-		return this._isSelected(item) ? '' : item.href;
+		return this._isSelected(item) ? undefined : item.href;
 	}
 	_getTabAriaLabel(item) {
 		return item.hasNotification ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
