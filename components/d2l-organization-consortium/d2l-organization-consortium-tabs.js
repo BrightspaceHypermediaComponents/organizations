@@ -148,6 +148,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				outline: none;
 				padding: 0 0.6rem;
 			}
+			@media (max-width: 767px) {
+				.d2l-consortium-tab {
+					padding: 0 0.5rem;
+				}
+			}
 			.d2l-consortium-tab:hover {
 				background-color: rgba(0, 0, 0, .70);
 			}
