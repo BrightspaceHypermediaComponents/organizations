@@ -72,6 +72,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					return {};
 				}
 			},
+			_hasNotifications: {
+				type: Boolean,
+				value: false
+			},
 			__tokenCollection: {
 				type: Object
 			},
@@ -84,7 +88,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 	static get observers() {
 		return [
-			'_onConsortiumRootChange(_entity)'
+			'_onConsortiumRootChange(_entity)',
+			'_checkNotifications(_parsedOrganizations.*)'
 		];
 	}
 
@@ -399,7 +404,26 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	_hasErrors(errors) {
 		return errors.length > 0;
 	}
+	_checkNotifications(orgs) {
+		const nowHasNotifications = orgs.value.some((org) => { return org.hasNotification; });
 
+		if (this._hasNotifications !== nowHasNotifications) {
+			this._hasNotifications = nowHasNotifications;
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-organization-consortium-tabs-notification-update',
+					{
+						detail: {
+							hasOrgTabNotifications: nowHasNotifications
+						},
+						bubbles: true,
+						composed: true
+					}
+				)
+			);
+		}
+
+	}
 }
 
 window.customElements.define(OrganizationConsortiumTabs.is, OrganizationConsortiumTabs);
