@@ -407,22 +407,23 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	_checkNotifications(orgs) {
 		const nowHasNotifications = orgs.value.some((org) => { return org.hasNotification; });
 
-		if (this._hasNotifications !== nowHasNotifications) {
-			this._hasNotifications = nowHasNotifications;
-			this.dispatchEvent(
-				new CustomEvent(
-					'd2l-organization-consortium-tabs-notification-update',
-					{
-						detail: {
-							hasOrgTabNotifications: nowHasNotifications
-						},
-						bubbles: true,
-						composed: true
-					}
-				)
-			);
+		if (this._hasNotifications === nowHasNotifications) {
+			return;
 		}
 
+		this._hasNotifications = nowHasNotifications;
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-organization-consortium-tabs-notification-update',
+				{
+					detail: {
+						hasOrgTabNotifications: nowHasNotifications
+					},
+					bubbles: true,
+					composed: true
+				}
+			)
+		);
 	}
 }
 
