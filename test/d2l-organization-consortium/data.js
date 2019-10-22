@@ -249,7 +249,7 @@ export const organization4 = {
 	},
 	'links': [{
 		'rel': ['https://api.brightspace.com/rels/notification-alerts'],
-		'href': '/has-unread'
+		'href': '/no-unread'
 	}, {
 		'rel': ['https://api.brightspace.com/rels/organization-homepage'],
 		'href': '?consortium=4'
