@@ -1,0 +1,18 @@
+{
+  "currentOrgUnitItemDescription": {
+    "translation": "Current Org Unit: {name}",
+    "context": "Description of an explicit orgunit availability item"
+  },
+  "explicitItemDescription": {
+    "translation": "The {type}: {name}",
+    "context": "Description of an explicit orgunit availability item"
+  },
+  "inheritItemDescription": {
+    "translation": "Every Org Unit under the {type}: {name}",
+    "context": "Description of an inherit (all descendents) orgunit availability item"
+  },
+  "inheritItemWithDescendentTypeDescription": {
+    "translation": "Every {descendentType} under the {type}: {name}",
+    "context": "Description of an inherit with specific {descendentType} orgunit availability item"
+  }
+}
