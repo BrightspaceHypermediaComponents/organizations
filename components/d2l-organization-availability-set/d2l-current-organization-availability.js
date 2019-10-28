@@ -5,11 +5,12 @@ import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 
 import { getLocalizeResources } from './localization.js';
 
-class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 	static get properties() {
 		return {
-			_name: { type: String }
+			_name: { type: String },
+			_canDeleteAvailability: { type: Boolean }
 		};
 	}
 
@@ -30,10 +31,10 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	constructor() {
 		super();
-        this._setEntityType(OrganizationAvailabilityEntity);
-    }
+		this._setEntityType(OrganizationAvailabilityEntity);
+	}
 
-    set _entity(entity) {
+	set _entity(entity) {
 		this._onAvailabilityChange(entity);
 		super._entity = entity;
 	}
@@ -41,43 +42,25 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 	_onAvailabilityChange(entity) {
 		if (entity) {
 			this._setName(entity);
+			this._canDeleteAvailability = entity.canDeleteAvailability();
 		}
 	}
 
 	_setName(entity) {
 		if (entity) {
 			entity.onOrganizationChange(organization => {
-				this._name = organization.name();
+				this._name = organization.name()
 			});
 		}
 	}
 
-	_renderItemDescription(entity, name) {
-		if (entity) {
-			const type = entity.getCurrentTypeName();
-
-			if (entity.isExplicitAvailability()) {
-				return this.localize('explicitItemDescription', { type, name });
-			}
-
-			if (entity.isInheritAvailability()) {
-				const descendentType = entity.getDescendentTypeName();
-
-				if (descendentType) {
-					return this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
-				}
-				return this.localize('inheritItemDescription', { type, name });
-			}
-		}
-	}
-
 	render() {
-        return html`
-			${this._renderItemDescription(super._entity, this._name)}
+		return html`
+			<d2l-input-checkbox checked ?disabled="${!this._canDeleteAvailability}">
+				${this.localize('currentOrgUnitItemDescription', { name: this._name })}
+			</d2l-input-checkbox>
 		`;
 	}
-
-
 };
 
-customElements.define('d2l-organization-availability', OrganizationAvailability);
+customElements.define('d2l-current-organization-availability', CurrentOrganizationAvailability);

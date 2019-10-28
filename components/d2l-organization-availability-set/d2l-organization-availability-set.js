@@ -6,13 +6,14 @@ import '@brightspace-ui/core/components/button/button';
 
 import { getLocalizeResources } from './localization.js';
 import './d2l-organization-availability.js';
+import './d2l-current-organization-availability.js';
 
 class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 	static get properties() {
 		return {
 			_availabilityEntities: { type: Array },
-			_currentOrgUnitAvailabilityEntity: { type: Object },
+			_currentOrgUnitEntity: { type: Object },
 			_canAddAvailability: { type: Boolean },
 			_currentOrgUnitName: { type: String }
 		};
@@ -51,39 +52,32 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 
 	_onAvailabilitySetChange(entity) {
 		if (entity) {
-			this._availabilityEntities = entity.getAvailabilityEntitiesWithoutCurrentOrgUnit();
+			this._availabilityEntities = entity.getEntitiesExcludingCurrentOrgUnit();
 			this._canAddAvailability = entity.canAddAvailability();
-			this._currentOrgUnitAvailabilityEntity = entity.getCurrentOrgUnitAvailability();
+			this._currentOrgUnitEntity = entity.getCurrentOrgUnitEntity();
 			entity.onOrganizationChange(organization => {
 				this._currentOrgUnitName = organization.name();
 			});
 		}
 	}
 
-	_renderCurrentOrgUnit(currentOrgUnitAvailabilityEntity, currentOrgUnitName, canAddAvailability) {
-		if (currentOrgUnitAvailabilityEntity) {
-			return html`
-					<d2l-organization-availability
-						.isCurrentOrgUnit="${!!currentOrgUnitAvailabilityEntity}"
-						.href="${currentOrgUnitAvailabilityEntity.href}"
-						.token="${this.token}">
-					</d2l-organization-availability>
-			`;
-		} else {
-			return html`
-				<d2l-input-checkbox ?disabled="${!canAddAvailability}">
-					${this.localize('currentOrgUnitItemDescription', { name: currentOrgUnitName })}
-				</d2l-input-checkbox>
-			`;
-		}
-	}
-
 	render() {
 		return html`
-			${this._renderCurrentOrgUnit(this._currentOrgUnitAvailabilityEntity, this._currentOrgUnitName, this._canAddAvailability)}
+			${this._currentOrgUnitEntity ?
+				html`
+					<d2l-current-organization-availability
+						.href="${this._currentOrgUnitEntity.href}"
+						.token="${this.token}">
+					</d2l-organization-availability>
+				` :
+				html`
+					<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
+						${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
+					</d2l-input-checkbox>
+				`
+			}
 			${this._canAddAvailability ?
-				html`<d2l-button @click=${this.handleAddOrgUnits}>Add Org Units</d2l-button>`
-				: ''
+				html`<d2l-button @click=${this.handleAddOrgUnits}>Add Org Units</d2l-button>` : ''
 			}
 			${this._availabilityEntities.map(entity =>
 				html`
