@@ -83,11 +83,11 @@ describe('d2l-organization-availability', () => {
 				getCurrentTypeName: () => 'Course Offering',
 				isExplicitAvailability: () => true
 			};
-			afterNextRender(component, () => {
+			setTimeout(() => {
 				const actualValue = component._renderItemDescription(entity, 'D2L Security');
 				expect(actualValue).to.equal('The Course Offering: D2L Security');
 				done();
-			});
+			}, 200);
 		});
 
 		it('handles inherit entity correctly', (done) => {
@@ -97,11 +97,11 @@ describe('d2l-organization-availability', () => {
 				isInheritAvailability: () => true,
 				getDescendentTypeName: () => ''
 			};
-			afterNextRender(component, () => {
+			setTimeout(() => {
 				const actualValue = component._renderItemDescription(entity, 'Smart People');
 				expect(actualValue).to.equal('Every Org Unit under the Department: Smart People');
 				done();
-			});
+			}, 200);
 		});
 
 		it('handles inherit with descedent type entity correctly', (done) => {
@@ -111,11 +111,11 @@ describe('d2l-organization-availability', () => {
 				isInheritAvailability: () => true,
 				getDescendentTypeName: () => 'Program'
 			};
-			afterNextRender(component, () => {
+			setTimeout(() => {
 				const actualValue = component._renderItemDescription(entity, 'D2L');
 				expect(actualValue).to.equal('Every Program under the Organization: D2L');
 				done();
-			});
+			}, 200);
 		});
 	});
 });
