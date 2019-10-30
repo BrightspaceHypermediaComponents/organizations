@@ -44,14 +44,15 @@ describe('d2l-organization-availability-set', () => {
 				const currentOrgUnitElems = component.shadowRoot.querySelectorAll('d2l-current-organization-availability');
 				expect(currentOrgUnitElems.length).to.equal(1);
 
-				const buttonElems = component.shadowRoot.querySelectorAll('d2l-button');
-				expect(buttonElems.length).to.equal(1);
-				expect(buttonElems[0].textContent).to.equal('Add Org Units');
-
 				const availabilityElems = component.shadowRoot.querySelectorAll('d2l-organization-availability');
 				expect(availabilityElems.length).to.equal(3);
 
-				done();
+				afterNextRender(component, () => {
+					const buttonElems = component.shadowRoot.querySelectorAll('d2l-button');
+					expect(buttonElems.length).to.equal(1);
+					expect(buttonElems[0].textContent.trim()).to.equal('Add Org Units');
+					done();
+				});
 			});
 		});
 

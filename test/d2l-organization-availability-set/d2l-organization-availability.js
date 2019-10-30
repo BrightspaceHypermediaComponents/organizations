@@ -42,16 +42,16 @@ describe('d2l-organization-availability', () => {
 		});
 	});
 
-	describe('ineherit entity', () => {
+	describe('inherit entity', () => {
 		let component;
 		before(() => {
 			component = fixture('org-availability');
 			component.href = '/orgUnitAvailability3.json';
 		});
+
 		it('renders organization availability set', (done) => {
 			afterNextRender(component, () => {
 				expect(component._name).to.equal('Accounting&Financial Management');
-				expect(component.textContent.trim()).to.equal("Every Org Unit in the Department: Accounting&Financial Management");
 				done();
 			});
 		});
@@ -67,7 +67,53 @@ describe('d2l-organization-availability', () => {
 		it('renders organization availability set', (done) => {
 			afterNextRender(component, () => {
 				expect(component._name).to.equal('Accounting&Financial Management');
-				expect(component.textContent.trim()).to.equal("Every Program in the Department: Accounting&Financial Management");
+				done();
+			});
+		});
+	});
+
+	describe('_renderItemDescription', () => {
+		let component;
+		before(() => {
+			component = fixture('org-availability');
+		});
+
+		it('handles explicit entity correctly', (done) => {
+			const entity = {
+				getCurrentTypeName: () => "Course Offering",
+				isExplicitAvailability: () => true
+			}
+			afterNextRender(component, () => {
+				const actualValue = component._renderItemDescription(entity, 'D2L Security');
+				expect(actualValue).to.equal('The Course Offering: D2L Security');
+				done();
+			});
+		});
+
+		it('handles inherit entity correctly', (done) => {
+			const entity = {
+				getCurrentTypeName: () => "Department",
+				isExplicitAvailability: () => false,
+				isInheritAvailability: () => true,
+				getDescendentTypeName: () => ""
+			}
+			afterNextRender(component, () => {
+				const actualValue = component._renderItemDescription(entity, 'Smart People');
+				expect(actualValue).to.equal('Every Org Unit under the Department: Smart People');
+				done();
+			});
+		});
+
+		it('handles inherit with descedent type entity correctly', (done) => {
+			const entity = {
+				getCurrentTypeName: () => "Organization",
+				isExplicitAvailability: () => false,
+				isInheritAvailability: () => true,
+				getDescendentTypeName: () => "Program"
+			}
+			afterNextRender(component, () => {
+				const actualValue = component._renderItemDescription(entity, 'D2L');
+				expect(actualValue).to.equal('Every Program under the Organization: D2L');
 				done();
 			});
 		});
