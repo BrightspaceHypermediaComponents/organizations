@@ -77,7 +77,11 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 				`
 			}
 			${this._canAddAvailability ?
-				html`<d2l-button @click=${this.handleAddOrgUnits}>Add Org Units</d2l-button>` : ''
+				html`
+					<d2l-button @click=${this.handleAddOrgUnits}>
+						${this.localize('addOrgUnits')}
+					</d2l-button>
+				` : ''
 			}
 			${this._availabilityEntities.map(entity =>
 				html`

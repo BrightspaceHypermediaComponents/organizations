@@ -1,4 +1,8 @@
 {
+  "addOrgUnits": {
+    "translation": "Add Org Units",
+    "context": "Add Org Units"
+  },
   "currentOrgUnitItemDescription": {
     "translation": "Current Org Unit: {name}",
     "context": "Description of an explicit orgunit availability item"
