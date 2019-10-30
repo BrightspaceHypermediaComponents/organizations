@@ -80,9 +80,9 @@ describe('d2l-organization-availability', () => {
 
 		it('handles explicit entity correctly', (done) => {
 			const entity = {
-				getCurrentTypeName: () => "Course Offering",
+				getCurrentTypeName: () => 'Course Offering',
 				isExplicitAvailability: () => true
-			}
+			};
 			afterNextRender(component, () => {
 				const actualValue = component._renderItemDescription(entity, 'D2L Security');
 				expect(actualValue).to.equal('The Course Offering: D2L Security');
@@ -92,11 +92,11 @@ describe('d2l-organization-availability', () => {
 
 		it('handles inherit entity correctly', (done) => {
 			const entity = {
-				getCurrentTypeName: () => "Department",
+				getCurrentTypeName: () => 'Department',
 				isExplicitAvailability: () => false,
 				isInheritAvailability: () => true,
-				getDescendentTypeName: () => ""
-			}
+				getDescendentTypeName: () => ''
+			};
 			afterNextRender(component, () => {
 				const actualValue = component._renderItemDescription(entity, 'Smart People');
 				expect(actualValue).to.equal('Every Org Unit under the Department: Smart People');
@@ -106,11 +106,11 @@ describe('d2l-organization-availability', () => {
 
 		it('handles inherit with descedent type entity correctly', (done) => {
 			const entity = {
-				getCurrentTypeName: () => "Organization",
+				getCurrentTypeName: () => 'Organization',
 				isExplicitAvailability: () => false,
 				isInheritAvailability: () => true,
-				getDescendentTypeName: () => "Program"
-			}
+				getDescendentTypeName: () => 'Program'
+			};
 			afterNextRender(component, () => {
 				const actualValue = component._renderItemDescription(entity, 'D2L');
 				expect(actualValue).to.equal('Every Program under the Organization: D2L');

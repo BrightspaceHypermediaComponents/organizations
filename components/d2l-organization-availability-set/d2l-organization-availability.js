@@ -1,9 +1,8 @@
-import { LitElement, css, html } from 'lit-element/lit-element';
+import { css, html, LitElement } from 'lit-element/lit-element';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { OrganizationAvailabilityEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilityEntity.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
-
 import { getLocalizeResources } from './localization.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { OrganizationAvailabilityEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilityEntity.js';
 
 class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
@@ -30,10 +29,10 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	constructor() {
 		super();
-        this._setEntityType(OrganizationAvailabilityEntity);
-    }
+		this._setEntityType(OrganizationAvailabilityEntity);
+	}
 
-    set _entity(entity) {
+	set _entity(entity) {
 		this._onAvailabilityChange(entity);
 		super._entity = entity;
 	}
@@ -72,12 +71,11 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 	}
 
 	render() {
-        return html`
+		return html`
 			${this._renderItemDescription(super._entity, this._name)}
 		`;
 	}
 
-
-};
+}
 
 customElements.define('d2l-organization-availability', OrganizationAvailability);

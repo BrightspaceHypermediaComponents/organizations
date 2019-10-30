@@ -133,7 +133,7 @@ export const OrganizationAvailabilitySet = {
 			'orgunit-availability-set'
 		],
 		'entities': [
-					{
+			{
 				'class': [
 					'orgunit-availability',
 					'explicit'

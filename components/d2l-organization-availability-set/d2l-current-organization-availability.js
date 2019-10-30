@@ -1,9 +1,9 @@
-import { LitElement, css, html } from 'lit-element/lit-element';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { OrganizationAvailabilityEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilityEntity.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox';
+import { css, html, LitElement } from 'lit-element/lit-element';
+import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { OrganizationAvailabilityEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilityEntity.js';
 
 class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
@@ -49,7 +49,7 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 	_setName(entity) {
 		if (entity) {
 			entity.onOrganizationChange(organization => {
-				this._name = organization.name()
+				this._name = organization.name();
 			});
 		}
 	}
@@ -61,6 +61,6 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 			</d2l-input-checkbox>
 		`;
 	}
-};
+}
 
 customElements.define('d2l-current-organization-availability', CurrentOrganizationAvailability);

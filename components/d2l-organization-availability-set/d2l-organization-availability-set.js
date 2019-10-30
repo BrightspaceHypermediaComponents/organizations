@@ -1,12 +1,11 @@
-import { LitElement, css, html } from 'lit-element/lit-element';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { OrganizationAvailabilitySetEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilitySetEntity.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import '@brightspace-ui/core/components/button/button';
-
-import { getLocalizeResources } from './localization.js';
-import './d2l-organization-availability.js';
 import './d2l-current-organization-availability.js';
+import './d2l-organization-availability.js';
+import { css, html, LitElement } from 'lit-element/lit-element';
+import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { getLocalizeResources } from './localization.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { OrganizationAvailabilitySetEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilitySetEntity.js';
 
 class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
@@ -63,34 +62,27 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 
 	render() {
 		return html`
-			${this._currentOrgUnitEntity ?
-				html`
-					<d2l-current-organization-availability
-						.href="${this._currentOrgUnitEntity.href}"
-						.token="${this.token}">
-					</d2l-current-organization-availability>
-				` :
-				html`
-					<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
-						${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
-					</d2l-input-checkbox>
-				`
-			}
-			${this._canAddAvailability ?
-				html`
-					<d2l-button @click=${this.handleAddOrgUnits}>
-						${this.localize('addOrgUnits')}
-					</d2l-button>
-				` : ''
-			}
-			${this._availabilityEntities.map(entity =>
-				html`
-					<d2l-organization-availability
-						.href="${entity.href}"
-						.token="${this.token}">
-					</d2l-organization-availability>
-				`
-			)}
+			${this._currentOrgUnitEntity ? html`
+				<d2l-current-organization-availability
+					.href="${this._currentOrgUnitEntity.href}"
+					.token="${this.token}">
+				</d2l-current-organization-availability>
+			` : html`
+				<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
+					${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
+				</d2l-input-checkbox>
+			`}
+			${this._canAddAvailability && html`
+				<d2l-button @click=${this.handleAddOrgUnits}>
+					${this.localize('addOrgUnits')}
+				</d2l-button>
+			`}
+			${this._availabilityEntities.map(entity => html`
+				<d2l-organization-availability
+					.href="${entity.href}"
+					.token="${this.token}">
+				</d2l-organization-availability>
+			`)}
 		`;
 	}
 
@@ -102,6 +94,6 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 			this._dialog.Open();
 		}
 	}
-};
+}
 
 customElements.define('d2l-organization-availability-set', OrganizationAvailabilitySet);
