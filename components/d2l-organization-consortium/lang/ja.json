@@ -1,18 +1,18 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "申し訳ありません。{num} 個のタブの情報をフェッチできませんでした。ページを更新してみてください"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "申し訳ありません"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "読み込み中"
     },
-    "newNotifications": {
-      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
-      "translation": "{name} - 新しいお知らせがあります"
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} さん - 新しいお知らせがあります"
     }
 }
