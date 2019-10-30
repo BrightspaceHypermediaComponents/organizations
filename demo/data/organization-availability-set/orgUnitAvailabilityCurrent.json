@@ -1,0 +1,52 @@
+{
+	"class": [
+		"orgunit-availability",
+		"explicit",
+		"current"
+	],
+	"rel": [
+		"https://api.brightspace.com/rels/cache-primer"
+	],
+	"entities": [
+		{
+			"class": [
+				"current",
+				"orgunit-type"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/organization-type"
+			],
+			"properties": {
+				"name": "Organization"
+			}
+		}
+	],
+	"actions": [
+		{
+			"title": "Delete Item",
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityCurrent.json",
+			"name": "delete-item",
+			"method": "DELETE"
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityCurrent.json"
+		},
+		{
+			"rel": [
+				"collection"
+			],
+			"href": "/demo/data/organization-availability-set/organizationAvailabilitySet.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "/demo/data/organization-availability-set/organization6606.json"
+		}
+	]
+}

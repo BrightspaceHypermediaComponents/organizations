@@ -1,0 +1,51 @@
+{
+	"class": [
+		"orgunit-availability",
+		"explicit"
+	],
+	"rel": [
+		"https://api.brightspace.com/rels/cache-primer"
+	],
+	"entities": [
+		{
+			"class": [
+				"current",
+				"orgunit-type"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/organization-type"
+			],
+			"properties": {
+				"name": "Course Offering"
+			}
+		}
+	],
+	"actions": [
+		{
+			"title": "Delete Item",
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityExplicit.json",
+			"name": "delete-item",
+			"method": "DELETE"
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityExplicit.json"
+		},
+		{
+			"rel": [
+				"collection"
+			],
+			"href": "/demo/data/organization-availability-set/organizationAvailabilitySet.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "/demo/data/organization-availability-set/organization6609.json"
+		}
+	]
+}

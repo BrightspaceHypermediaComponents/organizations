@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit-element/lit-element';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { OrganizationAvailabilityEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilityEntity.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
-
+import '@brightspace-ui/core/components/inputs/input-checkbox';
 import { getLocalizeResources } from './localization.js';
 
 class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement)) {
