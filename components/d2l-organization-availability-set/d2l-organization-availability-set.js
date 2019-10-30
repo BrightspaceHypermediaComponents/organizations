@@ -68,7 +68,7 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 					<d2l-current-organization-availability
 						.href="${this._currentOrgUnitEntity.href}"
 						.token="${this.token}">
-					</d2l-organization-availability>
+					</d2l-current-organization-availability>
 				` :
 				html`
 					<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
