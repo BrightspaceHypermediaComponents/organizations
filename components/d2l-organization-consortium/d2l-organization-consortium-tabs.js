@@ -88,6 +88,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 	static get observers() {
 		return [
+			'_setCache(token)',
 			'_onConsortiumRootChange(_entity)',
 			'_checkNotifications(_parsedOrganizations.*)'
 		];
@@ -243,16 +244,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		super();
 		this._setEntityType(ConsortiumRootEntity);
 	}
-	getCacheKey() {
-		if (typeof (this.token) === 'function') {
-			return  `consortium-tabs-${this.token()}`;
-		}
-		return `consortium-tabs-${this.token}`;
-	}
+
 	connectedCallback() {
 		super.connectedCallback();
 		this._intervalId = window.setInterval(this.updateAlerts.bind(this), this.pollIntervalInSeconds * 1000);
-		this._cache = this._tryGetItemSessionStorage(this.getCacheKey());
 	}
 
 	disconnectedCallback() {
@@ -266,6 +261,23 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				updateEntity(key, this._alertTokensMap[key]);
 			}
 		}
+	}
+
+	async _getCacheKey() {
+		if (typeof (this.token) === 'function') {
+			const token = await this.token();
+			return `consortium-tabs-${token}`;
+		} else {
+			return `consortium-tabs-${this.token}`;
+		}
+	}
+
+	async _setCache(token) {
+		if (!token) {
+			return;
+		}
+		const cacheKey = await this._getCacheKey();
+		this._cache = this._tryGetItemSessionStorage(cacheKey);
 	}
 
 	_tabBoxClasses(_shouldRender, _hasCache) {
@@ -336,7 +348,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					});
 					return;
 				}
-				rootEntity.organization((orgEntity, orgErr) => {
+				rootEntity.organization(async(orgEntity, orgErr) => {
 					if (!orgEntity) {
 						this.set(`_organizations.${key}`, {
 							name: 'error',
@@ -357,13 +369,15 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 					if (orgEntity.alertsUrl() && consortiumEntity.consortiumToken()) {
 						this._alertTokensMap[orgEntity.alertsUrl()] = consortiumEntity.consortiumToken();
 					}
-					this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
+					const cacheKey = await this._getCacheKey();
+					this._trySetItemSessionStorage(cacheKey, Object.assign({}, this._cache, this._organizations));
 
-					orgEntity.onAlertsChange(alertsEntity => {
+					orgEntity.onAlertsChange(async(alertsEntity) => {
 						if (alertsEntity) {
 							const unread = alertsEntity.hasUnread();
 							this.set(`_organizations.${key}.unread`, unread);
-							this._trySetItemSessionStorage(this.getCacheKey(), Object.assign({}, this._cache, this._organizations));
+							const cacheKey = await this._getCacheKey();
+							this._trySetItemSessionStorage(cacheKey, Object.assign({}, this._cache, this._organizations));
 						}
 					});
 
