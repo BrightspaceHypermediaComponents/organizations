@@ -1,6 +1,6 @@
 import { resolveUrl } from '@polymer/polymer/lib/utils/resolve-url.js';
 
-const SUPPORTED_LANGUAGES = ['en', 'fr'];
+const SUPPORTED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fi', 'fr', 'ja', 'ko', 'nl', 'pt', 'sv', 'tr', 'zh', 'zh-tw'];
 const cache = {};
 const baseUrl = import.meta.url;
 

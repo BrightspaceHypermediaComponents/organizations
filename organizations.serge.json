@@ -120,6 +120,8 @@
       "zh-cn zh",
       "zh-tw zh-tw"
     ],
-    "pr_reviewers": []
+    "pr_reviewers": [
+      "wongvincent"
+    ]
   }
 ]
