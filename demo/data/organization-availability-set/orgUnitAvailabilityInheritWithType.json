@@ -1,0 +1,63 @@
+{
+	"class": [
+		"orgunit-availability",
+		"inherit"
+	],
+	"rel": [
+		"https://api.brightspace.com/rels/cache-primer"
+	],
+	"entities": [
+		{
+			"class": [
+				"descendent",
+				"orgunit-type"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/organization-type"
+			],
+			"properties": {
+				"name": "Program"
+			}
+		},
+		{
+			"class": [
+				"current",
+				"orgunit-type"
+			],
+			"rel": [
+				"https://api.brightspace.com/rels/organization-type"
+			],
+			"properties": {
+				"name": "Department"
+			}
+		}
+	],
+	"actions": [
+		{
+			"title": "Delete Item",
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityInheritWithType.json",
+			"name": "delete-item",
+			"method": "DELETE"
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityInheritWithType.json"
+		},
+		{
+			"rel": [
+				"collection"
+			],
+			"href": "/demo/data/organization-availability-set/organizationAvailabilitySet.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "/demo/data/organization-availability-set/organization121147.json"
+		}
+	]
+}

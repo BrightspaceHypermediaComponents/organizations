@@ -1,0 +1,22 @@
+{
+	"class": [
+		"active",
+		"department"
+	],
+	"properties": {
+		"name": "Accounting&Financial Management",
+		"code": "AFM",
+		"startDate": null,
+		"endDate": null,
+		"isActive": true,
+		"description": null
+	},
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/organization121147.json"
+		}
+	]
+}

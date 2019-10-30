@@ -1,0 +1,85 @@
+{
+	"class": [
+		"collection",
+		"orgunit-availability-set"
+	],
+	"entities": [
+		{
+			"class": [
+				"orgunit-availability",
+				"explicit",
+				"current"
+			],
+			"rel": [
+				"item"
+			],
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityCurrent.json"
+		},
+		{
+			"class": [
+				"orgunit-availability",
+				"explicit"
+			],
+			"rel": [
+				"item"
+			],
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityExplicit.json"
+		},
+		{
+			"class": [
+				"orgunit-availability",
+				"inherit"
+			],
+			"rel": [
+				"item"
+			],
+			"href": "/demo/data/organization-availability-set/orgUnitAvailabilityInheritWithType.json"
+		}
+	],
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/organization-availability-set.json"
+		},
+		{
+			"rel": [
+				"https://api.brightspace.com/rels/organization"
+			],
+			"href": "/demo/data/organization-availability-set/organization6606.json"
+		}
+	],
+	"actions": [
+		{
+			"type": "application/x-www-form-urlencoded",
+			"title": "Create Explicit Availability Item",
+			"href": "/demo/data/organization-availability-set/organization-availability-set.json",
+			"name": "create-explicit-availability-item",
+			"method": "POST",
+			"fields": [
+				{
+					"type": "number",
+					"name": "explicitOrgUnitId"
+				}
+			]
+		},
+		{
+			"type": "application/x-www-form-urlencoded",
+			"title": "Create Inherited Availability Item",
+			"href": "/demo/data/organization-availability-set/organization-availability-set.json",
+			"name": "create-inherited-availability-item",
+			"method": "POST",
+			"fields": [
+				{
+					"type": "number",
+					"name": "ancestorOrgUnitId"
+				},
+				{
+					"type": "number",
+					"name": "descendentOrgUnitTypeId"
+				}
+			]
+		}
+	]
+}

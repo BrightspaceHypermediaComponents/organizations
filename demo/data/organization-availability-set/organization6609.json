@@ -1,0 +1,22 @@
+{
+	"class": [
+		"active",
+		"course-offering"
+	],
+	"properties": {
+		"name": "Course",
+		"code": "C1",
+		"startDate": null,
+		"endDate": null,
+		"isActive": true,
+		"description": null
+	},
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/organization6609.json"
+		}
+	]
+}
