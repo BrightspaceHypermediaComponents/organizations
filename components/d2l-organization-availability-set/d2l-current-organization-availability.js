@@ -1,4 +1,4 @@
-import '@brightspace-ui/core/components/inputs/input-checkbox';
+import 'd2l-inputs/d2l-input-checkbox';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';

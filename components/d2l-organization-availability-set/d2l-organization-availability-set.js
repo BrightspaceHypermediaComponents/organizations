@@ -1,4 +1,5 @@
 import '@brightspace-ui/core/components/button/button';
+import 'd2l-inputs/d2l-input-checkbox';
 import './d2l-current-organization-availability.js';
 import './d2l-organization-availability.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
