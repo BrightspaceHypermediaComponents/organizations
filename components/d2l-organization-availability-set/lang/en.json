@@ -18,5 +18,9 @@
   "inheritItemWithDescendentTypeDescription": {
     "translation": "Every {descendentType} under the {type}: {name}",
     "context": "Description of an inherit with specific {descendentType} orgunit availability item"
+  },
+  "removeAvailabilityFor": {
+    "translation": "Remove availability for: {itemDescription}",
+    "context": "Alt text for remove availability 'X' button"
   }
 }

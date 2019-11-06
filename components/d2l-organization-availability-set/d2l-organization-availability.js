@@ -1,3 +1,4 @@
+import '@brightspace-ui/core/components/button/button-icon.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
@@ -8,7 +9,10 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	static get properties() {
 		return {
-			_name: { type: String }
+			_canDelete: { type: Boolean },
+			_name: { type: String },
+			_itemDescription: { type: String },
+			_isDeleting: { type: Boolean }
 		};
 	}
 
@@ -39,6 +43,7 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	_onAvailabilityChange(entity) {
 		if (entity) {
+			this._canDelete = entity.canDelete();
 			this._setName(entity);
 		}
 	}
@@ -47,32 +52,47 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		if (entity) {
 			entity.onOrganizationChange(organization => {
 				this._name = organization.name();
+				this._setItemDescription(entity, this._name);
 			});
 		}
 	}
 
-	_renderItemDescription(entity, name) {
-		if (entity) {
+	_setItemDescription(entity, name) {
+		let itemDescription = '';
+		if (entity && name) {
 			const type = entity.getCurrentTypeName();
 
 			if (entity.isExplicitAvailability()) {
-				return this.localize('explicitItemDescription', { type, name });
-			}
-
-			if (entity.isInheritAvailability()) {
+				itemDescription = this.localize('explicitItemDescription', { type, name });
+			} else if (entity.isInheritAvailability()) {
 				const descendentType = entity.getDescendentTypeName();
 
 				if (descendentType) {
-					return this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
+					itemDescription = this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
+				} else {
+					itemDescription = this.localize('inheritItemDescription', { type, name });
 				}
-				return this.localize('inheritItemDescription', { type, name });
 			}
 		}
+		this._itemDescription = itemDescription;
+	}
+
+	async _delete() {
+		this._isDeleting = true;
+		await super._entity.delete();
+		this._isDeleting = false;
 	}
 
 	render() {
 		return html`
-			${this._renderItemDescription(super._entity, this._name)}
+			${this._itemDescription}
+			${this._itemDescription && this._canDelete && html`
+				<d2l-button-icon
+					?disabled="${this._isDeleting}"
+					text="${this.localize('removeAvailabilityFor', { itemDescription: this._itemDescription })}"
+					icon="tier1:close-default"
+					@click="${this._delete.bind(this)}"></d2l-button-icon>
+			`}
 		`;
 	}
 

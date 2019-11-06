@@ -10,7 +10,7 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 	static get properties() {
 		return {
 			_name: { type: String },
-			_canDeleteAvailability: { type: Boolean }
+			_canDelete: { type: Boolean }
 		};
 	}
 
@@ -42,7 +42,7 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 	_onAvailabilityChange(entity) {
 		if (entity) {
 			this._setName(entity);
-			this._canDeleteAvailability = entity.canDeleteAvailability();
+			this._canDelete = entity.canDelete();
 		}
 	}
 
@@ -56,7 +56,7 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 
 	render() {
 		return html`
-			<d2l-input-checkbox checked ?disabled="${!this._canDeleteAvailability}">
+			<d2l-input-checkbox checked ?disabled="${!this._canDelete}">
 				${this.localize('currentOrgUnitItemDescription', { name: this._name })}
 			</d2l-input-checkbox>
 		`;
