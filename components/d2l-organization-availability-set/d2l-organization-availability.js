@@ -92,8 +92,8 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 					?disabled="${this._isDeleting}"
 					text="${this.localize('removeAvailabilityFor', { itemDescription: this._itemDescription })}"
 					icon="tier1:close-default"
-					@click="${this._delete.bind(this)}"></d2l-button-icon>
-			`: ''}
+					@click="${this._delete}"></d2l-button-icon>
+			` : ''}
 		`;
 	}
 
