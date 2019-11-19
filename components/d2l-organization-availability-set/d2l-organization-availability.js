@@ -37,8 +37,10 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 	}
 
 	set _entity(entity) {
-		this._onAvailabilityChange(entity);
-		super._entity = entity;
+		if (this._entityHasChanged(entity)) {
+			this._onAvailabilityChange(entity);
+			super._entity = entity;
+		}
 	}
 
 	_onAvailabilityChange(entity) {
@@ -77,22 +79,21 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		this._itemDescription = itemDescription;
 	}
 
-	async _delete() {
+	_delete() {
 		this._isDeleting = true;
-		await super._entity.delete();
-		this._isDeleting = false;
+		super._entity.delete();
 	}
 
 	render() {
 		return html`
 			${this._itemDescription}
-			${this._itemDescription && this._canDelete && html`
+			${this._itemDescription && this._canDelete ? html`
 				<d2l-button-icon
 					?disabled="${this._isDeleting}"
 					text="${this.localize('removeAvailabilityFor', { itemDescription: this._itemDescription })}"
 					icon="tier1:close-default"
 					@click="${this._delete.bind(this)}"></d2l-button-icon>
-			`}
+			`: ''}
 		`;
 	}
 

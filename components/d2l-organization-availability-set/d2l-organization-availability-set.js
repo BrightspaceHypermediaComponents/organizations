@@ -7,12 +7,13 @@ import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { OrganizationAvailabilitySetEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilitySetEntity.js';
+import { repeat } from 'lit-html/directives/repeat';
 
 class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 	static get properties() {
 		return {
-			_availabilityEntities: { type: Array },
+			_availabilityHrefs: { type: Array },
 			_currentOrgUnitEntity: { type: Object },
 			_canAddAvailability: { type: Boolean },
 			_currentOrgUnitName: { type: String }
@@ -36,7 +37,7 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 
 	constructor() {
 		super();
-		this._availabilityEntities = [];
+		this._availabilityHrefs = [];
 		this._setEntityType(OrganizationAvailabilitySetEntity);
 		if (D2L.Dialog && D2L.Dialog.OrgUnitSelector) {
 			this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect);
@@ -45,14 +46,14 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
-			super._entity = entity;
 			this._onAvailabilitySetChange(entity);
+			super._entity = entity;
 		}
 	}
 
 	_onAvailabilitySetChange(entity) {
 		if (entity) {
-			this._availabilityEntities = entity.getEntitiesExcludingCurrentOrgUnit();
+			this._availabilityHrefs = entity.getAvailabilityHrefs();
 			this._canAddAvailability = entity.canAddAvailability();
 			this._currentOrgUnitEntity = entity.getCurrentOrgUnitEntity();
 			entity.onOrganizationChange(organization => {
@@ -78,9 +79,9 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 					${this.localize('addOrgUnits')}
 				</d2l-button>
 			`}
-			${this._availabilityEntities.map(entity => html`
+			${repeat(this._availabilityHrefs, href => href, href => html`
 				<d2l-organization-availability
-					.href="${entity.href}"
+					.href="${href}"
 					.token="${this.token}">
 				</d2l-organization-availability>
 			`)}
