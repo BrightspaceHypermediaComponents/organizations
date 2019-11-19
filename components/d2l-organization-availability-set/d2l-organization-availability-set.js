@@ -112,8 +112,9 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 		});
 	}
 
-	handleAddOrgUnits() {
+	handleAddOrgUnits(e) {
 		if (this._dialog.Open) {
+			this._dialog.SetOpener(e.target);
 			this._dialog.Open();
 		}
 	}
