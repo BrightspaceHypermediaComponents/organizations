@@ -30,7 +30,7 @@ describe('d2l-current-organization-availability', () => {
 		component.href = '/orgUnitAvailability1.json';
 		afterNextRender(component, () => {
 			expect(component._name).to.equal('Dev');
-			expect(component._canDeleteAvailability).to.be.true;
+			expect(component._canDelete).to.be.true;
 
 			setTimeout(() => {
 				const checkboxElems = component.shadowRoot.querySelectorAll('d2l-input-checkbox[checked]');
@@ -45,7 +45,7 @@ describe('d2l-current-organization-availability', () => {
 		component.href = '/orgUnitAvailability5.json';
 		afterNextRender(component, () => {
 			expect(component._name).to.equal('Dev');
-			expect(component._canDeleteAvailability).to.be.false;
+			expect(component._canDelete).to.be.false;
 
 			setTimeout(() => {
 				const checkboxElems = component.shadowRoot.querySelectorAll('d2l-input-checkbox[checked][disabled]');
