@@ -35,7 +35,7 @@ describe('d2l-organization-availability-set', () => {
 	it('renders organization availability set', (done) => {
 		component.href = '/organizationAvailabilitySet.json';
 		afterNextRender(component, () => {
-			expect(component._availabilityEntities).to.have.lengthOf(3);
+			expect(component._availabilityHrefs).to.have.lengthOf(3);
 			expect(component._currentOrgUnitEntity.class).to.include('current');
 			expect(component._canAddAvailability).to.be.true;
 			expect(component._currentOrgUnitName).to.equal('Dev');
@@ -67,7 +67,7 @@ describe('d2l-organization-availability-set', () => {
 	it('does not render current-organization-availability component if current org unit unchecked', (done) => {
 		component.href = '/organizationAvailabilitySetWithoutCurrentOrgUnit.json';
 		afterNextRender(component, () => {
-			expect(component._availabilityEntities).to.have.lengthOf(3);
+			expect(component._availabilityHrefs).to.have.lengthOf(3);
 			expect(component._currentOrgUnitEntity).to.be.undefined;
 			expect(component._canAddAvailability).to.be.true;
 
