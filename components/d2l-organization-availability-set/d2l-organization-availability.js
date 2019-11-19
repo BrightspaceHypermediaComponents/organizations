@@ -54,29 +54,28 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		if (entity) {
 			entity.onOrganizationChange(organization => {
 				this._name = organization.name();
-				this._setItemDescription(entity, this._name);
+				this._itemDescription = this._generateItemDescription(entity, this._name);
 			});
 		}
 	}
 
-	_setItemDescription(entity, name) {
-		let itemDescription = '';
+	_generateItemDescription(entity, name) {
 		if (entity && name) {
 			const type = entity.getCurrentTypeName();
 
 			if (entity.isExplicitAvailability()) {
-				itemDescription = this.localize('explicitItemDescription', { type, name });
-			} else if (entity.isInheritAvailability()) {
-				const descendentType = entity.getDescendentTypeName();
+				return this.localize('explicitItemDescription', { type, name });
+			}
 
+			if (entity.isInheritAvailability()) {
+				const descendentType = entity.getDescendentTypeName();
 				if (descendentType) {
-					itemDescription = this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
-				} else {
-					itemDescription = this.localize('inheritItemDescription', { type, name });
+					return this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
 				}
+				return this.localize('inheritItemDescription', { type, name });
 			}
 		}
-		this._itemDescription = itemDescription;
+		return '';
 	}
 
 	_delete() {

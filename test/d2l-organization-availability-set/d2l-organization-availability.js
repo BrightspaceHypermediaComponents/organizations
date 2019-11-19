@@ -72,7 +72,7 @@ describe('d2l-organization-availability', () => {
 		});
 	});
 
-	describe('_renderItemDescription', () => {
+	describe('_generateItemDescription', () => {
 		let component;
 		before(() => {
 			component = fixture('org-availability');
@@ -84,7 +84,7 @@ describe('d2l-organization-availability', () => {
 				isExplicitAvailability: () => true
 			};
 			setTimeout(() => {
-				const actualValue = component._renderItemDescription(entity, 'D2L Security');
+				const actualValue = component._generateItemDescription(entity, 'D2L Security');
 				expect(actualValue).to.equal('The Course Offering: D2L Security');
 				done();
 			}, 200);
@@ -98,7 +98,7 @@ describe('d2l-organization-availability', () => {
 				getDescendentTypeName: () => ''
 			};
 			setTimeout(() => {
-				const actualValue = component._renderItemDescription(entity, 'Smart People');
+				const actualValue = component._generateItemDescription(entity, 'Smart People');
 				expect(actualValue).to.equal('Every Org Unit under the Department: Smart People');
 				done();
 			}, 200);
@@ -112,7 +112,7 @@ describe('d2l-organization-availability', () => {
 				getDescendentTypeName: () => 'Program'
 			};
 			setTimeout(() => {
-				const actualValue = component._renderItemDescription(entity, 'D2L');
+				const actualValue = component._generateItemDescription(entity, 'D2L');
 				expect(actualValue).to.equal('Every Program under the Organization: D2L');
 				done();
 			}, 200);
