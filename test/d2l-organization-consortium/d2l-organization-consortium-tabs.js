@@ -209,6 +209,20 @@ describe('d2l-organization-consortium-tabs', function() {
 			});
 		});
 
+		it('selected tab is not focusable', function(done) {
+			const component = fixture('org-consortium');
+			component.href = '/consortium-root1.json';
+			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
+
+			afterNextRender(component, function() {
+				const firstTab = component.shadowRoot.querySelector('.d2l-tab-container');
+				assert.notEqual(firstTab.querySelector('a'), '');
+				const selectedTab = component.shadowRoot.querySelector('.d2l-tab-container[selected]');
+				assert.equal(selectedTab.querySelector('a').href, '');
+				done();
+			});
+		});
+
 		it('alerts use correct token', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
@@ -224,17 +238,54 @@ describe('d2l-organization-consortium-tabs', function() {
 		it('alerts and orgs gets updated when entity changes', function(done) {
 			const component = fixture('org-consortium-with-url-change');
 			component.href = '/consortium-root1.json';
-			setTimeout(function() {
-				component.href = '/consortium-root2.json';
 
-				afterNextRender(component, function() {
-					const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
-					assert.equal(dots.length, 2);
-					assert.isTrue(dots[0].hasAttribute('hidden'));
-					assert.isFalse(dots[1].hasAttribute('hidden'));
-					done();
-				});
-			}, 100);
+			afterNextRender(component, function() {
+				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+				assert.equal(dots.length, 2);
+				assert.isFalse(dots[0].hasAttribute('hidden'));
+				assert.isTrue(dots[1].hasAttribute('hidden'));
+
+				setTimeout(function() {
+					component.href = '/consortium-root2.json';
+
+					afterNextRender(component, function() {
+						const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+						assert.equal(dots.length, 2);
+						assert.isTrue(dots[0].hasAttribute('hidden'));
+						assert.isTrue(dots[1].hasAttribute('hidden'));
+						done();
+					});
+				}, 100);
+			});
+		});
+
+		it('d2l-organization-consortium-tabs-notification-update event is fired when notifications appear and disappear', function(done) {
+			const component = fixture('org-consortium-with-url-change');
+			let firstPass = true;
+			component.addEventListener('d2l-organization-consortium-tabs-notification-update', function(e) {
+				if (firstPass) {
+					firstPass = false;
+					assert.isTrue(e.detail.hasOrgTabNotifications);
+					afterNextRender(component, function() {
+						const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+						assert.equal(dots.length, 2);
+						assert.isFalse(dots[0].hasAttribute('hidden'));
+						assert.isTrue(dots[1].hasAttribute('hidden'));
+
+						component.href = '/consortium-root2.json';
+					});
+				} else {
+					assert.isFalse(e.detail.hasOrgTabNotifications);
+					afterNextRender(component, function() {
+						const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+						assert.equal(dots.length, 2);
+						assert.isTrue(dots[0].hasAttribute('hidden'));
+						assert.isTrue(dots[1].hasAttribute('hidden'));
+						done();
+					});
+				}
+			});
+			component.href = '/consortium-root1.json';
 		});
 		it('scroll request is sent after loading complete', function(done) {
 			const component = fixture('org-consortium');

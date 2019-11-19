@@ -1,0 +1,22 @@
+{
+	"class": [
+		"active",
+		"organization"
+	],
+	"properties": {
+		"name": "Dev",
+		"code": null,
+		"startDate": null,
+		"endDate": null,
+		"isActive": true,
+		"description": null
+	},
+	"links": [
+		{
+			"rel": [
+				"self"
+			],
+			"href": "/demo/data/organization-availability-set/organization6606.json"
+		}
+	]
+}
