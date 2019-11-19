@@ -81,7 +81,7 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 					${this.localize('addOrgUnits')}
 				</d2l-button>
 			`}
-			${repeat(this._availabilityHrefs, href => html`
+			${repeat(this._availabilityHrefs, href => href, href => html`
 				<d2l-organization-availability
 					.href="${href}"
 					.token="${this.token}">
