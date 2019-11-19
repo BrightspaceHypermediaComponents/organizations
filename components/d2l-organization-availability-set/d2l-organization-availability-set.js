@@ -40,7 +40,7 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 		this._availabilityHrefs = [];
 		this._setEntityType(OrganizationAvailabilitySetEntity);
 		if (D2L.Dialog && D2L.Dialog.OrgUnitSelector) {
-			this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect);
+			this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect.bind(this));
 		}
 	}
 
@@ -70,9 +70,11 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 					.token="${this.token}">
 				</d2l-current-organization-availability>
 			` : html`
-				<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
-					${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
-				</d2l-input-checkbox>
+				${this._currentOrgUnitName && html`
+					<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
+						${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
+					</d2l-input-checkbox>
+				`}
 			`}
 			${this._canAddAvailability && html`
 				<d2l-button @click=${this.handleAddOrgUnits}>
@@ -88,7 +90,26 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 		`;
 	}
 
-	handleOrgUnitSelect() {
+	handleOrgUnitSelect(response) {
+		const promises = [];
+		if (response.GetType() === D2L.Dialog.ResponseType.Positive) {
+			const promises = [];
+			const orgUnits = response.GetData('OrgUnits');
+			if (orgUnits) {
+				orgUnits.forEach(orgUnit => {
+					const addExplicit = orgUnit.OrgUnitId && orgUnit.OrgUnitId !== '0';
+					if (addExplicit) {
+						promises.push(super._entity.addExplicit(orgUnit.OrgUnitId));
+					} else {
+						const descendantOrgUnitTypeId = orgUnit.DescendantOrgUnitTypeId === '0' ? null : orgUnit.DescendantOrgUnitTypeId;
+						promises.push(super._entity.addInherit(orgUnit.AncestorOrgUnitId, descendantOrgUnitTypeId));
+					}
+				});
+			}
+		}
+		Promise.all(promises).then(() => {
+			response.GetDialog().Close();
+		});
 	}
 
 	handleAddOrgUnits() {
