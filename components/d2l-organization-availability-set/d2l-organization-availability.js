@@ -1,3 +1,4 @@
+import '@brightspace-ui/core/components/button/button-icon.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
@@ -8,7 +9,10 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	static get properties() {
 		return {
-			_name: { type: String }
+			_canDelete: { type: Boolean },
+			_name: { type: String },
+			_itemDescription: { type: String },
+			_isDeleting: { type: Boolean }
 		};
 	}
 
@@ -33,12 +37,15 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 	}
 
 	set _entity(entity) {
-		this._onAvailabilityChange(entity);
-		super._entity = entity;
+		if (this._entityHasChanged(entity)) {
+			this._onAvailabilityChange(entity);
+			super._entity = entity;
+		}
 	}
 
 	_onAvailabilityChange(entity) {
 		if (entity) {
+			this._canDelete = entity.canDelete();
 			this._setName(entity);
 		}
 	}
@@ -47,12 +54,13 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		if (entity) {
 			entity.onOrganizationChange(organization => {
 				this._name = organization.name();
+				this._itemDescription = this._generateItemDescription(entity, this._name);
 			});
 		}
 	}
 
-	_renderItemDescription(entity, name) {
-		if (entity) {
+	_generateItemDescription(entity, name) {
+		if (entity && name) {
 			const type = entity.getCurrentTypeName();
 
 			if (entity.isExplicitAvailability()) {
@@ -61,18 +69,30 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 			if (entity.isInheritAvailability()) {
 				const descendentType = entity.getDescendentTypeName();
-
 				if (descendentType) {
 					return this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
 				}
 				return this.localize('inheritItemDescription', { type, name });
 			}
 		}
+		return '';
+	}
+
+	_delete() {
+		this._isDeleting = true;
+		super._entity.delete();
 	}
 
 	render() {
 		return html`
-			${this._renderItemDescription(super._entity, this._name)}
+			${this._itemDescription}
+			${this._itemDescription && this._canDelete ? html`
+				<d2l-button-icon
+					?disabled="${this._isDeleting}"
+					text="${this.localize('removeAvailabilityFor', { itemDescription: this._itemDescription })}"
+					icon="tier1:close-default"
+					@click="${this._delete}"></d2l-button-icon>
+			` : ''}
 		`;
 	}
 
