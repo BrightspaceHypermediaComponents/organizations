@@ -88,7 +88,7 @@ export const OrganizationAvailabilitySet = {
 					},
 					{
 						'type': 'number',
-						'name': 'descendentOrgUnitTypeId'
+						'name': 'descendantOrgUnitTypeId'
 					}
 				]
 			}
@@ -205,7 +205,7 @@ export const OrganizationAvailabilitySet = {
 					},
 					{
 						'type': 'number',
-						'name': 'descendentOrgUnitTypeId'
+						'name': 'descendantOrgUnitTypeId'
 					}
 				]
 			}
@@ -501,7 +501,7 @@ export const OrgUnitAvailability = {
 			}
 		]
 	},
-	inheritWithDescendentType: {
+	inheritWithDescendantType: {
 		'class': [
 			'orgunit-availability',
 			'inherit'
@@ -512,7 +512,7 @@ export const OrgUnitAvailability = {
 		'entities': [
 			{
 				'class': [
-					'descendent',
+					'descendant',
 					'orgunit-type'
 				],
 				'rel': [
