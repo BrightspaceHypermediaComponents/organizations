@@ -13,11 +13,11 @@
   },
   "inheritItemDescription": {
     "translation": "Every Org Unit under the {type}: {name}",
-    "context": "Description of an inherit (all descendents) orgunit availability item"
+    "context": "Description of an inherit (all descendants) orgunit availability item"
   },
-  "inheritItemWithDescendentTypeDescription": {
-    "translation": "Every {descendentType} under the {type}: {name}",
-    "context": "Description of an inherit with specific {descendentType} orgunit availability item"
+  "inheritItemWithDescendantTypeDescription": {
+    "translation": "Every {descendantType} under the {type}: {name}",
+    "context": "Description of an inherit with specific {descendantType} orgunit availability item"
   },
   "removeAvailabilityFor": {
     "translation": "Remove availability for: {itemDescription}",
