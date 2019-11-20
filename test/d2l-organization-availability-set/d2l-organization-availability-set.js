@@ -16,7 +16,7 @@ describe('d2l-organization-availability-set', () => {
 				'/orgUnitAvailability1.json': OrgUnitAvailability.current,
 				'/orgUnitAvailability2.json': OrgUnitAvailability.explicit,
 				'/orgUnitAvailability3.json': OrgUnitAvailability.inherit,
-				'/orgUnitAvailability4.json': OrgUnitAvailability.inheritWithDescendentType,
+				'/orgUnitAvailability4.json': OrgUnitAvailability.inheritWithDescendantType,
 				'/organization6606.json': Organizations.Org6606
 			};
 			return Promise.resolve({

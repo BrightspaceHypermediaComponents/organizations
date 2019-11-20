@@ -11,7 +11,7 @@ describe('d2l-organization-availability', () => {
 			const whatToFetch = {
 				'/orgUnitAvailability2.json': OrgUnitAvailability.explicit,
 				'/orgUnitAvailability3.json': OrgUnitAvailability.inherit,
-				'/orgUnitAvailability4.json': OrgUnitAvailability.inheritWithDescendentType,
+				'/orgUnitAvailability4.json': OrgUnitAvailability.inheritWithDescendantType,
 				'/organization6606.json': Organizations.Org6606,
 				'/organization6609.json': Organizations.Org6609,
 				'/organization121147.json': Organizations.Org121147
@@ -57,7 +57,7 @@ describe('d2l-organization-availability', () => {
 		});
 	});
 
-	describe('inherit with descendent type entity', () => {
+	describe('inherit with descendant type entity', () => {
 		let component;
 		before(() => {
 			component = fixture('org-availability');
@@ -95,7 +95,7 @@ describe('d2l-organization-availability', () => {
 				getCurrentTypeName: () => 'Department',
 				isExplicitAvailability: () => false,
 				isInheritAvailability: () => true,
-				getDescendentTypeName: () => ''
+				getDescendantTypeName: () => ''
 			};
 			setTimeout(() => {
 				const actualValue = component._generateItemDescription(entity, 'Smart People');
@@ -109,7 +109,7 @@ describe('d2l-organization-availability', () => {
 				getCurrentTypeName: () => 'Organization',
 				isExplicitAvailability: () => false,
 				isInheritAvailability: () => true,
-				getDescendentTypeName: () => 'Program'
+				getDescendantTypeName: () => 'Program'
 			};
 			setTimeout(() => {
 				const actualValue = component._generateItemDescription(entity, 'D2L');
