@@ -58,9 +58,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type: Boolean,
 				value: false
 			},
-			_requestedScroll: {
-				type: Boolean,
-				value: false
+			_requestedScrollTimeoutId: {
+				type: Number
 			},
 			_organizations: {
 				type: Object
@@ -247,6 +246,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	constructor() {
 		super();
 		this._setEntityType(ConsortiumRootEntity);
+		this._requestScroll = this._requestScroll.bind(this);
 	}
 
 	connectedCallback() {
@@ -264,6 +264,32 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			if (this._alertTokensMap.hasOwnProperty(key)) {
 				updateEntity(key, this._alertTokensMap[key]);
 			}
+		}
+	}
+	tryRequestScroll() {
+		if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
+			this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
+			return true;
+		}
+		return false;
+	}
+
+	_requestScroll() {
+		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
+		if (selectedTab) {
+			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-navigation-band-slot-scroll-request',
+					{
+						detail: {
+							pointToCenter: distanceToCenter
+						},
+						bubbles: true,
+						composed: true
+					}
+				)
+			);
 		}
 	}
 
@@ -414,32 +440,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			return org;
 		});
 
-		if (!this._requestedScroll && this.__tokenCollection && Object.keys(currentOrganizations).length === this.__tokenCollection.getConsortiumTokenEntitiesLength()) {
-			const stillLoading = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].loading);
-			if (stillLoading.length === 0) {
-				this._requestedScroll = true;
-				setTimeout(this._requestScroll.bind(this), 1000);
+		if (!this._requestedScrollTimeoutId && this.__tokenCollection && Object.keys(currentOrganizations).length === this.__tokenCollection.getConsortiumTokenEntitiesLength()) {
+			const stillLoading = Object.keys(currentOrganizations).some(key => currentOrganizations[key].loading);
+			if (!stillLoading) {
+				this.tryRequestScroll();
 			}
 		}
 		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
-	}
-	_requestScroll() {
-		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
-		if (selectedTab) {
-			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
-			this.dispatchEvent(
-				new CustomEvent(
-					'd2l-navigation-band-slot-scroll-request',
-					{
-						detail: {
-							pointToCenter: distanceToCenter
-						},
-						bubbles: true,
-						composed: true
-					}
-				)
-			);
-		}
 	}
 	_successfulTabToolTipText(item) {
 		return item.loading ? this.localize('loading') : item.fullName;
