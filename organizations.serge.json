@@ -104,7 +104,11 @@
   {
     "name": "availabilitySet",
     "source_dir": "components/d2l-organization-availability-set/lang",
-    "output_file_path": "components/d2l-organization-availability-set/lang/%LANG%.json",
+    "source_match": "en\\.js$",
+    "output_file_path": "components/d2l-organization-availability-set/lang/%LANG%.js",
+    "parser_plugin": {
+      "plugin": "parse_js"
+    },
     "output_lang_rewrite": [
       "ar-sa ar",
       "de-de de",
