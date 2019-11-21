@@ -441,7 +441,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			return org;
 		});
 
-		if (!this._requestedScrollTimeoutId && this.__tokenCollection && Object.keys(currentOrganizations).length === this.__tokenCollection.getConsortiumTokenEntitiesLength()) {
+		if (!this._requestedScrollTimeoutId && Object.keys(currentOrganizations).length > 0) {
 			const stillLoading = Object.keys(currentOrganizations).some(key => currentOrganizations[key].loading);
 			if (!stillLoading) {
 				this.tryRequestScroll();

@@ -135,6 +135,7 @@ Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue
 		window.requestAnimationFrame(function() {
 			document.querySelector('#tabs-1').selected = new URLSearchParams(window.location.search).get('consortium') || '1cb16d6a-8557-4850-8846-3fa9b6174494';
 			document.querySelector('#tabs-2').selected = new URLSearchParams(window.location.search).get('consortium') || '1cb16d6a-8557-4850-8846-3fa9b6174494';
+			document.querySelector('#tabs-3').selected = new URLSearchParams(window.location.search).get('consortium') || '1cb16d6a-8557-4850-8846-3fa9b6174494';
 			document.querySelector('#show-org-tabs').addEventListener('click', () => {
 				document.querySelector('d2l-navigation-band[hidden]').removeAttribute('hidden');
 				document.querySelector('#tabs-2').tryRequestScroll();
