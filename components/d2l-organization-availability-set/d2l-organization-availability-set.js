@@ -8,7 +8,7 @@ import { getLocalizeResources } from './localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { OrganizationAvailabilitySetEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilitySetEntity.js';
 import { repeat } from 'lit-html/directives/repeat';
-import { SaveStatusMixin } from './save-status-mixin.js';
+import { SaveStatusMixin } from 'siren-sdk/src/mixin/save-status-mixin.js';
 
 class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
 
