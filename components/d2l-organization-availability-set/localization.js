@@ -9,10 +9,6 @@ export async function getLocalizeResources(langs, importMetaUrl) {
 				supportedLanguage = 'en';
 				imports.push(import(resolveUrl('./lang/en.js', importMetaUrl)));
 				break;
-			case 'fr':
-				supportedLanguage = 'fr';
-				imports.push(import(resolveUrl('./lang/fr.js', importMetaUrl)));
-				break;
 		}
 	}
 
