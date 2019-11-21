@@ -68,9 +68,9 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 			}
 
 			if (entity.isInheritAvailability()) {
-				const descendentType = entity.getDescendentTypeName();
-				if (descendentType) {
-					return this.localize('inheritItemWithDescendentTypeDescription', { type, name, descendentType });
+				const descendantType = entity.getDescendantTypeName();
+				if (descendantType) {
+					return this.localize('inheritItemWithDescendantTypeDescription', { type, name, descendantType });
 				}
 				return this.localize('inheritItemDescription', { type, name });
 			}

@@ -9,7 +9,7 @@
 	"entities": [
 		{
 			"class": [
-				"descendent",
+				"descendant",
 				"orgunit-type"
 			],
 			"rel": [
