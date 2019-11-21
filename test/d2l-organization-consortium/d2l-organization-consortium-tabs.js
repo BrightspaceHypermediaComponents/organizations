@@ -292,10 +292,10 @@ describe('d2l-organization-consortium-tabs', function() {
 
 			component.addEventListener('d2l-navigation-band-slot-scroll-request', function() {
 				assert.equal(Object.keys(component._organizations).filter(key => component._organizations[key].loading), 0);
-				assert.isTrue(component._requestedScroll);
+				assert.isNumber(component._requestedScrollTimeoutId);
 				done();
 			});
-			assert.isFalse(component._requestedScroll);
+			assert.isUndefined(component._requestedScrollTimeoutId);
 			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
 			component.href = '/consortium-root1.json';
 		});

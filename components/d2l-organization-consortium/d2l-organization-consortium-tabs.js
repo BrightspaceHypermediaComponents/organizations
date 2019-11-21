@@ -276,21 +276,22 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 	_requestScroll() {
 		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
-		if (selectedTab) {
-			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
-			this.dispatchEvent(
-				new CustomEvent(
-					'd2l-navigation-band-slot-scroll-request',
-					{
-						detail: {
-							pointToCenter: distanceToCenter
-						},
-						bubbles: true,
-						composed: true
-					}
-				)
-			);
+		if (!selectedTab) {
+			return;
 		}
+		var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-navigation-band-slot-scroll-request',
+				{
+					detail: {
+						pointToCenter: distanceToCenter
+					},
+					bubbles: true,
+					composed: true
+				}
+			)
+		);
 	}
 
 	async _getCacheKey() {
