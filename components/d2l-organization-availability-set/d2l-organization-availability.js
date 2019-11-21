@@ -28,7 +28,7 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 	}
 
 	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs);
+		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
