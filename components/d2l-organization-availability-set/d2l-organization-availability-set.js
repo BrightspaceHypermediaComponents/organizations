@@ -8,8 +8,9 @@ import { getLocalizeResources } from './localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { OrganizationAvailabilitySetEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilitySetEntity.js';
 import { repeat } from 'lit-html/directives/repeat';
+import { SaveStatusMixin } from './save-status-mixin.js';
 
-class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
 
 	static get properties() {
 		return {
@@ -93,7 +94,6 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 	handleOrgUnitSelect(response) {
 		const promises = [];
 		if (response.GetType() === D2L.Dialog.ResponseType.Positive) {
-			const promises = [];
 			const orgUnits = response.GetData('OrgUnits');
 			if (orgUnits) {
 				orgUnits.forEach(orgUnit => {
@@ -107,7 +107,7 @@ class OrganizationAvailabilitySet extends EntityMixinLit(LocalizeMixin(LitElemen
 				});
 			}
 		}
-		Promise.all(promises).then(() => {
+		this.wrapSaveAction(Promise.all(promises)).then(() => {
 			response.GetDialog().Close();
 		});
 	}
