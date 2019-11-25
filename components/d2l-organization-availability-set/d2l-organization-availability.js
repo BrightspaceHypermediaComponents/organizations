@@ -91,13 +91,13 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 			});
 		};
 
-		let event = new CustomEvent('delete-organization-availability', {
-			bubbles: true,
-			composed: true,
-			detail: { promise }
-		});
-
-		this.dispatchEvent(event);
+		this.dispatchEvent(
+			new CustomEvent('delete-organization-availability', {
+				bubbles: true,
+				composed: true,
+				detail: { promise }
+			})
+		);
 	}
 
 	render() {
