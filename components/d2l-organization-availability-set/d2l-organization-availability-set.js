@@ -52,6 +52,16 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 		}
 	}
 
+	firstUpdated(changedProperties) {
+		super.firstUpdated(changedProperties);
+
+		this.addEventListener('delete-organization-availability', (event) => {
+			if (event && event.detail && event.detail.promise && typeof event.detail.promise === 'function') {
+				this.wrapSaveAction(event.detail.promise());
+			}
+		});
+	}
+
 	_onAvailabilitySetChange(entity) {
 		if (entity) {
 			this._availabilityHrefs = entity.getAvailabilityHrefs();
