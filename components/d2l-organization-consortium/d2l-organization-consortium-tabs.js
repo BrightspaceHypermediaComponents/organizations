@@ -214,7 +214,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<template is="dom-if" if="[[!item.loading]]">
 						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content">[[item.name]]</div></a>
-						<d2l-navigation-notification-icon hidden$="[[!item.hasNotification]]" thin-border></d2l-navigation-notification-icon>
+						<d2l-navigation-notification-icon hidden$="[[!_checkOrgNotification(item)]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
 						<div class="d2l-consortium-tab" id$="[[item.id]]">
@@ -418,13 +418,16 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		return this._isSelected(item) ? undefined : item.href;
 	}
 	_getTabAriaLabel(item) {
-		return item.hasNotification ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
+		return this._checkOrgNotification(item) ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
 	}
 	_hasErrors(errors) {
 		return errors.length > 0;
 	}
+	_checkOrgNotification(org) {
+		return org.hasNotification && !this._isSelected(org);
+	}
 	_checkNotifications(orgs) {
-		const nowHasNotifications = orgs.value.some((org) => { return org.hasNotification; });
+		const nowHasNotifications = orgs.value.some((org) => { return this._checkOrgNotification(org); });
 
 		if (this._hasNotifications === nowHasNotifications) {
 			return;
