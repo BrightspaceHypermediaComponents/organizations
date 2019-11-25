@@ -11,7 +11,7 @@ describe('d2l-organization-availability', () => {
 			const whatToFetch = {
 				'/orgUnitAvailability2.json': OrgUnitAvailability.explicit,
 				'/orgUnitAvailability3.json': OrgUnitAvailability.inherit,
-				'/orgUnitAvailability4.json': OrgUnitAvailability.inheritWithDescendentType,
+				'/orgUnitAvailability4.json': OrgUnitAvailability.inheritWithDescendantType,
 				'/organization6606.json': Organizations.Org6606,
 				'/organization6609.json': Organizations.Org6609,
 				'/organization121147.json': Organizations.Org121147
@@ -57,7 +57,7 @@ describe('d2l-organization-availability', () => {
 		});
 	});
 
-	describe('inherit with descendent type entity', () => {
+	describe('inherit with descendant type entity', () => {
 		let component;
 		before(() => {
 			component = fixture('org-availability');
@@ -72,7 +72,7 @@ describe('d2l-organization-availability', () => {
 		});
 	});
 
-	describe('_renderItemDescription', () => {
+	describe('_generateItemDescription', () => {
 		let component;
 		before(() => {
 			component = fixture('org-availability');
@@ -84,7 +84,7 @@ describe('d2l-organization-availability', () => {
 				isExplicitAvailability: () => true
 			};
 			setTimeout(() => {
-				const actualValue = component._renderItemDescription(entity, 'D2L Security');
+				const actualValue = component._generateItemDescription(entity, 'D2L Security');
 				expect(actualValue).to.equal('The Course Offering: D2L Security');
 				done();
 			}, 200);
@@ -95,10 +95,10 @@ describe('d2l-organization-availability', () => {
 				getCurrentTypeName: () => 'Department',
 				isExplicitAvailability: () => false,
 				isInheritAvailability: () => true,
-				getDescendentTypeName: () => ''
+				getDescendantTypeName: () => ''
 			};
 			setTimeout(() => {
-				const actualValue = component._renderItemDescription(entity, 'Smart People');
+				const actualValue = component._generateItemDescription(entity, 'Smart People');
 				expect(actualValue).to.equal('Every Org Unit under the Department: Smart People');
 				done();
 			}, 200);
@@ -109,10 +109,10 @@ describe('d2l-organization-availability', () => {
 				getCurrentTypeName: () => 'Organization',
 				isExplicitAvailability: () => false,
 				isInheritAvailability: () => true,
-				getDescendentTypeName: () => 'Program'
+				getDescendantTypeName: () => 'Program'
 			};
 			setTimeout(() => {
-				const actualValue = component._renderItemDescription(entity, 'D2L');
+				const actualValue = component._generateItemDescription(entity, 'D2L');
 				expect(actualValue).to.equal('Every Program under the Organization: D2L');
 				done();
 			}, 200);
