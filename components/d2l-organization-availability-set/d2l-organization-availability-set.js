@@ -107,7 +107,7 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 				});
 			}
 		}
-		this.wrapSaveAction(Promise.all(promises)).then(() => {
+		this.wrapSaveAction(Promise.all(promises)).finally(() => {
 			response.GetDialog().Close();
 		});
 	}
