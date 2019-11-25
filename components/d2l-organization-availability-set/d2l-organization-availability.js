@@ -80,7 +80,21 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 
 	_delete() {
 		this._isDeleting = true;
-		super._entity.delete();
+
+		const promise = () => {
+			return super._entity.delete().catch((error) => {
+				this._isDeleting = false;
+				return Promise.reject(error);
+			});
+		};
+
+		let event = new CustomEvent('delete-organization-availability', {
+			bubbles: true,
+			composed: true,
+			detail: { promise }
+		});
+
+		this.dispatchEvent(event);
 	}
 
 	render() {
