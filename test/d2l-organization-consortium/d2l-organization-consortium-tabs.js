@@ -223,6 +223,18 @@ describe('d2l-organization-consortium-tabs', function() {
 			});
 		});
 
+		it('selected tab does not show the notification dot', function(done) {
+			const component = fixture('org-consortium');
+			component.href = '/consortium-root1.json';
+			component.selected = '1cb16d6a-8557-4850-8846-3fa9b6174494';
+
+			afterNextRender(component, function() {
+				const selectedTab = component.shadowRoot.querySelector('.d2l-tab-container[selected]');
+				assert.isTrue(selectedTab.querySelector('d2l-navigation-notification-icon').hidden);
+				done();
+			});
+		});
+
 		it('alerts use correct token', function(done) {
 			const component = fixture('org-consortium');
 			component.href = '/consortium-root1.json';
@@ -286,6 +298,19 @@ describe('d2l-organization-consortium-tabs', function() {
 				}
 			});
 			component.href = '/consortium-root1.json';
+		});
+		it('d2l-organization-consortium-tabs-notification-update event is not fired if the only notification is on the selected tab', function(done) {
+			const component = fixture('org-consortium');
+			component.addEventListener('d2l-organization-consortium-tabs-notification-update', function() {
+				assert.isOk(false, 'd2l-organization-consortium-tabs-notification-update event should not have been fired.');
+			});
+
+			component.href = '/consortium-root1.json';
+			component.selected = '1cb16d6a-8557-4850-8846-3fa9b6174494';
+
+			afterNextRender(component, function() {
+				done();
+			});
 		});
 		it('scroll request is sent after loading complete', function(done) {
 			const component = fixture('org-consortium');
