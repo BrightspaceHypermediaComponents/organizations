@@ -1,5 +1,6 @@
 import '@brightspace-ui/core/components/button/button-icon.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
@@ -82,7 +83,9 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		this._isDeleting = true;
 
 		const promise = () => {
-			return super._entity.delete().catch((error) => {
+			return super._entity.delete().then(() => {
+				announce(this.localize('availabilityRemoved', { itemDescription: this._itemDescription }));
+			}).catch((error) => {
 				this._isDeleting = false;
 				return Promise.reject(error);
 			});

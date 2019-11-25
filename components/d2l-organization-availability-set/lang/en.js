@@ -7,4 +7,5 @@ export default {
 	"inheritItemDescription": "Every Org Unit under the {type}: {name}", // Description of an inherit (all descendants) orgunit availability item
 	"inheritItemWithDescendantTypeDescription": "Every {descendantType} under the {type}: {name}", // Description of an inherit with specific {descendantType} orgunit availability item
 	"removeAvailabilityFor": "Remove availability for {itemDescription}", // Alt text for remove availability 'X' button
+	"availabilityRemoved": "Availability removed for {itemDescription}"
 };
