@@ -11,6 +11,7 @@ import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-tooltip/d2l-tooltip.js';
+import 'fastdom/fastdom.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/offscreen/offscreen.js';
@@ -267,11 +268,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 	tryRequestScroll() {
-		if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
-			this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
-			return true;
-		}
-		return false;
+		fastdom.measure(function() {
+			if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
+				this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
+			}
+		}.bind(this));
 	}
 
 	_requestScroll() {
@@ -279,19 +280,21 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		if (!selectedTab) {
 			return;
 		}
-		var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
-		this.dispatchEvent(
-			new CustomEvent(
-				'd2l-navigation-band-slot-scroll-request',
-				{
-					detail: {
-						pointToCenter: distanceToCenter
-					},
-					bubbles: true,
-					composed: true
-				}
-			)
-		);
+		fastdom.measure(() => {
+			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-navigation-band-slot-scroll-request',
+					{
+						detail: {
+							pointToCenter: distanceToCenter
+						},
+						bubbles: true,
+						composed: true
+					}
+				)
+			);
+		});
 	}
 
 	async _getCacheKey() {
