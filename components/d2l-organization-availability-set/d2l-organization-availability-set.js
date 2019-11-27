@@ -29,6 +29,9 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 			:host([hidden]) {
 				display: none;
 			}
+			#add-org-units-button {
+				padding-bottom: 12px;
+			}
 		`;
 	}
 
@@ -88,7 +91,7 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 				`}
 			`}
 			${this._canAddAvailability && html`
-				<d2l-button @click=${this.handleAddOrgUnits}>
+				<d2l-button id="add-org-units-button" @click=${this.handleAddOrgUnits}>
 					${this.localize('addOrgUnits')}
 				</d2l-button>
 			`}
