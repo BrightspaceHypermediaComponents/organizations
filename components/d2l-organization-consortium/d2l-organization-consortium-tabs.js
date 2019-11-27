@@ -268,11 +268,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 	tryRequestScroll() {
-		fastdom.measure(function() {
+		fastdom.measure(() => {
 			if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
 				this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
 			}
-		}.bind(this));
+		});
 	}
 
 	_requestScroll() {
