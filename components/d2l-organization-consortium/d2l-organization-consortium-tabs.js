@@ -11,6 +11,7 @@ import 'd2l-navigation/d2l-navigation-notification-icon.js';
 import 'd2l-polymer-behaviors/d2l-id.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-tooltip/d2l-tooltip.js';
+import 'fastdom/fastdom.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/offscreen/offscreen.js';
@@ -57,6 +58,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			_shouldRender: {
 				type: Boolean,
 				value: false
+			},
+			_requestedScrollTimeoutId: {
+				type: Number
 			},
 			_organizations: {
 				type: Object
@@ -243,6 +247,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	constructor() {
 		super();
 		this._setEntityType(ConsortiumRootEntity);
+		this._requestScroll = this._requestScroll.bind(this);
 	}
 
 	connectedCallback() {
@@ -261,6 +266,35 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				updateEntity(key, this._alertTokensMap[key]);
 			}
 		}
+	}
+	tryRequestScroll() {
+		fastdom.measure(() => {
+			if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
+				this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
+			}
+		});
+	}
+
+	_requestScroll() {
+		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
+		if (!selectedTab) {
+			return;
+		}
+		fastdom.measure(() => {
+			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-navigation-band-slot-scroll-request',
+					{
+						detail: {
+							pointToCenter: distanceToCenter
+						},
+						bubbles: true,
+						composed: true
+					}
+				)
+			);
+		});
 	}
 
 	async _getCacheKey() {
@@ -409,6 +443,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			};
 			return org;
 		});
+
+		if (!this._requestedScrollTimeoutId && Object.keys(currentOrganizations).length > 0) {
+			const stillLoading = Object.keys(currentOrganizations).some(key => currentOrganizations[key].loading);
+			if (!stillLoading) {
+				this.tryRequestScroll();
+			}
+		}
 		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
 	}
 	_successfulTabToolTipText(item) {

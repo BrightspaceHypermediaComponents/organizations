@@ -299,7 +299,6 @@ describe('d2l-organization-consortium-tabs', function() {
 			});
 			component.href = '/consortium-root1.json';
 		});
-
 		it('d2l-organization-consortium-tabs-notification-update event is not fired if the only notification is on the selected tab', function(done) {
 			const component = fixture('org-consortium');
 			component.addEventListener('d2l-organization-consortium-tabs-notification-update', function() {
@@ -312,6 +311,18 @@ describe('d2l-organization-consortium-tabs', function() {
 			afterNextRender(component, function() {
 				done();
 			});
+		});
+		it('scroll request is sent after loading complete', function(done) {
+			const component = fixture('org-consortium');
+
+			component.addEventListener('d2l-navigation-band-slot-scroll-request', function() {
+				assert.equal(Object.keys(component._organizations).filter(key => component._organizations[key].loading), 0);
+				assert.isNumber(component._requestedScrollTimeoutId);
+				done();
+			});
+			assert.isUndefined(component._requestedScrollTimeoutId);
+			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
+			component.href = '/consortium-root1.json';
 		});
 	});
 
