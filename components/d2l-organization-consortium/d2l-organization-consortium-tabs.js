@@ -59,7 +59,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type: Boolean,
 				value: false
 			},
-			_requestedScrollTimeoutId: {
+			_requestScrollTimeoutId: {
+				type: Number
+			},
+			_sendScrollRequestTimeoutId: {
 				type: Number
 			},
 			_organizations: {
@@ -247,7 +250,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	constructor() {
 		super();
 		this._setEntityType(ConsortiumRootEntity);
-		this._requestScroll = this._requestScroll.bind(this);
+		this._sendScrollRequest = this._sendScrollRequest.bind(this);
 	}
 
 	connectedCallback() {
@@ -267,15 +270,21 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 		}
 	}
-	tryRequestScroll() {
+	requestScroll(retry) {
 		fastdom.measure(() => {
-			if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
-				this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
+			if (!this._sendScrollRequestTimeoutId && this.getBoundingClientRect().width > 0) {
+				this._sendScrollRequestTimeoutId = setTimeout(this._sendScrollRequest, 1000);
+			} else {
+				if (retry) {
+					clearTimeout(this._requestScrollTimeoutId);
+					this._requestScrollTimeoutId = setTimeout(this.requestScroll.bind(this, true), 100);
+				}
+
 			}
 		});
 	}
 
-	_requestScroll() {
+	_sendScrollRequest() {
 		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
 		if (!selectedTab) {
 			return;
@@ -444,10 +453,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			return org;
 		});
 
-		if (!this._requestedScrollTimeoutId && Object.keys(currentOrganizations).length > 0) {
+		if (!this._sendScrollRequestTimeoutId && Object.keys(currentOrganizations).length > 0) {
 			const stillLoading = Object.keys(currentOrganizations).some(key => currentOrganizations[key].loading);
 			if (!stillLoading) {
-				this.tryRequestScroll();
+				this.requestScroll();
 			}
 		}
 		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
