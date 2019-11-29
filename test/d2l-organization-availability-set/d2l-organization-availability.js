@@ -29,14 +29,20 @@ describe('d2l-organization-availability', () => {
 
 	describe('explicit entity', () => {
 		let component;
+
 		before(() => {
 			component = fixture('org-availability');
 			component.href = '/orgUnitAvailability2.json';
+
+			sinon.stub(component, 'localize')
+				.withArgs('explicitItemDescription', { type: 'Course Offering', name: 'Course' })
+				.returns('Explicit Item Description');
 		});
 
 		it('renders organization availability set', (done) => {
 			afterNextRender(component, () => {
 				expect(component._name).to.equal('Course');
+				expect(component._itemDescription).to.equal('Explicit Item Description');
 				done();
 			});
 		});
@@ -44,14 +50,20 @@ describe('d2l-organization-availability', () => {
 
 	describe('inherit entity', () => {
 		let component;
+
 		before(() => {
 			component = fixture('org-availability');
 			component.href = '/orgUnitAvailability3.json';
+
+			sinon.stub(component, 'localize')
+				.withArgs('inheritItemDescription', { type: 'Department', name: 'Accounting&Financial Management' })
+				.returns('Inherit Item Description');
 		});
 
 		it('renders organization availability set', (done) => {
 			afterNextRender(component, () => {
 				expect(component._name).to.equal('Accounting&Financial Management');
+				expect(component._itemDescription).to.equal('Inherit Item Description');
 				done();
 			});
 		});
@@ -59,63 +71,22 @@ describe('d2l-organization-availability', () => {
 
 	describe('inherit with descendant type entity', () => {
 		let component;
+
 		before(() => {
 			component = fixture('org-availability');
 			component.href = '/orgUnitAvailability4.json';
+
+			sinon.stub(component, 'localize')
+				.withArgs('inheritItemWithDescendantTypeDescription', { type: 'Department', name: 'Accounting&Financial Management', descendantType: 'Program' })
+				.returns('Inherit with descendant type Item Description');
 		});
 
 		it('renders organization availability set', (done) => {
 			afterNextRender(component, () => {
 				expect(component._name).to.equal('Accounting&Financial Management');
+				expect(component._itemDescription).to.equal('Inherit with descendant type Item Description');
 				done();
 			});
-		});
-	});
-
-	describe('_generateItemDescription', () => {
-		let component;
-		before(() => {
-			component = fixture('org-availability');
-		});
-
-		it('handles explicit entity correctly', (done) => {
-			const entity = {
-				getCurrentTypeName: () => 'Course Offering',
-				isExplicitAvailability: () => true
-			};
-			setTimeout(() => {
-				const actualValue = component._generateItemDescription(entity, 'D2L Security');
-				expect(actualValue).to.equal('The Course Offering: D2L Security');
-				done();
-			}, 200);
-		});
-
-		it('handles inherit entity correctly', (done) => {
-			const entity = {
-				getCurrentTypeName: () => 'Department',
-				isExplicitAvailability: () => false,
-				isInheritAvailability: () => true,
-				getDescendantTypeName: () => ''
-			};
-			setTimeout(() => {
-				const actualValue = component._generateItemDescription(entity, 'Smart People');
-				expect(actualValue).to.equal('Every Org Unit under the Department: Smart People');
-				done();
-			}, 200);
-		});
-
-		it('handles inherit with descedent type entity correctly', (done) => {
-			const entity = {
-				getCurrentTypeName: () => 'Organization',
-				isExplicitAvailability: () => false,
-				isInheritAvailability: () => true,
-				getDescendantTypeName: () => 'Program'
-			};
-			setTimeout(() => {
-				const actualValue = component._generateItemDescription(entity, 'D2L');
-				expect(actualValue).to.equal('Every Program under the Organization: D2L');
-				done();
-			}, 200);
 		});
 	});
 });
