@@ -55,7 +55,7 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 	}
 
 	get _itemDescription() {
-		return this.localize('currentOrgUnitItemDescription', { name: this._name })
+		return this.localize('currentOrgUnitItemDescription', { name: this._name });
 	}
 
 	render() {
