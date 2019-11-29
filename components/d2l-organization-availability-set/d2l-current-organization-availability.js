@@ -54,10 +54,14 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitEl
 		}
 	}
 
+	get _itemDescription() {
+		return this.localize('currentOrgUnitItemDescription', { name: this._name })
+	}
+
 	render() {
 		return html`
 			<d2l-input-checkbox checked ?disabled="${!this._canDelete}">
-				${this.localize('currentOrgUnitItemDescription', { name: this._name })}
+				${this._itemDescription}
 			</d2l-input-checkbox>
 		`;
 	}
