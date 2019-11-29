@@ -268,6 +268,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 	tryRequestScroll() {
+		/* The mobile menu calls this method and fastdom is giving us a needed animation frame.
+		 * When converting to Lit, be sure to re-test this functionality in the LMS.
+		 */
 		fastdom.measure(() => {
 			if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
 				this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
