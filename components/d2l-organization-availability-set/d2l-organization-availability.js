@@ -104,12 +104,13 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 	}
 
 	render() {
+		const itemDescription = this._itemDescription;
 		return html`
-			${this._itemDescription}
-			${this._itemDescription && this._canDelete ? html`
+			${itemDescription}
+			${itemDescription && this._canDelete ? html`
 				<d2l-button-icon
 					?disabled="${this._isDeleting}"
-					text="${this.localize('removeAvailabilityFor', { itemDescription: this._itemDescription })}"
+					text="${this.localize('removeAvailabilityFor', { itemDescription })}"
 					icon="tier1:close-default"
 					@click="${this._delete}"></d2l-button-icon>
 			` : ''}
