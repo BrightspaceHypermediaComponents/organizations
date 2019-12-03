@@ -184,6 +184,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				word-break: break-all;
 				vertical-align: middle;
 			}
+			.d2l-consortium-tab-content:focus {
+				outline: none;
+			}
 			[selected] .d2l-consortium-tab-content {
 				color: var(--d2l-color-ferrite);
 				cursor: default;
@@ -217,7 +220,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<template is="dom-if" if="[[!item.loading]]">
-						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content">[[item.name]]</div></a>
+						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content" tabindex="-1">[[item.name]]</div></a>
 						<d2l-navigation-notification-icon hidden$="[[!_checkOrgNotification(item)]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
