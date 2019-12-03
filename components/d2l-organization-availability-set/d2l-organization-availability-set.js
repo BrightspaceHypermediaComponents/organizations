@@ -47,6 +47,9 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 		if (D2L.Dialog && D2L.Dialog.OrgUnitSelector) {
 			this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect.bind(this));
 		}
+
+		// hack. The first time the aria-live element is added, it is not announced.
+		announce(' ');
 	}
 
 	set _entity(entity) {
