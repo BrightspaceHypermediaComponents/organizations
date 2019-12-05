@@ -10,7 +10,9 @@ const LangFrfrImpl = (superClass) => class extends superClass {
 			'loading': 'Loading',
 			'errorShort': 'Oops',
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'newNotifications': '{name} - Vous avez de nouvelles alertes'
+			'newNotifications': '{name} - Vous avez de nouvelles alertes',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };

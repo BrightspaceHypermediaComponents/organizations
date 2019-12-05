@@ -7,10 +7,12 @@ const LangEsImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.es = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
+			'errorFull': 'Lo sentimos. No pudimos capturar la información de {num} de sus pestañas. Intente actualizar la página.',
+			'errorShort': 'Lo sentimos',
 			'loading': 'Cargando',
-			'newNotifications': '{name} - Tiene nuevas alertas'
+			'newNotifications': '{name}: tiene nuevas alertas',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };

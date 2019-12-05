@@ -7,10 +7,12 @@ const LangKoImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.ko = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
+			'errorFull': '죄송합니다. {num}개의 탭에 대한 정보를 가져올 수 없습니다. 페이지를 새로 고침하십시오.',
+			'errorShort': '죄송합니다.',
 			'loading': '로드 중',
-			'newNotifications': '{name}개 - 새로운 알림이 있습니다.'
+			'newNotifications': '{name} - 새로운 알림이 있습니다.',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };

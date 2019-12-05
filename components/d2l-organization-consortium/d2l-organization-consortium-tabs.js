@@ -15,6 +15,7 @@ import 'fastdom/fastdom.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/offscreen/offscreen.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -45,6 +46,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type: Number,
 				reflectToAttribute: true,
 				value: 2
+			},
+			muteAnnouncer: {
+				type: Boolean,
+				value: false
 			},
 			_cache: {
 				type:Object
@@ -77,6 +82,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				}
 			},
 			_hasNotifications: {
+				type: Boolean,
+				value: false
+			},
+			_delayAnnouncer: {
 				type: Boolean,
 				value: false
 			},
@@ -216,7 +225,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				right: auto;
 			}
 		</style>
-		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
+		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]" role="navigation" aria-label$="[[localize('otherAccounts')]]">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<template is="dom-if" if="[[!item.loading]]">
@@ -318,6 +327,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 		const cacheKey = await this._getCacheKey();
 		this._cache = this._tryGetItemSessionStorage(cacheKey);
+		if (this._cache) {
+			this._delayAnnouncer = true;
+		}
 	}
 
 	_tabBoxClasses(_shouldRender, _hasCache) {
@@ -486,13 +498,27 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				'd2l-organization-consortium-tabs-notification-update',
 				{
 					detail: {
-						hasOrgTabNotifications: nowHasNotifications
+						hasOrgTabNotifications: nowHasNotifications,
+						notificationText: this.localize('newNotificationsAlert')
 					},
 					bubbles: true,
 					composed: true
 				}
 			)
 		);
+		if (this.muteAnnouncer) {
+			return;
+		}
+
+		if (this._delayAnnouncer) {
+			this._delayAnnouncer = false;
+		} else if (nowHasNotifications) {
+			this._announceNotifications();
+		}
+
+	}
+	_announceNotifications() {
+		announce(this.localize('newNotificationsAlert'));
 	}
 }
 

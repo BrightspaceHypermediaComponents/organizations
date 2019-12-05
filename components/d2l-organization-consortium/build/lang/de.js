@@ -7,10 +7,12 @@ const LangDeImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.de = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
+			'errorFull': 'Hoppla! Es konnten keine Informationen für {num} Ihrer Registerkarten abgerufen werden. Versuchen Sie, die Seite zu aktualisieren',
+			'errorShort': 'Hoppla',
 			'loading': 'Wird geladen',
-			'newNotifications': '{name} – Sie haben neue Benachrichtigungen.'
+			'newNotifications': '{name} – Sie haben neue Benachrichtigungen',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };
