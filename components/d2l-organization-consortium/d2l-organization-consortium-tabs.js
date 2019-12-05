@@ -513,9 +513,12 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		if (this._delayAnnouncer) {
 			this._delayAnnouncer = false;
 		} else if (nowHasNotifications) {
-			announce(this.localize('newNotificationsAlert'));
+			this._announceNotifications();
 		}
 
+	}
+	_announceNotifications() {
+		announce(this.localize('newNotificationsAlert'));
 	}
 }
 
