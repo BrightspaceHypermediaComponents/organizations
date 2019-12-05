@@ -47,6 +47,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				reflectToAttribute: true,
 				value: 2
 			},
+			muteAnnouncer: {
+				type: Boolean,
+				value: false
+			},
 			_cache: {
 				type:Object
 			},
@@ -501,6 +505,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				}
 			)
 		);
+		if (this.muteAnnouncer) {
+			return;
+		}
 
 		if (this._delayAnnouncer) {
 			this._delayAnnouncer = false;
