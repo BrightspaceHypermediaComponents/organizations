@@ -1,19 +1,19 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "Üzgünüz! Sekmelerinizden {num} için bilgi alınamadı. Sayfayı yenilemeyi deneyin"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "Üzgünüz"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "Yükleniyor"
     },
-    "newNotifications": {
-      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
-      "translation": "{name} - Yeni uyarılarınız var"
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} - Yeni uyarılarınız var"
     },
     "newNotificationsAlert": {
       "translation": "You have new alerts in some of your other accounts",

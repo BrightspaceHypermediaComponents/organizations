@@ -1,19 +1,19 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "Hoppsan! Vi kunde inte hämta information för {num} av dina flikar. Prova att uppdatera sidan"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "Hoppsan"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "Laddar"
     },
-    "newNotifications": {
-      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
-      "translation": "{name} – Du har nya varningar"
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} – Du har nya varningar"
     },
     "newNotificationsAlert": {
       "translation": "You have new alerts in some of your other accounts",
