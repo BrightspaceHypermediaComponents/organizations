@@ -216,7 +216,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				right: auto;
 			}
 		</style>
-		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
+		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]" role="navigation" aria-label$="[[localize('otherAccounts')]]">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<template is="dom-if" if="[[!item.loading]]">
