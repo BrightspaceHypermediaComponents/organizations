@@ -10,7 +10,9 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'loading': 'Loading',
 			'errorShort': 'Oops',
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'newNotifications': '{name} - Du har nye notifikationer'
+			'newNotifications': '{name} - Du har nye notifikationer',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };

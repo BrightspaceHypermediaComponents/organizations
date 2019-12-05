@@ -10,7 +10,9 @@ const LangNlImpl = (superClass) => class extends superClass {
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
 			'errorShort': 'Oops',
 			'loading': 'Laden',
-			'newNotifications': '{name} - U hebt nieuwe waarschuwingen'
+			'newNotifications': '{name} - U hebt nieuwe waarschuwingen',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };

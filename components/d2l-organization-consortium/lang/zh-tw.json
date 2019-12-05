@@ -14,5 +14,13 @@
     "newNotifications": {
       "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
       "translation": "{name} - 您有新警示"
+    },
+    "newNotificationsAlert": {
+      "translation": "You have new alerts in some of your other accounts",
+      "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notificationsr"
+    },
+    "otherAccounts": {
+      "translation": "Other Accounts",
+      "context": "Accessible label summarizing the organization tabs section"
     }
 }
