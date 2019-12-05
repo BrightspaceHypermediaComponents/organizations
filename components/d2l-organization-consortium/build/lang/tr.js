@@ -7,8 +7,8 @@ const LangTrImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.tr = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
+			'errorFull': 'Üzgünüz! Sekmelerinizden {num} için bilgi alınamadı. Sayfayı yenilemeyi deneyin',
+			'errorShort': 'Üzgünüz',
 			'loading': 'Yükleniyor',
 			'newNotifications': '{name} - Yeni uyarılarınız var',
 			'newNotificationsAlert': 'You have new alerts in some of your other accounts',

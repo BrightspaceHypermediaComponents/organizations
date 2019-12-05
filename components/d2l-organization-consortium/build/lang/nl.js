@@ -7,8 +7,8 @@ const LangNlImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.nl = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
+			'errorFull': 'Oeps! We kunnen geen gegevens ophalen voor {num} van uw tabbladen. Probeer de pagina te vernieuwen',
+			'errorShort': 'Oeps',
 			'loading': 'Laden',
 			'newNotifications': '{name} - U hebt nieuwe waarschuwingen',
 			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
