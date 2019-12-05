@@ -15,6 +15,7 @@ import 'fastdom/fastdom.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/offscreen/offscreen.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -77,6 +78,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				}
 			},
 			_hasNotifications: {
+				type: Boolean,
+				value: false
+			},
+			_delayAnnouncer: {
 				type: Boolean,
 				value: false
 			},
@@ -318,6 +323,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 		const cacheKey = await this._getCacheKey();
 		this._cache = this._tryGetItemSessionStorage(cacheKey);
+		if (this._cache) {
+			this._delayAnnouncer = true;
+		}
 	}
 
 	_tabBoxClasses(_shouldRender, _hasCache) {
@@ -493,6 +501,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				}
 			)
 		);
+
+		if (this._delayAnnouncer) {
+			this._delayAnnouncer = false;
+		} else if (nowHasNotifications) {
+			announce(this.localize('newNotificationsAlert'));
+		}
+
 	}
 }
 
