@@ -16,11 +16,11 @@
         "translation" : "{name} – Sie haben neue Benachrichtigungen"
     },
     "newNotificationsAlert": {
-      "translation": "You have new alerts in some of your other accounts",
-      "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
+        "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation": "You have new alerts in some of your other accounts"
     },
     "otherAccounts": {
-      "translation": "Other Accounts",
-      "context": "Accessible label summarizing the organization tabs section"
+        "context": "Accessible label summarizing the organization tabs section",
+        "translation": "Other Accounts"
     }
 }
