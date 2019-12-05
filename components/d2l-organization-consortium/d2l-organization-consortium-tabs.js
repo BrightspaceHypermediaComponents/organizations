@@ -498,7 +498,8 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				'd2l-organization-consortium-tabs-notification-update',
 				{
 					detail: {
-						hasOrgTabNotifications: nowHasNotifications
+						hasOrgTabNotifications: nowHasNotifications,
+						notificationText: this.localize('newNotificationsAlert')
 					},
 					bubbles: true,
 					composed: true
