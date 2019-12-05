@@ -1,18 +1,18 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "Oups! Nous avons été incapables d’extraire l’information de {num} de vos onglets. Veuillez rafraîchir la page"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "Oups!"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "Chargement"
     },
-    "newNotifications": {
-      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
-      "translation": "{name} - Vous avez de nouvelles alertes"
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} – Vous avez de nouvelles alertes."
     }
 }

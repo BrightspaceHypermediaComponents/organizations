@@ -1,18 +1,18 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "糟糕！我们无法提取您的 {num} 个选项卡的信息。请尝试刷新页面"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "糟糕"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "正在加载"
     },
-    "newNotifications": {
-      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
-      "translation": "{name} - 您有新提示"
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} - 您有新提示"
     }
 }

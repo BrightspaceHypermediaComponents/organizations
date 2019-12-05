@@ -1,18 +1,18 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "عذرًا! تعذّر علينا إحضار معلومات لـ {num} من علامات التبويب. حاول تحديث الصفحة"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "عذرًا"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "يتم الآن التحميل"
     },
-    "newNotifications": {
-      "context": "If the notification dot is present, we wrap the organization name for the tab's link label",
-      "translation": "{name} - لديك تنبيهات جديدة"
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} - لديك تنبيهات جديدة"
     }
 }
