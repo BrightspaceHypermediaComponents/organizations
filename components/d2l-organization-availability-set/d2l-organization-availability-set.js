@@ -135,11 +135,11 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 					</d2l-input-checkbox>
 				`}
 			`}
-			${this._canAddAvailability && html`
+			${this._canAddAvailability ? html`
 				<d2l-button id="add-org-units-button" @click=${this.handleAddOrgUnits}>
 					${this.localize('addOrgUnits')}
 				</d2l-button>
-			`}
+			` : ''}
 			${repeat(this._availabilityHrefs, href => href, href => html`
 				<d2l-organization-availability
 					.href="${href}"
