@@ -35,6 +35,7 @@ class AdminList extends EntityMixinLit(LitElement) {
 				.d2l-organization-admin-list-content-container {
 					display: flex;
 					justify-content: center;
+					position: relative;
 				}
 				.d2l-organization-admin-list-content {
 					box-sizing: border-box;
@@ -56,7 +57,21 @@ class AdminList extends EntityMixinLit(LitElement) {
 				}
 
 				.d2l-organization-admin-list-body-container {
-					background-color: --var(--d2l-color-regolith);
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+				}
+				.d2l-organization-admin-list-background-gradient {
+					height: 200px;
+					background-image: linear-gradient(
+						to top,
+						white 50%,
+						var(--d2l-color-regolith)
+					);
+					width: 100%;
+					position: absolute;
+					left: 0;
+					top: 0;
 				}
 				.d2l-organization-admin-list-body {
 					padding-top: 72px;
@@ -138,6 +153,7 @@ class AdminList extends EntityMixinLit(LitElement) {
 			<div
 				class="d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container"
 			>
+				<div class="d2l-organization-admin-list-background-gradient"></div>
 				<div
 					class="d2l-organization-admin-list-content d2l-organization-admin-list-body"
 				>
