@@ -39,7 +39,7 @@ class AdminList extends EntityMixinLit(LitElement) {
 				}
 				.d2l-organization-admin-list-content {
 					box-sizing: border-box;
-					padding: 0 30px;
+					padding: 0 2.439%;
 					max-width: 1230px;
 					width: 100%;
 				}
@@ -47,13 +47,15 @@ class AdminList extends EntityMixinLit(LitElement) {
 				.d2l-organization-admin-list-header-container {
 					border-bottom: solid 1px var(--d2l-color-gypsum);
 					box-sizing: border-box;
-					height: 96px;
 					width: 100%;
 				}
 				.d2l-organization-admin-list-header {
 					align-items: center;
 					display: flex;
 					justify-content: space-between;
+				}
+				.d2l-organization-admin-list-title {
+					margin: 24px 0;
 				}
 
 				.d2l-organization-admin-list-background-gradient {
@@ -86,6 +88,30 @@ class AdminList extends EntityMixinLit(LitElement) {
 				.d2l-organization-admin-list-search-results-page-count {
 					width: auto;
 					max-width: 4rem;
+				}
+
+				@media (max-width: 420px) {
+					.d2l-organization-admin-list-header {
+						flex-direction: column;
+						justify-content: flex-start;
+						align-items: flex-start;
+					}
+					.d2l-organization-admin-list-create-button {
+						width: 100%;
+						margin-bottom: 24px;
+					}
+				}
+
+				@media (max-width: 615px) {
+					.d2l-organization-admin-list-content {
+						padding: 0 15px;
+					}
+				}
+
+				@media (min-width: 1230px) {
+					.d2l-organization-admin-list-content {
+						padding: 0 30px;
+					}
 				}
 			`
 		];
@@ -150,8 +176,8 @@ class AdminList extends EntityMixinLit(LitElement) {
 		return html`
 			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container">
 				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-header">
-					<h1 class="d2l-heading-1">${this["title-text"]}</h1>
-					<d2l-button primary>Create Learning Path</d2l-button>
+					<h1 class="d2l-heading-1 d2l-organization-admin-list-title">${this["title-text"]}</h1>
+					<d2l-button class="d2l-organization-admin-list-create-button" primary>Create Learning Path</d2l-button>
 				</div>
 			</div>
 
