@@ -56,11 +56,6 @@ class AdminList extends EntityMixinLit(LitElement) {
 					justify-content: space-between;
 				}
 
-				.d2l-organization-admin-list-body-container {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-				}
 				.d2l-organization-admin-list-background-gradient {
 					height: 200px;
 					background-image: linear-gradient(
@@ -80,6 +75,17 @@ class AdminList extends EntityMixinLit(LitElement) {
 
 				.d2l-organization-admin-list-item-image {
 					border-radius: 6px;
+				}
+
+				.d2l-organization-admin-list-search-results-page-number-container {
+					margin: 15px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+				.d2l-organization-admin-list-search-results-page-count {
+					width: auto;
+					max-width: 4rem;
 				}
 			`
 		];
@@ -105,10 +111,22 @@ class AdminList extends EntityMixinLit(LitElement) {
 		this._pageCurrent = collection.currentPage();
 		this._hasNextPage = collection.hasNextPage();
 		this._hasPrevPage = collection.hasPrevPage();
+		this._nextPageHref = collection.getNextPageHref();
+		this._prevPageHref = collection.getPrevPageHref();
 		collection.onOrganizationsChange((organization, index) => {
 			this._items[index] = { usage: { editHref: () => 'Wow'}, organization };
 			this.requestUpdate();
 		});
+	}
+
+	_toPreviousPage() {
+		console.log('to prev page');
+		this.href = this._prevPageHref;
+	}
+
+	_toNextPage() {
+		console.log('to next page');
+		this.href = this._nextPageHref;
 	}
 
 	render() {
@@ -117,7 +135,6 @@ class AdminList extends EntityMixinLit(LitElement) {
 				html`
 					<d2l-list-item
 						href=${ifDefined(item.usage.editHref())}
-						breakpoints=${[1230, 615, 420, 420]}
 					>
 						<d2l-organization-image
 							class="d2l-organization-admin-list-item-image"
@@ -127,71 +144,53 @@ class AdminList extends EntityMixinLit(LitElement) {
 						<d2l-list-item-content>
 							<div>${item.organization.name()}</div>
 						</d2l-list-item-content>
-						<div slot="actions">
-							<div>
-								Visible
-							</div>
-							<d2l-button-icon
-								icon="d2l-tier1:delete"
-							></d2l-button-icon>
-						</div>
 					</d2l-list-item>
 				`
 		);
 		return html`
-			<div
-				class="d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container"
-			>
-				<div
-					class="d2l-organization-admin-list-content d2l-organization-admin-list-header"
-				>
+			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container">
+				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-header">
 					<h1 class="d2l-heading-1">${this["title-text"]}</h1>
 					<d2l-button primary>Create Learning Path</d2l-button>
 				</div>
 			</div>
 
-			<div
-				class="d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container"
-			>
+			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container">
 				<div class="d2l-organization-admin-list-background-gradient"></div>
-				<div
-					class="d2l-organization-admin-list-content d2l-organization-admin-list-body"
-				>
+				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-body">
 					<d2l-list>${items}</d2l-list>
-				</div>
-				<div class="discovery-search-results-page-number-container">
-					<d2l-button-icon
-						icon="d2l-tier1:chevron-left"
-						aria-label$="[[localize('pagePrevious')]]"
-						.disabled=${!this._hasPrevPage}
-						on-click="_toPreviousPage"
-						on-keydown="_toPreviousPage"
-					>
-					</d2l-button-icon>
-					<d2l-input-text
-						class="discovery-search-results-page-count"
-						type="number"
-						aria-label$="[[localize('pageSelection', 'pageCurrent', _pageCurrent, 'pageTotal', _pageTotal)]]"
-						name="myInput"
-						value=${this._pageCurrent}
-						min="1"
-						max=${this._pageTotal}
-						size="[[_countDigits(_pageTotal)]]"
-						on-keydown="_toPage"
-						on-blur="_inputPageCounterOnBlur"
-					>
-					</d2l-input-text>
-					<div>
-						/ ${this._pageTotal}
+					<div class="d2l-organization-admin-list-search-results-page-number-container">
+						<d2l-button-icon
+							icon="d2l-tier1:chevron-left"
+							aria-label$="[[localize('pagePrevious')]]"
+							.disabled=${!this._hasPrevPage}
+							@click=${this._toPreviousPage}
+							on-keydown=${this._toPreviousPage}
+						>
+						</d2l-button-icon>
+						<d2l-input-text
+							class="d2l-organization-admin-list-search-results-page-count"
+							type="number"
+							aria-label$="[[localize('pageSelection', 'pageCurrent', _pageCurrent, 'pageTotal', _pageTotal)]]"
+							name="myInput"
+							value=${this._pageCurrent}
+							min="1"
+							max=${this._pageTotal}
+							size="[[_countDigits(_pageTotal)]]"
+							on-keydown="_toPage"
+							on-blur="_inputPageCounterOnBlur"
+						>
+						</d2l-input-text>
+						<div>&nbsp/&nbsp${this._pageTotal}</div>
+						<d2l-button-icon
+							icon="d2l-tier1:chevron-right"
+							aria-label$="[[localize('pageNext')]]"
+							.disabled=${!this._hasNextPage}
+							@click=${this._toNextPage}
+							on-keydown=${this._toNextPage}
+						>
+						</d2l-button-icon>
 					</div>
-					<d2l-button-icon
-						icon="d2l-tier1:chevron-right"
-						aria-label$="[[localize('pageNext')]]"
-						.disabled=${!this._hasNextPage}
-						on-click="_toNextPage"
-						on-keydown="_toNextPage"
-					>
-					</d2l-button-icon>
 				</div>
 			</div>
 		`;
