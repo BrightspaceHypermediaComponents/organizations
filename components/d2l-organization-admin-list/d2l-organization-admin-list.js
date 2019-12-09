@@ -39,7 +39,8 @@ class AdminList extends EntityMixinLit(LitElement) {
 				}
 				.d2l-organization-admin-list-content {
 					box-sizing: border-box;
-					padding: 0 2.439%;
+					padding-left: 2.439%;
+					padding-right: 2.439%;
 					max-width: 1230px;
 					width: 100%;
 				}
@@ -104,13 +105,15 @@ class AdminList extends EntityMixinLit(LitElement) {
 
 				@media (max-width: 615px) {
 					.d2l-organization-admin-list-content {
-						padding: 0 15px;
+						padding-left: 15px;
+						padding-right: 15px;
 					}
 				}
 
 				@media (min-width: 1230px) {
 					.d2l-organization-admin-list-content {
-						padding: 0 30px;
+						padding-left: 30px;
+						padding-right: 30px;
 					}
 				}
 			`
@@ -160,6 +163,7 @@ class AdminList extends EntityMixinLit(LitElement) {
 			item =>
 				html`
 					<d2l-list-item
+						.breakpoints=${[1170, 391, 0, 0]}
 						href=${ifDefined(item.usage.editHref())}
 					>
 						<d2l-organization-image
