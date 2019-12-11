@@ -36,7 +36,11 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 			},
 			_primaryImage: String,
 			_secondaryImage: String,
-			_tertiaryImage: String
+			_tertiaryImage: String,
+			_noImage: {
+				type: Boolean,
+				value: false
+			}
 		};
 	}
 
@@ -102,15 +106,35 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 				.doi-tertiary[hidden] {
 					display: none;
 				}
+				.doi-no-image {\
+					width: 100%;
+					height: 100%;
+					max-height: inherit;
+					max-width: inherit;
+				}
+				.doi-no-image rect{
+					fill: var(--d2l-color-regolith);
+					stroke: var(--d2l-color-corundum);
+					stroke-width: 0.1rem;
+					stroke-dasharray: 0.25rem;
+					stroke-dashoffset: 0.125rem;
+				}
 			</style>
-			<d2l-course-image image="[[_primaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
-			<div class="doi-flex">
-				<div class="doi-primary"></div>
-				<div class="doi-flex-inner" hidden$=[[!_secondaryImage]]>
-					<d2l-course-image class="doi-secondary" image="[[_secondaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
-					<d2l-course-image class="doi-tertiary" hidden$="[[!_tertiaryImage]]" image="[[_tertiaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+			<template is="dom-if" if="[[_noImage]]">
+				<svg class="doi-no-image">
+					<rect x="0" y="0" width="100%" height="100%"></rect>
+				</svg>
+			</template>
+			<template is="dom-if" if="[[!_noImage]]">
+				<d2l-course-image image="[[_primaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+				<div class="doi-flex">
+					<div class="doi-primary"></div>
+					<div class="doi-flex-inner" hidden$=[[!_secondaryImage]]>
+						<d2l-course-image class="doi-secondary" image="[[_secondaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+						<d2l-course-image class="doi-tertiary" hidden$="[[!_tertiaryImage]]" image="[[_tertiaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+					</div>
 				</div>
-			</div>
+			</template>
 		`;
 	}
 
@@ -142,6 +166,13 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 		} else if (organization.hasClass(organizationClasses.learningPath)) {
 			organization.onSequenceChange(this._onRootSequenceChange.bind(this));
 		}
+
+		organization.subEntitiesLoaded().then(() => {
+			if (!this._primaryImage) {
+				this._noImage = true;
+				this._imageLoaded();
+			}
+		});
 	}
 
 	_onRootSequenceChange(rootSequence) {
