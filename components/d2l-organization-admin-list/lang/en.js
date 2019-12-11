@@ -2,7 +2,7 @@
 
 export default {
 	"createLearningPath": "Create Learning Path", // Button to create a new Learning Path
-	"createActionDefaultNameTerm": "Untitled Learning Path", // Default name given to a newly created Learning Path
+	"defaultLearningPathName": "Untitled Learning Path", // Default name given to a newly created Learning Path
 	"search": "Search", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Search...", // Placeholder text for the search input to search the list of org units
 	"pagePrevious": "To previous page", // Label for the back to previous page button

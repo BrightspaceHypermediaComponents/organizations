@@ -193,6 +193,17 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		}
 	}
 
+	_createOrgUnit() {
+		const name = this.localize(this.createActionDefaultNameTerm);
+		this._collection
+			.createOrgUnit(name, "LP", this.createActionType)
+			.then(organization => {
+				organization.onActivityUsageChange(activityUsage => {
+					window.location.href = activityUsage.editHref();
+				});
+			});
+	}
+
 	render() {
 		const items = this._items.map(
 			item =>
