@@ -125,16 +125,14 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 					<rect x="0" y="0" width="100%" height="100%"></rect>
 				</svg>
 			</template>
-			<template is="dom-if" if="[[!_noImage]]">
-				<d2l-course-image image="[[_primaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
-				<div class="doi-flex">
-					<div class="doi-primary"></div>
-					<div class="doi-flex-inner" hidden$=[[!_secondaryImage]]>
-						<d2l-course-image class="doi-secondary" image="[[_secondaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
-						<d2l-course-image class="doi-tertiary" hidden$="[[!_tertiaryImage]]" image="[[_tertiaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
-					</div>
+			<d2l-course-image image="[[_primaryImage]]" sizes="[[tileSizes]]" type="[[type]]" hidden$=[[_noImage]]></d2l-course-image>
+			<div class="doi-flex" hidden$=[[_noImage]]>
+				<div class="doi-primary"></div>
+				<div class="doi-flex-inner" hidden$=[[!_secondaryImage]]>
+					<d2l-course-image class="doi-secondary" image="[[_secondaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
+					<d2l-course-image class="doi-tertiary" hidden$="[[!_tertiaryImage]]" image="[[_tertiaryImage]]" sizes="[[tileSizes]]" type="[[type]]"></d2l-course-image>
 				</div>
-			</template>
+			</div>
 		`;
 	}
 
