@@ -1,6 +1,7 @@
 import { css, html, LitElement } from "lit-element/lit-element.js";
 import "@brightspace-ui/core/components/button/button.js";
 import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
+import { getLocalizeResources } from "./localization.js";
 
 class AdminListPager extends LocalizeMixin(LitElement) {
 	static get properties() {
@@ -41,6 +42,10 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 		];
 	}
 
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, import.meta.url);
+	}
+
 	constructor() {
 		super();
 		this.currentPage = 1;
@@ -65,7 +70,7 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 
 	_toPage(e) {
 		this.onPageChanged(e.target.value);
-	} 
+	}
 
 	_countDigits(number) {
 		return number.toString().length;
@@ -73,27 +78,30 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 
 	render() {
 		return html`
-            <div class="d2l-organization-admin-list-pager">
-                <d2l-button-icon
-                    icon="d2l-tier1:chevron-left"
+			<div class="d2l-organization-admin-list-pager">
+				<d2l-button-icon
+					icon="d2l-tier1:chevron-left"
 					aria-label=${this.localize("pagePrevious")}
-                    .disabled=${!this._hasPreviousPage()}
-                    @click=${this._toPreviousPage}
-                >
-                </d2l-button-icon>
-                <d2l-input-text
-                    class="d2l-organization-admin-list-pager-count"
-                    type="number"
-                    aria-label=${this.localize("pageSelection", {'pageCurrent': this.currentPage, 'pageTotal': this.totalPages})}
-                    name="pageInput"
-                    value=${this.currentPage}
-                    min="1"
-                    max=${this.totalPages}
+					.disabled=${!this._hasPreviousPage()}
+					@click=${this._toPreviousPage}
+				>
+				</d2l-button-icon>
+				<d2l-input-text
+					class="d2l-organization-admin-list-pager-count"
+					type="number"
+					aria-label=${this.localize("pageSelection", {
+						pageCurrent: this.currentPage,
+						pageTotal: this.totalPages
+					})}
+					name="pageInput"
+					value=${this.currentPage}
+					min="1"
+					max=${this.totalPages}
 					size=${this._countDigits(this.totalPages)}
 					@change=${this._toPage}
-                >
-                </d2l-input-text>
-                <div>&nbsp/&nbsp${this.totalPages}</div>
+				>
+				</d2l-input-text>
+				<div>&nbsp/&nbsp${this.totalPages}</div>
 				<d2l-button-icon
 					icon="d2l-tier1:chevron-right"
 					aria-label=${this.localize("pageNext")}

@@ -1,20 +1,34 @@
-import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { heading1Styles, bodyStandardStyles } from '@brightspace-ui/core/components/typography/styles.js';
-import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { OrganizationCollectionEntity } from 'siren-sdk/src/organizations/OrganizationCollectionEntity.js';
-import {ifDefined} from 'lit-html/directives/if-defined';
-import '@brightspace-ui/core/components/colors/colors.js';
-import '@brightspace-ui/core/components/button/button.js';
-import '@brightspace-ui/core/components/list/list.js';
-import '@brightspace-ui/core/components/list/list-item.js';
-import 'd2l-organizations/components/d2l-organization-image/d2l-organization-image.js';
-import './d2l-organization-admin-list-pager.js'
-import './d2l-organization-admin-list-search-header.js';
+import { css, html, LitElement } from "lit-element/lit-element.js";
+import {
+	heading1Styles,
+	bodyStandardStyles
+} from "@brightspace-ui/core/components/typography/styles.js";
+import { EntityMixinLit } from "siren-sdk/src/mixin/entity-mixin-lit.js";
+import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
+import { OrganizationCollectionEntity } from "siren-sdk/src/organizations/OrganizationCollectionEntity.js";
+import { ifDefined } from "lit-html/directives/if-defined";
+import "@brightspace-ui/core/components/colors/colors.js";
+import "@brightspace-ui/core/components/button/button.js";
+import "@brightspace-ui/core/components/list/list.js";
+import "@brightspace-ui/core/components/list/list-item.js";
+import "d2l-organizations/components/d2l-organization-image/d2l-organization-image.js";
+import "./d2l-organization-admin-list-pager.js";
+import "./d2l-organization-admin-list-search-header.js";
+import { getLocalizeResources } from "./localization.js";
 
-class AdminList extends EntityMixinLit(LitElement) {
+class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	static get properties() {
 		return {
-			'title-text': {
+			titleText: {
+				type: String
+			},
+			createActionTitleTerm: {
+				type: String
+			},
+			createActionDefaultNameTerm: {
+				type: String
+			},
+			createActionType: {
 				type: String
 			},
 			_items: {
@@ -92,26 +106,6 @@ class AdminList extends EntityMixinLit(LitElement) {
 					border-radius: 6px;
 				}
 
-				.d2l-organization-admin-list-search-results-page-number-container {
-					margin: 15px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-				.d2l-organization-admin-list-search-results-page-count {
-					width: auto;
-					max-width: 4rem;
-				}
-
-				.discovery-search-header-container {
-					display: flex;
-					justify-content: space-between;
-					margin: 12px 0;
-				}
-				#discovery-search-header-search-input {
-					width: 270px;
-				}
-
 				@media (max-width: 420px) {
 					.d2l-organization-admin-list-header {
 						flex-direction: column;
@@ -141,6 +135,10 @@ class AdminList extends EntityMixinLit(LitElement) {
 		];
 	}
 
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, import.meta.url);
+	}
+
 	constructor() {
 		super();
 		this._items = [];
@@ -149,7 +147,6 @@ class AdminList extends EntityMixinLit(LitElement) {
 
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
-			console.log(entity);
 			this._onOrganizationCollectionChanged(entity);
 			super._entity = entity;
 		}
@@ -161,23 +158,21 @@ class AdminList extends EntityMixinLit(LitElement) {
 		this._currentPage = collection.currentPage();
 		this._collection = collection;
 
-		collection.onOrganizationsChange((organization, index) => {
-			organization.onActivityUsageChange(activityUsage => {
-				this._items[index] = {
-					usage: { editHref: () => activityUsage.editHref() },
-					organization
-				};
-				this.requestUpdate();
-			});
-		});
-	}
-
-	_toPreviousPage() {
-		this.href = collection.prevPageHref();
-	}
-
-	_toNextPage() {
-		this.href = collection.nextPageHref();
+		let loadedCount = 0;
+		const totalCount = collection.onOrganizationsChange(
+			(organization, index) => {
+				organization.onActivityUsageChange(activityUsage => {
+					this._items[index] = {
+						usage: { editHref: () => activityUsage.editHref() },
+						organization
+					};
+					loadedCount++;
+					if (loadedCount >= totalCount) {
+						this.requestUpdate("_items", []);
+					}
+				});
+			}
+		);
 	}
 
 	_handleSearch(searchText) {
@@ -188,9 +183,9 @@ class AdminList extends EntityMixinLit(LitElement) {
 
 	_handlePageChanged(page) {
 		if (page === this._currentPage + 1) {
-			this.href = this._nextPageHref;
+			this.href = this._collection.nextPageHref();
 		} else if (page === this._currentPage - 1) {
-			this.href = this._prevPageHref;
+			this.href = this._collection.prevPageHref();
 		} else {
 			this._collection.jumpToPage(page).then(href => {
 				this.href = href;
@@ -218,14 +213,10 @@ class AdminList extends EntityMixinLit(LitElement) {
 				`
 		);
 		return html`
-			<div
-				class="d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container"
-			>
-				<div
-					class="d2l-organization-admin-list-content d2l-organization-admin-list-header"
-				>
+			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container">
+				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-header">
 					<h1 class="d2l-heading-1 d2l-organization-admin-list-title">
-						${this["title-text"]}
+						${this.titleText}
 					</h1>
 					${ this._collection && this._collection.canCreateOrgUnit() ? html`
 						<d2l-button
@@ -242,12 +233,14 @@ class AdminList extends EntityMixinLit(LitElement) {
 			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container">
 				<div class="d2l-organization-admin-list-background-gradient"></div>
 				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-body">
-					<d2l-organization-admin-list-search-header .onSearchTextChanged=${this._handleSearch.bind(this)}></d2l-organization-admin-list-search-header>
+					<d2l-organization-admin-list-search-header .onSearchTextChanged=${this._handleSearch.bind(this)}>
+					</d2l-organization-admin-list-search-header>
 					<d2l-list>${items}</d2l-list>
-					<d2l-organization-admin-list-pager currentPage=${this._currentPage} totalPages=${this._totalPages} .onPageChanged=${this._handlePageChanged.bind(this)}></d2l-organization-admin-list-pager>
+					<d2l-organization-admin-list-pager currentPage=${this._currentPage} totalPages=${this._totalPages} .onPageChanged=${this._handlePageChanged.bind(this)}>
+					</d2l-organization-admin-list-pager>
 				</div>
 			</div>
 		`;
 	}
 }
-customElements.define('d2l-organization-admin-list', AdminList);
+customElements.define("d2l-organization-admin-list", AdminList);

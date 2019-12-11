@@ -1,5 +1,6 @@
 import { css, html, LitElement } from "lit-element/lit-element.js";
 import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
+import { getLocalizeResources } from "./localization.js";
 
 class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 	static get properties() {
@@ -36,20 +37,25 @@ class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 		];
 	}
 
+	static async getLocalizeResources(langs) {
+		return getLocalizeResources(langs, import.meta.url);
+	}
+
 	constructor() {
 		super();
 		this._searchText = "";
-    }
-    
-    _handleSearch(e) {
-        if (e && e.detail) {
-            const searchText = e.detail.value;
-            if (searchText !== this._searchText) {
-				this.onSearchTextChanged && this.onSearchTextChanged(searchText);
-                this._searchText = searchText;
-            }
-        }
-    }
+	}
+
+	_handleSearch(e) {
+		if (e && e.detail) {
+			const searchText = e.detail.value;
+			if (searchText !== this._searchText) {
+				this.onSearchTextChanged &&
+					this.onSearchTextChanged(searchText);
+				this._searchText = searchText;
+			}
+		}
+	}
 
 	render() {
 		return html`
