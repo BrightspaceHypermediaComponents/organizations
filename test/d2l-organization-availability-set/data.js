@@ -91,6 +91,20 @@ export const OrganizationAvailabilitySet = {
 						'name': 'descendantOrgUnitTypeId'
 					}
 				]
+			},
+			{
+				'type': 'application/x-www-form-urlencoded',
+				'title': 'Create Current Org Unit Availability Item',
+				'href': '/organizationAvailabilitySet.json',
+				'name': 'create-current-orgunit-availability-item',
+				'method': 'POST',
+				'fields': [
+					{
+						'type': 'number',
+						'name': 'explicitOrgUnitId',
+						'value': '6606'
+					}
+				]
 			}
 		]
 	},
@@ -206,6 +220,20 @@ export const OrganizationAvailabilitySet = {
 					{
 						'type': 'number',
 						'name': 'descendantOrgUnitTypeId'
+					}
+				]
+			},
+			{
+				'type': 'application/x-www-form-urlencoded',
+				'title': 'Create Current Org Unit Availability Item',
+				'href': '/organizationAvailabilitySet.json',
+				'name': 'create-current-orgunit-availability-item',
+				'method': 'POST',
+				'fields': [
+					{
+						'type': 'number',
+						'name': 'explicitOrgUnitId',
+						'value': '6606'
 					}
 				]
 			}

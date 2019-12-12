@@ -80,6 +80,20 @@
 					"name": "descendantOrgUnitTypeId"
 				}
 			]
+		},
+		{
+			"type": "application/x-www-form-urlencoded",
+			"title": "Create Current Org Unit Availability Item",
+			"href": "/demo/data/organization-availability-set/organization-availability-set.json",
+			"name": "create-current-orgunit-availability-item",
+			"method": "POST",
+			"fields": [
+				{
+					"type": "number",
+					"name": "explicitOrgUnitId",
+					"value": "6606"
+				}
+			]
 		}
 	]
 }
