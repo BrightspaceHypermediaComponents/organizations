@@ -1,6 +1,7 @@
+import "@brightspace-ui/core/components/inputs/input-search.js";
 import { css, html, LitElement } from "lit-element/lit-element.js";
-import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
 import { getLocalizeResources } from "./localization.js";
+import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
 
 class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 	static get properties() {

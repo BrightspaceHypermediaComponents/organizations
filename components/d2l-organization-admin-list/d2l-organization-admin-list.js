@@ -1,20 +1,20 @@
-import { css, html, LitElement } from "lit-element/lit-element.js";
+import "../d2l-organization-image/d2l-organization-image.js";
+import "./d2l-organization-admin-list-pager.js";
+import "./d2l-organization-admin-list-search-header.js";
+import "@brightspace-ui/core/components/button/button.js";
+import "@brightspace-ui/core/components/colors/colors.js";
+import "@brightspace-ui/core/components/list/list-item.js";
+import "@brightspace-ui/core/components/list/list.js";
 import {
 	heading1Styles,
 	bodyStandardStyles
 } from "@brightspace-ui/core/components/typography/styles.js";
 import { EntityMixinLit } from "siren-sdk/src/mixin/entity-mixin-lit.js";
+import { getLocalizeResources } from "./localization.js";
+import { ifDefined } from "lit-html/directives/if-defined";
+import { css, html, LitElement } from "lit-element/lit-element.js";
 import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
 import { OrganizationCollectionEntity } from "siren-sdk/src/organizations/OrganizationCollectionEntity.js";
-import { ifDefined } from "lit-html/directives/if-defined";
-import "@brightspace-ui/core/components/colors/colors.js";
-import "@brightspace-ui/core/components/button/button.js";
-import "@brightspace-ui/core/components/list/list.js";
-import "@brightspace-ui/core/components/list/list-item.js";
-import "d2l-organizations/components/d2l-organization-image/d2l-organization-image.js";
-import "./d2l-organization-admin-list-pager.js";
-import "./d2l-organization-admin-list-search-header.js";
-import { getLocalizeResources } from "./localization.js";
 
 class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	static get properties() {
@@ -64,9 +64,9 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				}
 				.d2l-organization-admin-list-content {
 					box-sizing: border-box;
+					max-width: 1230px;
 					padding-left: 2.439%;
 					padding-right: 2.439%;
-					max-width: 1230px;
 					width: 100%;
 				}
 
@@ -85,21 +85,21 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				}
 
 				.d2l-organization-admin-list-background-gradient {
-					height: 200px;
 					background-image: linear-gradient(
 						to top,
 						white 50%,
 						var(--d2l-color-regolith)
 					);
-					width: 100%;
-					position: absolute;
+					height: 200px;
 					left: 0;
+					position: absolute;
 					top: 0;
+					width: 100%;
 					z-index: -1;
 				}
 				.d2l-organization-admin-list-body {
-					padding-top: 6px;
 					padding-bottom: 72px;
+					padding-top: 6px;
 				}
 
 				.d2l-organization-admin-list-item-image {
@@ -108,13 +108,13 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 				@media (max-width: 420px) {
 					.d2l-organization-admin-list-header {
+						align-items: flex-start;
 						flex-direction: column;
 						justify-content: flex-start;
-						align-items: flex-start;
 					}
 					.d2l-organization-admin-list-create-button {
-						width: 100%;
 						margin-bottom: 24px;
+						width: 100%;
 					}
 				}
 

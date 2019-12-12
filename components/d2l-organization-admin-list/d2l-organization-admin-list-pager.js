@@ -1,7 +1,8 @@
+import "@brightspace-ui/core/components/button/button-icon.js";
+import "@brightspace-ui/core/components/inputs/input-text.js";
 import { css, html, LitElement } from "lit-element/lit-element.js";
-import "@brightspace-ui/core/components/button/button.js";
-import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
 import { getLocalizeResources } from "./localization.js";
+import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
 
 class AdminListPager extends LocalizeMixin(LitElement) {
 	static get properties() {
@@ -29,14 +30,14 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 				}
 
 				.d2l-organization-admin-list-pager {
-					margin: 15px;
-					display: flex;
 					align-items: center;
+					display: flex;
 					justify-content: center;
+					margin: 15px;
 				}
 				.d2l-organization-admin-list-pager-count {
-					width: auto;
 					max-width: 4rem;
+					width: auto;
 				}
 			`
 		];
