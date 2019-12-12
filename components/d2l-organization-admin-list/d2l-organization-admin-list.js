@@ -1,20 +1,20 @@
-import "../d2l-organization-image/d2l-organization-image.js";
-import "./d2l-organization-admin-list-pager.js";
-import "./d2l-organization-admin-list-search-header.js";
-import "@brightspace-ui/core/components/button/button.js";
-import "@brightspace-ui/core/components/colors/colors.js";
-import "@brightspace-ui/core/components/list/list-item.js";
-import "@brightspace-ui/core/components/list/list.js";
+import '../d2l-organization-image/d2l-organization-image.js';
+import './d2l-organization-admin-list-pager.js';
+import './d2l-organization-admin-list-search-header.js';
+import '@brightspace-ui/core/components/button/button.js';
+import '@brightspace-ui/core/components/colors/colors.js';
+import '@brightspace-ui/core/components/list/list-item.js';
+import '@brightspace-ui/core/components/list/list.js';
 import {
 	heading1Styles,
 	bodyStandardStyles
-} from "@brightspace-ui/core/components/typography/styles.js";
-import { EntityMixinLit } from "siren-sdk/src/mixin/entity-mixin-lit.js";
-import { getLocalizeResources } from "./localization.js";
-import { ifDefined } from "lit-html/directives/if-defined";
-import { css, html, LitElement } from "lit-element/lit-element.js";
-import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
-import { OrganizationCollectionEntity } from "siren-sdk/src/organizations/OrganizationCollectionEntity.js";
+} from '@brightspace-ui/core/components/typography/styles.js';
+import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { getLocalizeResources } from './localization.js';
+import { ifDefined } from 'lit-html/directives/if-defined';
+import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { OrganizationCollectionEntity } from 'siren-sdk/src/organizations/OrganizationCollectionEntity.js';
 
 class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	static get properties() {
@@ -168,7 +168,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					};
 					loadedCount++;
 					if (loadedCount >= totalCount) {
-						this.requestUpdate("_items", []);
+						this.requestUpdate('_items', []);
 					}
 				});
 			}
@@ -196,7 +196,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	_createOrgUnit() {
 		const name = this.localize(this.createActionDefaultNameTerm);
 		this._collection
-			.createOrgUnit(name, "LP", this.createActionType)
+			.createOrgUnit(name, 'LP', this.createActionType)
 			.then(organization => {
 				organization.onActivityUsageChange(activityUsage => {
 					window.location.href = activityUsage.editHref();
@@ -213,9 +213,9 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						href=${ifDefined(item.usage.editHref())}
 					>
 						<d2l-organization-image
-							class="d2l-organization-admin-list-item-image"
+							class='d2l-organization-admin-list-item-image'
 							href=${item.organization.self()}
-							slot="illustration"
+							slot='illustration'
 						></d2l-organization-image>
 						<d2l-list-item-content>
 							<div>${item.organization.name()}</div>
@@ -224,16 +224,16 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				`
 		);
 		return html`
-			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container">
-				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-header">
-					<h1 class="d2l-heading-1 d2l-organization-admin-list-title">
+			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container'>
+				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-header'>
+					<h1 class='d2l-heading-1 d2l-organization-admin-list-title'>
 						${this.titleText}
 					</h1>
 					${ this._collection && this._collection.canCreateOrgUnit() ? html`
 						<d2l-button
-							class="d2l-organization-admin-list-create-button"
+							class='d2l-organization-admin-list-create-button'
 							primary
-							@click="${this._createOrgUnit}"
+							@click='${this._createOrgUnit}'
 						>
 							${this.localize(this.createActionTitleTerm)}
 						</d2l-button>
@@ -241,9 +241,9 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				</div>
 			</div>
 
-			<div class="d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container">
-				<div class="d2l-organization-admin-list-background-gradient"></div>
-				<div class="d2l-organization-admin-list-content d2l-organization-admin-list-body">
+			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container'>
+				<div class='d2l-organization-admin-list-background-gradient'></div>
+				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-body'>
 					<d2l-organization-admin-list-search-header .onSearchTextChanged=${this._handleSearch.bind(this)}>
 					</d2l-organization-admin-list-search-header>
 					<d2l-list>${items}</d2l-list>
@@ -254,4 +254,4 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		`;
 	}
 }
-customElements.define("d2l-organization-admin-list", AdminList);
+customElements.define('d2l-organization-admin-list', AdminList);

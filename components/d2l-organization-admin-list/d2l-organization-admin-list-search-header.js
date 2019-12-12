@@ -1,7 +1,7 @@
-import "@brightspace-ui/core/components/inputs/input-search.js";
-import { css, html, LitElement } from "lit-element/lit-element.js";
-import { getLocalizeResources } from "./localization.js";
-import { LocalizeMixin } from "@brightspace-ui/core/mixins/localize-mixin.js";
+import '@brightspace-ui/core/components/inputs/input-search.js';
+import { css, html, LitElement } from 'lit-element/lit-element.js';
+import { getLocalizeResources } from './localization.js';
+import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 
 class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 	static get properties() {
@@ -44,7 +44,7 @@ class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 
 	constructor() {
 		super();
-		this._searchText = "";
+		this._searchText = '';
 	}
 
 	_handleSearch(e) {
@@ -60,12 +60,12 @@ class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 
 	render() {
 		return html`
-			<div class="d2l-organization-admin-list-search-header-container">
+			<div class='d2l-organization-admin-list-search-header-container'>
 				<d2l-input-search
-					class="d2l-organization-admin-list-search-header-input"
-					label=${this.localize("search")}
+					class='d2l-organization-admin-list-search-header-input'
+					label=${this.localize('search')}
 					value=${this._searchText}
-					placeholder=${this.localize("searchPlaceholder")}
+					placeholder=${this.localize('searchPlaceholder')}
 					@d2l-input-search-searched=${this._handleSearch}
 				>
 				</d2l-input-search>
@@ -74,6 +74,6 @@ class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 	}
 }
 customElements.define(
-	"d2l-organization-admin-list-search-header",
+	'd2l-organization-admin-list-search-header',
 	AdminListSearchHeader
 );
