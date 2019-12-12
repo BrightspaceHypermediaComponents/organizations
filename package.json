@@ -24,6 +24,7 @@
     "@polymer/iron-test-helpers": "^3.0.0",
     "@ungap/url-search-params": "^0.1.2",
     "@webcomponents/webcomponentsjs": "^2.2.6",
+    "axe-core": "^3.4.0",
     "babel-eslint": "^10.0.1",
     "chai-dom": "^1.8.0",
     "del": "^3.0.0",
@@ -69,9 +70,9 @@
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
     "fastdom": "^1",
     "lie": "^3.3.0",
+    "lit-element": "^2.2.1",
     "siren-parser": "^8.0.0",
     "siren-sdk": "BrightspaceHypermediaComponents/siren-sdk#semver:^1",
-    "whatwg-fetch": "^3.0.0",
-    "lit-element": "^2.2.1"
+    "whatwg-fetch": "^3.0.0"
   }
 }
