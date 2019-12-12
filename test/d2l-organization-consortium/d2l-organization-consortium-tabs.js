@@ -278,6 +278,7 @@ describe('d2l-organization-consortium-tabs', function() {
 				if (firstPass) {
 					firstPass = false;
 					assert.isTrue(e.detail.hasOrgTabNotifications);
+					assert.equal(e.detail.notificationText, component.localize('newNotificationsAlert'));
 					afterNextRender(component, function() {
 						const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 						assert.equal(dots.length, 2);
@@ -309,6 +310,41 @@ describe('d2l-organization-consortium-tabs', function() {
 			component.selected = '1cb16d6a-8557-4850-8846-3fa9b6174494';
 
 			afterNextRender(component, function() {
+				done();
+			});
+		});
+		it('_announceNotifications function is called once if notifications are present', function(done) {
+			const component = fixture('org-consortium');
+			const spy = sinon.spy(component, '_announceNotifications');
+
+			component.href = '/consortium-root1.json';
+
+			afterNextRender(component, function() {
+				assert.isTrue(spy.calledOnce);
+				done();
+			});
+		});
+		it('_announceNotifications function is not called if the only notification is on the selected tab', function(done) {
+			const component = fixture('org-consortium');
+			const spy = sinon.spy(component, '_announceNotifications');
+
+			component.href = '/consortium-root1.json';
+			component.selected = '1cb16d6a-8557-4850-8846-3fa9b6174494';
+
+			afterNextRender(component, function() {
+				assert.isFalse(spy.called);
+				done();
+			});
+		});
+		it('_announceNotifications function is not called if the announcer has been muted', function(done) {
+			const component = fixture('org-consortium');
+			const spy = sinon.spy(component, '_announceNotifications');
+
+			component.muteAnnouncer = true;
+			component.href = '/consortium-root1.json';
+
+			afterNextRender(component, function() {
+				assert.isFalse(spy.called);
 				done();
 			});
 		});

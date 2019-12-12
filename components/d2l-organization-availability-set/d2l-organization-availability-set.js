@@ -3,6 +3,7 @@ import 'd2l-inputs/d2l-input-checkbox';
 import './d2l-current-organization-availability.js';
 import './d2l-organization-availability.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { getLocalizeResources } from './localization.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
@@ -46,6 +47,9 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 		if (D2L.Dialog && D2L.Dialog.OrgUnitSelector) {
 			this._dialog = new D2L.Dialog.OrgUnitSelector(this.handleOrgUnitSelect.bind(this));
 		}
+
+		// hack. The first time the aria-live element is added, it is not announced.
+		announce(' ');
 	}
 
 	set _entity(entity) {
@@ -76,32 +80,15 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 		}
 	}
 
-	render() {
-		return html`
-			${this._currentOrgUnitEntity ? html`
-				<d2l-current-organization-availability
-					.href="${this._currentOrgUnitEntity.href}"
-					.token="${this.token}">
-				</d2l-current-organization-availability>
-			` : html`
-				${this._currentOrgUnitName && html`
-					<d2l-input-checkbox ?disabled="${!this._canAddAvailability}">
-						${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
-					</d2l-input-checkbox>
-				`}
-			`}
-			${this._canAddAvailability && html`
-				<d2l-button id="add-org-units-button" @click=${this.handleAddOrgUnits}>
-					${this.localize('addOrgUnits')}
-				</d2l-button>
-			`}
-			${repeat(this._availabilityHrefs, href => href, href => html`
-				<d2l-organization-availability
-					.href="${href}"
-					.token="${this.token}">
-				</d2l-organization-availability>
-			`)}
-		`;
+	_addCurrentOrgUnit(e) {
+		const checkboxElem = e.target;
+		if (checkboxElem.checked) {
+			this.wrapSaveAction(super._entity.addCurrentOrgUnit()).then(() => {
+				announce(this.localize('availableToCurrentOrgUnit', { name: this._currentOrgUnitName }));
+			}).catch(() => {
+				checkboxElem.checked = false;
+			});
+		}
 	}
 
 	handleOrgUnitSelect(response) {
@@ -130,6 +117,36 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 			this._dialog.SetOpener(e.target);
 			this._dialog.Open();
 		}
+	}
+
+	render() {
+		return html`
+			${this._currentOrgUnitEntity ? html`
+				<d2l-current-organization-availability
+					.href="${this._currentOrgUnitEntity.href}"
+					.token="${this.token}">
+				</d2l-current-organization-availability>
+			` : html`
+				${this._currentOrgUnitName && html`
+					<d2l-input-checkbox
+						?disabled="${!this._canAddAvailability}"
+						@change="${this._addCurrentOrgUnit}">
+						${this.localize('currentOrgUnitItemDescription', { name: this._currentOrgUnitName })}
+					</d2l-input-checkbox>
+				`}
+			`}
+			${this._canAddAvailability ? html`
+				<d2l-button id="add-org-units-button" @click=${this.handleAddOrgUnits}>
+					${this.localize('addOrgUnits')}
+				</d2l-button>
+			` : ''}
+			${repeat(this._availabilityHrefs, href => href, href => html`
+				<d2l-organization-availability
+					.href="${href}"
+					.token="${this.token}">
+				</d2l-organization-availability>
+			`)}
+		`;
 	}
 }
 

@@ -12,7 +12,6 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		return {
 			_canDelete: { type: Boolean },
 			_name: { type: String },
-			_itemDescription: { type: String },
 			_isDeleting: { type: Boolean }
 		};
 	}
@@ -37,6 +36,10 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		this._setEntityType(OrganizationAvailabilityEntity);
 	}
 
+	get _entity() {
+		return super._entity;
+	}
+
 	set _entity(entity) {
 		if (this._entityHasChanged(entity)) {
 			this._onAvailabilityChange(entity);
@@ -55,28 +58,8 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		if (entity) {
 			entity.onOrganizationChange(organization => {
 				this._name = organization.name();
-				this._itemDescription = this._generateItemDescription(entity, this._name);
 			});
 		}
-	}
-
-	_generateItemDescription(entity, name) {
-		if (entity && name) {
-			const type = entity.getCurrentTypeName();
-
-			if (entity.isExplicitAvailability()) {
-				return this.localize('explicitItemDescription', { type, name });
-			}
-
-			if (entity.isInheritAvailability()) {
-				const descendantType = entity.getDescendantTypeName();
-				if (descendantType) {
-					return this.localize('inheritItemWithDescendantTypeDescription', { type, name, descendantType });
-				}
-				return this.localize('inheritItemDescription', { type, name });
-			}
-		}
-		return '';
 	}
 
 	_delete() {
@@ -100,13 +83,34 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeMixin(LitElement))
 		);
 	}
 
+	get _itemDescription() {
+		const entity = this._entity;
+		const name = this._name;
+		if (entity && name) {
+			const type = entity.getCurrentTypeName();
+			if (entity.isExplicitAvailability()) {
+				return this.localize('explicitItemDescription', { type, name });
+			}
+
+			if (entity.isInheritAvailability()) {
+				const descendantType = entity.getDescendantTypeName();
+				if (descendantType) {
+					return this.localize('inheritItemWithDescendantTypeDescription', { type, name, descendantType });
+				}
+				return this.localize('inheritItemDescription', { type, name });
+			}
+		}
+		return '';
+	}
+
 	render() {
+		const itemDescription = this._itemDescription;
 		return html`
-			${this._itemDescription}
-			${this._itemDescription && this._canDelete ? html`
+			${itemDescription}
+			${itemDescription && this._canDelete ? html`
 				<d2l-button-icon
 					?disabled="${this._isDeleting}"
-					text="${this.localize('removeAvailabilityFor', { itemDescription: this._itemDescription })}"
+					text="${this.localize('removeAvailabilityFor', { itemDescription })}"
 					icon="tier1:close-default"
 					@click="${this._delete}"></d2l-button-icon>
 			` : ''}

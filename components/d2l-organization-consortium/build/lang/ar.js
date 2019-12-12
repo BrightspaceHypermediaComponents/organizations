@@ -7,10 +7,12 @@ const LangArImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.ar = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
+			'errorFull': 'عذرًا! تعذّر علينا إحضار معلومات لـ {num} من علامات التبويب. حاول تحديث الصفحة',
+			'errorShort': 'عذرًا',
 			'loading': 'يتم الآن التحميل',
-			'newNotifications': '{name} - لديك تنبيهات جديدة'
+			'newNotifications': '{name} - لديك تنبيهات جديدة',
+			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
+			'otherAccounts': 'Other Accounts'
 		};
 	}
 };

@@ -15,6 +15,7 @@ import 'fastdom/fastdom.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/offscreen/offscreen.js';
+import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
 import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
@@ -45,6 +46,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type: Number,
 				reflectToAttribute: true,
 				value: 2
+			},
+			muteAnnouncer: {
+				type: Boolean,
+				value: false
 			},
 			_cache: {
 				type:Object
@@ -77,6 +82,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				}
 			},
 			_hasNotifications: {
+				type: Boolean,
+				value: false
+			},
+			_delayAnnouncer: {
 				type: Boolean,
 				value: false
 			},
@@ -184,6 +193,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				word-break: break-all;
 				vertical-align: middle;
 			}
+			.d2l-consortium-tab-content:focus {
+				outline: none;
+			}
 			[selected] .d2l-consortium-tab-content {
 				color: var(--d2l-color-ferrite);
 				cursor: default;
@@ -213,11 +225,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				right: auto;
 			}
 		</style>
-		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]">
+		<div class$="d2l-consortium-tab-box [[_tabBoxClasses(_shouldRender, _cache)]]" role="navigation" aria-label$="[[localize('otherAccounts')]]">
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<template is="dom-if" if="[[!item.loading]]">
-						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content">[[item.name]]</div></a>
+						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content" tabindex="-1">[[item.name]]</div></a>
 						<d2l-navigation-notification-icon hidden$="[[!_checkOrgNotification(item)]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
@@ -268,6 +280,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 	}
 	tryRequestScroll() {
+		/* The mobile menu calls this method and fastdom is giving us a needed animation frame.
+		 * When converting to Lit, be sure to re-test this functionality in the LMS.
+		 */
 		fastdom.measure(() => {
 			if (!this._requestedScrollTimeoutId && this.getBoundingClientRect().width > 0) {
 				this._requestedScrollTimeoutId = setTimeout(this._requestScroll, 1000);
@@ -312,6 +327,9 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 		const cacheKey = await this._getCacheKey();
 		this._cache = this._tryGetItemSessionStorage(cacheKey);
+		if (this._cache) {
+			this._delayAnnouncer = true;
+		}
 	}
 
 	_tabBoxClasses(_shouldRender, _hasCache) {
@@ -480,13 +498,27 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				'd2l-organization-consortium-tabs-notification-update',
 				{
 					detail: {
-						hasOrgTabNotifications: nowHasNotifications
+						hasOrgTabNotifications: nowHasNotifications,
+						notificationText: this.localize('newNotificationsAlert')
 					},
 					bubbles: true,
 					composed: true
 				}
 			)
 		);
+		if (this.muteAnnouncer) {
+			return;
+		}
+
+		if (this._delayAnnouncer) {
+			this._delayAnnouncer = false;
+		} else if (nowHasNotifications) {
+			this._announceNotifications();
+		}
+
+	}
+	_announceNotifications() {
+		announce(this.localize('newNotificationsAlert'));
 	}
 }
 
