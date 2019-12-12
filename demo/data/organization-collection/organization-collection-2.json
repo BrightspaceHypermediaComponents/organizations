@@ -1,0 +1,748 @@
+{
+    "class": [
+        "paged",
+        "organization",
+        "collection"
+    ],
+    "properties": {
+        "pagingInfo": {
+            "total": 22,
+            "page": 2,
+            "pageSize": 20
+        }
+    },
+    "entities": [
+        {
+            "class": [
+                "named-entity",
+                "describable-entity",
+                "draft-published-entity",
+                "published",
+                "active",
+                "learning-path"
+            ],
+            "rel": [
+                "https://api.brightspace.com/rels/organization"
+            ],
+            "properties": {
+                "name": "Learning Path 1",
+                "code": null,
+                "startDate": null,
+                "endDate": null,
+                "isActive": true,
+                "description": ""
+            },
+            "entities": [
+                {
+                    "class": [
+                        "richtext",
+                        "description"
+                    ],
+                    "rel": [
+                        "item"
+                    ],
+                    "properties": {
+                        "text": "",
+                        "html": null
+                    }
+                },
+                {
+                    "class": [
+                        "color"
+                    ],
+                    "rel": [
+                        "https://api.brightspace.com/rels/color"
+                    ],
+                    "properties": {
+                        "hexString": "#008380",
+                        "description": ""
+                    }
+                },
+                {
+                    "class": [
+                        "course-image"
+                    ],
+                    "rel": [
+                        "https://api.brightspace.com/rels/organization-image"
+                    ],
+                    "href": "../data/image.json"
+                },
+                {
+                    "class": [
+                        "relative-uri"
+                    ],
+                    "rel": [
+                        "item",
+                        "https://api.brightspace.com/rels/organization-homepage"
+                    ],
+                    "properties": {
+                        "path": "/d2l/le/learningpaths/123059/View"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "update-name",
+                    "method": "PATCH",
+                    "fields": [
+                        {
+                            "class": [
+                                "required"
+                            ],
+                            "type": "text",
+                            "name": "name",
+                            "value": "Learning Path 1"
+                        }
+                    ]
+                },
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "update-description",
+                    "method": "PATCH",
+                    "fields": [
+                        {
+                            "class": [
+                                "required"
+                            ],
+                            "type": "text",
+                            "name": "description",
+                            "value": ""
+                        }
+                    ]
+                },
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "update-draft",
+                    "method": "PATCH",
+                    "fields": [
+                        {
+                            "type": "checkbox",
+                            "name": "draft",
+                            "value": false
+                        }
+                    ]
+                },
+                {
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/lp/1.9/courses/123059/image",
+                    "name": "set-catalog-image",
+                    "method": "POST",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "name": "imagePath",
+                            "value": ""
+                        }
+                    ]
+                },
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "add-homepage-banner",
+                    "method": "PUT",
+                    "fields": [
+                        {
+                            "type": "hidden",
+                            "name": "showCourseBanner",
+                            "value": true
+                        }
+                    ]
+                }
+            ],
+            "links": [
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/my-organization-awards"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/awards/organizations/123059/users/169"
+                },
+                {
+                    "rel": [
+                        "https://activities.api.brightspace.com/rels/organization-activities"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/activities/activityusages/123059"
+                },
+                {
+                    "rel": [
+                        "https://activities.api.brightspace.com/rels/my-organization-activities"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/activities/activityusages/123059/users/169?start=2019-12-11T22%3a07%3a17.698Z&end=2019-12-18T22%3a07%3a17.698Z"
+                },
+                {
+                    "rel": [
+                        "https://checklists.api.brightspace.com/rels/checklists"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/checklists/organizations/123059"
+                },
+                {
+                    "rel": [
+                        "https://activities.api.brightspace.com/rels/activity-usage"
+                    ],
+                    "href": "../data/organization-collection/organization-activity-usage.json"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/sequence"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/sequences/123059?deepEmbedEntities=1&filterOnDatesAndDepth=0"
+                },
+                {
+                    "rel": [
+                        "https://files.api.brightspace.com/rels/files"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/files/123059"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/discussions"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/discussions/123059"
+                },
+                {
+                    "rel": [
+                        "https://assignments.api.brightspace.com/rels/assignments"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/assignments/123059"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/my-organization-grades"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/grades/organizations/123059/users/169"
+                },
+                {
+                    "rel": [
+                        "https://announcements.api.brightspace.com/rels/organization-announcements"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/announcements/organizations/123059"
+                },
+                {
+                    "rel": [
+                        "https://surveys.api.brightspace.com/rels/surveys"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/surveys/organizations/123059"
+                },
+                {
+                    "rel": [
+                        "https://notifications.api.brightspace.com/rels/organization-notifications"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/notifications/my-notifications/organizations/123059"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/enrollments"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/enrollments/organizations/123059"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/course-offering-info-page"
+                    ],
+                    "type": "text/html",
+                    "href": "http://organizations.api.proddev.d2l/d2l/lp/manageCourses/course_offering_info_viewedit.d2l?ou=123059"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/organization-homepage"
+                    ],
+                    "type": "text/html",
+                    "href": "http://organizations.api.proddev.d2l/d2l/le/learningpaths/123059/View"
+                },
+                {
+                    "rel": [
+                        "self"
+                    ],
+                    "href": "../data/learningPath/organization-learning-path.json"
+                },
+                {
+                    "rel": [
+                        "https://enrollments.api.brightspace.com/rels/primary-facilitators"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/enrollments/organizations/123059?filter=eyJkN2E5ZTM5Ny1lMDFiLTRjZjctODIxZS1mYWU3M2Q2MjgzMDUiOlsicHJpbWFyeUluc3RydWN0b3IiXX0"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/notification-alerts"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/alerts/notification-alerts"
+                },
+                {
+                    "rel": [
+                        "https://notifications.api.brightspace.com/rels/my-alerts"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/notifications/alerts/123059"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/rubrics"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/rubrics/organizations/123059"
+                },
+                {
+                    "class": [
+                        "active",
+                        "theme"
+                    ],
+                    "rel": [
+                        "https://themes.api.brightspace.com/rels/theme"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/themes/123059/3"
+                }
+            ]
+        },
+        {
+            "class": [
+                "named-entity",
+                "describable-entity",
+                "draft-published-entity",
+                "published",
+                "active",
+                "learning-path"
+            ],
+            "rel": [
+                "https://api.brightspace.com/rels/organization"
+            ],
+            "properties": {
+                "name": "Learning Path 1",
+                "code": null,
+                "startDate": null,
+                "endDate": null,
+                "isActive": true,
+                "description": ""
+            },
+            "entities": [
+                {
+                    "class": [
+                        "richtext",
+                        "description"
+                    ],
+                    "rel": [
+                        "item"
+                    ],
+                    "properties": {
+                        "text": "",
+                        "html": null
+                    }
+                },
+                {
+                    "class": [
+                        "color"
+                    ],
+                    "rel": [
+                        "https://api.brightspace.com/rels/color"
+                    ],
+                    "properties": {
+                        "hexString": "#00A8DD",
+                        "description": ""
+                    }
+                },
+                {
+                    "class": [
+                        "course-image"
+                    ],
+                    "rel": [
+                        "https://api.brightspace.com/rels/organization-image"
+                    ],
+                    "href": "../data/image.json"
+                },
+                {
+                    "class": [
+                        "relative-uri"
+                    ],
+                    "rel": [
+                        "item",
+                        "https://api.brightspace.com/rels/organization-homepage"
+                    ],
+                    "properties": {
+                        "path": "/d2l/le/learningpaths/123078/View"
+                    }
+                }
+            ],
+            "actions": [
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "update-name",
+                    "method": "PATCH",
+                    "fields": [
+                        {
+                            "class": [
+                                "required"
+                            ],
+                            "type": "text",
+                            "name": "name",
+                            "value": "Learning Path 1"
+                        }
+                    ]
+                },
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "update-description",
+                    "method": "PATCH",
+                    "fields": [
+                        {
+                            "class": [
+                                "required"
+                            ],
+                            "type": "text",
+                            "name": "description",
+                            "value": ""
+                        }
+                    ]
+                },
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "update-draft",
+                    "method": "PATCH",
+                    "fields": [
+                        {
+                            "type": "checkbox",
+                            "name": "draft",
+                            "value": false
+                        }
+                    ]
+                },
+                {
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/lp/1.9/courses/123078/image",
+                    "name": "set-catalog-image",
+                    "method": "POST",
+                    "fields": [
+                        {
+                            "type": "text",
+                            "name": "imagePath",
+                            "value": ""
+                        }
+                    ]
+                },
+                {
+                    "href": "../data/learningPath/organization-learning-path.json",
+                    "name": "add-homepage-banner",
+                    "method": "PUT",
+                    "fields": [
+                        {
+                            "type": "hidden",
+                            "name": "showCourseBanner",
+                            "value": true
+                        }
+                    ]
+                }
+            ],
+            "links": [
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/my-organization-awards"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/awards/organizations/123078/users/169"
+                },
+                {
+                    "rel": [
+                        "https://activities.api.brightspace.com/rels/organization-activities"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/activities/activityusages/123078"
+                },
+                {
+                    "rel": [
+                        "https://activities.api.brightspace.com/rels/my-organization-activities"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/activities/activityusages/123078/users/169?start=2019-12-11T22%3a07%3a18.342Z&end=2019-12-18T22%3a07%3a18.342Z"
+                },
+                {
+                    "rel": [
+                        "https://checklists.api.brightspace.com/rels/checklists"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/checklists/organizations/123078"
+                },
+                {
+                    "rel": [
+                        "https://activities.api.brightspace.com/rels/activity-usage"
+                    ],
+                    "href": "../data/organization-collection/organization-activity-usage.json"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/sequence"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/sequences/123078?deepEmbedEntities=1&filterOnDatesAndDepth=0"
+                },
+                {
+                    "rel": [
+                        "https://files.api.brightspace.com/rels/files"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/files/123078"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/discussions"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/discussions/123078"
+                },
+                {
+                    "rel": [
+                        "https://assignments.api.brightspace.com/rels/assignments"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/assignments/123078"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/my-organization-grades"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/grades/organizations/123078/users/169"
+                },
+                {
+                    "rel": [
+                        "https://announcements.api.brightspace.com/rels/organization-announcements"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/announcements/organizations/123078"
+                },
+                {
+                    "rel": [
+                        "https://surveys.api.brightspace.com/rels/surveys"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/surveys/organizations/123078"
+                },
+                {
+                    "rel": [
+                        "https://notifications.api.brightspace.com/rels/organization-notifications"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/notifications/my-notifications/organizations/123078"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/enrollments"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/enrollments/organizations/123078"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/course-offering-info-page"
+                    ],
+                    "type": "text/html",
+                    "href": "http://organizations.api.proddev.d2l/d2l/lp/manageCourses/course_offering_info_viewedit.d2l?ou=123078"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/organization-homepage"
+                    ],
+                    "type": "text/html",
+                    "href": "http://organizations.api.proddev.d2l/d2l/le/learningpaths/123078/View"
+                },
+                {
+                    "rel": [
+                        "self"
+                    ],
+                    "href": "../data/learningPath/organization-learning-path.json"
+                },
+                {
+                    "rel": [
+                        "https://enrollments.api.brightspace.com/rels/primary-facilitators"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/enrollments/organizations/123078?filter=eyJkN2E5ZTM5Ny1lMDFiLTRjZjctODIxZS1mYWU3M2Q2MjgzMDUiOlsicHJpbWFyeUluc3RydWN0b3IiXX0"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/notification-alerts"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/alerts/notification-alerts"
+                },
+                {
+                    "rel": [
+                        "https://notifications.api.brightspace.com/rels/my-alerts"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/notifications/alerts/123078"
+                },
+                {
+                    "rel": [
+                        "https://api.brightspace.com/rels/rubrics"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/rubrics/organizations/123078"
+                },
+                {
+                    "class": [
+                        "active",
+                        "theme"
+                    ],
+                    "rel": [
+                        "https://themes.api.brightspace.com/rels/theme"
+                    ],
+                    "href": "http://organizations.api.proddev.d2l/d2l/api/hm/themes/123078/3"
+                }
+            ]
+        }
+    ],
+    "links": [
+        {
+            "rel": [
+                "self"
+            ],
+            "href": "../data/organization-collection/organization-collection-2.json"
+        },
+        {
+            "rel": [
+                "prev"
+            ],
+            "href": "../data/organization-collection/organization-collection-1.json"
+        }
+    ],
+    "actions": [
+        {
+            "href": "http://organizations.api.proddev.d2l/d2l/api/hm/organizations",
+            "name": "search-course-collection",
+            "method": "GET",
+            "fields": [
+                {
+                    "type": "search",
+                    "name": "search",
+                    "value": ""
+                },
+                {
+                    "type": "number",
+                    "name": "page",
+                    "value": "1"
+                },
+                {
+                    "type": "number",
+                    "name": "pageSize",
+                    "value": "20"
+                },
+                {
+                    "type": "number",
+                    "name": "embedDepth",
+                    "value": "1"
+                },
+                {
+                    "type": "hidden",
+                    "name": "organizationTypeIds",
+                    "value": "7"
+                }
+            ]
+        },
+        {
+            "href": "http://organizations.api.proddev.d2l/d2l/api/hm/organizations",
+            "name": "add-department-filter",
+            "method": "GET",
+            "fields": [
+                {
+                    "type": "search",
+                    "name": "search",
+                    "value": ""
+                },
+                {
+                    "type": "number",
+                    "name": "page",
+                    "value": "1"
+                },
+                {
+                    "type": "number",
+                    "name": "pageSize",
+                    "value": "20"
+                },
+                {
+                    "type": "number",
+                    "name": "embedDepth",
+                    "value": "1"
+                },
+                {
+                    "type": "hidden",
+                    "name": "organizationTypeIds",
+                    "value": "7,203"
+                }
+            ]
+        },
+        {
+            "href": "http://organizations.api.proddev.d2l/d2l/api/hm/organizations",
+            "name": "add-semester-filter",
+            "method": "GET",
+            "fields": [
+                {
+                    "type": "search",
+                    "name": "search",
+                    "value": ""
+                },
+                {
+                    "type": "number",
+                    "name": "page",
+                    "value": "1"
+                },
+                {
+                    "type": "number",
+                    "name": "pageSize",
+                    "value": "20"
+                },
+                {
+                    "type": "number",
+                    "name": "embedDepth",
+                    "value": "1"
+                },
+                {
+                    "type": "hidden",
+                    "name": "organizationTypeIds",
+                    "value": "7,5"
+                }
+            ]
+        },
+        {
+            "href": "http://organizations.api.proddev.d2l/d2l/api/hm/organizations",
+            "name": "add-active-filter",
+            "method": "GET",
+            "fields": [
+                {
+                    "type": "search",
+                    "name": "search",
+                    "value": ""
+                },
+                {
+                    "type": "number",
+                    "name": "page",
+                    "value": "1"
+                },
+                {
+                    "type": "number",
+                    "name": "pageSize",
+                    "value": "20"
+                },
+                {
+                    "type": "number",
+                    "name": "embedDepth",
+                    "value": "1"
+                },
+                {
+                    "type": "hidden",
+                    "name": "organizationTypeIds",
+                    "value": "7"
+                },
+                {
+                    "type": "checkbox",
+                    "name": "active",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "href": "http://organizations.api.proddev.d2l/d2l/api/hm/organizations",
+            "name": "create-org-unit",
+            "method": "POST",
+            "fields": [
+                {
+                    "type": "number",
+                    "name": "orgUnitTypeId"
+                },
+                {
+                    "type": "text",
+                    "name": "name"
+                },
+                {
+                    "type": "text",
+                    "name": "code"
+                },
+                {
+                    "type": "number",
+                    "name": "parentId",
+                    "value": 6606
+                },
+                {
+                    "type": "checkbox",
+                    "name": "draft",
+                    "value": true
+                }
+            ]
+        }
+    ]
+}
