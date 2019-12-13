@@ -3,6 +3,7 @@ import './d2l-organization-admin-list-pager.js';
 import './d2l-organization-admin-list-search-header.js';
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/colors/colors.js';
+import '@brightspace-ui/core/components/list/list-item-content.js';
 import '@brightspace-ui/core/components/list/list-item.js';
 import '@brightspace-ui/core/components/list/list.js';
 import {
