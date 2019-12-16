@@ -9,7 +9,7 @@ const LangZhImpl = (superClass) => class extends superClass {
 		this.zh = {
 			'unapprovedDiscussions': '{number} 个未批准的讨论',
 			'unattemptedQuizzes': '{number} 个未尝试的测验',
-			'ungradedQuizzes': '{number} 个未分级的测验',
+			'ungradedQuizzes': '{number} 个不合格的测验',
 			'unreadAssignmentFeedback': '{number} 个未读作业反馈',
 			'unreadAssignmentSubmissions': '{number} 个未读作业提交文件',
 			'unreadDiscussionFeedback': '{number} 个未读讨论反馈',

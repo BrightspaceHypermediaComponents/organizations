@@ -7,9 +7,9 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zhtw = {
-			'ended': '已結束於 {date} 的 {time}',
-			'endsAt': '結束於 {date} 的 {time}',
-			'startsAt': '開始於 {date} 的 {time}'
+			'ended': '已於 {date} 的 {time} 結束',
+			'endsAt': '於 {date} 的 {time} 結束',
+			'startsAt': '於 {date} 的 {time} 開始'
 		};
 	}
 };

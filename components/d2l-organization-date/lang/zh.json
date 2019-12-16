@@ -1,14 +1,14 @@
 {
-    "ended" : {
-        "context" : "End date and time that is in the past",
-        "translation" : "已于 {date} {time} 结束"
-    },
-    "endsAt" : {
-        "context" : "End date and time that is in the future.",
-        "translation" : "{date} {time} 结束"
-    },
-    "startsAt" : {
-        "context" : "Start date and time that is in the future",
-        "translation" : "{date} {time} 开始"
-    }
+  "ended": {
+    "translation": "已于 {date} {time} 结束",
+    "context": "End date and time that is in the past"
+  },
+  "endsAt": {
+    "translation": "{date} {time} 结束",
+    "context": "End date and time that is in the future."
+  },
+  "startsAt": {
+    "translation": "{date} {time} 开始",
+    "context": "Start date and time that is in the future"
+  }
 }

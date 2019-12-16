@@ -1,26 +1,26 @@
 {
-    "errorFull" : {
-        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Lo sentimos. No pudimos capturar la información de {num} de sus pestañas. Intente actualizar la página."
-    },
-    "errorShort" : {
-        "context" : "Short error message if something went wrong",
-        "translation" : "Lo sentimos"
-    },
-    "loading" : {
-        "context" : "Placeholder loading text until content is ready",
-        "translation" : "Cargando"
-    },
-    "newNotifications" : {
-        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
-        "translation" : "{name} - Tiene nuevas alertas"
-    },
-    "newNotificationsAlert": {
-        "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
-        "translation": "You have new alerts in some of your other accounts"
-    },
-    "otherAccounts": {
-        "context": "Accessible label summarizing the organization tabs section",
-        "translation": "Other Accounts"
-    }
+  "errorFull": {
+    "translation": "Lo sentimos. No pudimos capturar la información de {num} de sus pestañas. Intente actualizar la página.",
+    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
+  },
+  "errorShort": {
+    "translation": "Lo sentimos",
+    "context": "Short error message if something went wrong"
+  },
+  "loading": {
+    "translation": "Cargando",
+    "context": "Placeholder loading text until content is ready"
+  },
+  "newNotifications": {
+    "translation": "{name} - Tiene nuevas alertas",
+    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
+  },
+  "newNotificationsAlert": {
+    "translation": "You have new alerts in some of your other accounts",
+    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
+  },
+  "otherAccounts": {
+    "translation": "Other Accounts",
+    "context": "Accessible label summarizing the organization tabs section"
+  }
 }

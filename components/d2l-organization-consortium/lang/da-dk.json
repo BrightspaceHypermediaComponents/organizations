@@ -1,26 +1,26 @@
 {
-  "loading": {
-    "translation": "Loading",
-    "context": "Placeholder loading text until content is ready"
+  "errorFull": {
+    "translation": "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page",
+    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
   },
   "errorShort": {
     "translation": "Oops",
     "context": "Short error message if something went wrong"
   },
-  "errorFull": {
-    "translation": "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page",
-    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
+  "loading": {
+    "translation": "Loading",
+    "context": "Placeholder loading text until content is ready"
   },
   "newNotifications": {
     "translation": "{name} - Du har nye notifikationer",
     "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
   },
   "newNotificationsAlert": {
-      "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
-      "translation": "You have new alerts in some of your other accounts"
+    "translation": "You have new alerts in some of your other accounts",
+    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
   },
   "otherAccounts": {
-      "context": "Accessible label summarizing the organization tabs section",
-      "translation": "Other Accounts"
+    "translation": "Other Accounts",
+    "context": "Accessible label summarizing the organization tabs section"
   }
 }

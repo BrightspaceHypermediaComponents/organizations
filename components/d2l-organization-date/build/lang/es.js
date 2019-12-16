@@ -7,9 +7,9 @@ const LangEsImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.es = {
-			'ended': 'Finalizado {date} a la(s) {time}',
-			'endsAt': 'Finaliza {date} a la(s) {time}',
-			'startsAt': 'Comienza {date} a la(s) {time}'
+			'ended': 'Finalizado el {date} a la(s) {time}',
+			'endsAt': 'Finaliza el {date} a la(s) {time}',
+			'startsAt': 'Comienza el {date} a la(s) {time}'
 		};
 	}
 };

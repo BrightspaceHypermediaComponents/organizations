@@ -7,7 +7,7 @@ const LangKoImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.ko = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': '{title}의 전체 모듈에 의해 완료된 모듈'
 		};
 	}
 };

@@ -1,14 +1,14 @@
 {
-    "ended" : {
-        "context" : "End date and time that is in the past",
-        "translation" : "已於 {date} 的 {time} 結束"
-    },
-    "endsAt" : {
-        "context" : "End date and time that is in the future.",
-        "translation" : "於 {date} 的 {time} 結束"
-    },
-    "startsAt" : {
-        "context" : "Start date and time that is in the future",
-        "translation" : "於 {date} 的 {time} 開始"
-    }
+  "ended": {
+    "translation": "已於 {date} 的 {time} 結束",
+    "context": "End date and time that is in the past"
+  },
+  "endsAt": {
+    "translation": "於 {date} 的 {time} 結束",
+    "context": "End date and time that is in the future."
+  },
+  "startsAt": {
+    "translation": "於 {date} 的 {time} 開始",
+    "context": "Start date and time that is in the future"
+  }
 }

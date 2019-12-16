@@ -1,26 +1,26 @@
 {
-    "errorFull" : {
-        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "申し訳ありません。{num} 個のタブの情報をフェッチできませんでした。ページを更新してみてください"
-    },
-    "errorShort" : {
-        "context" : "Short error message if something went wrong",
-        "translation" : "申し訳ありません"
-    },
-    "loading" : {
-        "context" : "Placeholder loading text until content is ready",
-        "translation" : "読み込み中"
-    },
-    "newNotifications" : {
-        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
-        "translation" : "{name} さん - 新しいお知らせがあります"
-    },
-    "newNotificationsAlert": {
-        "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
-        "translation": "You have new alerts in some of your other accounts"
-    },
-    "otherAccounts": {
-        "context": "Accessible label summarizing the organization tabs section",
-        "translation": "Other Accounts"
-    }
+  "errorFull": {
+    "translation": "申し訳ありません。{num} 個のタブの情報をフェッチできませんでした。ページを更新してみてください",
+    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
+  },
+  "errorShort": {
+    "translation": "申し訳ありません",
+    "context": "Short error message if something went wrong"
+  },
+  "loading": {
+    "translation": "読み込み中",
+    "context": "Placeholder loading text until content is ready"
+  },
+  "newNotifications": {
+    "translation": "{name} さん - 新しいお知らせがあります",
+    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
+  },
+  "newNotificationsAlert": {
+    "translation": "You have new alerts in some of your other accounts",
+    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
+  },
+  "otherAccounts": {
+    "translation": "Other Accounts",
+    "context": "Accessible label summarizing the organization tabs section"
+  }
 }

@@ -11,7 +11,7 @@ const LangEsImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} cuestionarios sin responder',
 			'ungradedQuizzes': '{number} cuestionarios no calificados',
 			'unreadAssignmentFeedback': '{number} comentarios de asignación sin leer',
-			'unreadAssignmentSubmissions': '{number} archivos de material enviado de asignaciones no leídas',
+			'unreadAssignmentSubmissions': '{number} archivos de envíos de asignación sin leer',
 			'unreadDiscussionFeedback': '{number} comentarios de debate sin leer',
 			'unreadDiscussions': '{number} debates sin leer',
 			'unreadQuizzesFeedback': '{number} comentarios de cuestionario sin leer',

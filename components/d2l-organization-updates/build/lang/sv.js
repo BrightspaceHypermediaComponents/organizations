@@ -11,7 +11,7 @@ const LangSvImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} ej gjorda förhör',
 			'ungradedQuizzes': '{number} ej betygsatta förhör',
 			'unreadAssignmentFeedback': '{number} oläst uppgift, feedback',
-			'unreadAssignmentSubmissions': '{number} olästa uppgiftsinlämningsfiler',
+			'unreadAssignmentSubmissions': '{number} oläst uppgift, inlämningsfiler',
 			'unreadDiscussionFeedback': '{number} oläst diskussion, feedback',
 			'unreadDiscussions': '{number} olästa diskussioner',
 			'unreadQuizzesFeedback': '{number} olästa förhör, feedback',

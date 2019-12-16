@@ -7,7 +7,7 @@ const LangZhImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zh = {
-			'ended': '{date} {time} 已结束',
+			'ended': '已于 {date} {time} 结束',
 			'endsAt': '{date} {time} 结束',
 			'startsAt': '{date} {time} 开始'
 		};

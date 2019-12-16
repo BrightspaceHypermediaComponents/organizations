@@ -1,38 +1,38 @@
 {
-    "unapprovedDiscussions" : {
-        "context" : "The number of discussion post that need to be reviewed",
-        "translation" : "未承認のディスカッション数 {number}"
-    },
-    "unattemptedQuizzes" : {
-        "context" : "The amount of quizes that a user has not done.",
-        "translation" : "未試行のクイズ数 {number}"
-    },
-    "ungradedQuizzes" : {
-        "context" : "The number of quizzes that need to be marked",
-        "translation" : "未評価のクイズ数 {number}"
-    },
-    "unreadAssignmentFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about assignments",
-        "translation" : "未読の課題フィードバック数 {number}"
-    },
-    "unreadAssignmentSubmissions" : {
-        "context" : "The number of assignment files that still need to be read.",
-        "translation" : "未読の課題送信ファイル数 {number}"
-    },
-    "unreadDiscussionFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about discussion",
-        "translation" : "未読のディスカッションフィードバック数 {number}"
-    },
-    "unreadDiscussions" : {
-        "context" : "The number of new discussion posts",
-        "translation" : "未読のディスカッション数 {number}"
-    },
-    "unreadQuizzesFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about quizzes",
-        "translation" : "未読のクイズフィードバック数 {number}"
-    },
-    "updates" : {
-        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
-        "translation" : "件更新"
-    }
+  "unapprovedDiscussions": {
+    "translation": "未承認のディスカッション数 {number}",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "未試行のクイズ数 {number}",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "未評価のクイズ数 {number}",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "未読の課題フィードバック数 {number}",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "未読の課題送信ファイル数 {number}",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "未読のディスカッションフィードバック数 {number}",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "未読のディスカッション数 {number}",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "未読のクイズフィードバック数 {number}",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "件更新",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }

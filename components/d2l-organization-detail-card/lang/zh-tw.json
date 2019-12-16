@@ -1,6 +1,6 @@
 {
-    "CompletedModulesProgress" : {
-        "context" : "Describes the progress of a course with title, {title}",
-        "translation" : "依據 {title} 中的單元總計顯示已完成的單元"
-    }
+  "CompletedModulesProgress": {
+    "translation": "依據 {title} 中的單元總計顯示已完成的單元",
+    "context": "Describes the progress of a course with title, {title}"
+  }
 }
