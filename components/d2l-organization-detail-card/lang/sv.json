@@ -1,6 +1,6 @@
 {
-    "CompletedModulesProgress" : {
-        "context" : "Describes the progress of a course with title, {title}",
-        "translation" : "Slutförda moduler av moduler totalt i {title}"
-    }
+  "CompletedModulesProgress": {
+    "translation": "Slutförda moduler av moduler totalt i {title}",
+    "context": "Describes the progress of a course with title, {title}"
+  }
 }

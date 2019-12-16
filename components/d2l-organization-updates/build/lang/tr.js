@@ -11,7 +11,7 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} Denenmemiş Sınav',
 			'ungradedQuizzes': '{number} Notlandırılmamış Sınav',
 			'unreadAssignmentFeedback': '{number} Okunmamış Ödev Geri Bildirimi',
-			'unreadAssignmentSubmissions': '{number} Okunmamış Gönderilen Ödev Dosyaları',
+			'unreadAssignmentSubmissions': '{number} Okunmamış Ödev Gönderimi Dosyaları',
 			'unreadDiscussionFeedback': '{number} Okunmamış Tartışma Geri Bildirimi',
 			'unreadDiscussions': '{number} Okunmamış Tartışma',
 			'unreadQuizzesFeedback': '{number} Okunmamış Sınav Geri Bildirimi',

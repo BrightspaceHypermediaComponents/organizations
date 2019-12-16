@@ -1,6 +1,6 @@
 {
-    "CompletedModulesProgress" : {
-        "context" : "Describes the progress of a course with title, {title}",
-        "translation" : "Voltooide modules door totaal aantal modules in {title}"
-    }
+  "CompletedModulesProgress": {
+    "translation": "Voltooide modules door totaal aantal modules in {title}",
+    "context": "Describes the progress of a course with title, {title}"
+  }
 }

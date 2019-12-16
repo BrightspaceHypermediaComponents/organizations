@@ -7,7 +7,7 @@ const LangNlImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.nl = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'Voltooide modules door totaal aantal modules in {title}'
 		};
 	}
 };

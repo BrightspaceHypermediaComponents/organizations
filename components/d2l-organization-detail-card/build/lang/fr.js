@@ -7,7 +7,7 @@ const LangFrImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.fr = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'Modules achevés par rapport au Total de modules dans {title}'
 		};
 	}
 };

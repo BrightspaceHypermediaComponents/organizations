@@ -16,6 +16,9 @@ const buildSeries = ['clean'];
 const cleanSeries = [];
 
 sergeDirectories.forEach((sergeComponent) => {
+	if (sergeComponent.parser_plugin && sergeComponent.parser_plugin.plugin === 'parse_js') {
+		return;
+	}
 	const localeResources = requireDir(sergeComponent.source_dir);
 	const config = {
 		dest: sergeComponent.source_dir + buildDirectory,

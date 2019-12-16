@@ -7,7 +7,7 @@ const LangSvImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.sv = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'Slutförda moduler av moduler totalt i {title}'
 		};
 	}
 };

@@ -1,38 +1,38 @@
 {
-    "unapprovedDiscussions" : {
-        "context" : "The number of discussion post that need to be reviewed",
-        "translation" : "{number} من المناقشات غير الموافَق عليها"
-    },
-    "unattemptedQuizzes" : {
-        "context" : "The amount of quizes that a user has not done.",
-        "translation" : "{number} من الاختبارات التي لم تتم أي محاولة لإجرائها"
-    },
-    "ungradedQuizzes" : {
-        "context" : "The number of quizzes that need to be marked",
-        "translation" : "{number} من الاختبارات التي لم توضَع علامة عليها"
-    },
-    "unreadAssignmentFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about assignments",
-        "translation" : "{number} من ملاحظات الفرض غير المقروءة"
-    },
-    "unreadAssignmentSubmissions" : {
-        "context" : "The number of assignment files that still need to be read.",
-        "translation" : "{number} من ملفات إرسال الفروض غير المقروءة"
-    },
-    "unreadDiscussionFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about discussion",
-        "translation" : "{number} من ملاحظات المناقشة غير المقروءة"
-    },
-    "unreadDiscussions" : {
-        "context" : "The number of new discussion posts",
-        "translation" : "{number} من المناقشات غير المقروءة"
-    },
-    "unreadQuizzesFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about quizzes",
-        "translation" : "{number} من ملاحظات الاختبارات غير المقروءة"
-    },
-    "updates" : {
-        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
-        "translation" : "من التحديثات"
-    }
+  "unapprovedDiscussions": {
+    "translation": "{number} من المناقشات غير الموافَق عليها",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{number} من الاختبارات التي لم تتم أي محاولة لإجرائها",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{number} من الاختبارات التي لم توضَع علامة عليها",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{number} من ملاحظات الفرض غير المقروءة",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{number} من ملفات إرسال الفروض غير المقروءة",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{number} من ملاحظات المناقشة غير المقروءة",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{number} من المناقشات غير المقروءة",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{number} من ملاحظات الاختبارات غير المقروءة",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "من التحديثات",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }

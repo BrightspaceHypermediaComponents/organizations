@@ -1,26 +1,26 @@
 {
-    "errorFull" : {
-        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Üzgünüz! Sekmelerinizden {num} için bilgi alınamadı. Sayfayı yenilemeyi deneyin"
-    },
-    "errorShort" : {
-        "context" : "Short error message if something went wrong",
-        "translation" : "Üzgünüz"
-    },
-    "loading" : {
-        "context" : "Placeholder loading text until content is ready",
-        "translation" : "Yükleniyor"
-    },
-    "newNotifications" : {
-        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
-        "translation" : "{name} - Yeni uyarılarınız var"
-    },
-    "newNotificationsAlert": {
-        "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
-        "translation": "You have new alerts in some of your other accounts"
-    },
-    "otherAccounts": {
-        "context": "Accessible label summarizing the organization tabs section",
-        "translation": "Other Accounts"
-    }
+  "errorFull": {
+    "translation": "Üzgünüz! Sekmelerinizden {num} için bilgi alınamadı. Sayfayı yenilemeyi deneyin",
+    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
+  },
+  "errorShort": {
+    "translation": "Üzgünüz",
+    "context": "Short error message if something went wrong"
+  },
+  "loading": {
+    "translation": "Yükleniyor",
+    "context": "Placeholder loading text until content is ready"
+  },
+  "newNotifications": {
+    "translation": "{name} - Yeni uyarılarınız var",
+    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
+  },
+  "newNotificationsAlert": {
+    "translation": "You have new alerts in some of your other accounts",
+    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
+  },
+  "otherAccounts": {
+    "translation": "Other Accounts",
+    "context": "Accessible label summarizing the organization tabs section"
+  }
 }

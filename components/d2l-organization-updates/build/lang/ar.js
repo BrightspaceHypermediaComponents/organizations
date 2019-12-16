@@ -15,7 +15,7 @@ const LangArImpl = (superClass) => class extends superClass {
 			'unreadDiscussionFeedback': '{number} من ملاحظات المناقشة غير المقروءة',
 			'unreadDiscussions': '{number} من المناقشات غير المقروءة',
 			'unreadQuizzesFeedback': '{number} من ملاحظات الاختبارات غير المقروءة',
-			'updates': 'التحديثات'
+			'updates': 'من التحديثات'
 		};
 	}
 };

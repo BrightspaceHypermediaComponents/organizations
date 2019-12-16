@@ -7,7 +7,7 @@ const LangZhImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zh = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': '完成 {title} 中的总模块中的模块'
 		};
 	}
 };

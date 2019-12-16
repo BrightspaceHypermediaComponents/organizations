@@ -3,6 +3,9 @@ const sergeDirectories = require('../organizations.serge.json');
 const englishFile = 'en.json';
 
 sergeDirectories.forEach((sergeComponent) => {
+	if (sergeComponent.parser_plugin && sergeComponent.parser_plugin.plugin === 'parse_js') {
+		return;
+	}
 	const directory = sergeComponent.source_dir + '/';
 	fs.readdir(directory, (err, filenames) => {
 		if (err) {

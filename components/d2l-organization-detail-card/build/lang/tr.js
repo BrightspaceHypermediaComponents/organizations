@@ -7,7 +7,7 @@ const LangTrImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.tr = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': '{title} içinde Tamamlanmış Modüllerin Toplam Modüllere Oranı'
 		};
 	}
 };

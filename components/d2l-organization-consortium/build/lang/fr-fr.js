@@ -7,9 +7,9 @@ const LangFrfrImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.frfr = {
-			'loading': 'Loading',
-			'errorShort': 'Oops',
 			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
+			'errorShort': 'Oops',
+			'loading': 'Loading',
 			'newNotifications': '{name} - Vous avez de nouvelles alertes',
 			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
 			'otherAccounts': 'Other Accounts'

@@ -7,7 +7,7 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zhtw = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': '依據 {title} 中的單元總計顯示已完成的單元'
 		};
 	}
 };

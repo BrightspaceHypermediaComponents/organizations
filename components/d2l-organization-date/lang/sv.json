@@ -1,14 +1,14 @@
 {
-    "ended" : {
-        "context" : "End date and time that is in the past",
-        "translation" : "Slutade {date} kl. {time}"
-    },
-    "endsAt" : {
-        "context" : "End date and time that is in the future.",
-        "translation" : "Slutar {date} kl. {time}"
-    },
-    "startsAt" : {
-        "context" : "Start date and time that is in the future",
-        "translation" : "Startar {date} kl. {time}"
-    }
+  "ended": {
+    "translation": "Slutade {date} kl. {time}",
+    "context": "End date and time that is in the past"
+  },
+  "endsAt": {
+    "translation": "Slutar {date} kl. {time}",
+    "context": "End date and time that is in the future."
+  },
+  "startsAt": {
+    "translation": "Startar {date} kl. {time}",
+    "context": "Start date and time that is in the future"
+  }
 }

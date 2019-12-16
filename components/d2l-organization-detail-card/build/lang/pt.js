@@ -7,7 +7,7 @@ const LangPtImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.pt = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'Módulos concluídos por total de módulos em {title}'
 		};
 	}
 };

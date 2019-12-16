@@ -1,38 +1,38 @@
 {
-    "unapprovedDiscussions" : {
-        "context" : "The number of discussion post that need to be reviewed",
-        "translation" : "{숫자}개의 승인되지 않은 토론"
-    },
-    "unattemptedQuizzes" : {
-        "context" : "The amount of quizes that a user has not done.",
-        "translation" : "{숫자}개의 시도되지 않은 퀴즈"
-    },
-    "ungradedQuizzes" : {
-        "context" : "The number of quizzes that need to be marked",
-        "translation" : "{숫자}개의 평점이 없는 퀴즈"
-    },
-    "unreadAssignmentFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about assignments",
-        "translation" : "{숫자}개의 읽지 않은 과제 피드백"
-    },
-    "unreadAssignmentSubmissions" : {
-        "context" : "The number of assignment files that still need to be read.",
-        "translation" : "{숫자}개의 읽지 않은 과제 제출 파일"
-    },
-    "unreadDiscussionFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about discussion",
-        "translation" : "{숫자}개의 읽지 않은 토론 피드백"
-    },
-    "unreadDiscussions" : {
-        "context" : "The number of new discussion posts",
-        "translation" : "{숫자}개의 읽지 않은 토론"
-    },
-    "unreadQuizzesFeedback" : {
-        "context" : "The amount of feedback comments that a user has not read about quizzes",
-        "translation" : "{숫자}개의 읽지 않은 퀴즈 피드백"
-    },
-    "updates" : {
-        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
-        "translation" : "업데이트"
-    }
+  "unapprovedDiscussions": {
+    "translation": "{숫자}개의 승인되지 않은 토론",
+    "context": "The number of discussion post that need to be reviewed"
+  },
+  "unattemptedQuizzes": {
+    "translation": "{숫자}개의 시도되지 않은 퀴즈",
+    "context": "The amount of quizes that a user has not done."
+  },
+  "ungradedQuizzes": {
+    "translation": "{숫자}개의 평점이 없는 퀴즈",
+    "context": "The number of quizzes that need to be marked"
+  },
+  "unreadAssignmentFeedback": {
+    "translation": "{숫자}개의 읽지 않은 과제 피드백",
+    "context": "The amount of feedback comments that a user has not read about assignments"
+  },
+  "unreadAssignmentSubmissions": {
+    "translation": "{숫자}개의 읽지 않은 과제 제출 파일",
+    "context": "The number of assignment files that still need to be read."
+  },
+  "unreadDiscussionFeedback": {
+    "translation": "{숫자}개의 읽지 않은 토론 피드백",
+    "context": "The amount of feedback comments that a user has not read about discussion"
+  },
+  "unreadDiscussions": {
+    "translation": "{숫자}개의 읽지 않은 토론",
+    "context": "The number of new discussion posts"
+  },
+  "unreadQuizzesFeedback": {
+    "translation": "{숫자}개의 읽지 않은 퀴즈 피드백",
+    "context": "The amount of feedback comments that a user has not read about quizzes"
+  },
+  "updates": {
+    "translation": "업데이트",
+    "context": "The total number of updates a course has for a user. Sum of all the other terms."
+  }
 }
