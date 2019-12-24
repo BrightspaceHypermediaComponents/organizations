@@ -1,6 +1,6 @@
 {
-  "CompletedModulesProgress": {
-    "translation": "Modules achevés par rapport au Total de modules dans {title}",
-    "context": "Describes the progress of a course with title, {title}"
-  }
+    "CompletedModulesProgress" : {
+        "context" : "Describes the progress of a course with title, {title}",
+        "translation" : "Modules achevés par rapport au Total de modules dans {title}"
+    }
 }

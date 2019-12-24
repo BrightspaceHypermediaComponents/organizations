@@ -1,26 +1,26 @@
 {
-  "errorFull": {
-    "translation": "죄송합니다. {num}개의 탭에 대한 정보를 가져올 수 없습니다. 페이지를 새로 고침하십시오.",
-    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
-  },
-  "errorShort": {
-    "translation": "죄송합니다.",
-    "context": "Short error message if something went wrong"
-  },
-  "loading": {
-    "translation": "로드 중",
-    "context": "Placeholder loading text until content is ready"
-  },
-  "newNotifications": {
-    "translation": "{name}개 - 새로운 알림이 있습니다.",
-    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
-  },
-  "newNotificationsAlert": {
-    "translation": "You have new alerts in some of your other accounts",
-    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
-  },
-  "otherAccounts": {
-    "translation": "Other Accounts",
-    "context": "Accessible label summarizing the organization tabs section"
-  }
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "죄송합니다. {num}개의 탭에 대한 정보를 가져올 수 없습니다. 페이지를 새로 고침하십시오."
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "죄송합니다."
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "로드 중"
+    },
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name}개 - 새로운 알림이 있습니다."
+    },
+    "newNotificationsAlert" : {
+        "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation" : "일부 다른 계정에 새 알림이 있습니다."
+    },
+    "otherAccounts" : {
+        "context" : "Accessible label summarizing the organization tabs section",
+        "translation" : "기타 계정"
+    }
 }

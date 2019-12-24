@@ -1,26 +1,26 @@
 {
-  "errorFull": {
-    "translation": "Hoppla! Es konnten keine Informationen für {num} Ihrer Registerkarten abgerufen werden. Versuchen Sie, die Seite zu aktualisieren",
-    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
-  },
-  "errorShort": {
-    "translation": "Hoppla",
-    "context": "Short error message if something went wrong"
-  },
-  "loading": {
-    "translation": "Wird geladen",
-    "context": "Placeholder loading text until content is ready"
-  },
-  "newNotifications": {
-    "translation": "{name} – Sie haben neue Benachrichtigungen",
-    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
-  },
-  "newNotificationsAlert": {
-    "translation": "You have new alerts in some of your other accounts",
-    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
-  },
-  "otherAccounts": {
-    "translation": "Other Accounts",
-    "context": "Accessible label summarizing the organization tabs section"
-  }
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "Hoppla! Es konnten keine Informationen für {num} Ihrer Registerkarten abgerufen werden. Versuchen Sie, die Seite zu aktualisieren"
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "Hoppla"
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "Wird geladen"
+    },
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} – Sie haben neue Benachrichtigungen"
+    },
+    "newNotificationsAlert" : {
+        "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation" : "Sie haben neue Benachrichtigungen in einigen Ihrer anderen Konten"
+    },
+    "otherAccounts" : {
+        "context" : "Accessible label summarizing the organization tabs section",
+        "translation" : "Andere Konten"
+    }
 }

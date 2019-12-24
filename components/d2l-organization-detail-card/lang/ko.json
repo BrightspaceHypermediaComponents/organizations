@@ -1,6 +1,6 @@
 {
-  "CompletedModulesProgress": {
-    "translation": "{title}의 전체 모듈에 의해 완료된 모듈",
-    "context": "Describes the progress of a course with title, {title}"
-  }
+    "CompletedModulesProgress" : {
+        "context" : "Describes the progress of a course with title, {title}",
+        "translation" : "{title}의 전체 모듈에 의해 완료된 모듈"
+    }
 }

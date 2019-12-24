@@ -1,26 +1,26 @@
 {
-  "errorFull": {
-    "translation": "Opa! Não foi possível obter informações para {num} de suas guias. Tente atualizar a página",
-    "context": "Full error message if something went wrong.  With num indicating how many instances of the error"
-  },
-  "errorShort": {
-    "translation": "Opa",
-    "context": "Short error message if something went wrong"
-  },
-  "loading": {
-    "translation": "Carregando",
-    "context": "Placeholder loading text until content is ready"
-  },
-  "newNotifications": {
-    "translation": "{name} - Você tem novos alertas",
-    "context": "If the notification dot is present, we wrap the organization name for the tab's link label"
-  },
-  "newNotificationsAlert": {
-    "translation": "You have new alerts in some of your other accounts",
-    "context": "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications"
-  },
-  "otherAccounts": {
-    "translation": "Other Accounts",
-    "context": "Accessible label summarizing the organization tabs section"
-  }
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "Opa! Não foi possível obter informações para {num} de suas guias. Tente atualizar a página"
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "Opa"
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "Carregando"
+    },
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} - Você tem novos alertas"
+    },
+    "newNotificationsAlert" : {
+        "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation" : "Você tem novos alertas em algumas de suas outras contas"
+    },
+    "otherAccounts" : {
+        "context" : "Accessible label summarizing the organization tabs section",
+        "translation" : "Outras Contas"
+    }
 }

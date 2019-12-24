@@ -1,38 +1,38 @@
 {
-  "unapprovedDiscussions": {
-    "translation": "{number} 個未核准的討論",
-    "context": "The number of discussion post that need to be reviewed"
-  },
-  "unattemptedQuizzes": {
-    "translation": "{number} 個未嘗試的測驗",
-    "context": "The amount of quizes that a user has not done."
-  },
-  "ungradedQuizzes": {
-    "translation": "{number} 個未評分的測驗",
-    "context": "The number of quizzes that need to be marked"
-  },
-  "unreadAssignmentFeedback": {
-    "translation": "{number} 個未讀取的作業意見反應",
-    "context": "The amount of feedback comments that a user has not read about assignments"
-  },
-  "unreadAssignmentSubmissions": {
-    "translation": "{number} 個未讀取的作業提交檔案",
-    "context": "The number of assignment files that still need to be read."
-  },
-  "unreadDiscussionFeedback": {
-    "translation": "{number} 個未讀取的討論意見反應",
-    "context": "The amount of feedback comments that a user has not read about discussion"
-  },
-  "unreadDiscussions": {
-    "translation": "{number} 個未讀取的討論",
-    "context": "The number of new discussion posts"
-  },
-  "unreadQuizzesFeedback": {
-    "translation": "{number} 個未讀取的測驗意見反應",
-    "context": "The amount of feedback comments that a user has not read about quizzes"
-  },
-  "updates": {
-    "translation": "項更新",
-    "context": "The total number of updates a course has for a user. Sum of all the other terms."
-  }
+    "unapprovedDiscussions" : {
+        "context" : "The number of discussion post that need to be reviewed",
+        "translation" : "{number} 個未核准的討論"
+    },
+    "unattemptedQuizzes" : {
+        "context" : "The amount of quizes that a user has not done.",
+        "translation" : "{number} 個未嘗試的測驗"
+    },
+    "ungradedQuizzes" : {
+        "context" : "The number of quizzes that need to be marked",
+        "translation" : "{number} 個未評分的測驗"
+    },
+    "unreadAssignmentFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about assignments",
+        "translation" : "{number} 個未讀取的作業意見反應"
+    },
+    "unreadAssignmentSubmissions" : {
+        "context" : "The number of assignment files that still need to be read.",
+        "translation" : "{number} 個未讀取的作業提交檔案"
+    },
+    "unreadDiscussionFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about discussion",
+        "translation" : "{number} 個未讀取的討論意見反應"
+    },
+    "unreadDiscussions" : {
+        "context" : "The number of new discussion posts",
+        "translation" : "{number} 個未讀取的討論"
+    },
+    "unreadQuizzesFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about quizzes",
+        "translation" : "{number} 個未讀取的測驗意見反應"
+    },
+    "updates" : {
+        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
+        "translation" : "項更新"
+    }
 }

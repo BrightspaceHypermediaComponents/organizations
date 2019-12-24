@@ -1,14 +1,14 @@
 {
-  "ended": {
-    "translation": "{date} tarihinde, şu saatte sona erdi: {time}",
-    "context": "End date and time that is in the past"
-  },
-  "endsAt": {
-    "translation": "{date} tarihinde, şu saatte sona erecek: {time}",
-    "context": "End date and time that is in the future."
-  },
-  "startsAt": {
-    "translation": "{date} tarihinde, şu saatte başlayacak: {time}",
-    "context": "Start date and time that is in the future"
-  }
+    "ended" : {
+        "context" : "End date and time that is in the past",
+        "translation" : "{date} tarihinde, şu saatte sona erdi: {time}"
+    },
+    "endsAt" : {
+        "context" : "End date and time that is in the future.",
+        "translation" : "{date} tarihinde, şu saatte sona erecek: {time}"
+    },
+    "startsAt" : {
+        "context" : "Start date and time that is in the future",
+        "translation" : "{date} tarihinde, şu saatte başlayacak: {time}"
+    }
 }
