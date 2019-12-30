@@ -11,8 +11,8 @@ const LangEsImpl = (superClass) => class extends superClass {
 			'errorShort': 'Lo sentimos',
 			'loading': 'Cargando',
 			'newNotifications': '{name} - Tiene nuevas alertas',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'Tiene nuevas alertas en algunas de sus otras cuentas',
+			'otherAccounts': 'Otras cuentas'
 		};
 	}
 };

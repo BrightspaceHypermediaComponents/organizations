@@ -11,8 +11,8 @@ const LangDeImpl = (superClass) => class extends superClass {
 			'errorShort': 'Hoppla',
 			'loading': 'Wird geladen',
 			'newNotifications': '{name} – Sie haben neue Benachrichtigungen',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'Sie haben neue Benachrichtigungen in einigen Ihrer anderen Konten',
+			'otherAccounts': 'Andere Konten'
 		};
 	}
 };

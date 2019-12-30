@@ -11,8 +11,8 @@ const LangArImpl = (superClass) => class extends superClass {
 			'errorShort': 'عذرًا',
 			'loading': 'يتم الآن التحميل',
 			'newNotifications': '{name} - لديك تنبيهات جديدة',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'لديك تنبيهات جديدة في بعض حساباتك الأخرى',
+			'otherAccounts': 'حسابات أخرى'
 		};
 	}
 };

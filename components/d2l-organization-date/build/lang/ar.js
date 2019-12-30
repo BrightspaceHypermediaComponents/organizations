@@ -7,9 +7,9 @@ const LangArImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.ar = {
-			'ended': 'Ended {date} at {time}',
-			'endsAt': 'Ends {date} at {time}',
-			'startsAt': 'Starts {date} at {time}'
+			'ended': 'تم الانتهاء بتاريخ {date} عند {time}',
+			'endsAt': 'ينتهي بتاريخ {date} عند {time}',
+			'startsAt': 'يبدأ بتاريخ {date} عند {time}'
 		};
 	}
 };

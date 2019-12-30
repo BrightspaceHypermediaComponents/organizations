@@ -11,8 +11,8 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'errorShort': 'Üzgünüz',
 			'loading': 'Yükleniyor',
 			'newNotifications': '{name} - Yeni uyarılarınız var',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'Diğer hesaplarınızdan bazılarında yeni uyarılarınız var',
+			'otherAccounts': 'Diğer Hesaplar'
 		};
 	}
 };

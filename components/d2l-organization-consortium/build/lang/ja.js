@@ -11,8 +11,8 @@ const LangJaImpl = (superClass) => class extends superClass {
 			'errorShort': '申し訳ありません',
 			'loading': '読み込み中',
 			'newNotifications': '{name} さん - 新しいお知らせがあります',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': '他のアカウントに新規のお知らせがあります',
+			'otherAccounts': 'その他のアカウント'
 		};
 	}
 };
