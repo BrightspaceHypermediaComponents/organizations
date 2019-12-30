@@ -7,7 +7,7 @@ const LangArImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.ar = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'الوحدات النمطية المكتملة من إجمالي الوحدات النمطية في {title}'
 		};
 	}
 };

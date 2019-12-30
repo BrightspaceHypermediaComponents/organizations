@@ -11,8 +11,8 @@ const LangSvImpl = (superClass) => class extends superClass {
 			'errorShort': 'Hoppsan',
 			'loading': 'Laddar',
 			'newNotifications': '{name} – Du har nya varningar',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'Du har nya varningar i några av dina andra konton',
+			'otherAccounts': 'Andra konton'
 		};
 	}
 };

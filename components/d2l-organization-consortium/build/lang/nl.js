@@ -11,8 +11,8 @@ const LangNlImpl = (superClass) => class extends superClass {
 			'errorShort': 'Oeps',
 			'loading': 'Laden',
 			'newNotifications': '{name} - U hebt nieuwe waarschuwingen',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'U hebt nieuwe waarschuwingen in enkele van uw andere accounts',
+			'otherAccounts': 'Andere accounts'
 		};
 	}
 };

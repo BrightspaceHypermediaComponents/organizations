@@ -11,8 +11,8 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'errorShort': 'Opa',
 			'loading': 'Carregando',
 			'newNotifications': '{name} - Você tem novos alertas',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': 'Você tem novos alertas em algumas de suas outras contas',
+			'otherAccounts': 'Outras Contas'
 		};
 	}
 };

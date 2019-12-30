@@ -11,8 +11,8 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'errorShort': '糟糕',
 			'loading': '正在載入',
 			'newNotifications': '{name} - 您有新警示',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'newNotificationsAlert': '您的其他帳戶中有新的警示',
+			'otherAccounts': '其他帳戶'
 		};
 	}
 };
