@@ -1,6 +1,6 @@
 {
-  "CompletedModulesProgress": {
-    "translation": "完成 {title} 中的总模块中的模块",
-    "context": "Describes the progress of a course with title, {title}"
-  }
+    "CompletedModulesProgress" : {
+        "context" : "Describes the progress of a course with title, {title}",
+        "translation" : "完成 {title} 中的总模块中的模块"
+    }
 }

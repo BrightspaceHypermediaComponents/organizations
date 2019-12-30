@@ -1,38 +1,38 @@
 {
-  "unapprovedDiscussions": {
-    "translation": "{number} ej godkända diskussioner",
-    "context": "The number of discussion post that need to be reviewed"
-  },
-  "unattemptedQuizzes": {
-    "translation": "{number} ej gjorda förhör",
-    "context": "The amount of quizes that a user has not done."
-  },
-  "ungradedQuizzes": {
-    "translation": "{number} ej betygsatta förhör",
-    "context": "The number of quizzes that need to be marked"
-  },
-  "unreadAssignmentFeedback": {
-    "translation": "{number} oläst uppgift, feedback",
-    "context": "The amount of feedback comments that a user has not read about assignments"
-  },
-  "unreadAssignmentSubmissions": {
-    "translation": "{number} oläst uppgift, inlämningsfiler",
-    "context": "The number of assignment files that still need to be read."
-  },
-  "unreadDiscussionFeedback": {
-    "translation": "{number} oläst diskussion, feedback",
-    "context": "The amount of feedback comments that a user has not read about discussion"
-  },
-  "unreadDiscussions": {
-    "translation": "{number} olästa diskussioner",
-    "context": "The number of new discussion posts"
-  },
-  "unreadQuizzesFeedback": {
-    "translation": "{number} olästa förhör, feedback",
-    "context": "The amount of feedback comments that a user has not read about quizzes"
-  },
-  "updates": {
-    "translation": "uppdateringar",
-    "context": "The total number of updates a course has for a user. Sum of all the other terms."
-  }
+    "unapprovedDiscussions" : {
+        "context" : "The number of discussion post that need to be reviewed",
+        "translation" : "{number} ej godkända diskussioner"
+    },
+    "unattemptedQuizzes" : {
+        "context" : "The amount of quizes that a user has not done.",
+        "translation" : "{number} ej gjorda förhör"
+    },
+    "ungradedQuizzes" : {
+        "context" : "The number of quizzes that need to be marked",
+        "translation" : "{number} ej betygsatta förhör"
+    },
+    "unreadAssignmentFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about assignments",
+        "translation" : "{number} oläst uppgift, feedback"
+    },
+    "unreadAssignmentSubmissions" : {
+        "context" : "The number of assignment files that still need to be read.",
+        "translation" : "{number} oläst uppgift, inlämningsfiler"
+    },
+    "unreadDiscussionFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about discussion",
+        "translation" : "{number} oläst diskussion, feedback"
+    },
+    "unreadDiscussions" : {
+        "context" : "The number of new discussion posts",
+        "translation" : "{number} olästa diskussioner"
+    },
+    "unreadQuizzesFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about quizzes",
+        "translation" : "{number} olästa förhör, feedback"
+    },
+    "updates" : {
+        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
+        "translation" : "uppdateringar"
+    }
 }
