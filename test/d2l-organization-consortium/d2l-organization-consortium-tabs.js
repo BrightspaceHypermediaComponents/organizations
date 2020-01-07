@@ -360,6 +360,30 @@ describe('d2l-organization-consortium-tabs', function() {
 			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
 			component.href = '/consortium-root1.json';
 		});
+		it('if impersontaion mode is on, no hrefs are added, tooltip displays impersonation info, and notification dots remain', function(done) {
+			const component = fixture('org-consortium');
+			component.impersonationMode = true;
+			component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
+			component.href = '/consortium-root1.json';
+
+			requestAnimationFrame(function() {
+				const tabs = component.shadowRoot.querySelectorAll('.d2l-consortium-tab');
+				assert.isNull(tabs[0].getAttribute('href'));
+				assert.isNull(tabs[1].getAttribute('href'));
+				assert.equal(tabs[0].getAttribute('tabindex'), '0');
+				assert.isNull(tabs[1].getAttribute('tabindex'));
+
+				const toolTips = component.shadowRoot.querySelectorAll('d2l-tooltip');
+				assert.include(toolTips[0].innerText, 'impersonating');
+				assert.equal(toolTips[1].innerText, 'Consortium 2');
+
+				const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
+				assert.equal(dots.length, 2);
+				assert.isFalse(dots[0].hasAttribute('hidden'));
+				assert.isTrue(dots[1].hasAttribute('hidden'));
+				done();
+			});
+		});
 	});
 
 	describe('Do not fetch alert entities', function() {

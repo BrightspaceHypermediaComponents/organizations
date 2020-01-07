@@ -51,6 +51,10 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				type: Boolean,
 				value: false
 			},
+			impersonationMode: {
+				type: Boolean,
+				value: false
+			},
 			_cache: {
 				type:Object
 			},
@@ -229,7 +233,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template items="[[_parsedOrganizations]]" is="dom-repeat" sort="_sortOrder" >
 				<div class="d2l-tab-container" selected$="[[_isSelected(item)]]">
 					<template is="dom-if" if="[[!item.loading]]">
-						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]"><div class="d2l-consortium-tab-content" tabindex="-1">[[item.name]]</div></a>
+						<a class="d2l-consortium-tab" id$="[[item.id]]" href$="[[_getTabHref(item)]]" aria-label$="[[_getTabAriaLabel(item)]]" tabindex$="[[_getTabIndex(item)]]"><div class="d2l-consortium-tab-content" tabindex="-1">[[item.name]]</div></a>
 						<d2l-navigation-notification-icon hidden$="[[!_checkOrgNotification(item)]]" thin-border></d2l-navigation-notification-icon>
 					</template>
 					<template is="dom-if" if="[[item.loading]]">
@@ -244,7 +248,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			<template is="dom-if" if="[[_hasErrors(_errors)]]">
 				<div class="d2l-tab-container">
 					<div class="d2l-consortium-tab" tabindex="0" id="[[__errorId]]">
-						<div class="d2l-consortium-tab-content d2l-consortium-tab-error">
+						<div class="d2l-consortium-tab-content d2l-consortium-tab-error" tabindex="-1">
 							<d2l-icon icon="tier1:alert"></d2l-icon>[[localize('errorShort')]]<d2l-offscreen>[[localize('errorFull', 'num', _errors.length)]]</d2l-offscreen>
 						</div>
 					</div>
@@ -471,10 +475,22 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
 	}
 	_successfulTabToolTipText(item) {
-		return item.loading ? this.localize('loading') : item.fullName;
+		if (item.loading) {
+			return this.localize('loading');
+		}
+		return this.impersonationMode && !this._isSelected(item) ? this.localize('impersonationWarning') : item.fullName;
 	}
 	_getTabHref(item) {
+		if (this.impersonationMode) {
+			return undefined;
+		}
 		return this._isSelected(item) ? undefined : item.href;
+	}
+	_getTabIndex(item) {
+		if (!this.impersonationMode) {
+			return undefined;
+		}
+		return this._isSelected(item) ? undefined : '0';
 	}
 	_getTabAriaLabel(item) {
 		return this._checkOrgNotification(item) ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
