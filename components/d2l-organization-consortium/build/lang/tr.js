@@ -9,6 +9,7 @@ const LangTrImpl = (superClass) => class extends superClass {
 		this.tr = {
 			'errorFull': 'Üzgünüz! Sekmelerinizden {num} için bilgi alınamadı. Sayfayı yenilemeyi deneyin',
 			'errorShort': 'Üzgünüz',
+			'impersonationWarning': 'You cannot access other tabs while impersonating.',
 			'loading': 'Yükleniyor',
 			'newNotifications': '{name} - Yeni uyarılarınız var',
 			'newNotificationsAlert': 'Diğer hesaplarınızdan bazılarında yeni uyarılarınız var',

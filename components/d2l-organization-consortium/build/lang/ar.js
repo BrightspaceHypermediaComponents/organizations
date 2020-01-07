@@ -9,6 +9,7 @@ const LangArImpl = (superClass) => class extends superClass {
 		this.ar = {
 			'errorFull': 'عذرًا! تعذّر علينا إحضار معلومات لـ {num} من علامات التبويب. حاول تحديث الصفحة',
 			'errorShort': 'عذرًا',
+			'impersonationWarning': 'You cannot access other tabs while impersonating.',
 			'loading': 'يتم الآن التحميل',
 			'newNotifications': '{name} - لديك تنبيهات جديدة',
 			'newNotificationsAlert': 'لديك تنبيهات جديدة في بعض حساباتك الأخرى',
