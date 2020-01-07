@@ -7,6 +7,10 @@
         "context" : "Short error message if something went wrong",
         "translation" : "Üzgünüz"
     },
+    "impersonationWarning": {
+        "context": "Tooltip text when a user is impersonating another user and seeing their org tabs",
+        "translation": "You cannot access other tabs while impersonating."
+    },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
         "translation" : "Yükleniyor"
