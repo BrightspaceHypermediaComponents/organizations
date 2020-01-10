@@ -106,13 +106,13 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 				.doi-tertiary[hidden] {
 					display: none;
 				}
-				.doi-no-image {\
+				.doi-no-image {
 					width: 100%;
 					height: 100%;
 					max-height: inherit;
 					max-width: inherit;
 				}
-				.doi-no-image rect{
+				.doi-no-image rect {
 					fill: var(--d2l-color-regolith);
 					stroke: var(--d2l-color-corundum);
 					stroke-width: 0.1rem;
