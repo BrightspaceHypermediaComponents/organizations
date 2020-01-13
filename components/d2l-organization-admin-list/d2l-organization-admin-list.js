@@ -154,26 +154,30 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	}
 
 	_onOrganizationCollectionChanged(collection) {
-		this._items = [];
-		this._totalPages = collection.totalPages();
-		this._currentPage = collection.currentPage();
-		this._collection = collection;
+		const items = [];
 
 		let loadedCount = 0;
 		const totalCount = collection.onOrganizationsChange(
 			(organization, index) => {
 				organization.onActivityUsageChange(activityUsage => {
-					this._items[index] = {
+					items[index] = {
 						usage: { editHref: () => activityUsage.editHref() },
 						organization
 					};
 					loadedCount++;
-					if (loadedCount >= totalCount) {
-						this.requestUpdate('_items', []);
+					if (loadedCount > totalCount) {
+						this.items = items;
 					}
 				});
 			}
 		);
+
+		collection.subEntitiesLoaded().then(() => {
+			this._items = items;
+			this._totalPages = collection.totalPages();
+			this._currentPage = collection.currentPage();
+			this._collection = collection;
+		});
 	}
 
 	_handleSearch(searchText) {
@@ -224,6 +228,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					</d2l-list-item>
 				`
 		);
+		console.log(this._totalPages);
 		return html`
 			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container'>
 				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-header'>
@@ -248,7 +253,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					<d2l-organization-admin-list-search-header .onSearchTextChanged=${this._handleSearch.bind(this)}>
 					</d2l-organization-admin-list-search-header>
 					<d2l-list>${items}</d2l-list>
-					<d2l-organization-admin-list-pager currentPage=${this._currentPage} totalPages=${this._totalPages} .onPageChanged=${this._handlePageChanged.bind(this)}>
+					<d2l-organization-admin-list-pager current-page="${this._currentPage}" total-pages="${this._totalPages}" .onPageChanged="${this._handlePageChanged.bind(this)}">
 					</d2l-organization-admin-list-pager>
 				</div>
 			</div>
