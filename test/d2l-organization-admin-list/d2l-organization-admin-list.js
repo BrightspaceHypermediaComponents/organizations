@@ -8,7 +8,9 @@ describe('d2l-organization-admin-list', () => {
 		element = fixture('admin-list');
 		await element.updateComplete;
 
-		collectionEntity = {};
+		collectionEntity = {
+			subEntitiesLoaded: () => Promise.resolve()
+		};
 	});
 
 	it('should pass all axe tests', async() => {
