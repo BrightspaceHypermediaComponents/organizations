@@ -41,6 +41,9 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 					max-width: 4rem;
 					width: auto;
 				}
+				.d2l-organization-admin-list-pager d2l-button-icon {
+					margin: 0 0.5rem;
+				}
 			`
 		];
 	}

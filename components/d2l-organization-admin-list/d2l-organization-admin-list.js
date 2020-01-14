@@ -6,6 +6,7 @@ import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/list/list-item-content.js';
 import '@brightspace-ui/core/components/list/list-item.js';
 import '@brightspace-ui/core/components/list/list.js';
+import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import {
 	heading1Styles,
 	bodyStandardStyles
@@ -32,6 +33,8 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			createActionType: {
 				type: String
 			},
+			_showImages: { type: Boolean },
+			_loaded: { type: Boolean },
 			_items: {
 				type: Array
 			},
@@ -103,8 +106,73 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					padding-top: 6px;
 				}
 
+				.d2l-organization-admin-list-disabled {
+					filter: grayscale(100%);
+					opacity: 0.6;
+				}
+
+				.d2l-organization-admin-list-list,
+				.d2l-organization-admin-list-item-illustration {
+					display: grid;
+					grid-template-columns: 100%;
+					grid-template-rows: 100%;
+					grid-template-areas: only-one;
+					position: relative;
+				}
+
+				.d2l-organization-admin-list-list *,
+				.d2l-organization-admin-image-skeleton,
 				.d2l-organization-admin-list-item-image {
-					border-radius: 6px;
+					grid-column: 1;
+					grid-row: 1;
+				}
+
+				.d2l-organization-admin-list-body-compact-skeleton {
+					height: 3.6rem;
+					display: flex;
+					align-items: center;
+					min-width: 25rem;
+				}
+
+				.d2l-organization-admin-list-body-compact-skeleton-svg {
+					height: 0.55rem;
+				}
+
+				.d2l-organization-admin-list-body-small-skeleton-svg {
+					height: 0.5rem;
+				}
+
+				@keyframes loadingPulse {
+					0% { fill: var(--d2l-color-sylvite); }
+					50% { fill: var(--d2l-color-regolith); }
+					75% { fill: var(--d2l-color-sylvite); }
+					100% { fill: var(--d2l-color-sylvite); }
+				}
+
+				.d2l-organization-admin-skeleton-rect {
+					animation: loadingPulse 1.8s linear infinite;
+				}
+
+				.d2l-organization-admin-list-no-activity {
+					background-color: var(--d2l-color-regolith);
+					border: solid 1px var(--d2l-color-gypsum);
+					border-radius: 8px;
+					padding: 2.1rem 2rem;
+				}
+
+				.d2l-organization-admin-list-search-skeleton {
+					align-items: center;
+					display: flex;
+					height: 42px;
+					margin: 0.6rem 0;
+					width: 270px;
+				}
+				.d2l-organization-admin-list-search-skeleton-svg {
+					max-height: 100%;
+				}
+
+				.d2l-organization-admin-list-search {
+					min-height: 2.1rem;
 				}
 
 				@media (max-width: 420px) {
@@ -143,6 +211,12 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	constructor() {
 		super();
 		this._items = [];
+		this._showImages = false;
+		this._loadedImages = 0;
+		this._loaded = false;
+		this._firstLoad = true;
+		this.ariaBusy = 'true';
+		this.ariaLive = 'polite';
 		this._setEntityType(OrganizationCollectionEntity);
 	}
 
@@ -162,7 +236,8 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				organization.onActivityUsageChange(activityUsage => {
 					items[index] = {
 						usage: { editHref: () => activityUsage.editHref() },
-						organization
+						organization,
+						removeItem: () => null
 					};
 					loadedCount++;
 					if (loadedCount > totalCount) {
@@ -171,22 +246,38 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				});
 			}
 		);
-
 		collection.subEntitiesLoaded().then(() => {
 			this._items = items;
 			this._totalPages = collection.totalPages();
 			this._currentPage = collection.currentPage();
 			this._collection = collection;
+			this._loaded = true;
+			if (!this._firstLoad) {
+				this.updateComplete.then(() => {
+					this.shadowRoot.querySelector('.d2l-organization-admin-list-list d2l-list d2l-list-item').focus();
+				});
+			}
+			this._firstLoad = false;
 		});
 	}
 
+	_resetLoad() {
+		this._showImages = false;
+		this._loadedImages = 0;
+		this._loaded = false;
+		window.scrollTo(0,0);
+	}
+
 	_handleSearch(searchText) {
+		this._resetLoad();
+		this._searchText = searchText;
 		this._collection.search(searchText).then(href => {
 			this.href = href;
 		});
 	}
 
 	_handlePageChanged(page) {
+		this._resetLoad();
 		if (page === this._currentPage + 1) {
 			this.href = this._collection.nextPageHref();
 		} else if (page === this._currentPage - 1) {
@@ -210,32 +301,36 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	}
 
 	render() {
-		const items = this._items.map(
-			item =>
-				html`
-					<d2l-list-item
-						.breakpoints=${[1170, 391, 0, 0]}
-						href=${ifDefined(item.usage.editHref())}
-					>
-						<d2l-organization-image
-							class='d2l-organization-admin-list-item-image'
-							href=${item.organization.self()}
-							slot='illustration'
-						></d2l-organization-image>
-						<d2l-list-item-content>
-							<div>${item.organization.name()}</div>
-						</d2l-list-item-content>
-					</d2l-list-item>
-				`
-		);
-		console.log(this._totalPages);
+		const items = this._handleLoading(this._renderItemList.bind(this), () => this._renderItemListSkeleton(3), () => {
+			this._currentListElements && this._currentListElements.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('href', false));
+			return html`
+				<div class="d2l-organization-admin-list-disabled">
+					${this._currentListElements}
+				</div>
+				<d2l-loading-spinner size="100"></d2l-loading-spinner>
+			`;
+		});
+
+		const search = this._handleLoading(() => {
+			return html`<d2l-organization-admin-list-search-header class="d2l-organization-admin-list-search" .onSearchTextChanged=${this._handleSearch.bind(this)}></d2l-organization-admin-list-search-header>`
+		}, () => {
+			return html`
+				<div class="d2l-organization-admin-list-search-skeleton">
+						<svg width="100%" class="d2l-organization-admin-list-search-skeleton-svg">
+							<rect x="0" width="100%" y="0" height="100%" stroke="none" rx="4" class="d2l-organization-admin-skeleton-rect"></rect>
+						</svg>
+					</div>
+				</div>
+			`;
+		});
+
 		return html`
 			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-header-container'>
 				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-header'>
 					<h1 class='d2l-heading-1 d2l-organization-admin-list-title'>
 						${this.titleText}
 					</h1>
-					${ this._collection && this._collection.canCreateOrgUnit() ? html`
+					${this._collection && this._collection.canCreateOrgUnit() ? html`
 						<d2l-button
 							class='d2l-organization-admin-list-create-button'
 							primary
@@ -250,14 +345,98 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container'>
 				<div class='d2l-organization-admin-list-background-gradient'></div>
 				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-body'>
-					<d2l-organization-admin-list-search-header .onSearchTextChanged=${this._handleSearch.bind(this)}>
-					</d2l-organization-admin-list-search-header>
-					<d2l-list>${items}</d2l-list>
-					<d2l-organization-admin-list-pager current-page="${this._currentPage}" total-pages="${this._totalPages}" .onPageChanged="${this._handlePageChanged.bind(this)}">
-					</d2l-organization-admin-list-pager>
+					${search}
+					<div class="d2l-organization-admin-list-list" aria-live="polite" aria-busy="${!this._loaded ? html`true` : html`false`}">${items}</div>
+					${this._handleLoading(() => html`
+						<d2l-organization-admin-list-pager
+							current-page="${this._currentPage}"
+							total-pages="${this._totalPages}"
+							.onPageChanged="${this._handlePageChanged.bind(this)}">
+						</d2l-organization-admin-list-pager>
+					`)}
 				</div>
 			</div>
 		`;
+	}
+
+	updated() {
+		super.updated();
+		this._currentListElements = this.shadowRoot.querySelector('.d2l-organization-admin-list-list d2l-list');
+	}
+
+	_renderItemList() {
+		if (this._items.length <= 0) {
+			return html`
+				<div class="d2l-organization-admin-list-no-activity d2l-body-standard">
+					${this._searchText ? this.localize('noLearningPathWithSearchTerm', 'searchText', this._searchText) : this.localize('noLearningPaths')}
+				</div>
+			`;
+		}
+
+		const items = this._items.map(
+			item =>
+				html`
+					<d2l-list-item
+						.breakpoints=${[1170, 391, 0, 0]}
+						href=${ifDefined(item.usage.editHref())}
+					>
+						<div slot="illustration" class="d2l-organization-admin-list-item-illustration">
+							${this._renderCourseImageSkeleton()}
+							<d2l-organization-image
+								class="d2l-organization-admin-list-item-image"
+								href=${item.organization.self()}
+								@d2l-organization-image-loaded="${this._onListImageLoaded}"
+								?hidden="${!this._showImages}">
+							</d2l-organization-image>
+						</div>
+						<d2l-list-item-content>
+							${item.organization.name()}
+							<div slot="secondary"></div>
+						</d2l-list-item-content>
+					</d2l-list-item>
+				`
+		);
+
+		return html`<d2l-list>${items}</d2l-list>`;
+	}
+
+	_renderCourseImageSkeleton() {
+		return html`
+			<svg viewBox="0 0 216 120" width="100%" slot="illustration">
+				<rect x="0" width="100%" y="0" height="100%" stroke="none" class="d2l-organization-admin-skeleton-rect"></rect>
+			</svg>
+		`;
+	}
+
+	_renderItemListSkeleton(numberOfItems) {
+		const itemsSkeleton = html`
+			<d2l-list-item>
+				${this._renderCourseImageSkeleton()}
+				<d2l-list-item-content>
+					<svg width="100%" class="d2l-organization-admin-list-body-compact-skeleton-svg">
+						<rect x="0" width="40%" y="0" height="100%" stroke="none" rx="4" class="d2l-organization-admin-skeleton-rect"></rect>
+					</svg>
+					<div slot="secondary">
+						<svg width="100%" class="d2l-organization-admin-list-body-small-skeleton-svg">
+							<rect x="0" width="30%" y="0" height="100%" stroke="none" rx="4" class="d2l-organization-admin-skeleton-rect"></rect>
+						</svg>
+					</div>
+				</d2l-list-item-content>
+			</d2l-list-item>
+		`;
+		return html`<d2l-list>${(new Array(numberOfItems)).fill(itemsSkeleton)}</d2l-list>`;
+	}
+
+	_onListImageLoaded() {
+		this._loadedImages++;
+		if (this._loadedImages >= this._items.length) {
+			this._showImages = true;
+		}
+	}
+
+	_handleLoading(whenLoaded, firstLoad = () => null, nextLoad =  null) {
+		nextLoad = nextLoad === null ? whenLoaded : nextLoad;
+		return this._firstLoad ? (this._loaded ? whenLoaded() : firstLoad()) : (this._loaded ? whenLoaded() : nextLoad());
 	}
 }
 customElements.define('d2l-organization-admin-list', AdminList);
