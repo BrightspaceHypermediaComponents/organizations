@@ -265,7 +265,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		this._showImages = false;
 		this._loadedImages = 0;
 		this._loaded = false;
-		window.scrollTo(0,0);
+		window.scrollTo(0, 0);
 	}
 
 	_handleSearch(searchText) {
@@ -312,7 +312,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		});
 
 		const search = this._handleLoading(() => {
-			return html`<d2l-organization-admin-list-search-header class="d2l-organization-admin-list-search" .onSearchTextChanged=${this._handleSearch.bind(this)}></d2l-organization-admin-list-search-header>`
+			return html`<d2l-organization-admin-list-search-header class="d2l-organization-admin-list-search" .onSearchTextChanged=${this._handleSearch.bind(this)}></d2l-organization-admin-list-search-header>`;
 		}, () => {
 			return html`
 				<div class="d2l-organization-admin-list-search-skeleton">
