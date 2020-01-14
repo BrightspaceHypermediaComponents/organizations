@@ -347,7 +347,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-body'>
 					${search}
 					<div class="d2l-organization-admin-list-list" aria-live="polite" aria-busy="${!this._loaded ? html`true` : html`false`}">${items}</div>
-					${this._handleLoading(() => html`
+					${this._handleLoading(() => this._items.length <= 0 ? null : html`
 						<d2l-organization-admin-list-pager
 							current-page="${this._currentPage}"
 							total-pages="${this._totalPages}"
@@ -368,7 +368,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		if (this._items.length <= 0) {
 			return html`
 				<div class="d2l-organization-admin-list-no-activity d2l-body-standard">
-					${this._searchText ? this.localize('noLearningPathWithSearchTerm', 'searchText', this._searchText) : this.localize('noLearningPaths')}
+					${this._searchText ? this.localize('noLearningPathWithSearchTerm', 'searchTerm', this._searchText) : this.localize('noLearningPath')}
 				</div>
 			`;
 		}
