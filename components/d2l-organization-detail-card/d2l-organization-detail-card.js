@@ -143,7 +143,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 				}
 				.dedc-description-container {
 					margin: 0.1rem 0;
-					margin-top: 0.3rem;
+					margin-top: 1.3125rem
 				}
 				.dedc-description-container p {
 					@apply --d2l-body-small-text;
@@ -517,8 +517,8 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			};
 
 			this._modulesComplete = {
-				value: modulesBySequence.filter(element => typeof(element) !== 'undefined' && element.isCompleted).length,
-				max: modulesBySequence.filter(element => typeof(element) !== 'undefined' && !element.isOptional).length
+				value: modulesBySequence.filter(element => typeof (element) !== 'undefined' && element.isCompleted).length,
+				max: modulesBySequence.filter(element => typeof (element) !== 'undefined' && !element.isOptional).length
 			};
 		});
 	}
