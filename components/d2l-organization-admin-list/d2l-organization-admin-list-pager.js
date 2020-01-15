@@ -8,10 +8,12 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 	static get properties() {
 		return {
 			totalPages: {
-				type: Number
+				type: Number,
+				attribute: 'total-pages'
 			},
 			currentPage: {
-				type: Number
+				type: Number,
+				attribute: 'current-page'
 			},
 			onPageChanged: {
 				type: Function
@@ -38,6 +40,9 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 				.d2l-organization-admin-list-pager-count {
 					max-width: 4rem;
 					width: auto;
+				}
+				.d2l-organization-admin-list-pager d2l-button-icon {
+					margin: 0 0.5rem;
 				}
 			`
 		];
@@ -83,7 +88,7 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 				<d2l-button-icon
 					icon='d2l-tier1:chevron-left'
 					aria-label=${this.localize('pagePrevious')}
-					.disabled=${!this._hasPreviousPage()}
+					?disabled=${!this._hasPreviousPage()}
 					@click=${this._toPreviousPage}
 				>
 				</d2l-button-icon>
@@ -103,7 +108,7 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 				<d2l-button-icon
 					icon='d2l-tier1:chevron-right'
 					aria-label=${this.localize('pageNext')}
-					.disabled=${!this._hasNextPage()}
+					?disabled=${!this._hasNextPage()}
 					@click=${this._toNextPage}
 				>
 				</d2l-button-icon>

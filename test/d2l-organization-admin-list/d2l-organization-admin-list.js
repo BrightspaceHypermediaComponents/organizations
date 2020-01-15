@@ -15,14 +15,18 @@ describe('d2l-organization-admin-list', () => {
 		await runAxe(element);
 	});
 
-	it('should reset items on collection changed', () => {
+	it('should reset items on collection changed', done => {
 		collectionEntity.onOrganizationsChange = () => {};
 		collectionEntity.totalPages = () => 1;
 		collectionEntity.currentPage = () => 1;
+		collectionEntity.subEntitiesLoaded = () => Promise.resolve();
 		element._items = ['non', 'empty', 'items', 'array'];
 
 		element._onOrganizationCollectionChanged(collectionEntity);
 
-		expect(element._items).to.be.empty;
+		collectionEntity.subEntitiesLoaded().then(() => {
+			expect(element._items).to.be.empty;
+			done();
+		});
 	});
 });
