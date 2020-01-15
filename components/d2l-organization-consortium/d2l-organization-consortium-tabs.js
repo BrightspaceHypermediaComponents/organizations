@@ -106,7 +106,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 	static get observers() {
 		return [
 			'_setCache(token)',
-			'_onConsortiumRootChange(_entity)',
+			'_onConsortiumRootChange(_entity, token)',
 			'_checkNotifications(_parsedOrganizations.*)'
 		];
 	}
@@ -374,13 +374,13 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		return 0;
 	}
 
-	_onConsortiumRootChange(rootEntity) {
+	_onConsortiumRootChange(rootEntity, token) {
 		var _self = this;
-		if (rootEntity && rootEntity.getConsortiumCollection()) {
+		if (rootEntity && token && rootEntity.getConsortiumCollection()) {
 			this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
 				dispose(_self.__tokenCollection); //clean up the old one
 				this._resetMaps();
-				entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
+				entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, token, (changed) => _self._onConsortiumChange(changed), entity);
 			});
 		}
 	}
