@@ -82,7 +82,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			},
 			_modulesComplete: {
 				type: Object,
-				value: function () {
+				value: function() {
 					return {
 						value: 0,
 						max: 0
