@@ -302,7 +302,6 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 	render() {
 		const items = this._handleLoading(this._renderItemList.bind(this), () => this._renderItemListSkeleton(3), () => {
-			this._currentListElements && this._currentListElements.querySelectorAll('d2l-list-item').forEach(element => element.toggleAttribute('href', false));
 			return html`
 				<div class="d2l-organization-admin-list-disabled">
 					${this._currentListElements}
@@ -378,7 +377,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				html`
 					<d2l-list-item
 						.breakpoints=${[1170, 391, 0, 0]}
-						href=${ifDefined(item.usage.editHref())}
+						href=${ifDefined(this._loaded ? item.usage.editHref() : undefined)}
 					>
 						<div slot="illustration" class="d2l-organization-admin-list-item-illustration">
 							${this._renderCourseImageSkeleton()}
