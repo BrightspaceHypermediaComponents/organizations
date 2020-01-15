@@ -215,8 +215,6 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		this._loadedImages = 0;
 		this._loaded = false;
 		this._firstLoad = true;
-		this.ariaBusy = 'true';
-		this.ariaLive = 'polite';
 		this._setEntityType(OrganizationCollectionEntity);
 	}
 
