@@ -241,7 +241,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					};
 					loadedCount++;
 					if (loadedCount > totalCount) {
-						this.items = items;
+						this._items = items;
 					}
 				});
 			}
@@ -390,7 +390,6 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						</div>
 						<d2l-list-item-content>
 							${item.organization.name()}
-							<div slot="secondary"></div>
 						</d2l-list-item-content>
 					</d2l-list-item>
 				`
