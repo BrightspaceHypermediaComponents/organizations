@@ -2,11 +2,14 @@ import '../d2l-organization-image/d2l-organization-image.js';
 import './d2l-organization-admin-list-pager.js';
 import './d2l-organization-admin-list-search-header.js';
 import '@brightspace-ui/core/components/button/button.js';
+import '@brightspace-ui/core/components/button/button-icon.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/list/list-item-content.js';
 import '@brightspace-ui/core/components/list/list-item.js';
 import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
+import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
+import 'd2l-alert/d2l-alert-toast.js';
 import {
 	heading1Styles,
 	bodyStandardStyles
@@ -17,6 +20,7 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
 import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { OrganizationCollectionEntity } from 'siren-sdk/src/organizations/OrganizationCollectionEntity.js';
+import { dispose } from 'siren-sdk/src/es6/EntityFactory';
 
 class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	static get properties() {
@@ -235,7 +239,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					items[index] = {
 						usage: { editHref: () => activityUsage.editHref() },
 						organization,
-						removeItem: () => null
+						remove: organization.canDelete() ? () => this._deleteItem(organization) : null
 					};
 					loadedCount++;
 					if (loadedCount > totalCount) {
@@ -257,6 +261,20 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			}
 			this._firstLoad = false;
 		});
+	}
+
+	async _deleteItem(organization) {
+		const dialog = this.shadowRoot.querySelector('#confirm-delete-dialog');
+		const result = await dialog.open();
+		if (!result) {
+			return;
+		}
+		dispose(organization);
+		await organization.delete();
+
+		this._items = this._items.filter(cur => cur.organization !== organization);
+
+		this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
 	}
 
 	_resetLoad() {
@@ -338,7 +356,6 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					` : null }
 				</div>
 			</div>
-
 			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container'>
 				<div class='d2l-organization-admin-list-background-gradient'></div>
 				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-body'>
@@ -353,6 +370,13 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					`)}
 				</div>
 			</div>
+			<d2l-dialog-confirm title-text=${this.localize('confirmDeleteTitle')} text=${this.localize('confirmDeleteMessage')} id="confirm-delete-dialog">
+				<d2l-button slot="footer" primary dialog-action="yes">${this.localize('yesAction')}</d2l-button>
+				<d2l-button slot="footer" dialog-action>${this.localize('noAction')}</d2l-button>
+			</d2l-dialog-confirm>
+			<d2l-alert-toast id="delete-succeeded-toast" type="default" announce-text=${this.localize('deleteSucceeded')}>
+				${this.localize('deleteSucceeded')}
+			</d2l-alert-toast>
 		`;
 	}
 
@@ -389,6 +413,9 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						<d2l-list-item-content>
 							${item.organization.name()}
 						</d2l-list-item-content>
+						<div slot="actions">
+							${ item.remove ? html`<d2l-button-icon icon="tier1:delete" @click="${item.remove}"></d2l-button-icon>` : null }
+						</div>
 					</d2l-list-item>
 				`
 		);
