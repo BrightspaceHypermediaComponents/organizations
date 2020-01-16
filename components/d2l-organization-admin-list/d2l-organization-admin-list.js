@@ -1,6 +1,7 @@
 import '../d2l-organization-image/d2l-organization-image.js';
 import './d2l-organization-admin-list-pager.js';
 import './d2l-organization-admin-list-search-header.js';
+import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/colors/colors.js';
 import '@brightspace-ui/core/components/list/list-item-content.js';
@@ -232,10 +233,15 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		const totalCount = collection.onOrganizationsChange(
 			(organization, index) => {
 				organization.onActivityUsageChange(activityUsage => {
+					// Note you may have to add on to the method and do something like:
+					const removeOrgUnit = async () => {
+						await organization.delete();
+						collection.update();
+					};
 					items[index] = {
 						usage: { editHref: () => activityUsage.editHref() },
 						organization,
-						removeItem: () => null
+						delete: removeOrgUnit // then call this method instead of organization delete.
 					};
 					loadedCount++;
 					if (loadedCount > totalCount) {
@@ -389,6 +395,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						<d2l-list-item-content>
 							${item.organization.name()}
 						</d2l-list-item-content>
+						<d2l-button-icon slot="actions" text="${this.localize('removeActivity', 'courseName', item.organization.name())}" icon="d2l-tier1:close-default" @click=${organization.delete()}>
 					</d2l-list-item>
 				`
 		);
