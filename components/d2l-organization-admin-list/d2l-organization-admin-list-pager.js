@@ -75,7 +75,14 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 	}
 
 	_toPage(e) {
-		this.onPageChanged(e.target.value);
+		// handle invalid input
+		const value = Number(e.target.value);
+		if (!Number.isInteger(value) || value < 1 || value > this.totalPages) {
+			// reset to original
+			e.target.value = this.currentPage;
+			return;
+		}
+		this.onPageChanged(value);
 	}
 
 	_countDigits(number) {
