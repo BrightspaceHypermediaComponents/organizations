@@ -273,6 +273,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		await organization.delete();
 
 		this._items = this._items.filter(cur => cur.organization !== organization);
+		this._deletedName = organization.name();
 
 		this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
 	}
@@ -374,8 +375,8 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				<d2l-button slot="footer" primary dialog-action="yes">${this.localize('yesAction')}</d2l-button>
 				<d2l-button slot="footer" dialog-action>${this.localize('noAction')}</d2l-button>
 			</d2l-dialog-confirm>
-			<d2l-alert-toast id="delete-succeeded-toast" type="default" announce-text=${this.localize('deleteSucceeded')}>
-				${this.localize('deleteSucceeded')}
+			<d2l-alert-toast id="delete-succeeded-toast" type="default" announce-text=${this.localize('deleteSucceeded', 'name', this._deletedName)}>
+				${this.localize('deleteSucceeded', 'name', this._deletedName)}
 			</d2l-alert-toast>
 		`;
 	}
