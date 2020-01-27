@@ -12,6 +12,7 @@ export default {
 	"pageNext": "To next page", // Label for the next page button
 	"pagePrevious": "To previous page", // Label for the back to previous page button
 	"pageSelection": "On page {pageCurrent} of {pageTotal}. Enter a page number to go to that page", // Label for the page number input that lists the current page and lets the user jump to specific pages
+	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "Search", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Search...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "Delete Learning Path" // The 'Yes' button action text in the delete Learning Path confirmation dialog

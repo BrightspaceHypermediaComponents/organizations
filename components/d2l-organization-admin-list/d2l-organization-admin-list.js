@@ -415,7 +415,12 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 							${item.organization.name()}
 						</d2l-list-item-content>
 						<div slot="actions">
-							${ item.remove ? html`<d2l-button-icon icon="tier1:delete" @click="${item.remove}"></d2l-button-icon>` : null }
+							${ item.remove ? html`
+							<d2l-button-icon
+								text="${this.localize('removeLearningPath', 'name', item.organization.name())}"
+								icon="tier1:delete"
+								@click="${item.remove}">
+							</d2l-button-icon>` : null }
 						</div>
 					</d2l-list-item>
 				`
