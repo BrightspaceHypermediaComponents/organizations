@@ -50,7 +50,8 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			},
 			_collection: {
 				type: Object
-			}
+			},
+			_deletedName: { type: String }
 		};
 	}
 
