@@ -414,7 +414,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 							<div>${item.organization.name()}</div>
 							<div slot="secondary">
 								<d2l-icon icon="tier1:visibility-${item.organization.isActive() ? 'show' : 'hide'}"></d2l-icon>
-								${item.organization.isActive() ? 'Visible' : 'Hidden'} to users
+								${item.organization.isActive() ? this.localize('visibleToUsers') : this.localize('hiddenFromUsers')}
 							</div>
 						</d2l-list-item-content>
 						<div slot="actions">
