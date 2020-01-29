@@ -249,6 +249,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			}
 		);
 		collection.subEntitiesLoaded().then(() => {
+			this._disposeOldEntities();
 			this._items = items;
 			this._totalPages = collection.totalPages();
 			this._currentPage = collection.currentPage();
@@ -261,6 +262,13 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 			}
 			this._firstLoad = false;
 		});
+	}
+
+	_disposeOldEntities() {
+		for(var x = 0; x < this._items.length; x++) {
+			this._items[x] && dispose(this._items[x]);
+		}
+		this._collection && dispose(this._collection);
 	}
 
 	async _deleteItem(organization) {
