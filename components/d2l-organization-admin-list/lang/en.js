@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "Confirm Delete", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Create Learning Path", // Button to create a new Learning Path
 	"defaultLearningPathName": "Untitled Learning Path", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "Deleted Successfully", // The toast message displayed when a Learning Path is successfully deleted
+  "deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
 	"hiddenFromUsers": "Hidden from users", // Visibility status displayed when a learning path is not visible
 	"noAction": "Cancel", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "There are no learning paths to display", // A page that lists learning paths this shows up when there are none to list.
@@ -13,6 +13,7 @@ export default {
 	"pageNext": "To next page", // Label for the next page button
 	"pagePrevious": "To previous page", // Label for the back to previous page button
 	"pageSelection": "On page {pageCurrent} of {pageTotal}. Enter a page number to go to that page", // Label for the page number input that lists the current page and lets the user jump to specific pages
+	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "Search", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Search...", // Placeholder text for the search input to search the list of org units
 	"visibleToUsers": "Visible to users", // Visibility status displayed when a learning path is visible
