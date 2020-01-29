@@ -265,9 +265,9 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 	}
 
 	_disposeOldEntities() {
-		for(var x = 0; x < this._items.length; x++) {
-			this._items[x] && dispose(this._items[x]);
-		}
+		this._items && this._items.forEach(item => {
+			item && dispose(item);
+		});
 		this._collection && dispose(this._collection);
 	}
 
