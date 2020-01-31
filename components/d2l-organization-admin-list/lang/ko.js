@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "삭제 확인", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "학습 경로 생성", // Button to create a new Learning Path
 	"defaultLearningPathName": "제목 없는 학습 경로", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "성공적으로 삭제됨", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "취소", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "표시할 학습 경로가 없습니다.", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "\"{searchTerm}\"에 대한 검색 결과 0개", // After searching for learning paths this shows up when there are no search results.

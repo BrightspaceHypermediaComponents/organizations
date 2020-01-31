@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "Confirmar Exclusão", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Criar Caminho de Aprendizagem", // Button to create a new Learning Path
 	"defaultLearningPathName": "Caminho de Aprendizagem Sem Título", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "Excluído com Êxito", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "Cancelar", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "Nenhum caminho de aprendizagem para exibição", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "Nenhum resultado de pesquisa encontrado para \"{searchTerm}\"", // After searching for learning paths this shows up when there are no search results.
