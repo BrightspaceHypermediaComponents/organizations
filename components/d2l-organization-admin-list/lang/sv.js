@@ -12,7 +12,6 @@ export default {
 	"pageNext": "Till nästa sida", // Label for the next page button
 	"pagePrevious": "Till föregående sida", // Label for the back to previous page button
 	"pageSelection": "På sidan {pageCurrent} av {pageTotal}. Ange ett sidnummer för att gå till den sidan", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "Sökning", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Sök ...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "Ta bort inlärningsväg" // The 'Yes' button action text in the delete Learning Path confirmation dialog

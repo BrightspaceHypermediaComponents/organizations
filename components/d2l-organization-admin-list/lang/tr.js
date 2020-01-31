@@ -12,7 +12,6 @@ export default {
 	"pageNext": "Sonraki sayfaya git", // Label for the next page button
 	"pagePrevious": "Önceki sayfaya git", // Label for the back to previous page button
 	"pageSelection": "{pageCurrent}/{pageTotal} numaralı sayfada. İlgili sayfaya gitmek için bir sayfa numarası seçin", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "Ara", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Ara...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "Öğrenme Yolunu Sil" // The 'Yes' button action text in the delete Learning Path confirmation dialog

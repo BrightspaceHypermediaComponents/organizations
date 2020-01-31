@@ -12,7 +12,6 @@ export default {
 	"pageNext": "다음 페이지로 이동", // Label for the next page button
 	"pagePrevious": "이전 페이지로 이동", // Label for the back to previous page button
 	"pageSelection": "{pageCurrent} / {pageTotal} 페이지. 해당 페이지로 이동하려면 페이지 번호를 입력하십시오.", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "검색", // Label for the search input to search the list of org units
 	"searchPlaceholder": "검색...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "학습 경로를 삭제합니다." // The 'Yes' button action text in the delete Learning Path confirmation dialog

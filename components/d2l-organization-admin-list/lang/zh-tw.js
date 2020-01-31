@@ -12,7 +12,6 @@ export default {
 	"pageNext": "前往下一頁", // Label for the next page button
 	"pagePrevious": "前往上一頁", // Label for the back to previous page button
 	"pageSelection": "在第 {pageCurrent} 頁，共 {pageTotal} 頁。請輸入頁面號碼以前往該頁面", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "搜尋", // Label for the search input to search the list of org units
 	"searchPlaceholder": "搜尋...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "刪除學習路徑" // The 'Yes' button action text in the delete Learning Path confirmation dialog
