@@ -7,9 +7,9 @@
         "context" : "Short error message if something went wrong",
         "translation" : "Opa"
     },
-    "impersonationWarning": {
-        "context": "Tooltip text when a user is impersonating another user and seeing their org tabs",
-        "translation": "You cannot access other tabs while impersonating."
+    "impersonationWarning" : {
+        "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
+        "translation" : "Não é possível acessar outras guias durante a representação."
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",

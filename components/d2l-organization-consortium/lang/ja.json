@@ -7,9 +7,9 @@
         "context" : "Short error message if something went wrong",
         "translation" : "申し訳ありません"
     },
-    "impersonationWarning": {
-        "context": "Tooltip text when a user is impersonating another user and seeing their org tabs",
-        "translation": "You cannot access other tabs while impersonating."
+    "impersonationWarning" : {
+        "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
+        "translation" : "代理処理中は他のタブにアクセスできません。"
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
