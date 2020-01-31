@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "削除の確認", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "学習パスの作成", // Button to create a new Learning Path
 	"defaultLearningPathName": "無題の学習パス", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "正常に削除されました", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "キャンセル", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "表示する学習パスがありません", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "「{searchTerm}」の検索結果が 0 件見つかりました", // After searching for learning paths this shows up when there are no search results.
