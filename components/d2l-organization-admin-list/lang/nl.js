@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "Verwijderen bevestigen", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Leertraject maken", // Button to create a new Learning Path
 	"defaultLearningPathName": "Naamloos leertraject", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "Verwijderd", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "Annuleren", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "Er zijn geen leertrajecten om weer te geven", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "0 zoekresultaten gevonden voor \"{searchTerm}\"", // After searching for learning paths this shows up when there are no search results.

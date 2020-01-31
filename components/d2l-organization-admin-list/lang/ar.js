@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "Confirm Delete", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "إنشاء مسار التعلّم", // Button to create a new Learning Path
 	"defaultLearningPathName": "مسار تعلّم من دون عنوان", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "تم الحذف بنجاح", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "إلغاء", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "There are no learning paths to display", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "لم يتم العثور على أي نتيجة بحث لـ \"{searchTerm}\"", // After searching for learning paths this shows up when there are no search results.

@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "Confirmar eliminación", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Crear plan de aprendizaje", // Button to create a new Learning Path
 	"defaultLearningPathName": "Plan de aprendizaje sin título", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "Eliminado correctamente", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "Cancelar", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "No hay rutas de aprendizaje para mostrar", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "Se encontraron 0 resultados de búsqueda para “{searchTerm}”", // After searching for learning paths this shows up when there are no search results.

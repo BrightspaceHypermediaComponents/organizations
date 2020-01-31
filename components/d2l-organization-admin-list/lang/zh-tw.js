@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "確認刪除", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "建立學習路徑", // Button to create a new Learning Path
 	"defaultLearningPathName": "未命名的學習路徑", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "已成功刪除", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "取消", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "沒有可顯示的學習路徑", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "找到 0 個「{searchTerm}」的搜尋結果", // After searching for learning paths this shows up when there are no search results.

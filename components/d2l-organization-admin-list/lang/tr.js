@@ -5,7 +5,7 @@ export default {
 	"confirmDeleteTitle": "Silme İşlemini Onayla", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Öğrenme Yolu Oluştur", // Button to create a new Learning Path
 	"defaultLearningPathName": "Adsız Öğrenme Yolu", // Default name given to a newly created Learning Path
-	"deleteSucceeded": "{name} was removed successfully.", // The toast message displayed when a Learning Path is successfully deleted
+	"deleteSucceeded": "Başarılı Bir Şekilde Silindi", // The toast message displayed when a Learning Path is successfully deleted
 	"noAction": "İptal", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "Görüntülenecek öğrenme yolu yok", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "\"{searchTerm}\" için 0 arama sonucu bulundu", // After searching for learning paths this shows up when there are no search results.
