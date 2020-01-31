@@ -1,11 +1,18 @@
 /* eslint quotes: 0 */
 
 export default {
+	"confirmDeleteMessage": "Bu öğe geri dönüşüm kutusuna taşınır ve yeniden yüklenebilir veya daha sonra kalıcı olarak silinebilir.", // The message for the delete Learning Path confirmation dialog
+	"confirmDeleteTitle": "Silme İşlemini Onayla", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Öğrenme Yolu Oluştur", // Button to create a new Learning Path
 	"defaultLearningPathName": "Adsız Öğrenme Yolu", // Default name given to a newly created Learning Path
+	"deleteSucceeded": "Başarılı Bir Şekilde Silindi", // The toast message displayed when a Learning Path is successfully deleted
+	"noAction": "İptal", // The 'No' button action text in the delete Learning Path confirmation dialog
+	"noLearningPath": "Görüntülenecek öğrenme yolu yok", // A page that lists learning paths this shows up when there are none to list.
+	"noLearningPathWithSearchTerm": "\"{searchTerm}\" için 0 arama sonucu bulundu", // After searching for learning paths this shows up when there are no search results.
+	"pageNext": "Sonraki sayfaya git", // Label for the next page button
+	"pagePrevious": "Önceki sayfaya git", // Label for the back to previous page button
+	"pageSelection": "{pageCurrent}/{pageTotal} numaralı sayfada. İlgili sayfaya gitmek için bir sayfa numarası seçin", // Label for the page number input that lists the current page and lets the user jump to specific pages
 	"search": "Ara", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Ara...", // Placeholder text for the search input to search the list of org units
-	"pagePrevious": "Önceki sayfaya git", // Label for the back to previous page button
-	"pageNext": "Sonraki sayfaya git", // Label for the next page button
-	"pageSelection": "{pageCurrent}/{pageTotal} numaralı sayfada. İlgili sayfaya gitmek için bir sayfa numarası seçin", // Label for the page number input that lists the current page and lets the user jump to specific pages
+	"yesAction": "Öğrenme Yolunu Sil" // The 'Yes' button action text in the delete Learning Path confirmation dialog
 };
