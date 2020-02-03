@@ -6,6 +6,7 @@ export default {
 	"createLearningPath": "Lernpfad erstellen", // Button to create a new Learning Path
 	"defaultLearningPathName": "Unbenannter Lernpfad", // Default name given to a newly created Learning Path
 	"deleteSucceeded": "Erfolgreich gelöscht", // The toast message displayed when a Learning Path is successfully deleted
+	"hiddenFromUsers": "Hidden from users", // Visibility status displayed when a learning path is not visible
 	"noAction": "Abbrechen", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "Es sind keine Lernpfade zum Anzeigen vorhanden.", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "0 Suchergebnisse für „{searchTerm}“ gefunden", // After searching for learning paths this shows up when there are no search results.
@@ -15,5 +16,6 @@ export default {
 	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
 	"search": "Suchen", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Suchen...", // Placeholder text for the search input to search the list of org units
+	"visibleToUsers": "Visible to users", // Visibility status displayed when a learning path is visible
 	"yesAction": "Lernpfad löschen" // The 'Yes' button action text in the delete Learning Path confirmation dialog
 };
