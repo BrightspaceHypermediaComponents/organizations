@@ -156,6 +156,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 
 				.d2l-organization-admin-skeleton-rect {
 					animation: loadingPulse 1.8s linear infinite;
+					fill: var(--d2l-color-sylvite);
 				}
 
 				.d2l-organization-admin-list-no-activity {
