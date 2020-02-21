@@ -417,6 +417,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 							<d2l-organization-image
 								class="d2l-organization-admin-list-item-image"
 								href=${item.organization.self()}
+								.token=${this.token}
 								@d2l-organization-image-loaded="${this._onListImageLoaded}"
 								?hidden="${!this._showImages}">
 							</d2l-organization-image>
