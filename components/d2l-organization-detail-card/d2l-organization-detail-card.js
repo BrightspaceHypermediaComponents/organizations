@@ -7,7 +7,6 @@ import '@brightspace-ui/core/components/meter/meter-circle.js';
 import { OrganizationDetailCardLocalize } from './OrganizationDetailCardLocalize.js';
 import '../d2l-organization-date/d2l-organization-date.js';
 import '../d2l-organization-image/d2l-organization-image.js';
-import '../d2l-organization-name/d2l-organization-name.js';
 import 'd2l-typography/d2l-typography-shared-styles.js';
 import 'd2l-sequences/components/d2l-sequences-module-list.js';
 import 'd2l-resize-aware/d2l-resize-aware.js';
@@ -396,11 +395,11 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 						</div>
 						<!-- Real text part -->
 						<div class="dedc-base-info">
-							<h3 class="dedc-title">[[_title]]</d2l-organization-name></h3>
+							<h3 class="dedc-title">[[_title]]</h3>
 							<div class="dedc-tag-container" hidden=[[!_showTags]]>
 									<span>
 										<d2l-icon icon="d2l-tier1:bullet"></d2l-icon>
-										<d2l-organization-date href="[[_organizationUrl]]"></d2l-organization-date>
+										<d2l-organization-date href="[[_organizationUrl]]" token="[[token]]"></d2l-organization-date>
 									</span>
 							</div>
 							<div class="dedc-description-container">
