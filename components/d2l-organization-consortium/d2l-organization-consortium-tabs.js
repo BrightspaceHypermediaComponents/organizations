@@ -113,8 +113,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 
 	static get template() {
 		return html`
-		<style include="d2l-typography-shared-styles">
-
+		<style>
 			.d2l-consortium-tab-box {
 				display: flex;
 				flex-wrap: nowrap;
