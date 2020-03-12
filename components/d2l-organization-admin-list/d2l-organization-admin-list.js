@@ -386,7 +386,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				</div>
 			</div>
 			<d2l-dialog-confirm title-text=${this.localize('confirmDeleteTitle')} text=${this.localize('confirmDeleteMessage')} id="confirm-delete-dialog">
-				<d2l-button slot="footer" class= "confirm-delete" primary dialog-action="yes">${this.localize('yesAction')}</d2l-button>
+				<d2l-button slot="footer" class="confirm-delete" primary dialog-action="yes">${this.localize('yesAction')}</d2l-button>
 				<d2l-button slot="footer" dialog-action>${this.localize('noAction')}</d2l-button>
 			</d2l-dialog-confirm>
 			<d2l-alert-toast id="delete-succeeded-toast" type="default" announce-text=${this.localize('deleteSucceeded', 'name', this._deletedName)}>
