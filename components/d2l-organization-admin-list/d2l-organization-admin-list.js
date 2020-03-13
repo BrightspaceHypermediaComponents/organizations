@@ -181,7 +181,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					min-height: 2.1rem;
 				}
 
-				.confirm-delete{
+				.confirm-delete-btn{
 					margin-bottom: 18px;
 				}
 
@@ -368,7 +368,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						>
 							${this.localize(this.createActionTitleTerm)}
 						</d2l-button>
-					` : null }
+					` : null}
 				</div>
 			</div>
 			<div class='d2l-organization-admin-list-content-container d2l-organization-admin-list-body-container'>
@@ -386,7 +386,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				</div>
 			</div>
 			<d2l-dialog-confirm title-text=${this.localize('confirmDeleteTitle')} text=${this.localize('confirmDeleteMessage')} id="confirm-delete-dialog">
-				<d2l-button slot="footer" class="confirm-delete" primary dialog-action="yes">${this.localize('yesAction')}</d2l-button>
+				<d2l-button slot="footer" class="confirm-delete-btn" primary dialog-action="yes">${this.localize('yesAction')}</d2l-button>
 				<d2l-button slot="footer" dialog-action>${this.localize('noAction')}</d2l-button>
 			</d2l-dialog-confirm>
 			<d2l-alert-toast id="delete-succeeded-toast" type="default" announce-text=${this.localize('deleteSucceeded', 'name', this._deletedName)}>
@@ -439,7 +439,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 								text="${this.localize('removeLearningPath', 'name', item.organization.name())}"
 								icon="tier1:delete"
 								@click="${item.remove}">
-							</d2l-button-icon>` : null }
+							</d2l-button-icon>` : null}
 						</div>
 					</d2l-list-item>
 				`
@@ -482,7 +482,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 		}
 	}
 
-	_handleLoading(whenLoaded, firstLoad = () => null, nextLoad =  null) {
+	_handleLoading(whenLoaded, firstLoad = () => null, nextLoad = null) {
 		nextLoad = nextLoad === null ? whenLoaded : nextLoad;
 		return this._firstLoad ? (this._loaded ? whenLoaded() : firstLoad()) : (this._loaded ? whenLoaded() : nextLoad());
 	}
