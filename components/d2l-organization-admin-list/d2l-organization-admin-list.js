@@ -248,7 +248,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						actions: {
 							remove: organization.canDelete() ? () => this._deleteItem(organization) : null
 						},
-						hasActions: function() { return Object.values(this.actions).some((action) => action) }
+						hasActions: function() { return Object.values(this.actions).some((action) => action); }
 					};
 					loadedCount++;
 					if (loadedCount > totalCount) {
