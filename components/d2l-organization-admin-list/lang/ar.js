@@ -1,6 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
+	"actions": "Actions", // Label for learning path context menu
+	"actionsForLP": "Actions for {name}", // Label for within the context menu
 	"confirmDeleteMessage": "This item will be moved to the recycle bin and can be restored or permanently deleted later.", // The message for the delete Learning Path confirmation dialog
 	"confirmDeleteTitle": "Confirm Delete", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "إنشاء مسار التعلّم", // Button to create a new Learning Path
@@ -12,7 +14,7 @@ export default {
 	"pageNext": "الانتقال إلى الصفحة التالية", // Label for the next page button
 	"pagePrevious": "الانتقال إلى الصفحة السابقة", // Label for the back to previous page button
 	"pageSelection": "في الصفحة {pageCurrent} من أصل {pageTotal}. إدخال رقم صفحة للانتقال إليها", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
+	"removeLearningPath": "Delete", // Label for delete learning path button
 	"search": "بحث", // Label for the search input to search the list of org units
 	"searchPlaceholder": "البحث...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "Delete Learning Path" // The 'Yes' button action text in the delete Learning Path confirmation dialog

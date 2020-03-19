@@ -1,6 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
+	"actions": "Actions", // Label for learning path context menu
+	"actionsForLP": "Actions for {name}", // Label for within the context menu
 	"confirmDeleteMessage": "Dit item wordt verplaatst naar de prullenbak en kan later worden hersteld of permanent worden verwijderd.", // The message for the delete Learning Path confirmation dialog
 	"confirmDeleteTitle": "Verwijderen bevestigen", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Leertraject maken", // Button to create a new Learning Path
@@ -12,7 +14,7 @@ export default {
 	"pageNext": "Naar volgende pagina", // Label for the next page button
 	"pagePrevious": "Naar vorige pagina", // Label for the back to previous page button
 	"pageSelection": "Op pagina {pageCurrent} van {pageTotal}. Voer een paginanummer in om naar die pagina te gaan", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
+	"removeLearningPath": "Delete", // Label for delete learning path button
 	"search": "Zoeken", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Zoeken...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "Leertraject verwijderen" // The 'Yes' button action text in the delete Learning Path confirmation dialog
