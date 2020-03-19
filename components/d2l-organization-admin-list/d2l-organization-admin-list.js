@@ -2,13 +2,17 @@ import '../d2l-organization-image/d2l-organization-image.js';
 import './d2l-organization-admin-list-pager.js';
 import './d2l-organization-admin-list-search-header.js';
 import '@brightspace-ui/core/components/button/button.js';
-import '@brightspace-ui/core/components/button/button-icon.js';
 import '@brightspace-ui/core/components/colors/colors.js';
+import '@brightspace-ui/core/components/icons/icon.js';
 import '@brightspace-ui/core/components/list/list-item-content.js';
 import '@brightspace-ui/core/components/list/list-item.js';
 import '@brightspace-ui/core/components/list/list.js';
 import '@brightspace-ui/core/components/loading-spinner/loading-spinner.js';
 import '@brightspace-ui/core/components/dialog/dialog-confirm.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-more.js';
+import '@brightspace-ui/core/components/dropdown/dropdown-menu.js';
+import '@brightspace-ui/core/components/menu/menu.js';
+import '@brightspace-ui/core/components/menu/menu-item.js';
 import 'd2l-alert/d2l-alert-toast.js';
 import {
 	heading1Styles,
@@ -241,7 +245,10 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					items[index] = {
 						usage: { editHref: () => activityUsage.editHref() },
 						organization,
-						remove: organization.canDelete() ? () => this._deleteItem(organization) : null
+						actions: {
+							remove: organization.canDelete() ? () => this._deleteItem(organization) : null
+						},
+						hasActions: function() { return Object.values(this.actions).some((action) => action); }
 					};
 					loadedCount++;
 					if (loadedCount > totalCount) {
@@ -371,7 +378,9 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				<div class='d2l-organization-admin-list-background-gradient'></div>
 				<div class='d2l-organization-admin-list-content d2l-organization-admin-list-body'>
 					${search}
-					<div class="d2l-organization-admin-list-list" aria-live="polite" aria-busy="${!this._loaded ? html`true` : html`false`}">${items}</div>
+					<div class="d2l-organization-admin-list-list" aria-live="polite" aria-busy="${!this._loaded ? html`true` : html`false`}">
+						${items}
+					</div>
 					${this._handleLoading(() => this._items.length <= 0 ? null : html`
 						<d2l-organization-admin-list-pager
 							current-page="${this._currentPage}"
@@ -430,12 +439,21 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 							</div>
 						</d2l-list-item-content>
 						<div slot="actions">
-							${ item.remove ? html`
-							<d2l-button-icon
-								text="${this.localize('removeLearningPath', 'name', item.organization.name())}"
-								icon="tier1:delete"
-								@click="${item.remove}">
-							</d2l-button-icon>` : null }
+							${ item.hasActions() ? html`
+							<d2l-dropdown-more text="${this.localize('actions')}">
+								<d2l-dropdown-menu>
+									<d2l-menu label="${this.localize('actionsForLP', 'name', item.organization.name())}">
+										${item.actions.remove ? html`
+										<d2l-menu-item
+											text="${this.localize('removeLearningPath')}"
+											@click="${item.actions.remove}"
+										>
+										</d2l-menu-item>
+										` : null}
+									</d2l-menu>
+								</d2l-dropdown-menu>
+							</d2l-dropdown-more>
+							` : null }
 						</div>
 					</d2l-list-item>
 				`

@@ -1,6 +1,8 @@
 /* eslint quotes: 0 */
 
 export default {
+	"actions": "Actions", // Label for learning path context menu
+	"actionsForLP": "Actions for {name}", // Label for within the context menu
 	"confirmDeleteMessage": "此項目將被移至資源回收桶，並可還原或在日後永久刪除。", // The message for the delete Learning Path confirmation dialog
 	"confirmDeleteTitle": "確認刪除", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "建立學習路徑", // Button to create a new Learning Path
@@ -12,7 +14,7 @@ export default {
 	"pageNext": "前往下一頁", // Label for the next page button
 	"pagePrevious": "前往上一頁", // Label for the back to previous page button
 	"pageSelection": "在第 {pageCurrent} 頁，共 {pageTotal} 頁。請輸入頁面號碼以前往該頁面", // Label for the page number input that lists the current page and lets the user jump to specific pages
-	"removeLearningPath": "Remove learning path, {name}.", // Label for delete learning path button
+	"removeLearningPath": "Delete", // Label for delete learning path button
 	"search": "搜尋", // Label for the search input to search the list of org units
 	"searchPlaceholder": "搜尋...", // Placeholder text for the search input to search the list of org units
 	"yesAction": "刪除學習路徑" // The 'Yes' button action text in the delete Learning Path confirmation dialog
