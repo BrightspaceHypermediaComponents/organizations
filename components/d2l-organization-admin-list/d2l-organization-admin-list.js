@@ -181,6 +181,13 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					min-height: 2.1rem;
 				}
 
+				#learningpath-title {
+					width: 750px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
 				@media (max-width: 420px) {
 					.d2l-organization-admin-list-header {
 						align-items: flex-start;
@@ -191,12 +198,31 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						margin-bottom: 24px;
 						width: 100%;
 					}
+
+					#learningpath-title{
+						width: 250px;
+					}
 				}
 
 				@media (max-width: 615px) {
 					.d2l-organization-admin-list-content {
 						padding-left: 15px;
 						padding-right: 15px;
+					}
+					#learningpath-title{
+						width: 250px;
+					}
+				}
+
+				@media (min-width: 615px) {
+					#learningpath-title{
+						width: 350px;
+					}
+				}
+
+				@media (min-width: 915) {
+					#learningpath-title{
+						width: 550px;
 					}
 				}
 
@@ -423,7 +449,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 							</d2l-organization-image>
 						</div>
 						<d2l-list-item-content>
-							<div>${item.organization.name()}</div>
+							<div id="learningpath-title">${item.organization.name()}</div>
 							<div slot="secondary">
 								<d2l-icon icon="tier1:visibility-${item.organization.isActive() ? 'show' : 'hide'}"></d2l-icon>
 								${item.organization.isActive() ? this.localize('visibleToUsers') : this.localize('hiddenFromUsers')}
