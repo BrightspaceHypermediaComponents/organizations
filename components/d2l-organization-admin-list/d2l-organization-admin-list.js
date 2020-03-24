@@ -446,7 +446,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 										${item.actions.remove ? html`
 										<d2l-menu-item
 											text="${this.localize('removeLearningPath')}"
-											@click="${item.actions.remove}"
+											@d2l-menu-item-select="${item.actions.remove}"
 										>
 										</d2l-menu-item>
 										` : null}
