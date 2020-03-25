@@ -174,6 +174,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					position: relative;
 					width: 220px;
 				}
+				.dedc-base-container:not([has-link]) .dedc-image {
+					filter: grayscale(1);
+					opacity: 0.5;
+				}
 				.dedc-image-pulse {
 					animation: loadingPulse 1.8s linear infinite;
 					background-color: var(--d2l-color-sylvite);
@@ -246,9 +250,11 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					background-color: var(--d2l-color-sylvite);
 					border-radius: 4px;
 				}
+				.dedc-base-container[has-link] .dedc-title {
+					color: var(--d2l-color-celestine);
+				}
 				.dedc-title {
 					@apply --d2l-body-standard-text;
-					color: var(--d2l-color-celestine);
 					letter-spacing: 0.4px;
 					line-height: 1;
 					margin: 0 0 0.1rem 0;
