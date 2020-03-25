@@ -198,28 +198,22 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					}
 
 				}
-				@media (max-width: 350px) {
+
+				@media (max-width: 349px) {
 					.learningpath-title{
-						width: 90px;
+						width: 100px;
 					}
 
 				}
 
-				@media (min-width: 350px) {
+				@media (min-width: 350px) and  (max-width: 474px){
 					.learningpath-title{
 						width: 150px;
 					}
 				}
-
-				@media (min-width: 440px) {
+				@media (min-width: 475px) and  (max-width: 664px){
 					.learningpath-title{
-						width: 180px;
-					}
-				}
-
-				@media (min-width: 520px) {
-					.learningpath-title{
-						width: 230px;
+						width: 210px;
 					}
 				}
 
@@ -228,25 +222,25 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						padding-left: 15px;
 						padding-right: 15px;
 					}
-
 				}
-				@media (min-width: 615px) {
+
+				@media (min-width: 665px) and  (max-width: 774px){
 					.learningpath-title{
 						width: 350px;
 					}
 				}
-				@media (min-width: 815px) {
+
+				@media (min-width: 775px) and  (max-width: 974px){
 					.learningpath-title{
-						width: 500px;
+						width: 450px;
 					}
 				}
 
-				@media (min-width: 975) {
+				@media (min-width: 975)  and (max-width: 1229px) {
 					.learningpath-title{
 						width: 550px;
 					}
 				}
-
 				@media (min-width: 1230px) {
 					.d2l-organization-admin-list-content {
 						padding-left: 30px;
