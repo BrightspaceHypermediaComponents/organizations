@@ -155,6 +155,10 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 	}
 
 	_onOrganizationChange(organization) {
+		if (organization === null) {
+			return; // invoked for removed organization
+		}
+
 		if (organization.hasClass(organizationClasses.courseOffering)) {
 			this._entity.onImageChange((image) => {
 				this._primaryImage = image.entity();
