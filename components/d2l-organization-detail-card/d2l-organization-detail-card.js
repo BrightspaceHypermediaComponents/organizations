@@ -376,7 +376,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			</style>
 			<d2l-resize-aware class="dedc-container" mobile$="[[_mobile]]" show-text$=[[_forceShowText]]>
 				<div class="dedc-base-container" has-link$="[[_organizationHomepageUrl]]">
-					<a class="d2l-focusable" title="[[_title]]" href$="[[_organizationHomepageUrl]]">
+					<a class="d2l-focusable" title$="[[_title]]" href$="[[_organizationHomepageUrl]]">
 						<span class="dedc-link-text" aria-hidden="true">[[_title]]</span>
 					</a>
 					<div class="dedc-image" show-image$=[[_forceShowImage]]>
