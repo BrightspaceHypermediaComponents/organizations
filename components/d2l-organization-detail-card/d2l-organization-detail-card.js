@@ -275,6 +275,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 					top: -1.2rem;
 					right: -1.2rem;
 					z-index: 100;
+					padding-right:5px;
 				}
 				:host(:dir(rtl)) .dedc-module-completion-meter {
 					left: -1.2rem;
