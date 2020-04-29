@@ -1,38 +1,38 @@
 {
-  "unapprovedDiscussions": {
-    "translation": "{number} ikke-godkendte diskussioner",
-    "context": "The number of discussion post that need to be reviewed"
-  },
-  "unattemptedQuizzes": {
-    "translation": "{number} ikke-afholdte eksaminationer",
-    "context": "The amount of quizes that a user has not done."
-  },
-  "ungradedQuizzes": {
-    "translation": "{number} eksaminationer uden karakter",
-    "context": "The number of quizzes that need to be marked"
-  },
-  "unreadAssignmentFeedback": {
-    "translation": "{number} ulæst opgavefeedback",
-    "context": "The amount of feedback comments that a user has not read about assignments"
-  },
-  "unreadAssignmentSubmissions": {
-    "translation": "{number} Ulæste opgaveafleveringsfiler",
-    "context": "The number of assignment files that still need to be read."
-  },
-  "unreadDiscussionFeedback": {
-    "translation": "{number} ulæst diskussionsfeedback",
-    "context": "The amount of feedback comments that a user has not read about discussion"
-  },
-  "unreadDiscussions": {
-    "translation": "{number} ulæste diskussioner",
-    "context": "The number of new discussion posts"
-  },
-  "unreadQuizzesFeedback": {
-    "translation": "{number} ulæst eksaminationsfeedback",
-    "context": "The amount of feedback comments that a user has not read about quizzes"
-  },
-  "updates": {
-    "translation": "opdateringer",
-    "context": "The total number of updates a course has for a user. Sum of all the other terms."
-  }
+    "unapprovedDiscussions" : {
+        "context" : "The number of discussion post that need to be reviewed",
+        "translation" : "{number} ikke-godkendte diskussioner"
+    },
+    "unattemptedQuizzes" : {
+        "context" : "The amount of quizes that a user has not done.",
+        "translation" : "{number} ikke-afholdte eksaminationer"
+    },
+    "ungradedQuizzes" : {
+        "context" : "The number of quizzes that need to be marked",
+        "translation" : "{number} eksaminationer uden karakter"
+    },
+    "unreadAssignmentFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about assignments",
+        "translation" : "{number} ulæst opgavefeedback"
+    },
+    "unreadAssignmentSubmissions" : {
+        "context" : "The number of assignment files that still need to be read.",
+        "translation" : "{number} Ulæste opgaveafleveringsfiler"
+    },
+    "unreadDiscussionFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about discussion",
+        "translation" : "{number} ulæst diskussionsfeedback"
+    },
+    "unreadDiscussions" : {
+        "context" : "The number of new discussion posts",
+        "translation" : "{number} ulæste diskussioner"
+    },
+    "unreadQuizzesFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about quizzes",
+        "translation" : "{number} ulæst eksaminationsfeedback"
+    },
+    "updates" : {
+        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
+        "translation" : "opdateringer"
+    }
 }
