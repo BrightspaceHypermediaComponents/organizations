@@ -150,48 +150,6 @@ describe('d2l-organization-date', () => {
 			component = await fixture('org-date');
 		});
 
-		it('should send event with detail of inactive as true', done => {
-			component.addEventListener('d2l-organization-date', function(e) {
-				expect(e.detail.active).to.be.true;
-				done();
-			});
-
-			processedDateStub.returns({
-				type: 'startsAt',
-				date: date
-			});
-			isActiveStub.returns(true);
-			component._entity = organizationEntity;
-		});
-
-		it('should send event with detail of beforeStartDate as true.', done => {
-			component.addEventListener('d2l-organization-date', function(e) {
-				expect(e.detail.beforeStartDate).to.be.true;
-				done();
-			});
-
-			processedDateStub.returns({
-				type: 'startsAt',
-				date: date,
-				beforeStartDate: true
-			});
-			component._entity = organizationEntity;
-		});
-
-		it('should send event with detail of afterEndDate as true.', done => {
-			component.addEventListener('d2l-organization-date', function(e) {
-				expect(e.detail.afterEndDate).to.be.true;
-				done();
-			});
-
-			processedDateStub.returns({
-				type: 'startsAt',
-				date: date,
-				afterEndDate: true
-			});
-			component._entity = organizationEntity;
-		});
-
 		it('should send the "Starts" text when date type is startsAt', done => {
 			component.addEventListener('d2l-organization-accessible', function(e) {
 				expect(e.detail.organization.date).to.contain('Starts ');
