@@ -34,8 +34,7 @@ class OrganizationDate extends mixinBehaviors([
 			_statusText: {
 				type: String,
 				value: null
-			},
-			_entityStatus: String
+			}
 		};
 	}
 
@@ -63,7 +62,6 @@ class OrganizationDate extends mixinBehaviors([
 			return;
 		}
 
-		this._entityStatus = organization.isActive();
 		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
 	}
 
@@ -78,14 +76,6 @@ class OrganizationDate extends mixinBehaviors([
 			'date', this.formatDate(date.date, {format: 'MMMM d, yyyy'}),
 			'time', this.formatTime(date.date)
 		);
-
-		if (this._statusText || (this._entityStatus !== undefined)) {
-			this.fire('d2l-organization-date', {
-				active: !!this._entityStatus,
-				beforeStartDate: date.beforeStartDate,
-				afterEndDate: date.afterEndDate
-			});
-		}
 	}
 
 	_sendVoiceReaderInfo(statusText) {
