@@ -11,7 +11,7 @@ const LangEnImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} Unattempted Quizzes',
 			'ungradedQuizzes': '{number} Ungraded Quizzes',
 			'unreadAssignmentFeedback': '{number} Unread Assignment Feedback',
-			'unreadAssignmentSubmissions': '{number} Unread Assignment Submission Files',
+			'unreadAssignmentSubmissions': '{number} New Assignment Submissions',
 			'unreadDiscussionFeedback': '{number} Unread Discussion Feedback',
 			'unreadDiscussions': '{number} Unread Discussions',
 			'unreadQuizzesFeedback': '{number} Unread Quizzes Feedback',
