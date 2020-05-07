@@ -16,8 +16,8 @@
     "context": "The amount of feedback comments that a user has not read about assignments"
   },
   "unreadAssignmentSubmissions": {
-    "translation": "{number} Unread Assignment Submission Files",
-    "context": "The number of assignment files that still need to be read."
+    "translation": "{number} New Assignment Submissions",
+    "context": "The number of assignment submissions that still need to be read."
   },
   "unreadDiscussionFeedback": {
     "translation": "{number} Unread Discussion Feedback",
