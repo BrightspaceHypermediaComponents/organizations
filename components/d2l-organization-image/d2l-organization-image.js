@@ -34,13 +34,21 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 				type: String,
 				value: 'tile'
 			},
+			skeleton: {
+				type: Boolean,
+				value: false
+			},
 			_primaryImage: String,
 			_secondaryImage: String,
 			_tertiaryImage: String,
 			_noImage: {
 				type: Boolean,
 				value: false
-			}
+			},
+			_showImage: {
+				type: Boolean,
+				value: false
+			},
 		};
 	}
 
@@ -119,11 +127,20 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 					stroke-dasharray: 0.25rem;
 					stroke-dashoffset: 0.125rem;
 				}
+				.d2l-organization-image-skeleton-rect {
+					animation: loadingPulse 1.8s linear infinite;
+					fill: var(--d2l-color-sylvite);
+				}
 			</style>
 			<template is="dom-if" if="[[_noImage]]">
 				<svg class="doi-no-image">
 					<rect x="0" y="0" width="100%" height="100%"></rect>
 				</svg>
+			</template>
+			<template is="dom-if" if="[[skeleton]]" >
+			<svg viewBox="0 0 216 120" width="100%" slot="illustration" hidden$=[[_noImage]]>
+				<rect x="0" width="100%" y="0" height="100%" stroke="none" class="d2l-organization-image-skeleton-rect"></rect>
+			</svg>
 			</template>
 			<d2l-course-image image="[[_primaryImage]]" sizes="[[tileSizes]]" type="[[type]]" hidden$=[[_noImage]]></d2l-course-image>
 			<div class="doi-flex" hidden$=[[_noImage]]>
@@ -170,6 +187,8 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 		}
 
 		organization.subEntitiesLoaded().then(() => {
+			this.skeleton = false;
+
 			if (!this._primaryImage) {
 				this._noImage = true;
 				this._imageLoaded();
