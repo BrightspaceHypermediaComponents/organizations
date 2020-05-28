@@ -16,8 +16,8 @@
         "translation" : "{number} ongelezen feedbackberichten voor opdracht"
     },
     "unreadAssignmentSubmissions" : {
-        "context" : "The number of assignment files that still need to be read.",
-        "translation" : "{number} ongelezen bestanden met ingediende opdrachten"
+        "context" : "The number of assignment submissions that still need to be read.",
+        "translation" : "{number} nieuwe opdrachtindieningen"
     },
     "unreadDiscussionFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about discussion",

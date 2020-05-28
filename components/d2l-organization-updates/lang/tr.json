@@ -16,8 +16,8 @@
         "translation" : "{number} Okunmamış Ödev Geri Bildirimi"
     },
     "unreadAssignmentSubmissions" : {
-        "context" : "The number of assignment files that still need to be read.",
-        "translation" : "{number} Okunmamış Ödev Gönderimi Dosyaları"
+        "context" : "The number of assignment submissions that still need to be read.",
+        "translation" : "{number} Yeni Ödev Gönderimi"
     },
     "unreadDiscussionFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about discussion",

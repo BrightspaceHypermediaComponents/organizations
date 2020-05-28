@@ -8,6 +8,7 @@ export default {
 	"createLearningPath": "Criar Caminho de Aprendizagem", // Button to create a new Learning Path
 	"defaultLearningPathName": "Caminho de Aprendizagem Sem Título", // Default name given to a newly created Learning Path
 	"deleteSucceeded": "Excluído com Êxito", // The toast message displayed when a Learning Path is successfully deleted
+	"hiddenFromUsers": "Ocultas aos usuários", // Visibility status displayed when a learning path is not visible
 	"noAction": "Cancelar", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "Nenhum caminho de aprendizagem para exibição", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "Nenhum resultado de pesquisa encontrado para \"{searchTerm}\"", // After searching for learning paths this shows up when there are no search results.
@@ -17,5 +18,6 @@ export default {
 	"removeLearningPath": "Delete", // Label for delete learning path button
 	"search": "Pesquisar", // Label for the search input to search the list of org units
 	"searchPlaceholder": "Pesquisar...", // Placeholder text for the search input to search the list of org units
+	"visibleToUsers": "Visíveis aos usuários", // Visibility status displayed when a learning path is visible
 	"yesAction": "Editar Caminho de Aprendizagem" // The 'Yes' button action text in the delete Learning Path confirmation dialog
 };
