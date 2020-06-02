@@ -135,7 +135,6 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 					animation: loadingPulse 1.8s linear infinite;
 					fill: var(--d2l-color-sylvite);
 				}
-
 			</style>
 			<template is="dom-if" if="[[_noImage]]">
 				<svg class="doi-no-image">
