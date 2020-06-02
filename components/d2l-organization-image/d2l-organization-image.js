@@ -44,11 +44,7 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 			_noImage: {
 				type: Boolean,
 				value: false
-			},
-			_showImage: {
-				type: Boolean,
-				value: false
-			},
+			}
 		};
 	}
 
@@ -127,10 +123,19 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 					stroke-dasharray: 0.25rem;
 					stroke-dashoffset: 0.125rem;
 				}
+
+				@keyframes loadingPulse {
+					0% { fill: var(--d2l-color-sylvite); }
+					50% { fill: var(--d2l-color-regolith); }
+					75% { fill: var(--d2l-color-sylvite); }
+					100% { fill: var(--d2l-color-sylvite); }
+				}
+
 				.d2l-organization-image-skeleton-rect {
 					animation: loadingPulse 1.8s linear infinite;
 					fill: var(--d2l-color-sylvite);
 				}
+
 			</style>
 			<template is="dom-if" if="[[_noImage]]">
 				<svg class="doi-no-image">

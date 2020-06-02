@@ -25,6 +25,9 @@ npm install -g polymer-cli
 
 To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
 
+### local url
+http://127.0.0.1:8081/components/d2l-organizations/demo/
+
 ```shell
 polymer analyze > analysis.json && polymer serve
 ```
