@@ -12,7 +12,6 @@ import 'd2l-sequences/components/d2l-sequences-module-list.js';
 import 'd2l-resize-aware/d2l-resize-aware.js';
 import 'd2l-offscreen/d2l-offscreen-shared-styles.js';
 import 'd2l-polymer-behaviors/d2l-focusable-behavior.js';
-import 'fastdom/fastdom.min.js';
 
 /**
  * @customElement
