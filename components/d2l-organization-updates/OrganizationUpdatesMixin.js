@@ -50,6 +50,13 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 					toolTip: 'unapprovedDiscussions',
 					icon: 'd2l-tier1:comment-filled',
 					order: 2
+				},
+				UnapprovedPortfolioEvidence: {
+					key: 'unapprovedPortfolioEvidence',
+					presentationLink: 'ShowUnapprovedPortfolioEvidence',
+					toolTip: 'unapprovedPortfolioEvidence',
+					icon: 'd2l-tier1:folio',
+					order: 2
 				}
 			}
 		};

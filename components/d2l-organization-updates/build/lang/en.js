@@ -15,6 +15,7 @@ const LangEnImpl = (superClass) => class extends superClass {
 			'unreadDiscussionFeedback': '{number} Unread Discussion Feedback',
 			'unreadDiscussions': '{number} Unread Discussions',
 			'unreadQuizzesFeedback': '{number} Unread Quizzes Feedback',
+			'unapprovedPortfolioEvidence': '{number} Unapproved Evidence Items',
 			'updates': 'updates'
 		};
 	}

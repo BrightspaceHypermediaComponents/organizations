@@ -51,6 +51,10 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 				type: Boolean,
 				value: false
 			},
+			showUnapprovedPortfolioEvidence: {
+				type: Boolean,
+				value: false
+			},
 			_notifications: {
 				type: Array,
 				value: function() { return []; }
@@ -65,7 +69,7 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 	static get observers() {
 		return [
 			'_getNotificationsEntity(_entity)',
-			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions)'
+			'_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes, showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions, showUnapprovedPortfolioEvidence)'
 		];
 	}
 
@@ -190,15 +194,27 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 			(notificationCollection) => {
 				this._notificationList = notificationCollection.getNotifications();
 
-				this._getNotifications(this.combined, this.showDropboxUnreadFeedback,
-					this.showUnattemptedQuizzes, this.showUngradedQuizAttempts,
-					this.showUnreadDiscussionMessages, this.showUnreadDropboxSubmissions);
+				this._getNotifications(
+					this.combined,
+					this.showDropboxUnreadFeedback,
+					this.showUnattemptedQuizzes,
+					this.showUngradedQuizAttempts,
+					this.showUnreadDiscussionMessages,
+					this.showUnreadDropboxSubmissions,
+					this.showUnapprovedPortfolioEvidence
+				);
 			}
 		);
 	}
 
-	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes,
-		showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
+	_getNotifications(
+		combined,
+		showDropboxUnreadFeedback,
+		showUnattemptedQuizzes,
+		showUngradedQuizAttempts,
+		showUnreadDiscussionMessages,
+		showUnreadDropboxSubmissions,
+		showUnapprovedPortfolioEvidence) {
 
 		var presentationAttributes = {
 			'ShowDropboxUnreadFeedback': showDropboxUnreadFeedback,
@@ -206,6 +222,7 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 			'ShowUngradedQuizAttempts': showUngradedQuizAttempts,
 			'ShowUnreadDiscussionMessages': showUnreadDiscussionMessages,
 			'ShowUnreadDropboxSubmissions': showUnreadDropboxSubmissions,
+			'ShowUnapprovedPortfolioEvidence': showUnapprovedPortfolioEvidence,
 		};
 
 		if (!this._notificationList || !presentationAttributes) {
