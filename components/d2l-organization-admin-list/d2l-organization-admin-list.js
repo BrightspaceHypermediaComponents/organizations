@@ -469,7 +469,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 						</div>
 						<d2l-list-item-content>
 							<div class="learningpath-title">${item.organization.name()}</div>
-							<div slot="secondary">
+							<div slot="supporting-info">
 								<d2l-icon icon="tier1:visibility-${item.organization.isActive() ? 'show' : 'hide'}"></d2l-icon>
 								${item.organization.isActive() ? this.localize('visibleToUsers') : this.localize('hiddenFromUsers')}
 							</div>
@@ -514,7 +514,7 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 					<svg width="100%" class="d2l-organization-admin-list-body-compact-skeleton-svg">
 						<rect x="0" width="40%" y="0" height="100%" stroke="none" rx="4" class="d2l-organization-admin-skeleton-rect"></rect>
 					</svg>
-					<div slot="secondary">
+					<div slot="supporting-info">
 						<svg width="100%" class="d2l-organization-admin-list-body-small-skeleton-svg">
 							<rect x="0" width="30%" y="0" height="100%" stroke="none" rx="4" class="d2l-organization-admin-skeleton-rect"></rect>
 						</svg>
