@@ -1,10 +1,9 @@
 import '@brightspace-ui/core/components/button/button-icon.js';
 import '@brightspace-ui/core/components/inputs/input-text.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { getLocalizeResources } from './localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeOrganizationAdminList } from './localization.js';
 
-class AdminListPager extends LocalizeMixin(LitElement) {
+class AdminListPager extends LocalizeOrganizationAdminList(LitElement) {
 	static get properties() {
 		return {
 			totalPages: {
@@ -46,10 +45,6 @@ class AdminListPager extends LocalizeMixin(LitElement) {
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
