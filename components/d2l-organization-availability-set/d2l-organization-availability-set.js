@@ -5,13 +5,12 @@ import './d2l-organization-availability.js';
 import { css, html, LitElement } from 'lit-element/lit-element';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { getLocalizeResources } from './localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeOrganizationAvailabilitySet } from './localization.js';
 import { OrganizationAvailabilitySetEntity } from 'siren-sdk/src/organizations/OrganizationAvailabilitySetEntity.js';
 import { repeat } from 'lit-html/directives/repeat';
 import { SaveStatusMixin } from 'siren-sdk/src/mixin/save-status-mixin.js';
 
-class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(LocalizeMixin(LitElement))) {
+class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(LocalizeOrganizationAvailabilitySet(LitElement))) {
 
 	static get properties() {
 		return {
@@ -34,10 +33,6 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 				padding-bottom: 12px;
 			}
 		`;
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {

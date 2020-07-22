@@ -1,9 +1,8 @@
 import '@brightspace-ui/core/components/inputs/input-search.js';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { getLocalizeResources } from './localization.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
+import { LocalizeOrganizationAdminList } from './localization.js';
 
-class AdminListSearchHeader extends LocalizeMixin(LitElement) {
+class AdminListSearchHeader extends LocalizeOrganizationAdminList(LitElement) {
 	static get properties() {
 		return {
 			onSearchTextChanged: {
@@ -36,10 +35,6 @@ class AdminListSearchHeader extends LocalizeMixin(LitElement) {
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {

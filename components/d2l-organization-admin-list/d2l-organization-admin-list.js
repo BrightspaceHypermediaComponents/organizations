@@ -19,14 +19,13 @@ import {
 	bodyStandardStyles
 } from '@brightspace-ui/core/components/typography/styles.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
-import { getLocalizeResources } from './localization.js';
 import { ifDefined } from 'lit-html/directives/if-defined';
 import { css, html, LitElement } from 'lit-element/lit-element.js';
-import { LocalizeMixin } from '@brightspace-ui/core/mixins/localize-mixin.js';
 import { OrganizationCollectionEntity } from 'siren-sdk/src/organizations/OrganizationCollectionEntity.js';
 import { dispose } from 'siren-sdk/src/es6/EntityFactory';
+import { LocalizeOrganizationAdminList } from './localization.js';
 
-class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
+class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)) {
 	static get properties() {
 		return {
 			titleText: {
@@ -248,10 +247,6 @@ class AdminList extends EntityMixinLit(LocalizeMixin(LitElement)) {
 				}
 			`
 		];
-	}
-
-	static async getLocalizeResources(langs) {
-		return getLocalizeResources(langs, import.meta.url);
 	}
 
 	constructor() {
