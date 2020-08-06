@@ -104,6 +104,7 @@ class AdminListPager extends LocalizeOrganizationAdminList(LitElement) {
 					max=${this.totalPages}
 					size=${this._countDigits(this.totalPages)}
 					@change=${this._toPage}
+					novalidate
 				>
 				</d2l-input-text>
 				<div>&nbsp/&nbsp${this.totalPages}</div>
