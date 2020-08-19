@@ -16,8 +16,8 @@
         "translation" : "{number} rétroaction(s) de travail non lue(s)"
     },
     "unreadAssignmentSubmissions" : {
-        "context" : "The number of assignment files that still need to be read.",
-        "translation" : "{number} fichier(s) de soumission de travail non lu(s)"
+        "context" : "The number of assignment submissions that still need to be read.",
+        "translation" : "{number} nouvelles soumissions de travail"
     },
     "unreadDiscussionFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about discussion",
