@@ -1,123 +1,90 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-		<title>d2l-organization demo</title>
-		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-		<script type="module" src="../../../d2l-typography/d2l-typography.js"></script>
-		<script type="module" src="../../components/d2l-organization-date/d2l-organization-date.js"></script>
-		<!-- FIXME(polymer-modulizer):
-		These imperative modules that innerHTML your HTML are
-		a hacky way to be sure that any mixins in included style
-		modules are ready before any elements that reference them are
-		instantiated, otherwise the CSS @apply mixin polyfill won't be
-		able to expand the underlying CSS custom properties.
-		See: https://github.com/Polymer/polymer-modulizer/issues/154
-		-->
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script type="module">
-const $_documentContainer = document.createElement('template');
+		import '@brightspace-ui/core/components/demo/demo-page.js';
+		import '../../components/d2l-organization-date/d2l-organization-date.js';
+	</script>
+</head>
+<body unresolved>
+	<d2l-demo-page page-title="d2l-organization-date">
 
-$_documentContainer.innerHTML = `<custom-style>
-			<style is="custom-style" include="demo-pages-shared-styles"></style>
-		</custom-style>`;
+		<h2>d2l-organization-date: future</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-future.json"
+					token="1a">
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
 
-document.body.appendChild($_documentContainer.content);
-</script>
-		<script type="module">
-const $_documentContainer = document.createElement('template');
+		<h2>d2l-organization-date: past</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-past.json"
+					token="1a">
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
 
-$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
-			<style is="custom-style" include="d2l-typography"></style>
-		</custom-style>`;
+		<h2>d2l-organization-date: current</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-current.json"
+					token="1a">
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
 
-document.body.appendChild($_documentContainer.content);
-</script>
-	</head>
-	<body class="d2l-typography">
-		<script type="module">
-const $_documentContainer = document.createElement('template');
+		<h2>d2l-organization-date: current (No Dates)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-no-dates.json"
+					token="1a">
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
 
-$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
+		<h2>d2l-organization-date: future (hideCourseStartDate: true)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-future.json"
+					token="1a"
+					hide-course-start-date>
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
 
-			<h3>d2l-organization-date: future</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-future.json"
-						token="1a">
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
+		<h2>d2l-organization-date: past (hideCourseEndDate: true)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-past.json"
+					token="1a"
+					hide-course-end-date>
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
 
-			<h3>d2l-organization-date: past</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-past.json"
-						token="1a">
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
-
-			<h3>d2l-organization-date: current</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-current.json"
-						token="1a">
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
-
-			<h3>d2l-organization-date: current (No Dates)</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-no-dates.json"
-						token="1a">
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
-
-			<h3>d2l-organization-date: future (hideCourseStartDate: true)</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-future.json"
-						token="1a"
-						hide-course-start-date>
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
-
-			<h3>d2l-organization-date: past (hideCourseEndDate: true)</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-past.json"
-						token="1a"
-						hide-course-end-date>
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
-
-			<h3>d2l-organization-date: current (hideCourseEndDate: true)</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-date
-						href="../data/organization-current.json"
-						token="1a"
-						hide-course-end-date>
-					</d2l-organization-date>
-				</template>
-			</demo-snippet>
-
-		</div>`;
-
-document.body.appendChild($_documentContainer.content);
-		</script>
-	</body>
+		<h2>d2l-organization-date: current (hideCourseEndDate: true)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-date
+					href="../data/organization-current.json"
+					token="1a"
+					hide-course-end-date>
+				</d2l-organization-date>
+			</template>
+		</d2l-demo-snippet>
+	</d2l-demo-page>
+</body>
 </html>

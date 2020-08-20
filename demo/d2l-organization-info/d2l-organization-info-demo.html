@@ -1,82 +1,63 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-		<title>d2l-organization demo</title>
-		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-		<script type="module" src="../../../d2l-typography/d2l-typography.js"></script>
-		<script type="module" src="../../components/d2l-organization-info/d2l-organization-info.js"></script>
-		<script type="module" src="../../components/d2l-organization-name/d2l-organization-name.js"></script>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 	<script type="module">
-const $_documentContainer = document.createElement('template');
+		import '@brightspace-ui/core/components/demo/demo-page.js';
+		import '../../components/d2l-organization-info/d2l-organization-info.js';
+	</script>
+</head>
+<body unresolved>
+	<d2l-demo-page page-title="d2l-organization-info">
 
-$_documentContainer.innerHTML = `<custom-style>
-			<style is="custom-style" include="demo-pages-shared-styles"></style>
-		</custom-style>`;
+		<h2>Code and semester name (current)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-info href="../data/organization-current.json" token="1234a" show-organization-code show-semester-name>
+				</d2l-organization-info>
+			</template>
+		</d2l-demo-snippet>
 
-document.body.appendChild($_documentContainer.content);
-</script>
-		<script type="module">
-const $_documentContainer = document.createElement('template');
+		<h2>Code and semester name (missing semester)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-info href="../data/organization-no-semester.json" token="1234a" show-organization-code show-semester-name>
+				</d2l-organization-info>
+			</template>
+		</d2l-demo-snippet>
 
-$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
-			<style is="custom-style" include="d2l-typography"></style>
-		</custom-style>`;
+		<h2>Code (current)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-info href="../data/organization-current.json" token="1234a" show-organization-code>
+				</d2l-organization-info>
+			</template>
+		</d2l-demo-snippet>
 
-document.body.appendChild($_documentContainer.content);
-</script>
-	</head>
-	<body class="d2l-typography">
-		<script type="module">
-const $_documentContainer = document.createElement('template');
+		<h2>Default (current)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-info href="../data/organization-current.json" token="1234a">
+				</d2l-organization-info>
+			</template>
+		</d2l-demo-snippet>
 
-$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
-			<h3>d2l-organization-info</h3>
-			<demo-snippet>
-				<template>
-					<d2l-organization-info href="../data/organization-current.json" token="1234a" show-organization-code show-semester-name>
-					</d2l-organization-info>
-				</template>
-			</demo-snippet>
+		<h2>Semester name (future)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-info href="../data/organization-future.json" token="1234a" show-semester-name></d2l-organization-info>
+			</template>
+		</d2l-demo-snippet>
 
-			<demo-snippet>
-				<template>
-					<d2l-organization-info href="../data/organization-no-semester.json" token="1234a" show-organization-code show-semester-name>
-					</d2l-organization-info>
-				</template>
-			</demo-snippet>
-
-			<demo-snippet>
-				<template>
-					<d2l-organization-info href="../data/organization-current.json" token="1234a" show-organization-code>
-					</d2l-organization-info>
-				</template>
-			</demo-snippet>
-
-			<demo-snippet>
-				<template>
-					<d2l-organization-info href="../data/organization-current.json" token="1234a">
-					</d2l-organization-info>
-				</template>
-			</demo-snippet>
-
-			<demo-snippet>
-				<template>
-					<d2l-organization-info href="../data/organization-future.json" token="1234a" show-semester-name></d2l-organization-info>
-				</template>
-			</demo-snippet>
-
-			<demo-snippet>
-				<template>
-					<d2l-organization-info href="../data/organization-past.json" token="1234a" show-organization-code show-semester-name></d2l-organization-info>
-				</template>
-			</demo-snippet>
-		</div>`;
-
-document.body.appendChild($_documentContainer.content);
-		</script>
-	</body>
+		<h2>Code and semester name (past)</h2>
+		<d2l-demo-snippet>
+			<template>
+				<d2l-organization-info href="../data/organization-past.json" token="1234a" show-organization-code show-semester-name></d2l-organization-info>
+			</template>
+		</d2l-demo-snippet>
+	</d2l-demo-page>
+</body>
 </html>

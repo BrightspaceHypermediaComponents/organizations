@@ -1,78 +1,51 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+	<script type="module">
+		import '@brightspace-ui/core/components/demo/demo-page.js';
+		import '../../components/d2l-organization-image/d2l-organization-image.js';
+	</script>
+	<style>
+		.demo {
+			align-items: center;
+			background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
+			padding: 50px;
+		}
+	</style>
+</head>
+<body unresolved>
+	<d2l-demo-page page-title="d2l-organization-image">
 
-		<title>d2l-organization-image demo</title>
-		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<h2>Learning Path d2l-organization-image demo</h2>
+		<d2l-demo-snippet>
+			<template>
+				<div class="demo">
+					<d2l-organization-image href="../data/learningPath/organization-learning-path.json" token="whatever"></d2l-organization-image>
+				</div>
+			</template>
+		</d2l-demo-snippet>
 
-		<script type="module">
-			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-			import '@polymer/iron-demo-helpers/demo-snippet';
-			import 'd2l-typography/d2l-typography.js';
-			import '../../components/d2l-organization-image/d2l-organization-image.js';
+		<h2>Basic d2l-organization-image demo</h2>
+		<d2l-demo-snippet>
+			<template>
+				<div class="demo">
+					<d2l-organization-image href="../data/organization-current.json" token="whatever"></d2l-organization-image>
+				</div>
+			</template>
+		</d2l-demo-snippet>
 
-			const $_documentContainer = document.createElement('template');
-			$_documentContainer.innerHTML = `
-				<custom-style>
-					<style is="custom-style" include="demo-pages-shared-styles"></style>
-				</custom-style>
-				<custom-style include="d2l-typography">
-					<style is="custom-style" include="d2l-typography">
-						html {
-							font-size: 20px;
-						}
-						.fixed-size {
-							display:flex;
-							align-items: stretch;
-							flex-direction: column;
-							min-width: 0;
-							max-width: 900px;
-							flex-shrink: 1;
-							margin:auto;
-						}
-						h3 {
-							text-align: center;
-						}
-						.demo {
-							align-items: center;
-  							background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
-							padding: 50px;
-						}
-					</style>
-				</custom-style>
-			`;
-			document.body.appendChild($_documentContainer.content);
-			window.D2L.Siren.WhitelistBehavior._inTestMode = true;
-		</script>
-	</head>
-	<body class="d2l-typography">
-		<div class="vertical-section-container fixed-size">
-			<h3>Learning Path d2l-organization-image demo</h3>
-			<demo-snippet>
-				<template>
-					<div class="demo">
-						<d2l-organization-image href="../data/learningPath/organization-learning-path.json" token="whatever"></d2l-organization-image>
-					</div>
-				</template>
-			</demo-snippet>
-			<h3>Basic d2l-organization-image demo</h3>
-			<demo-snippet>
-				<template>
-					<div class="demo">
-						<d2l-organization-image href="../data/organization-current.json" token="whatever"></d2l-organization-image>
-					</div>
-				</template>
-			</demo-snippet>
-			<h3>Learning Path d2l-organization-image skeleton on demo</h3>
-			<demo-snippet>
-				<template>
-					<div class="demo">
-						<d2l-organization-image href="../data/learningPath/organization-learning-path.json" token="whatever" skeleton></d2l-organization-image>
-					</div>
-				</template>
-			</demo-snippet>
-		</div>
-	</body>
+		<h2>Learning Path d2l-organization-image skeleton on demo</h2>
+		<d2l-demo-snippet>
+			<template>
+				<div class="demo">
+					<d2l-organization-image href="../data/learningPath/organization-learning-path.json" token="whatever" skeleton></d2l-organization-image>
+				</div>
+			</template>
+		</d2l-demo-snippet>
+	</d2l-demo-page>
+</body>
 </html>

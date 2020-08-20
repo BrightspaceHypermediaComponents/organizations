@@ -13,6 +13,7 @@
     "lint": "npm run lint:wc && npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
     "lint:wc": "polymer lint",
+    "start": "es-dev-server --node-resolve --dedupe --watch --open",
     "test:polymer:local": "polymer test --skip-plugin sauce",
     "test:polymer:sauce": "polymer test --skip-plugin local"
   },
@@ -68,6 +69,7 @@
     "d2l-sequences": "BrightspaceHypermediaComponents/sequences#semver:^2",
     "d2l-tooltip": "BrightspaceUI/tooltip#semver:^3",
     "d2l-typography": "BrightspaceUI/typography#semver:^7",
+    "es-dev-server": "^1.57.3",
     "fastdom": "^1",
     "lit-element": "^2.2.1",
     "siren-parser": "^8.0.0",
