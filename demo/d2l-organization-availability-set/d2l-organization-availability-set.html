@@ -1,53 +1,54 @@
 <!doctype html>
 <html lang="en">
-<head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
-	<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-	<script type="module">
-		import '@brightspace-ui/core/components/demo/demo-page.js';
-		import '../../components/d2l-organization-availability-set/d2l-current-organization-availability.js';
-		import '../../components/d2l-organization-availability-set/d2l-organization-availability-set.js';
-		import '../../components/d2l-organization-availability-set/d2l-organization-availability.js';
-	</script>
-	<style>
-		.demo {
-			align-items: center;
-			background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
-			padding: 50px;
-		}
-	</style>
-</head>
-<body unresolved>
-	<d2l-demo-page page-title="d2l-organization-availability-set">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+		<script type="module">
+			import '@brightspace-ui/core/components/demo/demo-page.js';
+			import '../../components/d2l-organization-availability-set/d2l-current-organization-availability.js';
+			import '../../components/d2l-organization-availability-set/d2l-organization-availability-set.js';
+			import '../../components/d2l-organization-availability-set/d2l-organization-availability.js';
+		</script>
+		<style>
+			.demo {
+				align-items: center;
+				background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
+				padding: 50px;
+			}
+		</style>
+	</head>
+	<body unresolved>
+		<d2l-demo-page page-title="d2l-organization-availability-set">
 
-		<h2>d2l-organization-availability-set demo</h2>
-		<d2l-demo-snippet>
-			<template>
-				<div class="demo">
-					<d2l-organization-availability-set href="../data/organization-availability-set/organization-availability-set.json" token="whatever"></d2l-organization-availability-set>
-				</div>
-			</template>
-		</d2l-demo-snippet>
+			<h2>d2l-organization-availability-set demo</h2>
+			<d2l-demo-snippet>
+				<template>
+					<div class="demo">
+						<d2l-organization-availability-set href="../data/organization-availability-set/organization-availability-set.json" token="whatever"></d2l-organization-availability-set>
+					</div>
+				</template>
+			</d2l-demo-snippet>
 
-		<h2>d2l-current-organization-availability demo</h2>
-		<d2l-demo-snippet>
-			<template>
-				<div class="demo">
-					<d2l-current-organization-availability href="../data/organization-availability-set/orgUnitAvailabilityCurrent.json" token="whatever"></d2l-current-organization-availability>
-				</div>
-			</template>
-		</d2l-demo-snippet>
+			<h2>d2l-current-organization-availability demo</h2>
+			<d2l-demo-snippet>
+				<template>
+					<div class="demo">
+						<d2l-current-organization-availability href="../data/organization-availability-set/orgUnitAvailabilityCurrent.json" token="whatever"></d2l-current-organization-availability>
+					</div>
+				</template>
+			</d2l-demo-snippet>
 
-		<h2>d2l-organization-availability demo</h2>
-		<d2l-demo-snippet>
-			<template>
-				<div class="demo">
-					<d2l-organization-availability href="../data/organization-availability-set/orgUnitAvailabilityExplicit.json" token="whatever"></d2l-organization-availability>
-					<d2l-organization-availability href="../data/organization-availability-set/orgUnitAvailabilityInheritWithType.json" token="whatever"></d2l-organization-availability>
-				</div>
-			</template>
-		</d2l-demo-snippet>
+			<h2>d2l-organization-availability demo</h2>
+			<d2l-demo-snippet>
+				<template>
+					<div class="demo">
+						<d2l-organization-availability href="../data/organization-availability-set/orgUnitAvailabilityExplicit.json" token="whatever"></d2l-organization-availability>
+						<d2l-organization-availability href="../data/organization-availability-set/orgUnitAvailabilityInheritWithType.json" token="whatever"></d2l-organization-availability>
+					</div>
+				</template>
+			</d2l-demo-snippet>
+		</d2l-demo-page>
 	</body>
 </html>
