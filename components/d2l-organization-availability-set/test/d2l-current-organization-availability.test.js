@@ -8,7 +8,7 @@ import sinon from 'sinon/pkg/sinon-esm.js';
 
 const basic = html`<d2l-current-organization-availability token="whatever"></d2l-current-organization-availability>`;
 
-describe.only('d2l-current-organization-availability', () => {
+describe('d2l-current-organization-availability', () => {
 
 	describe('constructor', () => {
 		it('should construct', () => {
@@ -38,6 +38,7 @@ describe.only('d2l-current-organization-availability', () => {
 
 		afterEach(() => {
 			sandbox.restore();
+			window.D2L.Siren.EntityStore.clear();
 		});
 
 		it('renders current availability', (done) => {

@@ -6,7 +6,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 import sinon from 'sinon/pkg/sinon-esm.js';
 
-describe.only('d2l-organization-availability-set', () => {
+describe('d2l-organization-availability-set', () => {
 
 	describe('constructor', () => {
 		it('should construct', () => {
@@ -40,6 +40,7 @@ describe.only('d2l-organization-availability-set', () => {
 		});
 
 		afterEach(() => {
+			window.D2L.Siren.EntityStore.clear();
 			sandbox.restore();
 		});
 
