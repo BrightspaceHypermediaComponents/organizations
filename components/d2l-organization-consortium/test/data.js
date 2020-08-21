@@ -1,14 +1,5 @@
-const consortiumRoot1 = {
-	'class': ['consortium'],
-	'actions': [
-		{
-			'href':'/consortium1.json',
-			'name':'consortium-tokens',
-			'method':'POST'
-		}
-	]
-};
-const consortium1 = {
+export const consortiumRoot1 = {'class':['consortium'], 'actions':[{'href':'/consortium1.json', 'name':'consortium-tokens', 'method':'POST'}]};
+export const consortium1 = {
 	'class': ['tokens'],
 	'entities': [
 		{
@@ -60,7 +51,7 @@ const consortium1 = {
 	]
 };
 
-const organization1 = {
+export const organization1 = {
 	'properties': {
 		'name': 'Consortium 1',
 		'code': 'c1',
@@ -100,7 +91,7 @@ const organization1 = {
 	}]
 };
 
-const organization2 = {
+export const organization2 = {
 	'properties': {
 		'name': 'Consortium 2',
 		'code': null,
@@ -140,7 +131,7 @@ const organization2 = {
 	}]
 };
 
-const root1 = {
+export const root1 = {
 	'properties': {},
 	'classes': [],
 	'entities': [],
@@ -159,7 +150,7 @@ const root1 = {
 	]
 };
 
-const root2 = {
+export const root2 = {
 	'properties': {},
 	'classes': [],
 	'entities': [],
@@ -178,15 +169,8 @@ const root2 = {
 	]
 };
 
-const consortiumRoot2 = {
-	'class': ['consortium'],
-	'actions': [{
-		'href': '/consortium2.json',
-		'name': 'consortium-tokens',
-		'method': 'POST'
-	}
-]};
-const consortium2 = {
+export const consortiumRoot2 = {'class':['consortium'], 'actions':[{'href':'/consortium2.json', 'name':'consortium-tokens', 'method':'POST'}]};
+export const consortium2 = {
 	'class': ['tokens'],
 	'entities': [
 		{
@@ -236,7 +220,7 @@ const consortium2 = {
 	]
 };
 
-const organization3 = {
+export const organization3 = {
 	'properties': {
 		'name': 'Consortium 3',
 		'code': 'c3',
@@ -254,7 +238,7 @@ const organization3 = {
 	}]
 };
 
-const organization4 = {
+export const organization4 = {
 	'properties': {
 		'name': 'Consortium 4',
 		'code': null,

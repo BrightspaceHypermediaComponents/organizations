@@ -88,12 +88,10 @@ describe.only('d2l-organization-availability-set', () => {
 				const availabilityElems = component.shadowRoot.querySelectorAll('d2l-organization-availability');
 				expect(availabilityElems.length).to.equal(3);
 
-				setTimeout(() => {
-					const checkboxElems = component.shadowRoot.querySelectorAll('d2l-input-checkbox');
-					expect(checkboxElems.length).to.equal(1);
-					expect(checkboxElems[0].innerText.trim()).to.equal('Current Org Unit: Dev');
-					done();
-				}, 200);
+				const checkboxElems = component.shadowRoot.querySelectorAll('d2l-input-checkbox');
+				expect(checkboxElems.length).to.equal(1);
+				expect(checkboxElems[0].innerText.trim()).to.equal('Current Org Unit: Dev');
+				done();
 			});
 		});
 
@@ -109,12 +107,10 @@ describe.only('d2l-organization-availability-set', () => {
 				const buttonElems = component.shadowRoot.querySelectorAll('d2l-button');
 				expect(buttonElems.length).to.equal(0);
 
-				setTimeout(() => {
-					const checkboxElems = component.shadowRoot.querySelectorAll('d2l-input-checkbox');
-					expect(checkboxElems.length).to.equal(1);
-					expect(checkboxElems[0].innerText.trim()).to.equal('Current Org Unit: Dev');
-					done();
-				}, 200);
+				const checkboxElems = component.shadowRoot.querySelectorAll('d2l-input-checkbox');
+				expect(checkboxElems.length).to.equal(1);
+				expect(checkboxElems[0].innerText.trim()).to.equal('Current Org Unit: Dev');
+				done();
 			});
 		});
 	});

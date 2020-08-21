@@ -6,7 +6,7 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 import sinon from 'sinon/pkg/sinon-esm.js';
 
-describe('d2l-organization-availability', () => {
+describe.only('d2l-organization-availability', () => {
 
 	describe('constructor', () => {
 		it('should construct', () => {

@@ -2,11 +2,10 @@ import '../d2l-organization-admin-list.js';
 import { expect, fixture, html } from '@open-wc/testing';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
-const basic = html`<d2l-organization-admin-list titleText="Learning Paths"></d2l-organization-admin-list>`;
-
 describe('d2l-organization-admin-list', () => {
 	let el;
 	let collectionEntity;
+	const basic = html`<d2l-organization-admin-list titleText="Learning Paths"></d2l-organization-admin-list>`;
 
 	describe('accessibility', () => {
 		it('should pass all axe tests', async() => {
