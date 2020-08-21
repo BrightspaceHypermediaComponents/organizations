@@ -13,12 +13,15 @@
     "lint": "npm run lint:wc && npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
     "lint:wc": "polymer lint",
+    "test:headless": "karma start",
     "test:polymer:local": "polymer test --skip-plugin sauce",
     "test:polymer:sauce": "polymer test --skip-plugin local"
   },
   "author": "D2L Corporation",
   "license": "Apache-2.0",
   "devDependencies": {
+    "@open-wc/testing": "^2.5.24",
+    "@open-wc/testing-karma": "^4.0.4",
     "@polymer/iron-component-page": "^4.0.0",
     "@polymer/iron-demo-helpers": "^3.0.0",
     "@polymer/iron-test-helpers": "^3.0.0",
@@ -26,6 +29,7 @@
     "axe-core": "^3.4.0",
     "babel-eslint": "^10.0.1",
     "chai-dom": "^1.8.0",
+    "deepmerge": "^4.2.2",
     "del": "^3.0.0",
     "eslint": "^4.2.0",
     "eslint-config-brightspace": "^0.6.3",
@@ -41,6 +45,7 @@
     "polymer-cli": "^1.9.5",
     "polymer-siren-test-helpers": "^1.0.0",
     "require-dir": "^1.0.0",
+    "sinon": "^9.0.3",
     "wct-browser-legacy": "^1.0.1"
   },
   "version": "5.1.87",
