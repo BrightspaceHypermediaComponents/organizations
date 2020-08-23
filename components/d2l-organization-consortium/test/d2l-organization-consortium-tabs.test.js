@@ -94,7 +94,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 
-			it('threshold greater than the number of tabs causes no render', (done) => {
+			it('does not render when threshold greater than the number of tabs', (done) => {
 				component.href = '/consortium-root1.json';
 				component.tabRenderThreshold = 7;
 
@@ -107,7 +107,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 
-			it('selected tab is not focusable', (done) => {
+			it('does not allow focus on selected tab', (done) => {
 				component.href = '/consortium-root1.json';
 				component.selected = '8b33e567-c616-4667-868b-fdfe9edc3a78';
 
@@ -120,7 +120,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 
-			it('selected tab does not show the notification dot', (done) => {
+			it('does not show the notification dot on selected tab', (done) => {
 				component.href = '/consortium-root1.json';
 				component.selected = '1cb16d6a-8557-4850-8846-3fa9b6174494';
 
@@ -131,7 +131,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 
-			it('alerts use correct token', (done) => {
+			it('uses correct token for alerts', (done) => {
 				component.href = '/consortium-root1.json';
 
 				afterNextRender(component, () => {
@@ -142,7 +142,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 
-			it('alerts and orgs gets updated when entity changes', (done) => {
+			it('updates alerts and orgs when entity changes', (done) => {
 				component.href = '/consortium-root1.json';
 
 				afterNextRender(component, () => {
@@ -193,6 +193,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 				component.href = '/consortium-root1.json';
 			});
+
 			it('does not fire event if the only notification is on the selected tab', (done) => {
 				component.addEventListener('d2l-organization-consortium-tabs-notification-update', () => {
 					assert.isOk(false, 'd2l-organization-consortium-tabs-notification-update event should not have been fired.');
@@ -205,6 +206,7 @@ describe('d2l-organization-consortium-tabs', () => {
 					done();
 				});
 			});
+
 			it('calls _announceNotifications once if notifications are present', (done) => {
 				const spy = sinon.spy(component, '_announceNotifications');
 
@@ -215,7 +217,8 @@ describe('d2l-organization-consortium-tabs', () => {
 					done();
 				});
 			});
-			it('_announceNotifications function is not called if the only notification is on the selected tab', (done) => {
+
+			it('does not call _announceNotifications if only notification is on selected tab', (done) => {
 				const spy = sinon.spy(component, '_announceNotifications');
 
 				component.href = '/consortium-root1.json';
@@ -226,7 +229,8 @@ describe('d2l-organization-consortium-tabs', () => {
 					done();
 				});
 			});
-			it('_announceNotifications function is not called if the announcer has been muted', (done) => {
+
+			it('does not call _announceNotifications if announcer muted', (done) => {
 				const spy = sinon.spy(component, '_announceNotifications');
 
 				component.muteAnnouncer = true;
@@ -334,7 +338,7 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 
-			it('org tabs should render with no dots when alerts entities are null', (done) => {
+			it('renders org tabs with no dots when alerts entities are null', (done) => {
 				component.href = '/consortium-root1.json';
 
 				afterNextRender(component, () => {
