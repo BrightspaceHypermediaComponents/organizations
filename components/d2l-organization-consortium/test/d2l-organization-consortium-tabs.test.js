@@ -18,12 +18,10 @@ import {
 	root4,
 } from './data.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
-import { flush } from '@polymer/polymer/lib/utils/flush.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 import sinon from 'sinon/pkg/sinon-esm.js';
 
 describe('d2l-organization-consortium-tabs', () => {
-
 
 	describe('constructor', () => {
 		it('should construct', () => {
@@ -31,7 +29,7 @@ describe('d2l-organization-consortium-tabs', () => {
 		});
 	});
 
-	describe.only('entities', () => {
+	describe('entities', () => {
 		let component, sandbox;
 
 		beforeEach(async() => {
@@ -355,87 +353,73 @@ describe('d2l-organization-consortium-tabs', () => {
 				});
 			});
 		});
-	});
 
-	describe('error cases', () => {
-		[{
-			whatToFetch: {
-				'/consortium/root1-consortium.json': root1,
-				'/consortium/root2-consortium.json': root2,
-				'/consortium1.json': consortium1,
-				'/consortium-root1.json': consortiumRoot1,
-				'/consortium2.json': consortium1,
-				'/consortium-root2.json': consortiumRoot2
-			},
-			name: 'displays the error tab when org fails',
-			numOfFailures: 2,
-			expectedLinks: 0
-		},
-		{
-			whatToFetch: {
-				'/consortium1.json': consortium1,
-				'/consortium-root1.json': consortiumRoot1,
-				'/consortium2.json': consortium1,
-				'/consortium-root2.json': consortiumRoot2
-			},
-			name: 'displays the error tab when root call fails',
-			numOfFailures: 2,
-			expectedLinks: 0
-		},
-		{
-			whatToFetch: {
-				'/consortium/organization1-consortium.json': organization1,
-				'/consortium/root1-consortium.json': root1,
-				'/consortium/root2-consortium.json': root2,
-				'/consortium1.json': consortium1,
-				'/consortium-root1.json': consortiumRoot1,
-				'/consortium2.json': consortium1,
-				'/consortium-root2.json': consortiumRoot2
-			},
-
-			name: 'displays the error tab when partial failure occurs',
-			numOfFailures: 1,
-			expectedLinks: 1
-		}].forEach(({ name, whatToFetch, expectedLinks, numOfFailures }) => {
-		/** sauce doesn't seem to fully render things despite my best efforts.  uncomment if you want to verify local
-		These test work if:
-		- you run `npm run test:polymer:local`
-		- you run `npm run test:polymer:sauce` from your local machine (creds needed for sauce)
-		- you run `npx polymer serve -H 0.0.0.0` and hit the test page from another computer
-		*/
-			it.skip(name, (done) => {
+		describe('error cases', () => {
+			let fetchStub;
+			beforeEach(() => {
 				sandbox.stub(sessionStorage, 'setItem');
-				sandbox.stub(sessionStorage, 'getItem').callsFake(() => '{}');
-				const fetchStub = sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
-					let url;
-					if ('string' === typeof input) {
-						url = input;
-					}
-					if (input instanceof Request) {
-						url = input.url;
-					}
-					const hostStrippedInput = url.replace(location.origin, '');
-					const ok = !!whatToFetch[hostStrippedInput];
-					return Promise.resolve({
-						ok,
-						status: ok ? 200 : 500,
-						json: () => { if (ok === true) { return Promise.resolve(whatToFetch[hostStrippedInput]); } else { return Promise.resolve({}); }}
-					});
-				});
+				sandbox.stub(sessionStorage, 'getItem');
+			});
 
-				component.href = '/consortium-root1.json';
-				const waitForTabs = (assertions) => {
-					flush(() => {
-						const alertIcon = component.shadowRoot.querySelectorAll('d2l-icon[icon="tier1:alert"]');
-						if (alertIcon.length > 0) {
-							assertions();
-						} else {
-							setTimeout(() => waitForTabs(assertions), 30);
+			[{
+				whatToFetch: {
+					'/consortium/root1-consortium.json': root1,
+					'/consortium/root2-consortium.json': root2,
+					'/consortium1.json': consortium1,
+					'/consortium-root1.json': consortiumRoot1,
+					'/consortium2.json': consortium1,
+					'/consortium-root2.json': consortiumRoot2
+				},
+				name: 'displays the error tab when org fails',
+				numOfFailures: 2,
+				expectedLinks: 0
+			},
+			{
+				whatToFetch: {
+					'/consortium1.json': consortium1,
+					'/consortium-root1.json': consortiumRoot1,
+					'/consortium2.json': consortium1,
+					'/consortium-root2.json': consortiumRoot2
+				},
+				name: 'displays the error tab when root call fails',
+				numOfFailures: 2,
+				expectedLinks: 0
+			},
+			{
+				whatToFetch: {
+					'/consortium/organization1-consortium.json': organization1,
+					'/consortium/root1-consortium.json': root1,
+					'/consortium/root2-consortium.json': root2,
+					'/consortium1.json': consortium1,
+					'/consortium-root1.json': consortiumRoot1,
+					'/consortium2.json': consortium1,
+					'/consortium-root2.json': consortiumRoot2
+				},
+
+				name: 'displays the error tab when partial failure occurs',
+				numOfFailures: 1,
+				expectedLinks: 1
+			}].forEach(({ name, whatToFetch, expectedLinks, numOfFailures }) => {
+				it(name, (done) => {
+					fetchStub = sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
+						let url;
+						if ('string' === typeof input) {
+							url = input;
 						}
+						if (input instanceof Request) {
+							url = input.url;
+						}
+						const hostStrippedInput = url.replace(location.origin, '');
+						const ok = !!whatToFetch[hostStrippedInput];
+						return Promise.resolve({
+							ok,
+							status: ok ? 200 : 500,
+							json: () => { if (ok === true) { return Promise.resolve(whatToFetch[hostStrippedInput]); } else { return Promise.resolve({}); }}
+						});
 					});
-				};
 
-				waitForTabs(() => {
+					component.href = '/consortium-root1.json';
+
 					afterNextRender(component, () => {
 						assert.equal(fetchStub.called, true);
 
@@ -451,9 +435,7 @@ describe('d2l-organization-consortium-tabs', () => {
 						done();
 					});
 				});
-
 			});
 		});
 	});
-
 });
