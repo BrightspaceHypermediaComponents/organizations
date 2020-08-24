@@ -170,7 +170,6 @@ describe('d2l-organization-detail-card', () => {
 
 			it('should reveal loaded text content', (done) => {
 				component._entity = organizationEntity;
-
 				setTimeout(() => {
 					expect(!!component._forceShowText).to.be.true;
 					done();
