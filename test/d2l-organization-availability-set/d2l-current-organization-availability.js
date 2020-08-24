@@ -6,8 +6,6 @@ import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 import sinon from 'sinon/pkg/sinon-esm.js';
 
-const basic = html`<d2l-current-organization-availability token="whatever"></d2l-current-organization-availability>`;
-
 describe('d2l-current-organization-availability', () => {
 
 	describe('constructor', () => {
@@ -33,7 +31,7 @@ describe('d2l-current-organization-availability', () => {
 				});
 			});
 
-			component = await fixture(basic);
+			component = await fixture(html`<d2l-current-organization-availability token="whatever"></d2l-current-organization-availability>`);
 		});
 
 		afterEach(() => {

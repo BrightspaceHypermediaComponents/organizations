@@ -44,6 +44,11 @@ module.exports = config => {
 			sauceLabs: {
 				testName: 'Unit Tests'
 			},
+			client: {
+				mocha: {
+					timeout : 10000
+				}
+			},
 			customLaunchers: customLaunchers,
 			browsers: Object.keys(customLaunchers),
 			reporters: ['dots', 'saucelabs'],
