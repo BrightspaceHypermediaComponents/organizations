@@ -1,4 +1,4 @@
-import '../d2l-organization-date.js';
+import '../../components/d2l-organization-date/d2l-organization-date.js';
 
 import { expect, fixture, html } from '@open-wc/testing';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';

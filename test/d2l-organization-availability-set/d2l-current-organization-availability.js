@@ -1,4 +1,4 @@
-import '../d2l-current-organization-availability.js';
+import '../../components/d2l-organization-availability-set/d2l-current-organization-availability.js';
 
 import { expect, fixture, html } from '@open-wc/testing';
 import { Organizations, OrgUnitAvailability } from './data.js';

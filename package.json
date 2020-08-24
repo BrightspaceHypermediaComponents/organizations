@@ -9,13 +9,12 @@
   "scripts": {
     "lang:update": "node scripts/updateLangJson.js",
     "lang:build": "gulp build",
-    "test": "npm run lint && npm run test:polymer:local",
+    "test": "npm run lint && npm run test:headless",
     "lint": "npm run lint:wc && npm run lint:js",
     "lint:js": "eslint . --ext .js,.html test/**/*.js test/**/*.html demo/**/*.js demo/**/*.html",
     "lint:wc": "polymer lint",
     "test:headless": "karma start",
-    "test:polymer:local": "polymer test --skip-plugin sauce",
-    "test:polymer:sauce": "polymer test --skip-plugin local"
+    "test:sauce": "karma start karma.sauce.conf.js"
   },
   "author": "D2L Corporation",
   "license": "Apache-2.0",
