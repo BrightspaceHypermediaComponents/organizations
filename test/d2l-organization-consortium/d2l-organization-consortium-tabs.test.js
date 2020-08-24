@@ -280,7 +280,7 @@ describe('d2l-organization-consortium-tabs', () => {
 		});
 
 		describe('Duplicate name', () => {
-			beforeEach(() => {
+			beforeEach(async() => {
 				sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
 					const org2DupeName = Object.assign({}, organization2, { 'properties': { 'code': 'c1' } });
 					const hostStrippedInput = input.replace(location.origin, '');
@@ -299,6 +299,7 @@ describe('d2l-organization-consortium-tabs', () => {
 						json: () => { return Promise.resolve(whatToFetch[hostStrippedInput]); }
 					});
 				});
+				component = await fixture(html`<d2l-organization-consortium-tabs token="token1"></d2l-organization-consortium-tabs>`);
 			});
 
 			it('populates tabs that have the same data but are accessed differently', (done) => {
