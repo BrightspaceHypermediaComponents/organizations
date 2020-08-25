@@ -134,7 +134,7 @@ describe('d2l-organization-updates', () => {
 
 			// UngradedQuizzes: 4
 			notification = component.shadowRoot.querySelector('#unreadQuizzesFeedback');
-			expect(notification.getAttribute('disabled')).is.equal('');
+			expect(notification.getAttribute('disabled')).to.exist;
 			expect(notification.querySelector('.update-text-icon').innerHTML).is.equal('-20');
 
 			// UnreadDiscussions: 20
