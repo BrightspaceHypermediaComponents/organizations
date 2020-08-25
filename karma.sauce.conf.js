@@ -53,6 +53,10 @@ module.exports = config => {
 			},
 			customLaunchers: customLaunchers,
 			browsers: Object.keys(customLaunchers),
+			browserDisconnectTimeout : 50000, // default 2000
+			browserDisconnectTolerance : 3, // default 0
+			browserNoActivityTimeout: 200000, // default 10000
+			captureTimeout: 200000, // default 60000
 			reporters: ['dots', 'saucelabs'],
 			singleRun: true
 		}),
