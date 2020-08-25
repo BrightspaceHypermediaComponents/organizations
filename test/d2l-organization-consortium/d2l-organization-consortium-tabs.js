@@ -268,7 +268,7 @@ describe('d2l-organization-consortium-tabs', () => {
 
 					const toolTips = component.shadowRoot.querySelectorAll('d2l-tooltip');
 					assert.include(toolTips[0].innerText, 'impersonating');
-					assert.equal(toolTips[1].innerText, 'Consortium 2');
+					assert.equal(toolTips[1].innerText.replace(/[\n\t]/g, ''), 'Consortium 2');
 
 					const dots = component.shadowRoot.querySelectorAll('d2l-navigation-notification-icon');
 					assert.equal(dots.length, 2);
