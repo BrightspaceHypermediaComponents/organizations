@@ -1,24 +1,36 @@
+import '../../components/d2l-organization-info/d2l-organization-info.js';
+
+import { expect, fixture, html } from '@open-wc/testing';
+import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
+import sinon from 'sinon/pkg/sinon-esm.js';
+
 describe('d2l-organization-info', () => {
-	var sandbox,
+	describe('constructor', () => {
+		it('should construct', () => {
+			runConstructor('d2l-organization-info');
+		});
+	});
+
+	let sandbox,
 		component,
 		organizationEntity,
 		semesterEntity,
 		onSemesterChangeStub;
 
-	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+	beforeEach(async() => {
+		sandbox = sinon.createSandbox();
 
-		component = fixture('org-info');
+		component = await fixture(html`<d2l-organization-info></d2l-organization-info>`);
 		onSemesterChangeStub = sinon.stub();
 
 		organizationEntity = {
-			name: function() { return 'Org Name'; },
-			code: function() { return 'SCI100'; },
+			name: () => 'Org Name',
+			code: () => 'SCI100',
 			onSemesterChange: onSemesterChangeStub
 		};
 
 		semesterEntity = {
-			name: function() { return 'Course Name'; },
+			name: () => 'Course Name',
 		};
 
 		onSemesterChangeStub.callsArgWith(0, semesterEntity);
@@ -52,27 +64,27 @@ describe('d2l-organization-info', () => {
 
 	describe('Show separator', () => {
 		it('should show separator when both semester name and semester code are showing', () => {
-			var showSeparator = component._computeShowSeparator(true, true, 'code', 'name');
+			const showSeparator = component._computeShowSeparator(true, true, 'code', 'name');
 			expect(showSeparator).to.be.true;
 		});
 
 		it('should not show separator when both semester name and semester code are showing but one of their length is 0', () => {
-			var showSeparator = component._computeShowSeparator(true, true, 'code');
+			const showSeparator = component._computeShowSeparator(true, true, 'code');
 			expect(showSeparator).to.be.undefined;
 		});
 
 		it('should not show separator when only semester name is showing', () => {
-			var showSeparator = component._computeShowSeparator(false, true, 'code', 'name');
+			const showSeparator = component._computeShowSeparator(false, true, 'code', 'name');
 			expect(showSeparator).to.be.false;
 		});
 
 		it('should not show separator when only semester code is showing', () => {
-			var showSeparator = component._computeShowSeparator(true, false, 'code', 'name');
+			const showSeparator = component._computeShowSeparator(true, false, 'code', 'name');
 			expect(showSeparator).to.be.false;
 		});
 
 		it('should not show separator when neither semester name nor semester code are showing', () => {
-			var showSeparator = component._computeShowSeparator(false, false, 'code', 'name');
+			const showSeparator = component._computeShowSeparator(false, false, 'code', 'name');
 			expect(showSeparator).to.be.false;
 		});
 	});

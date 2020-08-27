@@ -1,14 +1,14 @@
 {
     "ended" : {
         "context" : "End date and time that is in the past",
-        "translation" : "Terminé le {date} à {time}"
+        "translation" : "Finalizado el {date} a las {time}"
     },
     "endsAt" : {
         "context" : "End date and time that is in the future.",
-        "translation" : "Termine le {date} à {time}"
+        "translation" : "Finaliza el {date} a las {time}"
     },
     "startsAt" : {
         "context" : "Start date and time that is in the future",
-        "translation" : "Commence le {date} à {time}"
+        "translation" : "Comienza el {date} a las {time}"
     }
 }

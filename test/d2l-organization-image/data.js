@@ -406,3 +406,130 @@ export const sequenceRoot = {
 		href: '/sequenceRoot'
 	}]
 };
+
+export const organization1Entity = {
+	class: [ 'course-offering' ],
+	properties: {
+		name: 'Course Name',
+		code: 'SCI100',
+		startDate: null,
+		endDate: null,
+		isActive: false
+	},
+	entities:[{
+		class:['course-image'],
+		rel:['https://api.brightspace.com/rels/organization-image'],
+		href:'/image/1'
+	}],
+	links: [{
+		rel:['self'],
+		href:'/organizations/1'
+	}]
+};
+export const organization2Entity = {
+	class: [ 'course-offering' ],
+	properties: {
+		name: 'Course Name',
+		code: 'SCI100',
+		startDate: null,
+		endDate: null,
+		isActive: false
+	},
+	entities:[{
+		class:['course-image'],
+		rel:['https://api.brightspace.com/rels/organization-image'],
+		href:'/image/2'
+	}],
+	links: [{
+		rel:['self'],
+		href:'/organizations/2'
+	}]
+};
+export const organization3Entity = {
+	class: [ 'course-offering' ],
+	properties: {
+		name: 'Course Name',
+		code: 'SCI100',
+		startDate: null,
+		endDate: null,
+		isActive: false
+	},
+	entities:[{
+		class:['course-image'],
+		rel:['https://api.brightspace.com/rels/organization-image'],
+		href:'/image/3'
+	}],
+	links: [{
+		rel:['self'],
+		href:'/organizations/3'
+	}]
+};
+
+export const learningPathEntity = {
+	class: [ 'learning-path' ],
+	properties: {
+		name: 'LearningPath',
+		code: 'SCI100',
+		startDate: null,
+		endDate: null,
+		isActive: false
+	},
+	links: [{
+		rel:['self'],
+		href:'/learningPaths/1'
+	}, {
+		href: '/sequenceRoot',
+		rel: ['https://api.brightspace.com/rels/sequence']
+	}]
+};
+
+export const image1Entity = {
+	rel: ['https://api.brightspace.com/rels/organization-image'],
+	class: ['course-image'],
+	properties: {
+		name: '1.jpg',
+		type: 'image/jpeg'
+	},
+	links: [{
+		rel: ['self'],
+		href: '/image/1'
+	}, {
+		rel: ['alternate'],
+		class: ['tile', 'low-density', 'max'],
+		href: 'https://s.brightspace.com/course-images/images/b53fc2ae-0de4-41da-85ff-875372daeacc/tile-low-density-max-size.jpg',
+	}]
+};
+
+export const image2Entity = {
+	rel: ['https://api.brightspace.com/rels/organization-image'],
+	class: ['course-image'],
+	properties: {
+		name: '2.jpg',
+		type: 'image/jpeg'
+	},
+	links: [{
+		rel: ['self'],
+		href: '/image/2'
+	}, {
+		rel: ['alternate'],
+		class: ['tile', 'low-density', 'max'],
+		href: 'https://s.brightspace.com/course-images/images/b53fc2ae-0de4-41da-85ff-875372daeacc/tile-low-density-max-size.jpg',
+	}]
+};
+
+export const image3Entity = {
+	rel: ['https://api.brightspace.com/rels/organization-image'],
+	class: ['course-image'],
+	properties: {
+		name: '3.jpg',
+		type: 'image/jpeg'
+	},
+	links: [{
+		rel: ['self'],
+		href: '/image/3'
+	}, {
+		rel: ['alternate'],
+		class: ['tile', 'low-density', 'max'],
+		href: 'https://s.brightspace.com/course-images/images/b53fc2ae-0de4-41da-85ff-875372daeacc/tile-low-density-max-size.jpg',
+	}]
+};

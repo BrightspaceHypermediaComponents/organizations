@@ -1,38 +1,38 @@
 {
     "unapprovedDiscussions" : {
         "context" : "The number of discussion post that need to be reviewed",
-        "translation" : "{number} discussions non approuvées"
+        "translation" : "{number} o Drafodaethau heb eu Cymeradwyo"
     },
     "unattemptedQuizzes" : {
         "context" : "The amount of quizes that a user has not done.",
-        "translation" : "{number} questionnaires sans tentative"
+        "translation" : "{number} o Gwisiau heb eu Gwneud"
     },
     "ungradedQuizzes" : {
         "context" : "The number of quizzes that need to be marked",
-        "translation" : "{number} questionnaires non notés"
+        "translation" : "{number} o Gwisiau heb eu Graddio"
     },
     "unreadAssignmentFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about assignments",
-        "translation" : "{number} réactions au devoir non lues"
+        "translation" : "{number} o Adborth ar Aseiniadau heb eu Darllen"
     },
     "unreadAssignmentSubmissions" : {
         "context" : "The number of assignment submissions that still need to be read.",
-        "translation" : "{number} Fichiers de soumission de devoirs non lues"
+        "translation" : "{Number} o Gyflwyniadau Aseiniad Newydd"
     },
     "unreadDiscussionFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about discussion",
-        "translation" : "{number} réactions à la discussion non lues"
+        "translation" : "{number} o Adborth ar Drafodaethau heb eu Darllen"
     },
     "unreadDiscussions" : {
         "context" : "The number of new discussion posts",
-        "translation" : "{number} discussions non lues"
+        "translation" : "{number} o Drafodaethau heb eu Darllen"
     },
     "unreadQuizzesFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about quizzes",
-        "translation" : "{number} réactions aux questionnaires non lues"
+        "translation" : "{number} o Adborth ar Gwisiau heb eu Darllen"
     },
     "updates" : {
         "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
-        "translation" : "mises à jour"
+        "translation" : "diweddariadau"
     }
 }

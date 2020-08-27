@@ -1,14 +1,14 @@
 {
     "ended" : {
         "context" : "End date and time that is in the past",
-        "translation" : "Terminé le {date} à {time}"
+        "translation" : "Wedi dod i ben ar {date} am {time}"
     },
     "endsAt" : {
         "context" : "End date and time that is in the future.",
-        "translation" : "Termine le {date} à {time}"
+        "translation" : "Yn dod i ben ar {date} am {time}"
     },
     "startsAt" : {
         "context" : "Start date and time that is in the future",
-        "translation" : "Commence le {date} à {time}"
+        "translation" : "Yn dechrau ar {date} am {time}"
     }
 }

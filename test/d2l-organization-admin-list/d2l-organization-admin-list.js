@@ -1,18 +1,28 @@
-import { runAxe } from '@brightspace-ui/core/tools/a11y-test-helper.js';
+import '../../components/d2l-organization-admin-list/d2l-organization-admin-list.js';
+import { expect, fixture, html } from '@open-wc/testing';
+import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 describe('d2l-organization-admin-list', () => {
-	let element;
+	let el;
 	let collectionEntity;
+	const basic = html`<d2l-organization-admin-list titleText="Learning Paths"></d2l-organization-admin-list>`;
 
-	beforeEach(async() => {
-		element = fixture('admin-list');
-		await element.updateComplete;
-
-		collectionEntity = {};
+	describe('accessibility', () => {
+		it('should pass all axe tests', async() => {
+			el = await fixture(basic);
+			await expect(el).to.be.accessible();
+		});
 	});
 
-	it('should pass all axe tests', async() => {
-		await runAxe(element);
+	describe('constructor', () => {
+		it('should construct', () => {
+			runConstructor('d2l-organization-admin-list');
+		});
+	});
+
+	beforeEach(async() => {
+		el = await fixture(basic);
+		collectionEntity = {};
 	});
 
 	it('should reset items on collection changed', done => {
@@ -20,12 +30,12 @@ describe('d2l-organization-admin-list', () => {
 		collectionEntity.totalPages = () => 1;
 		collectionEntity.currentPage = () => 1;
 		collectionEntity.subEntitiesLoaded = () => Promise.resolve();
-		element._items = ['non', 'empty', 'items', 'array'];
+		el._items = ['non', 'empty', 'items', 'array'];
 
-		element._onOrganizationCollectionChanged(collectionEntity);
+		el._onOrganizationCollectionChanged(collectionEntity);
 
 		collectionEntity.subEntitiesLoaded().then(() => {
-			expect(element._items).to.be.empty;
+			expect(el._items).to.be.empty;
 			done();
 		});
 	});

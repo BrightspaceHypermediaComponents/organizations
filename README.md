@@ -26,26 +26,22 @@ npm start
 
 ### Linting
 
-```shell
-polymer analyze > analysis.json && polymer serve
-```
-
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
 
 ```shell
 npm run lint
 ```
 
-To run unit tests locally using [Polymer test](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#tests):
+To run unit tests locally:
 
 ```shell
-polymer test --skip-plugin sauce
+npm run test:headless
 ```
 
 To lint AND run local unit tests:
 
 ```shell
-npm test
+npm run test
 ```
 
 ## Versioning, Releasing & Deploying
