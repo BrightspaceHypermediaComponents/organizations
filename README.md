@@ -2,8 +2,7 @@
 
 # d2l-organizations
 
-[Polymer](https://www.polymer-project.org)-based web component for D2L organizations.
-
+[Polymer](https://www.polymer-project.org)-based web components for D2L organizations.
 
 ## Installation
 
@@ -17,19 +16,15 @@ bower install d2l-organizations
 
 After cloning the repo, run `npm install` to install dependencies.
 
-If you don't have it already, install the [Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli) globally:
+### Running the demos
+
+Start an [es-dev-server](https://open-wc.org/developing/es-dev-server.html) that hosts the demo pages:
 
 ```shell
-npm install -g polymer-cli
+npm start
 ```
 
-To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page:
-http://127.0.0.1:8081/components/d2l-organizations/demo/
-
-
-```shell
-polymer analyze > analysis.json && polymer serve
-```
+### Linting
 
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
 

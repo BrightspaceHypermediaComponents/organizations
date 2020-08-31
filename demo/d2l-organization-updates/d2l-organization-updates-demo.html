@@ -1,62 +1,20 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-		<title>d2l-card demo</title>
-		<script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-		<script type="module" src="../../../@polymer/polymer/polymer-legacy.js"></script>
-		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-		<script type="module" src="../../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-		<script type="module" src="../../../d2l-typography/d2l-typography.js"></script>
-		<script type="module" src="../../components/d2l-organization-updates/d2l-organization-updates.js"></script>
-		<!-- FIXME(polymer-modulizer):
-		These imperative modules that innerHTML your HTML are
-		a hacky way to be sure that any mixins in included style
-		modules are ready before any elements that reference them are
-		instantiated, otherwise the CSS @apply mixin polyfill won't be
-		able to expand the underlying CSS custom properties.
-		See: https://github.com/Polymer/polymer-modulizer/issues/154
-		-->
-	<script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<custom-style include="d2l-typography">
-				<style is="custom-style" include="d2l-typography"></style>
-			</custom-style>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 		<script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<custom-style>
-			<style is="custom-style" include="demo-pages-shared-styles"></style>
-		</custom-style>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
-		<script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<style>
-			html {
-				font-size: 20px;
-			}
-		</style>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
+			import '@brightspace-ui/core/components/demo/demo-page.js';
+			import '../../components/d2l-organization-updates/d2l-organization-updates.js';
+		</script>
 	</head>
-	<body unresolved class="d2l-typography">
-		<script type="module">
-const $_documentContainer = document.createElement('template');
+	<body unresolved>
+		<d2l-demo-page page-title="d2l-organization-updates">
 
-$_documentContainer.innerHTML = `<div class="centered">
-
-			<h3>Update Notification</h3>
-
-			<demo-snippet class="d2l-typography">
+			<h2>Update Notification</h2>
+			<d2l-demo-snippet>
 				<template>
 					<d2l-organization-updates
 						href="../data/organization-current.json"
@@ -68,11 +26,10 @@ $_documentContainer.innerHTML = `<div class="centered">
 						show-unread-dropbox-submissions>
 					</d2l-organization-updates>
 				</template>
-			</demo-snippet>
+			</d2l-demo-snippet>
 
-			<h3>Update Notification with a few missing</h3>
-
-			<demo-snippet class="d2l-typography">
+			<h2>Update Notification with a few missing</h2>
+			<d2l-demo-snippet>
 				<template>
 					<d2l-organization-updates
 						href="../data/organization-current.json"
@@ -83,11 +40,10 @@ $_documentContainer.innerHTML = `<div class="centered">
 						show-unread-dropbox-submissions>
 					</d2l-organization-updates>
 				</template>
-			</demo-snippet>
+			</d2l-demo-snippet>
 
-			<h3>Update Notification all but one missing</h3>
-
-			<demo-snippet class="d2l-typography">
+			<h2>Update Notification all but one missing</h2>
+			<d2l-demo-snippet>
 				<template>
 					<d2l-organization-updates
 						href="../data/organization-current.json"
@@ -96,33 +52,22 @@ $_documentContainer.innerHTML = `<div class="centered">
 						show-ungraded-quiz-attempts>
 					</d2l-organization-updates>
 				</template>
-			</demo-snippet>
+			</d2l-demo-snippet>
 
-			<h3>Combined</h3>
-
-			<demo-snippet class="d2l-typography">
+			<h2>Combined</h2>
+			<d2l-demo-snippet>
 				<template>
 					<d2l-organization-updates
 						combined=""
 						href="../data/organization-current.json"
-					 	token="1a"
+						token="1a"
 						show-dropbox-unread-feedback
 						show-unattempted-quizzes
 						show-ungraded-quiz-attempts
 						show-unread-dropbox-submissions>
 					</d2l-organization-updates>
 				</template>
-			</demo-snippet>
-		</div>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
-		<script type="module">
-import '@polymer/polymer/polymer-legacy.js';
-import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-import '@polymer/iron-demo-helpers/demo-snippet.js';
-import 'd2l-typography/d2l-typography.js';
-import '../../components/d2l-organization-updates/d2l-organization-updates.js';
-</script>
+			</d2l-demo-snippet>
+		</d2l-demo-page>
 	</body>
 </html>

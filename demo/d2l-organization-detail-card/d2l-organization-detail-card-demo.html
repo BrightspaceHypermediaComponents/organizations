@@ -1,71 +1,38 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
-		<title>d2l-organization-detail-card demo</title>
-		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 		<script type="module">
-			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-			import '@polymer/iron-demo-helpers/demo-snippet';
-			import 'd2l-typography/d2l-typography.js';
+			import '@brightspace-ui/core/components/demo/demo-page.js';
 			import '../../components/d2l-organization-detail-card/d2l-organization-detail-card.js';
-
-			const $_documentContainer = document.createElement('template');
-			$_documentContainer.innerHTML = `
-				<custom-style>
-					<style is="custom-style" include="demo-pages-shared-styles"></style>
-				</custom-style>
-				<custom-style include="d2l-typography">
-					<style is="custom-style" include="d2l-typography">
-						html {
-							font-size: 20px;
-						}
-						.fixed-size {
-							display:flex;
-							align-items: stretch;
-							flex-direction: column;
-							min-width: 0;
-							max-width: 900px;
-							flex-shrink: 1;
-							margin:auto;
-						}
-						h3 {
-							text-align: center;
-						}
-						.demo {
-							align-items: center;
-  							background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
-							padding: 50px;
-						}
-					</style>
-				</custom-style>
-				<custom-style include="d2l-organization-detail-card">
-					<style>
-						.demo d2l-organization-detail-card {
-							@apply --d2l-organization-detail-card-loading;
-							margin-top: 20px;
-						}
-					</style>
-				</custom-style>
-			`;
-			document.body.appendChild($_documentContainer.content);
-			window.D2L.Siren.WhitelistBehavior._inTestMode = true;
 		</script>
+		<style>
+			.demo {
+				align-items: center;
+				background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
+				padding: 50px;
+			}
+			.demo d2l-organization-detail-card {
+				@apply --d2l-organization-detail-card-loading;
+				margin-top: 20px;
+			}
+		</style>
 	</head>
-	<body class="d2l-typography">
-		<div class="vertical-section-container fixed-size">
-			<h3>Basic d2l-organization-detail-card demo</h3>
-			<demo-snippet>
+	<body unresolved>
+		<d2l-demo-page page-title="d2l-organization-detail-card">
+
+			<h2>Basic d2l-organization-detail-card demo</h2>
+			<d2l-demo-snippet>
 				<template>
 					<div class="demo">
 						<d2l-organization-detail-card href="../data/organization-current.json" token="whatever"></d2l-organization-detail-card>
 						<d2l-organization-detail-card href="../data/learningPath/organization-learning-path.json" token="whatever"></d2l-organization-detail-card>
 					</div>
 				</template>
-			</demo-snippet>
-		</div>
+			</d2l-demo-snippet>
+		</d2l-demo-page>
 	</body>
 </html>
