@@ -116,19 +116,19 @@ class CompletionTracking extends LitElement {
 	}
 
 	_onCancelClick() {
-		// redirect
+		// todo: redirect
 	}
 
 	_onSaveClick() {
-		// save completion tracking
+
 		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
-			//
+			// todo: save completion tracking
 		}
-		// save progress display
+
 		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
-			//
+			// todo: save progress display
 		}
-		// redirect
+		// todo: redirect
 	}
 }
 
