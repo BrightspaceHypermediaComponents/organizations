@@ -1,0 +1,889 @@
+{
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "d2l-organization-admin-list-pager",
+      "path": "./components/d2l-organization-admin-list/d2l-organization-admin-list-pager.js",
+      "attributes": [
+        {
+          "name": "onPageChanged"
+        },
+        {
+          "name": "current-page",
+          "type": "number",
+          "default": "1"
+        },
+        {
+          "name": "total-pages",
+          "type": "number",
+          "default": "1"
+        }
+      ],
+      "properties": [
+        {
+          "name": "onPageChanged",
+          "attribute": "onPageChanged"
+        },
+        {
+          "name": "currentPage",
+          "attribute": "current-page",
+          "type": "number",
+          "default": "1"
+        },
+        {
+          "name": "totalPages",
+          "attribute": "total-pages",
+          "type": "number",
+          "default": "1"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-localize-behavior-language-changed"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-admin-list-search-header",
+      "path": "./components/d2l-organization-admin-list/d2l-organization-admin-list-search-header.js",
+      "attributes": [
+        {
+          "name": "onSearchTextChanged"
+        }
+      ],
+      "properties": [
+        {
+          "name": "onSearchTextChanged",
+          "attribute": "onSearchTextChanged"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-localize-behavior-language-changed"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-admin-list",
+      "path": "./components/d2l-organization-admin-list/d2l-organization-admin-list.js",
+      "attributes": [
+        {
+          "name": "titleText",
+          "type": "string"
+        },
+        {
+          "name": "createActionTitleTerm",
+          "type": "string"
+        },
+        {
+          "name": "createActionDefaultNameTerm",
+          "type": "string"
+        },
+        {
+          "name": "createActionType",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "titleText",
+          "attribute": "titleText",
+          "type": "string"
+        },
+        {
+          "name": "createActionTitleTerm",
+          "attribute": "createActionTitleTerm",
+          "type": "string"
+        },
+        {
+          "name": "createActionDefaultNameTerm",
+          "attribute": "createActionDefaultNameTerm",
+          "type": "string"
+        },
+        {
+          "name": "createActionType",
+          "attribute": "createActionType",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-localize-behavior-language-changed"
+        }
+      ]
+    },
+    {
+      "name": "d2l-current-organization-availability",
+      "path": "./components/d2l-organization-availability-set/d2l-current-organization-availability.js",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "name": "delete-organization-availability"
+        },
+        {
+          "name": "d2l-localize-behavior-language-changed"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-availability-set",
+      "path": "./components/d2l-organization-availability-set/d2l-organization-availability-set.js",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-siren-entity-save-start"
+        },
+        {
+          "name": "d2l-siren-entity-save-end"
+        },
+        {
+          "name": "d2l-siren-entity-save-error"
+        },
+        {
+          "name": "d2l-localize-behavior-language-changed"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-availability",
+      "path": "./components/d2l-organization-availability-set/d2l-organization-availability.js",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace | null (defaults to cookie authentication in a browser)",
+          "type": "string"
+        }
+      ],
+      "events": [
+        {
+          "name": "delete-organization-availability"
+        },
+        {
+          "name": "d2l-localize-behavior-language-changed"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-consortium-tabs",
+      "path": "./components/d2l-organization-consortium/d2l-organization-consortium-tabs.js",
+      "attributes": [
+        {
+          "name": "poll-interval-in-seconds",
+          "type": "number",
+          "default": "300"
+        },
+        {
+          "name": "selected",
+          "type": "string"
+        },
+        {
+          "name": "tab-render-threshold",
+          "type": "number",
+          "default": "2"
+        },
+        {
+          "name": "mute-announcer",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "impersonation-mode",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "pollIntervalInSeconds",
+          "attribute": "poll-interval-in-seconds",
+          "type": "number",
+          "default": "300"
+        },
+        {
+          "name": "selected",
+          "attribute": "selected",
+          "type": "string"
+        },
+        {
+          "name": "tabRenderThreshold",
+          "attribute": "tab-render-threshold",
+          "type": "number",
+          "default": "2"
+        },
+        {
+          "name": "muteAnnouncer",
+          "attribute": "mute-announcer",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "impersonationMode",
+          "attribute": "impersonation-mode",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "locale",
+          "attribute": "locale",
+          "type": "string"
+        },
+        {
+          "name": "resources",
+          "type": "object",
+          "default": "{\"en\":\"en\",\"ar\":\"ar\",\"de\":\"de\",\"es\":\"es\",\"fi\":\"fi\",\"fr\":\"fr\",\"ja\":\"ja\",\"ko\":\"ko\",\"nl\":\"nl\",\"pt\":\"pt\",\"sv\":\"sv\",\"tr\":\"tr\",\"zh\":\"zh\",\"zh-tw\":\"zhtw\"}"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-navigation-band-slot-scroll-request"
+        },
+        {
+          "name": "d2l-organization-consortium-tabs-notification-update"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-date",
+      "path": "./components/d2l-organization-date/d2l-organization-date.js",
+      "attributes": [
+        {
+          "name": "hide-course-start-date",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "hide-course-end-date",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        }
+      ],
+      "properties": [
+        {
+          "name": "hideCourseStartDate",
+          "attribute": "hide-course-start-date",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "hideCourseEndDate",
+          "attribute": "hide-course-end-date",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "locale",
+          "attribute": "locale",
+          "type": "string"
+        },
+        {
+          "name": "resources",
+          "type": "object",
+          "default": "{\"en\":\"en\",\"ar\":\"ar\",\"de\":\"de\",\"es\":\"es\",\"fi\":\"fi\",\"fr\":\"fr\",\"ja\":\"ja\",\"ko\":\"ko\",\"nl\":\"nl\",\"pt\":\"pt\",\"sv\":\"sv\",\"tr\":\"tr\",\"zh\":\"zh\",\"zh-tw\":\"zhtw\"}"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-detail-card",
+      "path": "./components/d2l-organization-detail-card/d2l-organization-detail-card.js",
+      "attributes": [
+        {
+          "name": "base-focus",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "module-list-focus",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        }
+      ],
+      "properties": [
+        {
+          "name": "baseFocus",
+          "attribute": "base-focus",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "moduleListFocus",
+          "attribute": "module-list-focus",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "active",
+          "attribute": "active",
+          "type": "boolean"
+        },
+        {
+          "name": "locale",
+          "attribute": "locale",
+          "type": "string"
+        },
+        {
+          "name": "resources",
+          "type": "object",
+          "default": "{\"en\":\"en\",\"ar\":\"ar\",\"de\":\"de\",\"es\":\"es\",\"fi\":\"fi\",\"fr\":\"fr\",\"ja\":\"ja\",\"ko\":\"ko\",\"nl\":\"nl\",\"pt\":\"pt\",\"sv\":\"sv\",\"tr\":\"tr\",\"zh\":\"zh\",\"zh-tw\":\"zhtw\"}"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-organization-detail-card-text-loaded"
+        },
+        {
+          "name": "d2l-organization-detail-card-image-loaded"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-image",
+      "path": "./components/d2l-organization-image/d2l-organization-image.js",
+      "attributes": [
+        {
+          "name": "tile-sizes",
+          "type": "object"
+        },
+        {
+          "name": "type",
+          "type": "string",
+          "default": "\"tile\""
+        },
+        {
+          "name": "skeleton",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        }
+      ],
+      "properties": [
+        {
+          "name": "tileSizes",
+          "attribute": "tile-sizes",
+          "type": "object"
+        },
+        {
+          "name": "type",
+          "attribute": "type",
+          "type": "string",
+          "default": "\"tile\""
+        },
+        {
+          "name": "skeleton",
+          "attribute": "skeleton",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ],
+      "events": [
+        {
+          "name": "d2l-organization-image-loaded"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-info",
+      "path": "./components/d2l-organization-info/d2l-organization-info.js",
+      "attributes": [
+        {
+          "name": "show-organization-code",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "show-semester-name",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        }
+      ],
+      "properties": [
+        {
+          "name": "showOrganizationCode",
+          "attribute": "show-organization-code",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showSemesterName",
+          "attribute": "show-semester-name",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-name",
+      "path": "./components/d2l-organization-name/d2l-organization-name.js",
+      "attributes": [
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        }
+      ],
+      "properties": [
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ]
+    },
+    {
+      "name": "d2l-organization-updates",
+      "path": "./components/d2l-organization-updates/d2l-organization-updates.js",
+      "attributes": [
+        {
+          "name": "combined",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "show-dropbox-unread-feedback",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "show-unattempted-quizzes",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "show-ungraded-quiz-attempts",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "show-unread-discussion-messages",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "show-unread-dropbox-submissions",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "locale",
+          "type": "string"
+        },
+        {
+          "name": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        }
+      ],
+      "properties": [
+        {
+          "name": "combined",
+          "attribute": "combined",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showDropboxUnreadFeedback",
+          "attribute": "show-dropbox-unread-feedback",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showUnattemptedQuizzes",
+          "attribute": "show-unattempted-quizzes",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showUngradedQuizAttempts",
+          "attribute": "show-ungraded-quiz-attempts",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showUnreadDiscussionMessages",
+          "attribute": "show-unread-discussion-messages",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "showUnreadDropboxSubmissions",
+          "attribute": "show-unread-dropbox-submissions",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "locale",
+          "attribute": "locale",
+          "type": "string"
+        },
+        {
+          "name": "resources",
+          "type": "object",
+          "default": "{\"en\":\"en\",\"ar\":\"ar\",\"de\":\"de\",\"es\":\"es\",\"fi\":\"fi\",\"fr\":\"fr\",\"ja\":\"ja\",\"ko\":\"ko\",\"nl\":\"nl\",\"pt\":\"pt\",\"sv\":\"sv\",\"tr\":\"tr\",\"zh\":\"zh\",\"zh-tw\":\"zhtw\"}"
+        },
+        {
+          "name": "href",
+          "attribute": "href",
+          "description": "Href for the entity",
+          "type": "string"
+        },
+        {
+          "name": "token",
+          "attribute": "token",
+          "description": "Token JWT Token for brightspace | a function that returns a JWT token for brightspace"
+        },
+        {
+          "name": "rootPath",
+          "type": "string"
+        },
+        {
+          "name": "importPath",
+          "type": "string"
+        },
+        {
+          "name": "root",
+          "type": "HTMLElement | StampedTemplate | ShadowRoot | null"
+        },
+        {
+          "name": "$",
+          "type": "{ [key: string]: Element; }"
+        },
+        {
+          "name": "PROPERTY_EFFECT_TYPES"
+        }
+      ]
+    }
+  ]
+}

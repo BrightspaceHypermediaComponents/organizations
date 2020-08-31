@@ -9,24 +9,17 @@
 			import '@brightspace-ui/core/components/demo/demo-page.js';
 			import '../../components/d2l-organization-admin-list/d2l-organization-admin-list.js';
 		</script>
-		<style>
-			.demo {
-				padding: 50px;
-			}
-		</style>
 	</head>
 	<body unresolved>
 		<d2l-demo-page page-title="d2l-organization-admin-list">
 			<d2l-demo-snippet>
 				<template>
-					<div class="demo">
-						<d2l-organization-admin-list
-							href="../data/organization-collection/organization-collection-1.json"
-							token="whatever"
-							titleText="Learning Paths"
-							createActionTitleTerm="createLearningPath"
-						></d2l-organization-availability-set>
-					</div>
+					<d2l-organization-admin-list
+						href="../data/organization-collection/organization-collection-1.json"
+						token="whatever"
+						titleText="Learning Paths"
+						createActionTitleTerm="createLearningPath"
+					></d2l-organization-availability-set>
 				</template>
 			</d2l-demo-snippet>
 		</d2l-demo-page>
