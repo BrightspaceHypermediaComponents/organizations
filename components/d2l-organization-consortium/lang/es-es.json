@@ -1,0 +1,30 @@
+{
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "Lo sentimos. No se ha podido obtener la información de {num} de las pestañas. Pruebe a actualizar la página"
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "¡Huy!"
+    },
+    "impersonationWarning" : {
+        "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
+        "translation" : "No puede acceder a otras pestañas mientras realiza una suplantación."
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "Cargando"
+    },
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name}: tiene nuevas alertas"
+    },
+    "newNotificationsAlert" : {
+        "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation" : "Tiene nuevas alertas en algunas de sus otras cuentas"
+    },
+    "otherAccounts" : {
+        "context" : "Accessible label summarizing the organization tabs section",
+        "translation" : "Otras cuentas"
+    }
+}

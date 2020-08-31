@@ -2,8 +2,7 @@
 
 # d2l-organizations
 
-[Polymer](https://www.polymer-project.org)-based web component for D2L organizations.
-
+[Polymer](https://www.polymer-project.org)-based web components for D2L organizations.
 
 ## Installation
 
@@ -17,22 +16,15 @@ bower install d2l-organizations
 
 After cloning the repo, run `npm install` to install dependencies.
 
-If you don't have it already, install the [Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli) globally:
+### Running the demos
+
+Start an [es-dev-server](https://open-wc.org/developing/es-dev-server.html) that hosts the demo pages:
 
 ```shell
-npm install -g polymer-cli
+npm start
 ```
 
-To start a [local web server](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#serve) that hosts the demo page and tests:
-
-Local demo test url is
-
-http://127.0.0.1:8081/components/d2l-organizations/test/
-
-
-```shell
-polymer analyze > analysis.json && polymer serve
-```
+### Linting
 
 To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#lint)):
 
@@ -40,16 +32,16 @@ To lint ([eslint](http://eslint.org/) and [Polymer lint](https://www.polymer-pro
 npm run lint
 ```
 
-To run unit tests locally using [Polymer test](https://www.polymer-project.org/2.0/docs/tools/polymer-cli-commands#tests):
+To run unit tests locally:
 
 ```shell
-polymer test --skip-plugin sauce
+npm run test:headless
 ```
 
 To lint AND run local unit tests:
 
 ```shell
-npm test
+npm run test
 ```
 
 ## Versioning, Releasing & Deploying

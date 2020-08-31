@@ -1,0 +1,6 @@
+{
+    "CompletedModulesProgress" : {
+        "context" : "Describes the progress of a course with title, {title}",
+        "translation" : "Modiwlau wedi’u Cwblhau yn ôl Cyfanswm y Modiwlau yn {title}"
+    }
+}

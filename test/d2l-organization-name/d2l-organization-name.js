@@ -1,17 +1,29 @@
+import '../../components/d2l-organization-name/d2l-organization-name.js';
+
+import { expect, fixture, html } from '@open-wc/testing';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
-window.D2L.Siren.WhitelistBehavior._testMode(true);
+import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
+import sinon from 'sinon/pkg/sinon-esm.js';
+
 describe('d2l-organization-name', () => {
-	var sandbox,
+
+	describe('constructor', () => {
+		it('should construct', () => {
+			runConstructor('d2l-organization-name');
+		});
+	});
+
+	let sandbox,
 		component,
 		organizationEntity;
 
-	beforeEach(() => {
-		sandbox = sinon.sandbox.create();
+	beforeEach(async() => {
+		sandbox = sinon.createSandbox();
 
-		component = fixture('org-name');
+		component = await fixture(html`<d2l-organization-name></d2l-organization-name>`);
 
 		organizationEntity = {
-			name: function() { return 'Test Course Name'; }
+			name: () => 'Test Course Name'
 		};
 	});
 
@@ -21,7 +33,7 @@ describe('d2l-organization-name', () => {
 
 	describe('observers', () => {
 		it('should call _sendVoiceReaderInfo upon changes to _organizationName', done => {
-			var spy = sandbox.spy(component, '_sendVoiceReaderInfo');
+			const spy = sandbox.spy(component, '_sendVoiceReaderInfo');
 
 			component.set('_organizationName', 'Course Name');
 			afterNextRender(component, () => {

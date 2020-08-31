@@ -1,0 +1,30 @@
+{
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "O na! Doedd dim modd i ni nôl gwybodaeth ar gyfer {num} o’ch tabiau. Ceisiwch ail-lwytho’r dudalen"
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "O na!"
+    },
+    "impersonationWarning" : {
+        "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
+        "translation" : "Ni allwch gyrchu tabiau eraill tra eich bod chi’n dynwared."
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "Yn llwytho"
+    },
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{Name} - Mae gennych chi hysbysiadau newydd"
+    },
+    "newNotificationsAlert" : {
+        "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation" : "Mae gennych chi hysbysiadau newydd mewn rhai o’ch cyfrifon eraill"
+    },
+    "otherAccounts" : {
+        "context" : "Accessible label summarizing the organization tabs section",
+        "translation" : "Cyfrifon Eraill"
+    }
+}

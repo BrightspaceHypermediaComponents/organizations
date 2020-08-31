@@ -1,20 +1,18 @@
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
-		<title>d2l-organization-consortium demo</title>
-		<script src="../../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="/node_modules/@brightspace-ui/core/components/demo/styles.css" type="text/css">
+		<script src="/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
 		<script type="module">
-			import '@polymer/iron-demo-helpers/demo-pages-shared-styles';
-			import '@polymer/iron-demo-helpers/demo-snippet';
-			import 'd2l-typography/d2l-typography.js';
+			import '@brightspace-ui/core/components/demo/demo-page.js';
 			import 'd2l-navigation/d2l-navigation-band.js';
+			import '../../components/d2l-organization-admin-list/d2l-organization-admin-list.js';
 			import '../../components/d2l-organization-consortium/d2l-organization-consortium-tabs.js';
-			import {consortium} from '../data/consortium/consortium.js';
-			import {consortiumError} from '../data/consortium/consortium-with-error.js';
+			import { consortium } from '../data/consortium/consortium.js';
+			import { consortiumError } from '../data/consortium/consortium-with-error.js';
+
 			const existingFetch = window.fetch;
 			// override window.fetch, but defer if we haven't provided an explicit mock
 			window.fetch = 	(input, init) => {
@@ -34,58 +32,43 @@
 				}
 
 			};
-			const $_documentContainer = document.createElement('template');
-			$_documentContainer.innerHTML = `
-				<custom-style>
-					<style is="custom-style" include="demo-pages-shared-styles"></style>
-				</custom-style>
-				<custom-style include="d2l-typography">
-					<style is="custom-style" include="d2l-typography">
-						html {
-							font-size: 20px;
-						}
-						h3 {
-							text-align: center;
-						}
-						.demo {
-							background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
-							padding: 50px;
-							height: 100px;
-							overflow: hidden;
-						}
-					</style>
-				</custom-style>
-			`;
-			document.body.appendChild($_documentContainer.content);
 		</script>
+		<style>
+			.demo {
+				background-image: linear-gradient(to bottom, #f6f7f8, #f6f7f8), linear-gradient(to top, #ffffff, #f9fafb);
+				padding: 50px;
+				height: 100px;
+				overflow: hidden;
+			}
+		</style>
 	</head>
-	<body class="d2l-typography">
-		<div class="vertical-section-container">
-			<h3>Basic d2l-organization-consortium demo</h3>
-			<demo-snippet>
+	<body unresolved>
+		<d2l-demo-page page-title="d2l-organization-consortium">
+
+			<h2>Basic</h2>
+			<d2l-demo-snippet>
 				<template>
 					<div class="demo">
 						<d2l-navigation-band>
 							<d2l-organization-consortium-tabs id="tabs-1" href="../data/consortium/consortium-root.json" token="faketoken"></d2l-organization-consortium-tabs>
 						</d2l-navigation-band>
 						<p>
-Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
+	Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
 
-Tail short ribs drumstick andouille swine beef biltong brisket prosciutto picanha filet mignon. Burgdoggen drumstick swine brisket pastrami. Swine pork sirloin, chuck beef meatloaf drumstick porchetta. Fatback picanha ham hock beef ribs flank capicola burgdoggen short ribs. Tri-tip kielbasa frankfurter fatback brisket, shoulder bresaola short loin. Pork loin burgdoggen turkey bresaola, ball tip pork chop meatball tail ground round tri-tip pork ham hock.
+	Tail short ribs drumstick andouille swine beef biltong brisket prosciutto picanha filet mignon. Burgdoggen drumstick swine brisket pastrami. Swine pork sirloin, chuck beef meatloaf drumstick porchetta. Fatback picanha ham hock beef ribs flank capicola burgdoggen short ribs. Tri-tip kielbasa frankfurter fatback brisket, shoulder bresaola short loin. Pork loin burgdoggen turkey bresaola, ball tip pork chop meatball tail ground round tri-tip pork ham hock.
 
-Short ribs chuck shankle hamburger pastrami. Biltong meatloaf t-bone, jerky fatback short ribs kielbasa bacon tenderloin short loin alcatra chicken cupim filet mignon. Biltong doner tail pig, andouille ham hock shank shoulder cow turkey meatball short loin jerky. Beef ribs turducken bacon pastrami spare ribs tri-tip. Alcatra kevin corned beef fatback, turkey pig chicken hamburger tongue tenderloin pork.
+	Short ribs chuck shankle hamburger pastrami. Biltong meatloaf t-bone, jerky fatback short ribs kielbasa bacon tenderloin short loin alcatra chicken cupim filet mignon. Biltong doner tail pig, andouille ham hock shank shoulder cow turkey meatball short loin jerky. Beef ribs turducken bacon pastrami spare ribs tri-tip. Alcatra kevin corned beef fatback, turkey pig chicken hamburger tongue tenderloin pork.
 
-Kielbasa pancetta doner bacon tongue cow. Pastrami tenderloin flank, drumstick corned beef leberkas shoulder venison andouille beef short loin hamburger ball tip jerky. Jerky prosciutto doner meatloaf, chuck buffalo chicken kevin ground round pig frankfurter cow boudin strip steak. Doner chuck flank sausage beef ribs beef, pork chop bresaola pig tenderloin porchetta spare ribs. Tri-tip shank chicken jowl leberkas kevin, biltong salami tenderloin kielbasa doner pastrami. Kevin swine hamburger, pork chop bresaola ribeye kielbasa buffalo spare ribs ball tip short ribs ground round.
+	Kielbasa pancetta doner bacon tongue cow. Pastrami tenderloin flank, drumstick corned beef leberkas shoulder venison andouille beef short loin hamburger ball tip jerky. Jerky prosciutto doner meatloaf, chuck buffalo chicken kevin ground round pig frankfurter cow boudin strip steak. Doner chuck flank sausage beef ribs beef, pork chop bresaola pig tenderloin porchetta spare ribs. Tri-tip shank chicken jowl leberkas kevin, biltong salami tenderloin kielbasa doner pastrami. Kevin swine hamburger, pork chop bresaola ribeye kielbasa buffalo spare ribs ball tip short ribs ground round.
 
-Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue burgdoggen ball tip ham flank. Burgdoggen ground round pastrami pork turkey venison pork belly andouille tongue hamburger. Shankle ham hock ball tip meatloaf short loin t-bone pork belly. T-bone capicola tongue swine pancetta brisket.
+	Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue burgdoggen ball tip ham flank. Burgdoggen ground round pastrami pork turkey venison pork belly andouille tongue hamburger. Shankle ham hock ball tip meatloaf short loin t-bone pork belly. T-bone capicola tongue swine pancetta brisket.
 						</p>
 					</div>
 				</template>
-			</demo-snippet>
-		</div>
-		<div class="vertical-section-container">
-			<h3>Consortium with delayed visibility (like in mobile menu)</h3>
-			<demo-snippet>
+			</d2l-demo-snippet>
+
+			<h2>Consortium with delayed visibility (like in mobile menu)</h2>
+			<d2l-demo-snippet>
 				<template>
 					<div class="demo" style="width: 250px;">
 						<d2l-navigation-band hidden>
@@ -93,59 +76,58 @@ Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue
 						</d2l-navigation-band>
 						<button id="show-org-tabs">Show Org Tabs</button>
 						<p>
-Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
+	Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
 						</p>
 					</div>
 				</template>
-			</demo-snippet>
-		</div>
-		<div class="vertical-section-container">
-			<h3>Consortium with an error present</h3>
-			<demo-snippet>
+			</d2l-demo-snippet>
+
+			<h2>Consortium with an error present</h2>
+			<d2l-demo-snippet>
 				<template>
 					<div class="demo">
 						<d2l-navigation-band>
 							<d2l-organization-consortium-tabs id="tabs-3" href="../data/consortium/consortium-root-with-error.json" mute-announcer></d2l-organization-consortium-tabs>
 						</d2l-navigation-band>
 						<p>
-Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
+	Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
 
-Tail short ribs drumstick andouille swine beef biltong brisket prosciutto picanha filet mignon. Burgdoggen drumstick swine brisket pastrami. Swine pork sirloin, chuck beef meatloaf drumstick porchetta. Fatback picanha ham hock beef ribs flank capicola burgdoggen short ribs. Tri-tip kielbasa frankfurter fatback brisket, shoulder bresaola short loin. Pork loin burgdoggen turkey bresaola, ball tip pork chop meatball tail ground round tri-tip pork ham hock.
+	Tail short ribs drumstick andouille swine beef biltong brisket prosciutto picanha filet mignon. Burgdoggen drumstick swine brisket pastrami. Swine pork sirloin, chuck beef meatloaf drumstick porchetta. Fatback picanha ham hock beef ribs flank capicola burgdoggen short ribs. Tri-tip kielbasa frankfurter fatback brisket, shoulder bresaola short loin. Pork loin burgdoggen turkey bresaola, ball tip pork chop meatball tail ground round tri-tip pork ham hock.
 
-Short ribs chuck shankle hamburger pastrami. Biltong meatloaf t-bone, jerky fatback short ribs kielbasa bacon tenderloin short loin alcatra chicken cupim filet mignon. Biltong doner tail pig, andouille ham hock shank shoulder cow turkey meatball short loin jerky. Beef ribs turducken bacon pastrami spare ribs tri-tip. Alcatra kevin corned beef fatback, turkey pig chicken hamburger tongue tenderloin pork.
+	Short ribs chuck shankle hamburger pastrami. Biltong meatloaf t-bone, jerky fatback short ribs kielbasa bacon tenderloin short loin alcatra chicken cupim filet mignon. Biltong doner tail pig, andouille ham hock shank shoulder cow turkey meatball short loin jerky. Beef ribs turducken bacon pastrami spare ribs tri-tip. Alcatra kevin corned beef fatback, turkey pig chicken hamburger tongue tenderloin pork.
 
-Kielbasa pancetta doner bacon tongue cow. Pastrami tenderloin flank, drumstick corned beef leberkas shoulder venison andouille beef short loin hamburger ball tip jerky. Jerky prosciutto doner meatloaf, chuck buffalo chicken kevin ground round pig frankfurter cow boudin strip steak. Doner chuck flank sausage beef ribs beef, pork chop bresaola pig tenderloin porchetta spare ribs. Tri-tip shank chicken jowl leberkas kevin, biltong salami tenderloin kielbasa doner pastrami. Kevin swine hamburger, pork chop bresaola ribeye kielbasa buffalo spare ribs ball tip short ribs ground round.
+	Kielbasa pancetta doner bacon tongue cow. Pastrami tenderloin flank, drumstick corned beef leberkas shoulder venison andouille beef short loin hamburger ball tip jerky. Jerky prosciutto doner meatloaf, chuck buffalo chicken kevin ground round pig frankfurter cow boudin strip steak. Doner chuck flank sausage beef ribs beef, pork chop bresaola pig tenderloin porchetta spare ribs. Tri-tip shank chicken jowl leberkas kevin, biltong salami tenderloin kielbasa doner pastrami. Kevin swine hamburger, pork chop bresaola ribeye kielbasa buffalo spare ribs ball tip short ribs ground round.
 
-Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue burgdoggen ball tip ham flank. Burgdoggen ground round pastrami pork turkey venison pork belly andouille tongue hamburger. Shankle ham hock ball tip meatloaf short loin t-bone pork belly. T-bone capicola tongue swine pancetta brisket.
+	Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue burgdoggen ball tip ham flank. Burgdoggen ground round pastrami pork turkey venison pork belly andouille tongue hamburger. Shankle ham hock ball tip meatloaf short loin t-bone pork belly. T-bone capicola tongue swine pancetta brisket.
 						</p>
 					</div>
 				</template>
-			</demo-snippet>
-		</div>
-		<div class="vertical-section-container">
-			<h3>Consortium with impersonation mode on</h3>
-			<demo-snippet>
+			</d2l-demo-snippet>
+
+			<h2>Consortium with impersonation mode on</h2>
+			<d2l-demo-snippet>
 				<template>
 					<div class="demo">
 						<d2l-navigation-band>
 							<d2l-organization-consortium-tabs impersonation-mode id="tabs-4" token="faketoken4" href="../data/consortium/consortium-root-with-error.json" mute-announcer></d2l-organization-consortium-tabs>
 						</d2l-navigation-band>
 						<p>
-Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
+	Bacon ipsum dolor amet turkey swine picanha, tail cow ham drumstick. Ball tip pork bacon, doner t-bone venison beef porchetta fatback capicola turkey ham pork belly andouille. Frankfurter pork belly turducken short ribs, buffalo boudin meatball fatback flank sausage shoulder spare ribs. Burgdoggen alcatra kielbasa, spare ribs sausage t-bone shoulder kevin doner pork shank pork chop bresaola meatloaf. Buffalo beef ribs hamburger alcatra venison strip steak flank, drumstick pig turkey pork loin ham beef.
 
-Tail short ribs drumstick andouille swine beef biltong brisket prosciutto picanha filet mignon. Burgdoggen drumstick swine brisket pastrami. Swine pork sirloin, chuck beef meatloaf drumstick porchetta. Fatback picanha ham hock beef ribs flank capicola burgdoggen short ribs. Tri-tip kielbasa frankfurter fatback brisket, shoulder bresaola short loin. Pork loin burgdoggen turkey bresaola, ball tip pork chop meatball tail ground round tri-tip pork ham hock.
+	Tail short ribs drumstick andouille swine beef biltong brisket prosciutto picanha filet mignon. Burgdoggen drumstick swine brisket pastrami. Swine pork sirloin, chuck beef meatloaf drumstick porchetta. Fatback picanha ham hock beef ribs flank capicola burgdoggen short ribs. Tri-tip kielbasa frankfurter fatback brisket, shoulder bresaola short loin. Pork loin burgdoggen turkey bresaola, ball tip pork chop meatball tail ground round tri-tip pork ham hock.
 
-Short ribs chuck shankle hamburger pastrami. Biltong meatloaf t-bone, jerky fatback short ribs kielbasa bacon tenderloin short loin alcatra chicken cupim filet mignon. Biltong doner tail pig, andouille ham hock shank shoulder cow turkey meatball short loin jerky. Beef ribs turducken bacon pastrami spare ribs tri-tip. Alcatra kevin corned beef fatback, turkey pig chicken hamburger tongue tenderloin pork.
+	Short ribs chuck shankle hamburger pastrami. Biltong meatloaf t-bone, jerky fatback short ribs kielbasa bacon tenderloin short loin alcatra chicken cupim filet mignon. Biltong doner tail pig, andouille ham hock shank shoulder cow turkey meatball short loin jerky. Beef ribs turducken bacon pastrami spare ribs tri-tip. Alcatra kevin corned beef fatback, turkey pig chicken hamburger tongue tenderloin pork.
 
-Kielbasa pancetta doner bacon tongue cow. Pastrami tenderloin flank, drumstick corned beef leberkas shoulder venison andouille beef short loin hamburger ball tip jerky. Jerky prosciutto doner meatloaf, chuck buffalo chicken kevin ground round pig frankfurter cow boudin strip steak. Doner chuck flank sausage beef ribs beef, pork chop bresaola pig tenderloin porchetta spare ribs. Tri-tip shank chicken jowl leberkas kevin, biltong salami tenderloin kielbasa doner pastrami. Kevin swine hamburger, pork chop bresaola ribeye kielbasa buffalo spare ribs ball tip short ribs ground round.
+	Kielbasa pancetta doner bacon tongue cow. Pastrami tenderloin flank, drumstick corned beef leberkas shoulder venison andouille beef short loin hamburger ball tip jerky. Jerky prosciutto doner meatloaf, chuck buffalo chicken kevin ground round pig frankfurter cow boudin strip steak. Doner chuck flank sausage beef ribs beef, pork chop bresaola pig tenderloin porchetta spare ribs. Tri-tip shank chicken jowl leberkas kevin, biltong salami tenderloin kielbasa doner pastrami. Kevin swine hamburger, pork chop bresaola ribeye kielbasa buffalo spare ribs ball tip short ribs ground round.
 
-Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue burgdoggen ball tip ham flank. Burgdoggen ground round pastrami pork turkey venison pork belly andouille tongue hamburger. Shankle ham hock ball tip meatloaf short loin t-bone pork belly. T-bone capicola tongue swine pancetta brisket.
+	Ground round meatball spare ribs filet mignon corned beef shankle alcatra tongue burgdoggen ball tip ham flank. Burgdoggen ground round pastrami pork turkey venison pork belly andouille tongue hamburger. Shankle ham hock ball tip meatloaf short loin t-bone pork belly. T-bone capicola tongue swine pancetta brisket.
 						</p>
 					</div>
 				</template>
-			</demo-snippet>
-		</div>
+			</d2l-demo-snippet>
+		</d2l-demo-page>
 	</body>
+
 	<script type="module">
 		function tokenGetter() {
 			return Promise.resolve('faketoken3');
