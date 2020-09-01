@@ -40,7 +40,7 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 	constructor() {
 		super();
 		this._initialValues = {
-			isCompletionTracked: true,
+			isCompletionTracked: undefined,
 			isProgressDisplayed: undefined
 		};
 		this._newValues = {};
@@ -54,13 +54,15 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 			this._newValues.isProgressDisplayed :
 			this._initialValues.isProgressDisplayed;
 		const showDisableWarning = this._initialValues.isCompletionTracked && this._newValues.isCompletionTracked === false;
+		const showProgressTracking = this._showProgressTracking === undefined && this._initialValues.isCompletionTracked ||
+			this._showProgressTracking;
 		const completionHelpClasses = {
 			'd2l-body-small': true,
 			'd2l-hidden': this._initialValues.isCompletionTracked
 		};
 		const progressTrackingClasses = {
 			'd2l-subfield': true,
-			'd2l-hidden': !this._showProgressTracking
+			'd2l-hidden': !showProgressTracking
 		};
 		return html`
 			<h1>${this.localize('mainTitle')}</h1>
@@ -72,14 +74,14 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 				id="chkCompletionTracked"
 				?checked="${isCompletionTracked}"
 				@change="${this._onTrackingChange}">${this.localize('checkboxLabel')}</d2l-input-checkbox>
-			<d2l-input-checkbox-spacer class="${classMap(completionHelpClasses)}">
+			<d2l-input-checkbox-spacer class="${classMap(completionHelpClasses)}" id="chkCompletionHelp">
 				${this.localize('enableWarning')}
 			</d2l-input-checkbox-spacer>
 			<br/>
-			<d2l-alert type="warning" ?hidden="${!showDisableWarning}">
+			<d2l-alert type="warning" ?hidden="${!showDisableWarning}" id="disableWarning">
 				${this.localize('disableWarning')}
 			</d2l-alert>
-			<div class="${classMap(progressTrackingClasses)}">
+			<div class="${classMap(progressTrackingClasses)}" id="progressFields">
 				<d2l-input-checkbox
 					id="chkDisplayProgress"
 					?disabled="${false}"

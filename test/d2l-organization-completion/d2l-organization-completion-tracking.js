@@ -1,9 +1,8 @@
 import '../../components/d2l-organization-completion/d2l-organization-completion-tracking.js';
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 describe('d2l-organization-completion-tracking', () => {
-	let el;
 
 	describe('constructor', () => {
 		it('should construct', () => {
@@ -11,23 +10,60 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 	});
 
-	beforeEach(async() => {
-		el = await fixture(html`<d2l-organization-completion-tracking></d2l-organization-completion-tracking>`);
-	});
+	describe('show/hide logic', () => {
+		let el;
+		beforeEach(async() => {
+			el = await fixture(html`<d2l-organization-completion-tracking></d2l-organization-completion-tracking>`);
+		});
 
-	it('does not show progress tracking options when disabled', () => {
+		it('displays when completion tracking initially disabled', async() => {
+			el._initialValues = { isCompletionTracked: false };
+			await el.updateComplete;
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFields')).to.have.class('d2l-hidden');
+		});
 
-	});
+		it('displays when completion tracking initally enabled', async() => {
+			el._initialValues = { isCompletionTracked: true };
+			await el.updateComplete;
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFields')).to.not.have.class('d2l-hidden');
+		});
 
-	it('shows progress tracking options when enabled', () => {
+		it('shows progress fields when user enables tracking', async() => {
+			el._initialValues = { isCompletionTracked: false };
+			await el.updateComplete;
+			// simulate checkbox select
+			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
+			setTimeout(() => {
+				checkbox.checked = true;
+				checkbox.dispatchEvent(new Event('change'));
+			});
+			await oneEvent(checkbox, 'change');
+			await el.updateComplete;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFields')).to.not.have.class('d2l-hidden');
+		});
 
-	});
-
-	it('displays warning when disabling completion tracking', () => {
-
-	});
-
-	it('displays completion tracking help when enabling', () => {
-
+		it('displays when user disables completion tracking', async() => {
+			el._initialValues = { isCompletionTracked: true };
+			await el.updateComplete;
+			// simulate checkbox select
+			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
+			setTimeout(() => {
+				checkbox.checked = false;
+				checkbox.dispatchEvent(new Event('change'));
+			});
+			await oneEvent(checkbox, 'change');
+			await el.updateComplete;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.false;
+			expect(el.shadowRoot.querySelector('#progressFields')).to.have.class('d2l-hidden');
+		});
 	});
 });
