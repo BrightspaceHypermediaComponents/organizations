@@ -21,8 +21,8 @@ describe('d2l-organization-completion-tracking', () => {
 			await el.updateComplete;
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFields')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
 		});
 
 		it('displays when completion tracking initally enabled', async() => {
@@ -30,8 +30,8 @@ describe('d2l-organization-completion-tracking', () => {
 			await el.updateComplete;
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFields')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
 		});
 
 		it('shows progress fields when user enables tracking', async() => {
@@ -46,8 +46,8 @@ describe('d2l-organization-completion-tracking', () => {
 			await oneEvent(checkbox, 'change');
 			await el.updateComplete;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFields')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
 		});
 
 		it('displays when user disables completion tracking', async() => {
@@ -62,8 +62,8 @@ describe('d2l-organization-completion-tracking', () => {
 			await oneEvent(checkbox, 'change');
 			await el.updateComplete;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#disableWarning').hidden).to.be.false;
-			expect(el.shadowRoot.querySelector('#progressFields')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.false;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
 		});
 	});
 });

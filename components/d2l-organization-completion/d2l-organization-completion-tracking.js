@@ -7,6 +7,7 @@ import '@brightspace-ui/core/components/inputs/input-checkbox-spacer.js';
 import { css, html, LitElement } from 'lit-element';
 import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
 import { classMap } from 'lit-html/directives/class-map.js';
+import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 import { LocalizeOrganizationCompletion } from './localization.js';
 
 class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
@@ -78,10 +79,10 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 				${this.localize('enableWarning')}
 			</d2l-input-checkbox-spacer>
 			<br/>
-			<d2l-alert type="warning" ?hidden="${!showDisableWarning}" id="disableWarning">
+			<d2l-alert type="warning" ?hidden="${!showDisableWarning}" id="disableWarningAlert">
 				${this.localize('disableWarning')}
 			</d2l-alert>
-			<div class="${classMap(progressTrackingClasses)}" id="progressFields">
+			<div class="${classMap(progressTrackingClasses)}" id="progressFieldsContainer">
 				<d2l-input-checkbox
 					id="chkDisplayProgress"
 					?disabled="${false}"
@@ -95,14 +96,14 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 			</div>
 			<div class="d2l-button-container">
 				<d2l-button
-					id="btnSave"
+					id="btnSaveCompletion"
 					class="btnMargins"
 					aria-label="${this.localize('saveText')}"
 					@click="${this._onSaveClick}"
 					primary
 					?disabled=${!this._valuesChanged}>${this.localize('saveText')}</d2l-button>
 				<d2l-button
-					id="btnCancel"
+					id="btnCancelCompletion"
 					class="btnMargins"
 					aria-label="${this.localize('cancelText')}"
 					@click="${this._onCancelClick}">${this.localize('cancelText')}</d2l-button>
@@ -110,8 +111,8 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 			<br />
 			<d2l-alert type="critical" ?hidden="${!this._error}">${this._error}</d2l-alert>
 
-			<d2l-dialog title-text="${this.localize('dlgDisableTitle')}" id="confirmDisable">
-				<div>${this.localize('dlgDisableSecondaryMessage')}</div>
+			<d2l-dialog title-text="${this.localize('dlgDisableTitle')}" id="confirmDisableDialog">
+				<div>${unsafeHTML(this.localize('dlgDisableSecondaryMessage'))}</div>
 				<d2l-button slot="footer" primary data-dialog-action="yes">${this.localize('dlgDisablePositiveButtonText')}</d2l-button>
 				<d2l-button slot="footer" data-dialog-action>${this.localize('dlgDisableNegativeButtonText')}</d2l-button>
 			</d2l-dialog>
@@ -124,7 +125,7 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 	}
 
 	async _confirmDisable() {
-		const action = await this.shadowRoot.querySelector('#confirmDisable').open();
+		const action = await this.shadowRoot.querySelector('#confirmDisableDialog').open();
 		return action === 'yes';
 	}
 
