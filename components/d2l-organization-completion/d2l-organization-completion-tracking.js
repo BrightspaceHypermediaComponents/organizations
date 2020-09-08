@@ -3,14 +3,18 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox-spacer.js';
+import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
 
 import { css, html, LitElement } from 'lit-element';
-import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
+
 import { classMap } from 'lit-html/directives/class-map.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
+
+import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
+
 import { LocalizeOrganizationCompletion } from './localization.js';
 
-class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
+class CompletionTracking extends MixinEntity(LocalizeOrganizationCompletion(LitElement)) {
 
 	static get properties() {
 		return {
@@ -45,6 +49,7 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 			isProgressDisplayed: undefined
 		};
 		this._newValues = {};
+		this._setEntityType(OrganizationEntity);
 	}
 
 	render() {
@@ -144,20 +149,43 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 
 	_onCancelClick() {
 		// todo: redirect
+		return this._goToCourseHomepage();
 	}
 
 	async _onSaveClick() {
+		let sirenActions = [];
 		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
 			if ((this._initialValues.isCompletionTracked && (await this._confirmDisable())) || this._newValues.isCompletionTracked) {
 				// todo: save completion tracking
+				let actionName = 'do-not-track-completion';
+				if(!this._initialValues.isCompletionTracked){
+					actionName = 'track-completion';
+				}
+				const action = this._entity.getActionByName(actionName);
+				const fields = [{name: 'track', value: this._newValues.isCompletionTracked}];
+				sirenActions.push(Promise.resolve(performSirenAction(this.token, action, fields, false)))
 			}
 		}
 
 		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
 			// todo: save progress display
+			let actionName = 'do-not-display-progress';
+			if(!this._initialValues._isProgressDisplayed){
+				actionName = 'display-progress';
+			}
+			const action = this._entity.getActionByName(actionName);
+			const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
+			sirenActions.push(Promise.resolve(performSirenAction(this.token, action, fields, false)));
 		}
 		// todo: redirect
+		await Promise.all(sirenActions);
+		return this._goToCourseHomepage();
+	}
+
+	_goToCourseHomepage(){
+		return this._entity && this._entity.organizationHomepageUrl();
 	}
 }
+
 
 customElements.define('d2l-organization-completion-tracking', CompletionTracking);
