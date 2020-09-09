@@ -149,7 +149,6 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 	}
 
 	_onCancelClick() {
-		// todo: redirect
 		return this._goToCourseHomepage();
 	}
 
@@ -157,7 +156,6 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		let sirenActions = [];
 		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
 			if ((this._initialValues.isCompletionTracked && (await this._confirmDisable())) || this._newValues.isCompletionTracked) {
-				// todo: save completion tracking
 				let actionName = 'do-not-track-completion';
 				if(!this._initialValues.isCompletionTracked){
 					actionName = 'track-completion';
@@ -169,7 +167,6 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		}
 
 		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
-			// todo: save progress display
 			let actionName = 'do-not-display-progress';
 			if(!this._initialValues._isProgressDisplayed){
 				actionName = 'display-progress';
