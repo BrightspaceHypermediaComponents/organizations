@@ -10,11 +10,12 @@ import { css, html, LitElement } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
+import { MixinEntityLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 
 import { LocalizeOrganizationCompletion } from './localization.js';
 
-class CompletionTracking extends MixinEntity(LocalizeOrganizationCompletion(LitElement)) {
+class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(LitElement)) {
 
 	static get properties() {
 		return {
