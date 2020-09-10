@@ -53,7 +53,17 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		this._newValues = {};
 		this._setEntityType(OrganizationEntity);
 		await this._entity.subEntitiesLoaded();
-		// todo: retrieve data from organization
+
+		if ( this._entity.hasActionByName('track-completion')){
+			this._initialValues._isCompletionTracked = false;
+		} else {
+			this._initialValues._isCompletionTracked = true;
+		}
+		if ( this._entity.hasActionByName('display-progress') ){
+			this._initialValues._isProgressDisplayed = false;
+		} else {
+			this._initialValues._isProgressDisplayed = true;
+		}
 	}
 
 	render() {
