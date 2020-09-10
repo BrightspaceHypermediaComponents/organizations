@@ -161,6 +161,9 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 					actionName = 'track-completion';
 				}
 				const action = this._entity.getActionByName(actionName);
+				if ( action == null ) {
+					// cry?
+				}
 				const fields = [{name: 'track', value: this._newValues.isCompletionTracked}];
 				sirenActions.push(Promise.resolve(performSirenAction(this.token, action, fields, false)))
 			}
@@ -175,7 +178,6 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 			const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
 			sirenActions.push(Promise.resolve(performSirenAction(this.token, action, fields, false)));
 		}
-		// todo: redirect
 		await Promise.all(sirenActions);
 		return this._goToCourseHomepage();
 	}
