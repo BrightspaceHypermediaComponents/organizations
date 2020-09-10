@@ -153,32 +153,38 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 	}
 
 	async _onSaveClick() {
-		let sirenActions = [];
 		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
 			if ((this._initialValues.isCompletionTracked && (await this._confirmDisable())) || this._newValues.isCompletionTracked) {
 				let actionName = 'do-not-track-completion';
 				if(!this._initialValues.isCompletionTracked){
 					actionName = 'track-completion';
 				}
-				const action = this._entity.getActionByName(actionName);
+				let action = null;
+				if ( this._entity.hasActionByName(actionName) ){
+					action = this._entity.getActionByName(actionName);
+				}
 				if ( action == null ) {
-					// cry?
+					return // ?
 				}
 				const fields = [{name: 'track', value: this._newValues.isCompletionTracked}];
-				sirenActions.push(Promise.resolve(performSirenAction(this.token, action, fields, false)))
+				await Promise.resolve(performSirenAction(this.token, action, fields, false));
 			}
 		}
 
-		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
+		if ( this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed ) {
 			let actionName = 'do-not-display-progress';
 			if(!this._initialValues._isProgressDisplayed){
 				actionName = 'display-progress';
 			}
-			const action = this._entity.getActionByName(actionName);
+			let action = null;
+			if ( this._entity.hasActionByName) {
+				action = this._entity.getActionByName(actionName);
+			} else {
+				return // ?
+			}
 			const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
-			sirenActions.push(Promise.resolve(performSirenAction(this.token, action, fields, false)));
+			await Promise.resolve(performSirenAction(this.token, action, fields, false));
 		}
-		await Promise.all(sirenActions);
 		return this._goToCourseHomepage();
 	}
 
