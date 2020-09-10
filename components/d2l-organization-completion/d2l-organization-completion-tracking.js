@@ -52,6 +52,8 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		};
 		this._newValues = {};
 		this._setEntityType(OrganizationEntity);
+		await this._entity.subEntitiesLoaded();
+		// todo: retrieve data from organization
 	}
 
 	render() {
@@ -190,6 +192,7 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 	}
 
 	_goToCourseHomepage(){
+		// todo: actually redirect
 		return this._entity && this._entity.organizationHomepageUrl();
 	}
 }
