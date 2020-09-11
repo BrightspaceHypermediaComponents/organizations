@@ -1,0 +1,17 @@
+on:
+  pull_request:
+    types: [closed]
+jobs:
+  comment:
+    runs-on: [self-hosted]
+    steps:
+      - uses: Brightspace/third-party-actions@actions/github-script
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Remember to [update BSI](https://github.com/Brightspace/brightspace-integration)!'
+            })
