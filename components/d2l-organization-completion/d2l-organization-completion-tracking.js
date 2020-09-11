@@ -11,17 +11,18 @@ import { classMap } from 'lit-html/directives/class-map.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
 
 import { performSirenAction } from 'siren-sdk/src/es6/SirenAction.js';
-import { MixinEntityLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 
 import { LocalizeOrganizationCompletion } from './localization.js';
 
-class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(LitElement)) {
+class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(LitElement)) {
 
 	static get properties() {
 		return {
 			_error: { type: String },
 			_initialValues: { type: Object },
+			_isLoaded: { type: Boolean },
 			_newValues: { type: Object },
 			_showProgressTracking: { type: Boolean }
 		};
@@ -52,17 +53,18 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		};
 		this._newValues = {};
 		this._setEntityType(OrganizationEntity);
-		await this._entity.subEntitiesLoaded();
+	}
 
-		if ( this._entity.hasActionByName('track-completion')){
-			this._initialValues._isCompletionTracked = false;
-		} else {
-			this._initialValues._isCompletionTracked = true;
-		}
-		if ( this._entity.hasActionByName('display-progress') ){
-			this._initialValues._isProgressDisplayed = false;
-		} else {
-			this._initialValues._isProgressDisplayed = true;
+	set _entity(entity) {
+		if (this._entityHasChanged(entity)) {
+			this._entity.subEntitiesLoaded().then(() => {
+				this._initialValues = {
+					isCompletionTracked: this._entity.hasActionByName('track-completion') ? false : true,
+					isProgressDisplayed: this._entity.hasActionByName('display-progress') ? false : true
+				};
+				this._isLoaded = true;
+			});
+			super._entity = entity;
 		}
 	}
 
@@ -169,14 +171,14 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
 			if ((this._initialValues.isCompletionTracked && (await this._confirmDisable())) || this._newValues.isCompletionTracked) {
 				let actionName = 'do-not-track-completion';
-				if(!this._initialValues.isCompletionTracked){
+				if (!this._initialValues.isCompletionTracked) {
 					actionName = 'track-completion';
 				}
 				let action = null;
-				if ( this._entity.hasActionByName(actionName) ){
+				if (this._entity.hasActionByName(actionName)) {
 					action = this._entity.getActionByName(actionName);
 				}
-				if ( action == null ) {
+				if ( action == null) {
 					return // ?
 				}
 				const fields = [{name: 'track', value: this._newValues.isCompletionTracked}];
@@ -184,9 +186,9 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 			}
 		}
 
-		if ( this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed ) {
+		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
 			let actionName = 'do-not-display-progress';
-			if(!this._initialValues._isProgressDisplayed){
+			if (!this._initialValues._isProgressDisplayed) {
 				actionName = 'display-progress';
 			}
 			let action = null;
@@ -206,6 +208,5 @@ class CompletionTracking extends MixinEntityLit(LocalizeOrganizationCompletion(L
 		return this._entity && this._entity.organizationHomepageUrl();
 	}
 }
-
 
 customElements.define('d2l-organization-completion-tracking', CompletionTracking);
