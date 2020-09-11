@@ -47,6 +47,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 	constructor() {
 		super();
+		this._isLoaded = false;
 		this._initialValues = {
 			isCompletionTracked: undefined,
 			isProgressDisplayed: undefined
@@ -56,11 +57,13 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._entity.subEntitiesLoaded().then(() => {
+		if ( entity && this._entityHasChanged(entity)) {
+			console.log(entity);
+
+			entity.subEntitiesLoaded().then(() => {
 				this._initialValues = {
-					isCompletionTracked: this._entity.hasActionByName('track-completion') ? false : true,
-					isProgressDisplayed: this._entity.hasActionByName('display-progress') ? false : true
+					isCompletionTracked: entity.getActionByName('track-completion') ? false : true,
+					isProgressDisplayed: entity.getActionByName('display-progress') ? false : true
 				};
 				this._isLoaded = true;
 			});
@@ -192,7 +195,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 				actionName = 'display-progress';
 			}
 			let action = null;
-			if ( this._entity.hasActionByName) {
+			if (this._entity.hasActionByName(actionName)) {
 				action = this._entity.getActionByName(actionName);
 			} else {
 				return // ?

@@ -1,5 +1,5 @@
 {
-  "class":[
+  "class": [
     "active",
     "course-offering"
   ],
@@ -10,22 +10,55 @@
     "endDate": null,
     "isActive": false
   },
-  "entities":[
+  "entities": [
     {
-        "class":[
-          "course-image"
-        ],
-        "rel":[
-          "https://api.brightspace.com/rels/organization-image"
-        ],
-        "href":"../data/image.json"
+      "class": [
+        "course-image"
+      ],
+      "rel": [
+        "https://api.brightspace.com/rels/organization-image"
+      ],
+      "href": "../data/image.json"
     }
   ],
-  "links": [{
-    "rel": ["self"],
-    "href": "../data/organization-future.json"
-  }, {
-    "rel": ["https://api.brightspace.com/rels/parent-semester"],
-    "href": "../data/semester.json"
-  }]
+  "links": [
+    {
+      "rel": [
+        "self"
+      ],
+      "href": "../data/organization-future.json"
+    },
+    {
+      "rel": [
+        "https://api.brightspace.com/rels/parent-semester"
+      ],
+      "href": "../data/semester.json"
+    }
+  ],
+  "actions": [
+    {
+      "href": "https://fd2bb2ae-ba1e-4b44-84c3-3636796aab4e.organizations.api.dev.brightspace.com/6609/completion-tracking",
+      "name": "track-completion",
+      "method": "PUT",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "track",
+          "value": true
+        }
+      ]
+    },
+    {
+      "href": "https://fd2bb2ae-ba1e-4b44-84c3-3636796aab4e.organizations.api.dev.brightspace.com/6609/completion-tracking/display-progress",
+      "name": "display-progress",
+      "method": "PUT",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "enable",
+          "value": true
+        }
+      ]
+    }
+  ]
 }
