@@ -57,9 +57,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	set _entity(entity) {
-		if ( entity && this._entityHasChanged(entity)) {
-			console.log(entity);
-
+		if (entity && this._entityHasChanged(entity)) {
 			entity.subEntitiesLoaded().then(() => {
 				this._initialValues = {
 					isCompletionTracked: entity.getActionByName('track-completion') ? false : true,
@@ -167,7 +165,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	_onCancelClick() {
-		return this._goToCourseHomepage();
+		this._goToCourseHomepage();
 	}
 
 	async _onSaveClick() {
@@ -180,12 +178,11 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 				let action = null;
 				if (this._entity.hasActionByName(actionName)) {
 					action = this._entity.getActionByName(actionName);
-				}
-				if ( action == null) {
-					return // ?
+				} else {
+					return; // ?
 				}
 				const fields = [{name: 'track', value: this._newValues.isCompletionTracked}];
-				await Promise.resolve(performSirenAction(this.token, action, fields, false));
+				await performSirenAction(this.token, action, fields, false);
 			}
 		}
 
@@ -198,17 +195,19 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 			if (this._entity.hasActionByName(actionName)) {
 				action = this._entity.getActionByName(actionName);
 			} else {
-				return // ?
+				return; // ?
 			}
 			const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
-			await Promise.resolve(performSirenAction(this.token, action, fields, false));
+			await performSirenAction(this.token, action, fields, false);
 		}
-		return this._goToCourseHomepage();
+		this._goToCourseHomepage();
 	}
 
-	_goToCourseHomepage(){
+	_goToCourseHomepage() {
 		// todo: actually redirect
-		return this._entity && this._entity.organizationHomepageUrl();
+		if (this._entity && this._entity.organizationHomepageUrl() !== '') {
+			window.location.href = this._entity.organizationHomepageUrl();
+		}
 	}
 }
 
