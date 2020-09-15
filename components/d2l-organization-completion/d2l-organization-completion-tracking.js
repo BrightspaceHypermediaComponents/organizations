@@ -64,8 +64,8 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 		if (entity && this._entityHasChanged(entity)) {
 			entity.subEntitiesLoaded().then(() => {
 				this._initialValues = {
-					isCompletionTracked: entity.getActionByName('track-completion') ? false : true,
-					isProgressDisplayed: entity.getActionByName('display-progress') ? false : true
+					isCompletionTracked: entity.isCompletionTracked,
+					isProgressDisplayed: entity.isProgressDisplayed
 				};
 				this._isLoaded = true;
 				super._entity = entity;
@@ -169,44 +169,35 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	_onCancelClick() {
-		this._goToAdminHomepage();
+		this._goToAdminPage();
 	}
 
 	async _onSaveClick() {
 		if (this._newValues.isCompletionTracked !== undefined && this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
 			if ((this._newValues.isCompletionTracked) || (this._initialValues.isCompletionTracked && (await this._confirmDisable()))) {
-				let actionName = 'do-not-track-completion';
-				if (!this._initialValues.isCompletionTracked) {
-					actionName = 'track-completion';
-				}
-				if (this._entity.hasActionByName(actionName)) {
-					const action = this._entity.getActionByName(actionName);
+				const action = this._entity.getCompletionAction(this._newValues.isCompletionTracked)
+				if (action) {
 					await performSirenAction(this.token, action, action._fields, false);
 				}
 			}
 		}
 
 		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
-			let actionName = 'do-not-display-progress';
-			if (!this._initialValues.isProgressDisplayed) {
-				actionName = 'display-progress';
-			}
-			if (this._entity.hasActionByName(actionName)) {
-				const action = this._entity.getActionByName(actionName);
-				const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
-				await performSirenAction(this.token, action, fields, false);
+			const action = this._entity.getDisplayAction(this._newValues.isProgressDisplayed);
+			if (action) {
+				await performSirenAction(this.token, action, action._fields, false);
 			}
 		}
-		this._goToAdminHomepage();
+		this._goToAdminPage();
 	}
 
-	_goToAdminHomepage() {
-		if (this._entity && this._uri !== '') {
-			window.location.href = '/d2l/lp/cmc/main.d2l?ou=' + this._uri;
+	_goToAdminPage() {
+		if (this._entity && this._orgID !== '') {
+			window.location.href = '/d2l/lp/cmc/main.d2l?ou=' + this._orgID;
 		}
 	}
 
-	get _uri() {
+	get _orgID() {
 		if (this._entity._subEntities.has('relative-uri')) {
 			const relUri = this._entity.subEntities['relative-uri'];
 			const path = relUri.properties.path;
