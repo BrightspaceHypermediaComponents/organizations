@@ -1,7 +1,9 @@
 {
     "class": [
       "active",
-      "course-offering"
+      "course-offering",
+      "completion-tracked",
+      "display-progress"
     ],
     "properties": {
       "name": "Course Name",
@@ -37,7 +39,7 @@
     ],
     "actions": [
       {
-        "href": "https://fd2bb2ae-ba1e-4b44-84c3-3636796aab4e.organizations.api.dev.brightspace.com/6609/completion-tracking",
+        "href": "../completion/tracking.json",
         "name": "do-not-track-completion",
         "method": "PUT",
         "fields": [
@@ -49,7 +51,7 @@
         ]
     },
     {
-        "href": "https://fd2bb2ae-ba1e-4b44-84c3-3636796aab4e.organizations.api.dev.brightspace.com/6609/completion-tracking/display-progress",
+        "href": "../completion/tracking.json",
         "name": "do-not-display-progress",
         "method": "PUT",
         "fields": [

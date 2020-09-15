@@ -56,6 +56,10 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 		this._setEntityType(OrganizationEntity);
 	}
 
+	get _entity() {
+		return super._entity;
+	}
+
 	set _entity(entity) {
 		if (entity && this._entityHasChanged(entity)) {
 			entity.subEntitiesLoaded().then(() => {
@@ -64,8 +68,8 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 					isProgressDisplayed: entity.getActionByName('display-progress') ? false : true
 				};
 				this._isLoaded = true;
+				super._entity = entity;
 			});
-			super._entity = entity;
 		}
 	}
 
@@ -165,49 +169,50 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	_onCancelClick() {
-		this._goToCourseHomepage();
+		this._goToAdminHomepage();
 	}
 
 	async _onSaveClick() {
-		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
-			if ((this._initialValues.isCompletionTracked && (await this._confirmDisable())) || this._newValues.isCompletionTracked) {
+		if (this._newValues.isCompletionTracked !== undefined && this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
+			if ((this._newValues.isCompletionTracked) || (this._initialValues.isCompletionTracked && (await this._confirmDisable()))) {
 				let actionName = 'do-not-track-completion';
 				if (!this._initialValues.isCompletionTracked) {
 					actionName = 'track-completion';
 				}
-				let action = null;
 				if (this._entity.hasActionByName(actionName)) {
-					action = this._entity.getActionByName(actionName);
-				} else {
-					return; // ?
+					const action = this._entity.getActionByName(actionName);
+					await performSirenAction(this.token, action, action._fields, false);
 				}
-				const fields = [{name: 'track', value: this._newValues.isCompletionTracked}];
-				await performSirenAction(this.token, action, fields, false);
 			}
 		}
 
 		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
 			let actionName = 'do-not-display-progress';
-			if (!this._initialValues._isProgressDisplayed) {
+			if (!this._initialValues.isProgressDisplayed) {
 				actionName = 'display-progress';
 			}
-			let action = null;
 			if (this._entity.hasActionByName(actionName)) {
-				action = this._entity.getActionByName(actionName);
-			} else {
-				return; // ?
+				const action = this._entity.getActionByName(actionName);
+				const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
+				await performSirenAction(this.token, action, fields, false);
 			}
-			const fields = [{name: 'enable', value: this._newValues.isProgressDisplayed}];
-			await performSirenAction(this.token, action, fields, false);
 		}
-		this._goToCourseHomepage();
+		this._goToAdminHomepage();
 	}
 
-	_goToCourseHomepage() {
-		// todo: actually redirect
-		if (this._entity && this._entity.organizationHomepageUrl() !== '') {
-			window.location.href = this._entity.organizationHomepageUrl();
+	_goToAdminHomepage() {
+		if (this._entity && this._uri !== '') {
+			window.location.href = '/d2l/lp/cmc/main.d2l?ou=' + this._uri;
 		}
+	}
+
+	get _uri() {
+		if (this._entity._subEntities.has('relative-uri')) {
+			const relUri = this._entity.subEntities['relative-uri'];
+			const path = relUri.properties.path;
+			return path.substring(path.lastIndexOf('/') + 1);
+		}
+		return '';
 	}
 }
 

@@ -1,0 +1,69 @@
+{
+  "class": [
+    "named-entity",
+    "describable-entity",
+    "draft-published-entity",
+    "published",
+    "active",
+    "course-offering"
+  ],
+  "properties": {
+    "name": "Course Name",
+    "code": "SCI100",
+    "startDate": "2100-01-01T00:00:00.000Z",
+    "endDate": null,
+    "isActive": false
+  },
+  "entities": {},
+  "actions": [
+    {
+      "href": "./tracking.json",
+      "name": "track-completion",
+      "method": "PUT",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "track",
+          "value": true
+        }
+      ]
+    },
+    {
+      "href": "./tracking.json",
+      "name": "no-not-track-completion",
+      "method": "PUT",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "track",
+          "value": false
+        }
+      ]
+    },
+    {
+      "href": "./tracking.json",
+      "name": "display-progress",
+      "method": "PUT",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "enable",
+          "value": true
+        }
+      ]
+    },
+    {
+      "href": "./tracking.json",
+      "name": "do-not-display-progress",
+      "method": "PUT",
+      "fields": [
+        {
+          "type": "hidden",
+          "name": "enable",
+          "value": false
+        }
+      ]
+    }
+  ]
+]
+}

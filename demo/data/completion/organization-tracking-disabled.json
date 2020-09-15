@@ -37,7 +37,7 @@
     ],
     "actions": [
       {
-        "href": "https://fd2bb2ae-ba1e-4b44-84c3-3636796aab4e.organizations.api.dev.brightspace.com/6609/completion-tracking",
+        "href": "../data/tracking.json",
         "name": "track-completion",
         "method": "PUT",
         "fields": [
