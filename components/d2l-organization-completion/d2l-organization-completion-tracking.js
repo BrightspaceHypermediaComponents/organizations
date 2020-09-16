@@ -174,20 +174,15 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 	async _onSaveClick() {
 		if (this._newValues.isCompletionTracked !== undefined && this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
-			if ((this._newValues.isCompletionTracked) || (this._initialValues.isCompletionTracked && (await this._confirmDisable()))) {
-				const action = this._entity.getCompletionAction(this._newValues.isCompletionTracked);
-				if (action) {
-					await performSirenAction(this.token, action, action._fields, false);
-				}
+			if ((this._newValues.isCompletionTracked) || (!this._newValues.isCompletionTracked && (await this._confirmDisable()))) {
+				await this._entity.updateTrackingCompletion(this._newValues.isCompletionTracked);
 			}
 		}
 
-		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
-			const action = this._entity.getDisplayAction(this._newValues.isProgressDisplayed);
-			if (action) {
-				await performSirenAction(this.token, action, action._fields, false);
-			}
+		if (this._newValues.isProgressDisplayed !== undefined) {
+			await this._entity.updateDisplayProgress(this._newValues.isProgressDisplayed);
 		}
+
 		this._goToAdminPage();
 	}
 
