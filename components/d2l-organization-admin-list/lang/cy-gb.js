@@ -3,12 +3,12 @@
 export default {
 	"actions": "Camau Gweithredu", // Label for learning path context menu
 	"actionsForLP": "Gweithrediadau ar gyfer {name}", // Label for within the context menu
-	"confirmDeleteMessage": "Bydd yr eitem hon yn cael ei symud i'r bin ailgylchu a gellir ei hadfer neu ei dileu yn barhaol yn nes ymlaen.", // The message for the delete Learning Path confirmation dialog
+	"confirmDeleteMessage": "Bydd yr eitem hon yn cael ei symud i\'r bin ailgylchu a gellir ei hadfer neu ei dileu yn barhaol yn nes ymlaen.", // The message for the delete Learning Path confirmation dialog
 	"confirmDeleteTitle": "Cadarnhau Dileu", // The title for the delete Learning Path confirmation dialog
 	"createLearningPath": "Creu Llwybr Dysgu", // Button to create a new Learning Path
 	"defaultLearningPathName": "Llwybr Dysgu Dideitl", // Default name given to a newly created Learning Path
 	"deleteSucceeded": "Tynnwyd {name} yn llwyddiannus.", // The toast message displayed when a Learning Path is successfully deleted
-	"hiddenFromUsers": "Wedi'i guddio rhag defnyddwyr", // Visibility status displayed when a learning path is not visible
+	"hiddenFromUsers": "Wedi\'i guddio rhag defnyddwyr", // Visibility status displayed when a learning path is not visible
 	"noAction": "Canslo", // The 'No' button action text in the delete Learning Path confirmation dialog
 	"noLearningPath": "Does dim llwybrau dysgu i’w harddangos", // A page that lists learning paths this shows up when there are none to list.
 	"noLearningPathWithSearchTerm": "Canfuwyd 0 canlyniad chwilio ar gyfer \"{searchTerm}\"", // After searching for learning paths this shows up when there are no search results.
