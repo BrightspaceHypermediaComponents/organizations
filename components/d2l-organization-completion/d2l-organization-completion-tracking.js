@@ -3,6 +3,7 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox-spacer.js';
+
 import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
 
 import { css, html, LitElement } from 'lit-element';
@@ -17,11 +18,14 @@ import { LocalizeOrganizationCompletion } from './localization.js';
 
 class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(LitElement)) {
 
+
 	static get properties() {
 		return {
 			_error: { type: String },
 			_initialValues: { type: Object },
+
 			_isLoaded: { type: Boolean },
+
 			_newValues: { type: Object },
 			_showProgressTracking: { type: Boolean }
 		};
@@ -46,12 +50,15 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 	constructor() {
 		super();
+
 		this._isLoaded = false;
+
 		this._initialValues = {
 			isCompletionTracked: undefined,
 			isProgressDisplayed: undefined
 		};
 		this._newValues = {};
+
 		this._setEntityType(OrganizationEntity);
 	}
 
