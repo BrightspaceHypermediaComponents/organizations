@@ -3,7 +3,6 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox-spacer.js';
-
 import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
 
 import { css, html, LitElement } from 'lit-element';
@@ -17,7 +16,6 @@ import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEnti
 import { LocalizeOrganizationCompletion } from './localization.js';
 
 class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(LitElement)) {
-
 
 	static get properties() {
 		return {
@@ -70,8 +68,8 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 		if (entity && this._entityHasChanged(entity)) {
 			entity.subEntitiesLoaded().then(() => {
 				this._initialValues = {
-					isCompletionTracked: entity.isCompletionTracked,
-					isProgressDisplayed: entity.isProgressDisplayed
+					isCompletionTracked: entity.isCompletionTracked(),
+					isProgressDisplayed: entity.isProgressDisplayed()
 				};
 				this._isLoaded = true;
 				super._entity = entity;
