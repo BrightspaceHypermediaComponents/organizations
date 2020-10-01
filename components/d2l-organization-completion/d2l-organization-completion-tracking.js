@@ -65,7 +65,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	set _entity(entity) {
-		if (entity && this._entityHasChanged(entity)) {
+		if (entity && this._entityHasChanged(entity, this._entity)) {
 			entity.subEntitiesLoaded().then(() => {
 				this._initialValues = {
 					isCompletionTracked: entity.isCompletionTracked(),
