@@ -199,10 +199,11 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	get _orgID() {
 		if (this._entity._subEntities.has('relative-uri')) {
 			const relUri = this._entity.subEntities['relative-uri'];
-			const path = relUri.properties.path;
-			return path.substring(path.lastIndexOf('/') + 1);
+			if (relUri === 'https://api.brightspace.com/rels/organization-homepage' && relUri.properties?.path) {
+				const path = relUri.properties.path;
+				return path.substring(path.lastIndexOf('/') + 1);
+			}
 		}
-		return '';
 	}
 }
 
