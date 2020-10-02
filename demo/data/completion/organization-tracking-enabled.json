@@ -21,6 +21,18 @@
           "https://api.brightspace.com/rels/organization-image"
         ],
         "href": "../data/image.json"
+      },
+      {
+        "class": [
+          "relative-uri"
+        ],
+        "rel": [
+          "item",
+          "https://api.brightspace.com/rels/organization-homepage"
+        ],
+        "properties": {
+          "path": "/d2l/home/128492"
+        }
       }
     ],
     "links": [

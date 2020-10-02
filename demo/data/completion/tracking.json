@@ -9,7 +9,6 @@
     "endDate": null,
     "isActive": false
   },
-  "entities": {},
   "actions": [
     {
       "href": "./tracking.json",
