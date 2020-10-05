@@ -14,17 +14,16 @@ import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 
 import { LocalizeOrganizationCompletion } from './localization.js';
-
+//_initialValues: { type: Object },
+//_newValues: { type: Object },
 class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(LitElement)) {
 
 	static get properties() {
 		return {
 			_error: { type: String },
-			_initialValues: { type: Object },
-
+			_trackCompletion: { type: Boolean },
+			_displayProgress: { type: Boolean },
 			_isLoaded: { type: Boolean },
-
-			_newValues: { type: Object },
 			_showProgressTracking: { type: Boolean }
 		};
 	}
@@ -71,6 +70,8 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 					isCompletionTracked: entity.isCompletionTracked(),
 					isProgressDisplayed: entity.isProgressDisplayed()
 				};
+				this._trackCompletion = entity.isCompletionTracked();
+				this._displayProgress = entity.isProgressDisplayed();
 				this._isLoaded = true;
 				super._entity = entity;
 			});
@@ -160,10 +161,12 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	_onProgressChange(e) {
+		this._displayProgress = e.target.checked;
 		this._newValues.isProgressDisplayed = e.target.checked;
 	}
 
 	_onTrackingChange(e) {
+		this._trackCompletion = e.target.checked;
 		this._showProgressTracking = e.target.checked;
 		this._newValues.isCompletionTracked = e.target.checked;
 		// turn on progress display by default
