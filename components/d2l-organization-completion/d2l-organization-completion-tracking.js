@@ -14,8 +14,7 @@ import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 
 import { LocalizeOrganizationCompletion } from './localization.js';
-//_initialValues: { type: Object },
-//_newValues: { type: Object },
+
 class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(LitElement)) {
 
 	static get properties() {
@@ -144,8 +143,8 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 			<d2l-dialog title-text="${this.localize('dlgDisableTitle')}" id="confirmDisableDialog">
 				<div>${unsafeHTML(this.localize('dlgDisableSecondaryMessage'))}</div>
-				<d2l-button slot="footer" primary data-dialog-action="yes">${this.localize('dlgDisablePositiveButtonText')}</d2l-button>
-				<d2l-button slot="footer" data-dialog-action>${this.localize('dlgDisableNegativeButtonText')}</d2l-button>
+				<d2l-button slot="footer" primary data-dialog-action="yes" id="confirmDisableButton">${this.localize('dlgDisablePositiveButtonText')}</d2l-button>
+				<d2l-button slot="footer" data-dialog-action id="denyDisableButton">${this.localize('dlgDisableNegativeButtonText')}</d2l-button>
 			</d2l-dialog>
 		`;
 	}
@@ -172,6 +171,10 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 		// turn on progress display by default
 		if (e.target.checked) {
 			this._newValues.isProgressDisplayed = true;
+			this._displayProgress = true;
+		} else {
+			this._newValues.isProgressDisplayed = false;
+			this._displayProgress = false;
 		}
 	}
 
