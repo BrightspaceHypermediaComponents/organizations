@@ -50,7 +50,7 @@ describe('d2l-organization-info', () => {
 		it('should not set _semesterName when showSemesterName is false', () => {
 			component._entity = organizationEntity;
 			expect(onSemesterChangeStub).to.have.not.been.called;
-			expect(component._semesterName).to.equal(undefined);
+			expect(component._semesterName).to.equal(null);
 		});
 
 		it('should set _semesterName when showSemesterName is true', () => {
@@ -59,6 +59,34 @@ describe('d2l-organization-info', () => {
 
 			expect(onSemesterChangeStub).to.have.been.calledOnce;
 			expect(component._semesterName).to.equal(semesterEntity.name());
+		});
+
+		it('should reset _semesterName in case showSemesterName changes', () => {
+			component._entity = organizationEntity;
+			component.showSemesterName = true;
+
+			expect(component._semesterName).to.equal(semesterEntity.name());
+
+			component.showSemesterName = false;
+
+			expect(component._semesterName).to.be.null;
+			expect(onSemesterChangeStub).to.have.been.calledOnce;
+		});
+
+		it('should reset _semesterName in case the new org does not have a semester', () => {
+			component._entity = organizationEntity;
+			component.showSemesterName = true;
+
+			expect(component._semesterName).to.equal(semesterEntity.name());
+
+			component._entity = {
+				name: () => 'New Org Name',
+				code: () => 'NEW100',
+				onSemesterChange: () => {}
+			};
+
+			expect(component._semesterName).to.be.null;
+			expect(onSemesterChangeStub).to.have.been.calledOnce;
 		});
 	});
 
