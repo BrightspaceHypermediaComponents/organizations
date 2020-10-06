@@ -88,6 +88,8 @@ class OrganizationInfo extends mixinBehaviors([
 	}
 
 	_setSemesterName(showSemesterName) {
+		this._semesterName = null;
+
 		if (showSemesterName && this._entity) {
 			this._entity.onSemesterChange((semester) => {
 				this._semesterName = semester.name();

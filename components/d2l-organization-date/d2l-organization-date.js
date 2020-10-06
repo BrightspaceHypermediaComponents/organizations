@@ -67,11 +67,7 @@ class OrganizationDate extends mixinBehaviors([
 
 	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
 		var date = this._entity && this._entity.processedDate(hideCourseStartDate, hideCourseEndDate);
-		if (!date) {
-			return;
-		}
-
-		this._statusText = this.localize(
+		this._statusText = !date ? null : this.localize(
 			date.type,
 			'date', this.formatDate(date.date, {format: 'MMMM d, yyyy'}),
 			'time', this.formatTime(date.date)
