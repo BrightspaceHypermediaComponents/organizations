@@ -137,6 +137,7 @@ describe('d2l-organization-completion-tracking', () => {
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
 
 			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
 			setTimeout(() => {
@@ -157,6 +158,7 @@ describe('d2l-organization-completion-tracking', () => {
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
 
 			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
 			setTimeout(() => {
@@ -177,6 +179,7 @@ describe('d2l-organization-completion-tracking', () => {
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
 
 			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
 			setTimeout(() => {
@@ -196,6 +199,7 @@ describe('d2l-organization-completion-tracking', () => {
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
 
 			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
 			setTimeout(() => {
