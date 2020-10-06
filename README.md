@@ -44,6 +44,11 @@ To lint AND run local unit tests:
 npm run test
 ```
 
+To debug tests locally, run the command below and then navigate to `http://localhost:9876/debug.html`:
+```shell
+npm run test:headless:watch
+```
+
 ## Versioning, Releasing & Deploying
 
 By default, when a pull request is merged the patch version in the `package.json` will be incremented, a tag will be created, and a Github release will be created.
