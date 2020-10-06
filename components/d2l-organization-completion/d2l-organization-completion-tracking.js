@@ -69,6 +69,10 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 					isCompletionTracked: entity.isCompletionTracked(),
 					isProgressDisplayed: entity.isProgressDisplayed()
 				};
+				this._newValues = {
+					isCompletionTracked: entity.isCompletionTracked(),
+					isProgressDisplayed: entity.isProgressDisplayed()
+				};
 				this._trackCompletion = entity.isCompletionTracked();
 				this._displayProgress = entity.isProgressDisplayed();
 				this._isLoaded = true;
@@ -197,7 +201,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	_goToAdminPage() {
-		if (this._entity && this._orgID !== '') {
+		if (this._entity && this._orgID !== undefined) {
 			window.location.href = '/d2l/lp/cmc/main.d2l?ou=' + this._orgID;
 		}
 	}
