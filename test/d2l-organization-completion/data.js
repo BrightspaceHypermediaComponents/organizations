@@ -1,4 +1,4 @@
-export const trackingDisabled = {
+export const trackingDisabledProgressDisabled = {
 	'class': ['course-offering'],
 	'properties': {
 		'name': 'Course Name',
@@ -23,7 +23,7 @@ export const trackingDisabled = {
 	],
 	'actions': [
 		{
-			'href': './tracking.json',
+			'href': '/put-track-completion.json',
 			'name': 'track-completion',
 			'method': 'PUT',
 			'fields': [
@@ -35,7 +35,7 @@ export const trackingDisabled = {
 			]
 		},
 		{
-			'href': './tracking.json',
+			'href': '/put-display-progress.json',
 			'name': 'display-progress',
 			'method': 'PUT',
 			'fields': [
@@ -46,10 +46,21 @@ export const trackingDisabled = {
 				}
 			]
 		}
+	],
+	'links': [
+		{
+			'rel':	['self'],
+			'href':'/6609'
+		},
+		{
+			'rel':['https://api.brightspace.com/rels/organization-homepage'],
+			'type':'text/html',
+			'href':'/d2l/home/6609'
+		}
 	]
 };
 
-export const trackingEnabled = {
+export const trackingEnabledProgressDisabled = {
 	'class': ['course-offering'],
 	'properties': {
 		'name': 'Course Name',
@@ -60,7 +71,7 @@ export const trackingEnabled = {
 	},
 	'actions': [
 		{
-			'href': './tracking.json',
+			'href': '/put-do-not-track-completion',
 			'name': 'do-not-track-completion',
 			'method': 'PUT',
 			'fields': [
@@ -72,7 +83,7 @@ export const trackingEnabled = {
 			]
 		},
 		{
-			'href': './tracking.json',
+			'href': '/put-display-progress.json',
 			'name': 'display-progress',
 			'method': 'PUT',
 			'fields': [
@@ -82,6 +93,17 @@ export const trackingEnabled = {
 					'value': true
 				}
 			]
+		}
+	],
+	'links': [
+		{
+			'rel':	['self'],
+			'href':'/6609'
+		},
+		{
+			'rel':['https://api.brightspace.com/rels/organization-homepage'],
+			'type':'text/html',
+			'href':'/d2l/home/6609'
 		}
 	]
 };
@@ -119,6 +141,17 @@ export const trackingEnabledDisplayEnabled = {
 					'value': false
 				}
 			]
+		}
+	],
+	'links': [
+		{
+			'rel':	['self'],
+			'href':'/6609'
+		},
+		{
+			'rel':['https://api.brightspace.com/rels/organization-homepage'],
+			'type':'text/html',
+			'href':'/d2l/home/6609'
 		}
 	]
 };

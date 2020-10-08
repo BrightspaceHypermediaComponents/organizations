@@ -64,6 +64,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 	set _entity(entity) {
 		if (entity && this._entityHasChanged(entity, this._entity)) {
+			console.log('/////////////////////////////////////////////////////////////');//eslint-disable-line
 			entity.subEntitiesLoaded().then(() => {
 				this._initialValues = {
 					isCompletionTracked: entity.isCompletionTracked(),
@@ -164,11 +165,13 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	_onProgressChange(e) {
+		console.log('{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}');//eslint-disable-line
 		this._displayProgress = e.target.checked;
 		this._newValues.isProgressDisplayed = e.target.checked;
 	}
 
 	_onTrackingChange(e) {
+		console.log('[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]');//eslint-disable-line
 		this._trackCompletion = e.target.checked;
 		this._showProgressTracking = e.target.checked;
 		this._newValues.isCompletionTracked = e.target.checked;
@@ -177,6 +180,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 			this._newValues.isProgressDisplayed = true;
 			this._displayProgress = true;
 		} else {
+			console.log('????????????????????????????????????????');//eslint-disable-line
 			this._newValues.isProgressDisplayed = false;
 			this._displayProgress = false;
 		}
@@ -187,17 +191,24 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	async _onSaveClick() {
+		console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555');//eslint-disable-line
 		if (this._newValues.isCompletionTracked !== undefined && this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
 			if ((this._newValues.isCompletionTracked) || (!this._newValues.isCompletionTracked && (await this._confirmDisable()))) {
-				await this._entity.updateTrackingCompletion(this._newValues.isCompletionTracked);
+				console.log('this._newValues.isProgressDisplayed ' + this._newValues.isProgressDisplayed);//eslint-disable-line
+				await this._entity.updateCompletionTracking(this._newValues.isCompletionTracked);
+				console.log('this._newValues.isCompletionTracked ' + this._newValues.isCompletionTracked);//eslint-disable-line
+				console.log('this._entity.isCompletionTracked() ' + this._entity.isCompletionTracked());//eslint-disable-line
+				console.log('this._newValues.isProgressDisplayed ' + this._newValues.isProgressDisplayed);//eslint-disable-line
+
 			}
 		}
-
+		console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%555');//eslint-disable-line
+		console.log('--- this._newValues.isProgressDisplayed ' + this._newValues.isProgressDisplayed);//eslint-disable-line
 		if (this._newValues.isProgressDisplayed !== undefined) {
 			await this._entity.updateDisplayProgress(this._newValues.isProgressDisplayed);
 		}
 
-		this._goToAdminPage();
+		//this._goToAdminPage();
 	}
 
 	_goToAdminPage() {
