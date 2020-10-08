@@ -16,6 +16,7 @@
     "lint:wc": "polymer lint",
     "start": "es-dev-server --node-resolve --dedupe --watch --open",
     "test:headless": "karma start",
+    "test:headless:watch": "karma start --auto-watch=true --single-run=false",
     "test:sauce": "karma start karma.sauce.conf.js"
   },
   "author": "D2L Corporation",

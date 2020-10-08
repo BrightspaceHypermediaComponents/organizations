@@ -150,6 +150,13 @@ describe('d2l-organization-date', () => {
 					done();
 				});
 			});
+
+			it ('should clear _statusText if the new org does not have a date', () => {
+				component._statusText = 'Old org date info';
+				component._entity = organizationEntity;
+
+				expect(component._statusText).to.be.null;
+			});
 		});
 
 		describe('Events', () => {
