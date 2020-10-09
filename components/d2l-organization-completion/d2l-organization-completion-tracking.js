@@ -183,19 +183,24 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 		this._goToAdminPage();
 	}
 
+	_setWindowLocation(location) {
+		window.location = location;
+	}
+
 	_goToAdminPage() {
-		if (this._entity && this._orgID !== undefined) {
-			window.location.href = '/d2l/lp/cmc/main.d2l?ou=' + this._orgID;
+		// TODO: implement Organizations HM Api to return proper link for admin page
+		const orgUnitId = this._orgID;
+		if (orgUnitId !== undefined) {
+			this._setWindowLocation('/d2l/lp/cmc/main.d2l?ou=' + orgUnitId);
 		}
 	}
 
 	get _orgID() {
-		if (this._entity._subEntities.has('relative-uri')) {
-			const relUri = this._entity.subEntities['relative-uri'];
-			if (relUri === 'https://api.brightspace.com/rels/organization-homepage' && relUri.properties.path) {
-				const path = relUri.properties.path;
-				return path.substring(path.lastIndexOf('/') + 1);
-			}
+		const homepageRel = 'https://api.brightspace.com/rels/organization-homepage';
+		const sirenEntity = this._entity._entity;
+		if (sirenEntity && sirenEntity.hasLinkByRel(homepageRel)) {
+			const homepageUrl = sirenEntity.getLinkByRel(homepageRel).href;
+			return homepageUrl.substring(homepageUrl.lastIndexOf('/') + 1);
 		}
 	}
 }

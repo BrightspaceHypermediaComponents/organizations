@@ -1,6 +1,12 @@
 import '../../components/d2l-organization-completion/d2l-organization-completion-tracking.js';
 import { expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
-import { trackingDisabledProgressDisabled, trackingDisabledProgressEnabled, trackingEnabledDisplayEnabled, trackingEnabledProgressDisabled } from './data.js';
+import {
+	trackingDisabledProgressDisabled,
+	trackingDisabledProgressEnabled,
+	trackingEnabledDisplayEnabled,
+	trackingEnabledProgressDisabled,
+	trackingWithHomepageLink
+} from './data.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 import sinon from 'sinon/pkg/sinon-esm.js';
@@ -257,7 +263,7 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 	});
 
-	describe('save changes', () => {
+	describe('save/cancel without redirect', () => {
 		let el, sandbox;
 		beforeEach(() => {
 			sandbox = sinon.createSandbox();
@@ -339,7 +345,7 @@ describe('d2l-organization-completion-tracking', () => {
 			await waitForDisplayProgressToBe(DISABLED, el);
 		});
 
-		it('Cancel disable tracking', async() => {
+		it('Disable tracking , then click Save and then click Cancel confirmation', async() => {
 			setupD2lFetchMock(sandbox, {
 				'/6609': trackingEnabledDisplayEnabled,
 				'/disable-tracking': trackingDisabledProgressDisabled
@@ -357,11 +363,36 @@ describe('d2l-organization-completion-tracking', () => {
 				expect(el._entity.isCompletionTracked()).to.be(ENABLED); // should throw if cancel button does not work correctly
 			} catch (e) {
 				// Assert correct state here:
-				// check that entity tracking did not change
 				expect(el._entity.isCompletionTracked()).to.be.equal(ENABLED);
 				expect(el._entity.isProgressDisplayed()).to.be.equal(ENABLED);
+				expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+				expect(el._trackCompletion).to.be.false;
+				expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+				expect(el._displayProgress).to.be.false;
+			}
+		});
 
-				// check that UI state still shows unchecked
+		it('Disable tracking then Cancel', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-tracking': trackingDisabledProgressEnabled,
+				'/disable-progress': trackingDisabledProgressDisabled
+			});
+			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkCompletionTracked', el);
+
+			await clickBtn(el, '#btnCancelCompletion');
+
+			try {
+				await waitForCompletionTrackingToBe(DISABLED, el); // should throw if all works correctly
+				expect(el._entity.isCompletionTracked()).to.be(ENABLED); // should throw if cancel button does not work correctly
+			} catch (e) {
+				// Assert correct state here:
+				expect(el._entity.isCompletionTracked()).to.be.equal(ENABLED);
+				expect(el._entity.isProgressDisplayed()).to.be.equal(ENABLED);
 				expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
 				expect(el._trackCompletion).to.be.false;
 				expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
@@ -370,22 +401,74 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 	});
 
-	/* TODO: test  orgID function is working
-	describe('orgID', () => {
-		let trackingDisabledProgressDisabledJson, trackingEnabledJson;
+	describe('Redirect to course admin page', () => {
+		let el, sandbox, redirectLocation, redirectMock;
+		function setupRedirectMock(sandbox, el) {
+			redirectMock = sandbox.stub(el, '_setWindowLocation').callsFake((location) => {
+				redirectLocation = location;
+			});
+		}
+		async function verifyRedirectLocation() {
+			await waitUntil(() => {
+				// will fail test with timeout if correct location was not captured
+				return redirectLocation.includes('/d2l/lp/cmc/main.d2l?ou=6609');
+			},  'wait for redirect');
+			expect(redirectMock.called).to.be.true;
+		}
 
 		beforeEach(() => {
-			trackingDisabledProgressDisabledJson = trackingDisabledProgressDisabled;
-			trackingEnabledJson = trackingEnabled;
+			sandbox = sinon.createSandbox();
+			redirectLocation = '';
 		});
-		it('property correct url', () => {
-			const result = trackingDisabledProgressDisabledJson._orgID;
-			expect(result).to.equal('orgID');
+
+		afterEach(() => {
+			sandbox.restore();
+			window.D2L.Siren.EntityStore.clear();
 		});
-		it('property incorrect url', async() => {
-			const result = trackingEnabledJson._orgID;
-			expect(result).to.equal(undefined);
+
+		it('Redirect after save', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-progress' : trackingWithHomepageLink
+			});
+
+			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+
+			setupRedirectMock(sandbox, el);
+			await clickSave(el);
+
+			await verifyRedirectLocation();
+
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+		});
+
+		it('Redirect after cancel', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingWithHomepageLink,
+			});
+
+			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
+
+			setupRedirectMock(sandbox, el);
+			await clickBtn(el, '#btnCancelCompletion');
+
+			await verifyRedirectLocation();
+
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+
 		});
 	});
-	*/
+
 });
