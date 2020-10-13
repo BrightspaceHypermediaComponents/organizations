@@ -79,6 +79,15 @@ async function confirmDisable(el, buttonSelector) {
 	}, 'wait confirmDisableDialog closed');
 }
 
+async function waitForLoadedFixture(htmlTemplate) {
+	const el = await fixture(htmlTemplate);
+	await waitUntil(() => {
+		return el._isLoaded;
+	}, 'wait for component finished loading');
+	await el.updateComplete;
+	return el;
+}
+
 describe('d2l-organization-completion-tracking', () => {
 
 	describe('constructor', () => {
@@ -105,7 +114,7 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 
 		it('should show unchecked completion tracking and hidden display progress', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-disabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-disabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
@@ -116,7 +125,7 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 
 		it('should show checked completion tracking and unchecked display progress', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
@@ -127,7 +136,7 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 
 		it('should show checked completion tracking and checked display progress', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
@@ -156,7 +165,7 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 
 		it('set tracking checked and then revert the change', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-disabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-disabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			// assert initial state
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
@@ -185,7 +194,7 @@ describe('d2l-organization-completion-tracking', () => {
 
 		it('set tracking unchecked and then revert the change', async() => {
 			// assert initial state
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
@@ -216,7 +225,7 @@ describe('d2l-organization-completion-tracking', () => {
 
 		it('set display progress checked and then revert the change', async() => {
 			// assert initial state
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
@@ -239,7 +248,7 @@ describe('d2l-organization-completion-tracking', () => {
 
 		it('set display progress unchecked then revert the change', async() => {
 			// assert initial state
-			el = await fixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
@@ -281,7 +290,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/enable-progress': trackingEnabledDisplayEnabled
 			});
 
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 
 			await waitForCompletionTrackingToBe(DISABLED, el);
 			await waitForDisplayProgressToBe(DISABLED, el);
@@ -298,7 +307,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/6609': trackingEnabledProgressDisabled,
 				'/enable-progress': trackingEnabledDisplayEnabled
 			});
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(DISABLED, el);
 
@@ -315,7 +324,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/6609': trackingEnabledDisplayEnabled,
 				'/disable-progress': trackingEnabledProgressDisabled
 			});
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(ENABLED, el);
 
@@ -333,7 +342,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/disable-tracking': trackingDisabledProgressEnabled,
 				'/disable-progress': trackingDisabledProgressDisabled
 			});
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(ENABLED, el);
 
@@ -350,7 +359,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/6609': trackingEnabledDisplayEnabled,
 				'/disable-tracking': trackingDisabledProgressDisabled
 			});
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(ENABLED, el);
 
@@ -378,7 +387,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/disable-tracking': trackingDisabledProgressEnabled,
 				'/disable-progress': trackingDisabledProgressDisabled
 			});
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(ENABLED, el);
 
@@ -432,7 +441,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/disable-progress' : trackingWithHomepageLink
 			});
 
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(ENABLED, el);
 
@@ -454,7 +463,7 @@ describe('d2l-organization-completion-tracking', () => {
 				'/6609': trackingWithHomepageLink,
 			});
 
-			el = await fixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
 			await waitForCompletionTrackingToBe(ENABLED, el);
 			await waitForDisplayProgressToBe(DISABLED, el);
 
