@@ -46,15 +46,7 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 	constructor() {
 		super();
-
 		this._isLoaded = false;
-
-		this._initialValues = {
-			isCompletionTracked: undefined,
-			isProgressDisplayed: undefined
-		};
-		this._newValues = {};
-
 		this._setEntityType(OrganizationEntity);
 	}
 
@@ -65,35 +57,27 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	set _entity(entity) {
 		if (entity && this._entityHasChanged(entity, this._entity)) {
 			entity.subEntitiesLoaded().then(() => {
-				this._initialValues = {
-					isCompletionTracked: entity.isCompletionTracked(),
-					isProgressDisplayed: entity.isProgressDisplayed()
-				};
-				this._newValues = {
-					isCompletionTracked: entity.isCompletionTracked(),
-					isProgressDisplayed: entity.isProgressDisplayed()
-				};
-				this._trackCompletion = entity.isCompletionTracked();
-				this._displayProgress = entity.isProgressDisplayed();
-				this._isLoaded = true;
 				super._entity = entity;
+				this._trackCompletion = this._entity.isCompletionTracked();
+				this._displayProgress = this._entity.isProgressDisplayed();
+				this._isLoaded = true;
 			});
 		}
 	}
 
 	render() {
-		const isCompletionTracked = this._newValues.isCompletionTracked !== undefined ?
-			this._newValues.isCompletionTracked :
-			this._initialValues.isCompletionTracked;
-		const isProgressDisplayed = this._newValues.isProgressDisplayed !== undefined ?
-			this._newValues.isProgressDisplayed :
-			this._initialValues.isProgressDisplayed;
-		const showDisableWarning = this._initialValues.isCompletionTracked && this._newValues.isCompletionTracked === false;
-		const showProgressTracking = this._showProgressTracking === undefined && this._initialValues.isCompletionTracked ||
-			this._showProgressTracking;
+		if (!this._isLoaded) {
+			return html``;
+		}
+
+		const isCompletionTracked = this._trackCompletion;
+		const isProgressDisplayed = this._displayProgress;
+
+		const showDisableWarning = this._entity.isCompletionTracked() && this._trackCompletion === false;
+		const showProgressTracking = this._trackCompletion;
 		const completionHelpClasses = {
 			'd2l-body-small': true,
-			'd2l-hidden': this._initialValues.isCompletionTracked
+			'd2l-hidden': isCompletionTracked
 		};
 		const progressTrackingClasses = {
 			'd2l-subfield': true,
@@ -154,8 +138,8 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	get _valuesChanged() {
-		return this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked ||
-			this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed;
+		return this._trackCompletion !== this._entity.isCompletionTracked() ||
+			this._displayProgress !== this._entity.isProgressDisplayed();
 	}
 
 	async _confirmDisable() {
@@ -165,19 +149,16 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 
 	_onProgressChange(e) {
 		this._displayProgress = e.target.checked;
-		this._newValues.isProgressDisplayed = e.target.checked;
 	}
 
 	_onTrackingChange(e) {
 		this._trackCompletion = e.target.checked;
 		this._showProgressTracking = e.target.checked;
-		this._newValues.isCompletionTracked = e.target.checked;
+
 		// turn on progress display by default
 		if (e.target.checked) {
-			this._newValues.isProgressDisplayed = true;
 			this._displayProgress = true;
 		} else {
-			this._newValues.isProgressDisplayed = false;
 			this._displayProgress = false;
 		}
 	}
@@ -187,32 +168,39 @@ class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(L
 	}
 
 	async _onSaveClick() {
-		if (this._newValues.isCompletionTracked !== undefined && this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
-			if ((this._newValues.isCompletionTracked) || (!this._newValues.isCompletionTracked && (await this._confirmDisable()))) {
-				await this._entity.updateTrackingCompletion(this._newValues.isCompletionTracked);
-			}
+		// Save checkboxes state that needs to be applied so it will not be updated by entity state changes applied during update
+		const trackCompletion = this._trackCompletion;
+		const displayProgress = this._displayProgress;
+
+		if (trackCompletion !== this._entity.isCompletionTracked && (trackCompletion || await this._confirmDisable())) {
+			await this._entity.updateCompletionTracking(trackCompletion);
 		}
 
-		if (this._newValues.isProgressDisplayed !== undefined) {
-			await this._entity.updateDisplayProgress(this._newValues.isProgressDisplayed);
+		if (displayProgress !== this._entity.isProgressDisplayed()) {
+			await this._entity.updateDisplayProgress(displayProgress);
 		}
 
 		this._goToAdminPage();
 	}
 
+	_setWindowLocation(location) {
+		window.location = location;
+	}
+
 	_goToAdminPage() {
-		if (this._entity && this._orgID !== undefined) {
-			window.location.href = '/d2l/lp/cmc/main.d2l?ou=' + this._orgID;
+		// TODO: implement Organizations HM Api to return proper link for admin page
+		const orgUnitId = this._orgID;
+		if (orgUnitId !== undefined) {
+			this._setWindowLocation('/d2l/lp/cmc/main.d2l?ou=' + orgUnitId);
 		}
 	}
 
 	get _orgID() {
-		if (this._entity._subEntities.has('relative-uri')) {
-			const relUri = this._entity.subEntities['relative-uri'];
-			if (relUri === 'https://api.brightspace.com/rels/organization-homepage' && relUri.properties?.path) {
-				const path = relUri.properties.path;
-				return path.substring(path.lastIndexOf('/') + 1);
-			}
+		const homepageRel = 'https://api.brightspace.com/rels/organization-homepage';
+		const sirenEntity = this._entity._entity;
+		if (sirenEntity && sirenEntity.hasLinkByRel(homepageRel)) {
+			const homepageUrl = sirenEntity.getLinkByRel(homepageRel).href;
+			return homepageUrl.substring(homepageUrl.lastIndexOf('/') + 1);
 		}
 	}
 }

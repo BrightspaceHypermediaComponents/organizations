@@ -1,10 +1,92 @@
 import '../../components/d2l-organization-completion/d2l-organization-completion-tracking.js';
-import { expect, fixture, html, oneEvent } from '@open-wc/testing';
-import { trackingDisabled, trackingEnabled, trackingEnabledDisplayEnabled } from './data.js';
-// /import OrganizationEntity from 'siren-sdk/src/organizations/OrganizationEntity.js';
+import { expect, fixture, html, oneEvent, waitUntil } from '@open-wc/testing';
+import {
+	trackingDisabledProgressDisabled,
+	trackingDisabledProgressEnabled,
+	trackingEnabledDisplayEnabled,
+	trackingEnabledProgressDisabled,
+	trackingWithHomepageLink
+} from './data.js';
 import { runConstructor } from '@brightspace-ui/core/tools/constructor-test-helper.js';
 
 import sinon from 'sinon/pkg/sinon-esm.js';
+
+const ENABLED = true;
+const DISABLED = false;
+
+const CHECKED = true;
+const UNCHECKED = false;
+
+function setupD2lFetchMock(sandbox, whatToFetchObj) {
+	sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
+		const whatToFetch = Object.assign({}, whatToFetchObj);
+		return Promise.resolve({
+			ok: true,
+			json: () => {
+				let path;
+				try {
+					path = new URL(input).pathname; // match only by pathname if request has full url
+				} catch (e) {
+					path = input;
+				}
+				return Promise.resolve(whatToFetch[path]);
+			}
+		});
+	});
+}
+
+async function clickBtn(el, selector) {
+	const btn = el.shadowRoot.querySelector(selector);
+	setTimeout(() => btn.click());
+	await oneEvent(btn, 'click');
+	await el.updateComplete;
+}
+
+async function clickSave(el) {
+	await clickBtn(el, '#btnSaveCompletion');
+}
+
+async function waitForCompletionTrackingToBe(expected, el) {
+	await waitUntil(() => {return el._entity.isCompletionTracked() === expected;}, 'wait for completion tracking change to be applied');
+	expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.equal(expected);
+	expect(el._trackCompletion).to.be.equal(expected);
+}
+
+async function waitForDisplayProgressToBe(expected, el) {
+	await waitUntil(() => {return el._entity.isProgressDisplayed() === expected;}, 'wait for display progress change to be applied');
+	expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.equal(expected);
+	expect(el._displayProgress).to.be.equal(expected);
+}
+
+async function setCheckbox(state, selector,  el) {
+	const checkbox = el.shadowRoot.querySelector(selector);
+	setTimeout(() => {
+		checkbox.checked = state;
+		checkbox.dispatchEvent(new Event('change'));
+	});
+	await oneEvent(checkbox, 'change');
+	await el.updateComplete;
+	expect(checkbox.checked).to.be.equal(state);
+}
+
+async function confirmDisable(el, buttonSelector) {
+	await waitUntil(() => {
+		return el.shadowRoot.querySelector('#confirmDisableDialog')._state === 'showing';
+	}, 'wait confirmDisableDialog opened');
+	await clickBtn(el, buttonSelector);
+	await waitUntil(() => {
+		return !el.shadowRoot.querySelector('#confirmDisableDialog').opened &&  !el.shadowRoot.querySelector('#confirmDisableDialog')._state;
+	}, 'wait confirmDisableDialog closed');
+}
+
+async function waitForLoadedFixture(htmlTemplate) {
+	const el = await fixture(htmlTemplate);
+	await waitUntil(() => {
+		return el._isLoaded;
+	}, 'wait for component finished loading');
+	await el.updateComplete;
+	return el;
+}
 
 describe('d2l-organization-completion-tracking', () => {
 
@@ -14,359 +96,388 @@ describe('d2l-organization-completion-tracking', () => {
 		});
 	});
 
-	describe('show/hide logic', () => {
-		let el;
-		beforeEach(async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking></d2l-organization-completion-tracking>`);
+	describe('UI state after load', () => {
+		let el, sandbox;
+
+		beforeEach(() => {
+			sandbox = sinon.createSandbox();
+			setupD2lFetchMock(sandbox, {
+				'/tracking-disabled-progress-disabled.json': trackingDisabledProgressDisabled,
+				'/tracking-enabled-progress-disabled.json': trackingEnabledProgressDisabled,
+				'/tracking-enabled-progress-enabled.json': trackingEnabledDisplayEnabled
+			});
 		});
 
-		it('displays when completion tracking initially disabled', async() => {
-			el._initialValues = { isCompletionTracked: false };
-			await el.updateComplete;
+		afterEach(() => {
+			sandbox.restore();
+			window.D2L.Siren.EntityStore.clear();
+		});
+
+		it('should show unchecked completion tracking and hidden display progress', async() => {
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-disabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnCancelCompletion').disabled).to.be.false;
 		});
 
-		it('displays when completion tracking initally enabled', async() => {
-			el._initialValues = { isCompletionTracked: true };
-			await el.updateComplete;
+		it('should show checked completion tracking and unchecked display progress', async() => {
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).not.to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnCancelCompletion').disabled).to.be.false;
 		});
 
-		it('shows progress fields when user enables tracking', async() => {
-			el._initialValues = { isCompletionTracked: false };
-			await el.updateComplete;
-			// simulate checkbox select
-			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
-		});
-
-		it('displays when user disables completion tracking', async() => {
-			el._initialValues = { isCompletionTracked: true };
-			await el.updateComplete;
-			// simulate checkbox select
-			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
-			setTimeout(() => {
-				checkbox.checked = false;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
+		it('should show checked completion tracking and checked display progress', async() => {
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).not.to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnCancelCompletion').disabled).to.be.false;
+		});
+	});
+
+	describe('making changes', () => {
+		let el, sandbox;
+
+		beforeEach(() => {
+			sandbox = sinon.createSandbox();
+			setupD2lFetchMock(sandbox, {
+				'/tracking-disabled-progress-disabled.json': trackingDisabledProgressDisabled,
+				'/tracking-enabled-progress-disabled.json': trackingEnabledProgressDisabled,
+				'/tracking-enabled-progress-enabled.json': trackingEnabledDisplayEnabled
+			});
+		});
+
+		afterEach(() => {
+			sandbox.restore();
+			window.D2L.Siren.EntityStore.clear();
+		});
+
+		it('set tracking checked and then revert the change', async() => {
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-disabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			// assert initial state
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
+
+			// apply change
+			await setCheckbox(CHECKED, '#chkCompletionTracked', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+
+			// rollback
+			await setCheckbox(UNCHECKED, '#chkCompletionTracked', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+		});
+
+		it('set tracking unchecked and then revert the change', async() => {
+			// assert initial state
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
+
+			// apply change
+			await setCheckbox(UNCHECKED, '#chkCompletionTracked', el);
+
 			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.false;
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.not.have.class('d2l-hidden');
 			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
+
+			// rollback
+			await setCheckbox(CHECKED, '#chkCompletionTracked', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
+			expect(el.shadowRoot.querySelector('#disableWarningAlert').hidden).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkCompletionHelp')).to.have.class('d2l-hidden');
+		});
+
+		it('set display progress checked and then revert the change', async() => {
+			// assert initial state
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+
+			// apply change
+			await setCheckbox(CHECKED, '#chkDisplayProgress', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
+
+			// rollback
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+		});
+
+		it('set display progress unchecked then revert the change', async() => {
+			// assert initial state
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/tracking-enabled-progress-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
+
+			// apply change
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
+
+			// rollback
+			await setCheckbox(CHECKED, '#chkDisplayProgress', el);
+
+			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
+			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
 		});
 	});
-	describe('loading href', () => {
-		let el, sandbox;
 
+	describe('save/cancel without redirect', () => {
+		let el, sandbox;
 		beforeEach(() => {
 			sandbox = sinon.createSandbox();
-			sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
-				const whatToFetch = {
-					'/organization-tracking-disabled.json': trackingDisabled,
-					'/organization-tracking-enabled.json': trackingEnabled,
-					'/organization-display-enabled.json': trackingEnabledDisplayEnabled
-				};
-				return Promise.resolve({
-					ok: true,
-					json: () => { return Promise.resolve(whatToFetch[input]); }
-				});
-			});
 		});
 
 		afterEach(() => {
 			sandbox.restore();
+			window.D2L.Siren.EntityStore.clear();
 		});
 
-		it('tracking disabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+		it('Enable tracking and progress', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingDisabledProgressDisabled,
+				'/enable-tracking': trackingEnabledProgressDisabled,
+				'/enable-progress': trackingEnabledDisplayEnabled
+			});
+
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+
+			await waitForCompletionTrackingToBe(DISABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+
+			await setCheckbox(CHECKED, '#chkCompletionTracked', el);
+			await clickSave(el);
+
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
 		});
-		it('tracking enabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
+
+		it('Enable progress', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledProgressDisabled,
+				'/enable-progress': trackingEnabledDisplayEnabled
+			});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+
+			await setCheckbox(CHECKED, '#chkDisplayProgress', el);
+			await clickSave(el);
+
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
 		});
-		it('display disabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+
+		it('Disable progress', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-progress': trackingEnabledProgressDisabled
+			});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
+			await clickSave(el);
+
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+
 		});
-		it('display enabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-display-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
+
+		it('Disable tracking', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-tracking': trackingDisabledProgressEnabled,
+				'/disable-progress': trackingDisabledProgressDisabled
+			});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkCompletionTracked', el);
+			await clickSave(el);
+			await confirmDisable(el, '#confirmDisableButton');
+
+			await waitForCompletionTrackingToBe(DISABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
+		});
+
+		it('Disable tracking , then click Save and then click Cancel confirmation', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-tracking': trackingDisabledProgressDisabled
+			});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkCompletionTracked', el);
+			await clickSave(el);
+			await confirmDisable(el, '#denyDisableButton');
+
+			try {
+				await waitForCompletionTrackingToBe(DISABLED, el); // should throw if all works correctly
+				expect(el._entity.isCompletionTracked()).to.be(ENABLED); // should throw if cancel button does not work correctly
+			} catch (e) {
+				// Assert correct state here:
+				expect(el._entity.isCompletionTracked()).to.be.equal(ENABLED);
+				expect(el._entity.isProgressDisplayed()).to.be.equal(ENABLED);
+				expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+				expect(el._trackCompletion).to.be.false;
+				expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+				expect(el._displayProgress).to.be.false;
+			}
+		});
+
+		it('Disable tracking then Cancel', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-tracking': trackingDisabledProgressEnabled,
+				'/disable-progress': trackingDisabledProgressDisabled
+			});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
+
+			await setCheckbox(UNCHECKED, '#chkCompletionTracked', el);
+
+			await clickBtn(el, '#btnCancelCompletion');
+
+			try {
+				await waitForCompletionTrackingToBe(DISABLED, el); // should throw if all works correctly
+				expect(el._entity.isCompletionTracked()).to.be(ENABLED); // should throw if cancel button does not work correctly
+			} catch (e) {
+				// Assert correct state here:
+				expect(el._entity.isCompletionTracked()).to.be.equal(ENABLED);
+				expect(el._entity.isProgressDisplayed()).to.be.equal(ENABLED);
+				expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
+				expect(el._trackCompletion).to.be.false;
+				expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+				expect(el._displayProgress).to.be.false;
+			}
 		});
 	});
 
-	describe('checkboxes and saving', () => {
-		let el, sandbox;
+	describe('Redirect to course admin page', () => {
+		let el, sandbox, redirectLocation, redirectMock;
+		function setupRedirectMock(sandbox, el) {
+			redirectMock = sandbox.stub(el, '_setWindowLocation').callsFake((location) => {
+				redirectLocation = location;
+			});
+		}
+		async function verifyRedirectLocation() {
+			await waitUntil(() => {
+				// will fail test with timeout if correct location was not captured
+				return redirectLocation.includes('/d2l/lp/cmc/main.d2l?ou=6609');
+			},  'wait for redirect');
+			expect(redirectMock.called).to.be.true;
+		}
 
 		beforeEach(() => {
 			sandbox = sinon.createSandbox();
-			sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
-				const whatToFetch = {
-					'/organization-tracking-disabled.json': trackingDisabled,
-					'/organization-tracking-enabled.json': trackingEnabled,
-					'/organization-display-enabled.json': trackingEnabledDisplayEnabled
-				};
-				return Promise.resolve({
-					ok: true,
-					json: () => { return Promise.resolve(whatToFetch[input]); }
-				});
-			});
+			redirectLocation = '';
 		});
 
 		afterEach(() => {
 			sandbox.restore();
+			window.D2L.Siren.EntityStore.clear();
 		});
 
-		it('set tracking enabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
-
-			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
+		it('Redirect after save', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingEnabledDisplayEnabled,
+				'/disable-progress' : trackingWithHomepageLink
 			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
 
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
-		});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(ENABLED, el);
 
-		it('set tracking disabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
 			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
 			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
 
-			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
-			setTimeout(() => {
-				checkbox.checked = false;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.false;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
+			setupRedirectMock(sandbox, el);
+			await clickSave(el);
 
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
+			await verifyRedirectLocation();
+
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
 		});
 
-		it('set progress enabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
-
-			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
-
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
-		});
-
-		it('set progress disabled', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-display-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.true;
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.true;
-
-			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
-			setTimeout(() => {
-				checkbox.checked = false;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-			expect(el.shadowRoot.querySelector('#chkCompletionTracked').checked).to.be.true;
-			expect(el.shadowRoot.querySelector('#progressFieldsContainer')).to.not.have.class('d2l-hidden');
-			expect(el.shadowRoot.querySelector('#chkDisplayProgress').checked).to.be.false;
-
-			expect(el.shadowRoot.querySelector('#btnSaveCompletion').disabled).to.be.false;
-		});
-
-	});
-
-	describe('save calls', () => {
-		let el, sandbox;
-
-		beforeEach(() => {
-			sandbox = sinon.createSandbox();
-			sandbox.stub(window.d2lfetch, 'fetch').callsFake((input) => {
-				const whatToFetch = {
-					'/organization-tracking-disabled.json': trackingDisabled,
-					'/organization-tracking-enabled.json': trackingEnabled,
-					'/organization-display-enabled.json': trackingEnabledDisplayEnabled
-				};
-				return Promise.resolve({
-					ok: true,
-					json: () => { return Promise.resolve(whatToFetch[input]); }
-				});
+		it('Redirect after cancel', async() => {
+			setupD2lFetchMock(sandbox, {
+				'/6609': trackingWithHomepageLink,
 			});
 
-		});
+			el = await waitForLoadedFixture(html`<d2l-organization-completion-tracking href='/6609' token='bar'></d2l-organization-completion-tracking>`);
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
 
-		afterEach(() => {
-			sandbox.restore();
-		});
+			await setCheckbox(UNCHECKED, '#chkDisplayProgress', el);
 
-		it('saving enabling tracking and progress', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-disabled.json' token='bar'></d2l-organization-completion-tracking>`);
+			setupRedirectMock(sandbox, el);
+			await clickBtn(el, '#btnCancelCompletion');
 
-			const checkbox = el.shadowRoot.querySelector('#chkCompletionTracked');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
+			await verifyRedirectLocation();
 
-			const saveButton = el.shadowRoot.querySelector('#btnSaveCompletion');
-			setTimeout(() => {
-				saveButton.press = true;
-				saveButton.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(saveButton, 'change');
-			await el.updateComplete;
-
-			// TODO: assert updateTrackingCompletion and updateDisplayProgress were called
-
-		});
-
-		it('saving enabling progress', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-
-			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-
-			const saveButton = el.shadowRoot.querySelector('#btnSaveCompletion');
-			setTimeout(() => {
-				saveButton.press = true;
-				saveButton.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(saveButton, 'change');
-			await el.updateComplete;
-
-			// TODO: assert updateDisplayProgress was called
-
-		});
-
-		it('saving disable tracking', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-
-			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-
-			const saveButton = el.shadowRoot.querySelector('#btnSaveCompletion');
-			setTimeout(() => {
-				saveButton.press = true;
-				saveButton.dispatchEvent(new Event('save'));
-			});
-			await oneEvent(saveButton, 'save');
-
-			const warning = el.shadowRoot.querySelector('#confirmDisableDialog');
-			expect(warning.hidden).to.be.false;
-			const warningButton = el.shadowRoot.querySelector('#confirmDisableButton');
-			setTimeout(() => {
-				warningButton.press = true;
-				warningButton.dispatchEvent(new Event('confirm'));
-			});
-			await oneEvent(warningButton, 'confirm');
-			await el.updateComplete;
-
-			// TODO: assert updateTrackingCompletion was called
-
-		});
-
-		it('saving disable tracking, deny confirmation', async() => {
-			el = await fixture(html`<d2l-organization-completion-tracking href='/organization-tracking-enabled.json' token='bar'></d2l-organization-completion-tracking>`);
-
-			const checkbox = el.shadowRoot.querySelector('#chkDisplayProgress');
-			setTimeout(() => {
-				checkbox.checked = true;
-				checkbox.dispatchEvent(new Event('change'));
-			});
-			await oneEvent(checkbox, 'change');
-			await el.updateComplete;
-
-			const saveButton = el.shadowRoot.querySelector('#btnSaveCompletion');
-			setTimeout(() => {
-				saveButton.press = true;
-				saveButton.dispatchEvent(new Event('save'));
-			});
-			await oneEvent(saveButton, 'save');
-
-			const warning = el.shadowRoot.querySelector('#confirmDisableDialog');
-			expect(warning.hidden).to.be.false;
-			const warningButton = el.shadowRoot.querySelector('#denyDisableButton');
-			setTimeout(() => {
-				warningButton.press = true;
-				warningButton.dispatchEvent(new Event('confirm'));
-			});
-			await oneEvent(warningButton, 'confirm');
-			await el.updateComplete;
-
-			// TODO: assert no updates were called
+			await waitForCompletionTrackingToBe(ENABLED, el);
+			await waitForDisplayProgressToBe(DISABLED, el);
 
 		});
 	});
 
-	/* TODO: test  orgID function is working
-	describe('orgID', () => {
-		let trackingDisabledJson, trackingEnabledJson;
-
-		beforeEach(() => {
-			trackingDisabledJson = trackingDisabled;
-			trackingEnabledJson = trackingEnabled;
-		});
-		it('property correct url', () => {
-			const result = trackingDisabledJson._orgID;
-			expect(result).to.equal('orgID');
-		});
-		it('property incorrect url', async() => {
-			const result = trackingEnabledJson._orgID;
-			expect(result).to.equal(undefined);
-		});
-	});
-	*/
 });
