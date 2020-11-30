@@ -1,7 +1,8 @@
 {
   "class": [
     "active",
-    "course-offering"
+    "course-offering",
+    "completion-tracked"
   ],
   "properties": {
     "name": "Course Name",
@@ -19,6 +20,18 @@
         "https://api.brightspace.com/rels/organization-image"
       ],
       "href": "../data/image.json"
+    },
+    {
+      "class": [
+        "relative-uri"
+      ],
+      "rel": [
+        "item",
+        "https://api.brightspace.com/rels/organization-homepage"
+      ],
+      "properties": {
+        "path": "/d2l/home/128492"
+      }
     }
   ],
   "links": [
@@ -33,6 +46,18 @@
         "https://api.brightspace.com/rels/parent-semester"
       ],
       "href": "../data/semester.json"
+    }
+  ],
+  "actions": [
+    {
+      "href": "../completion/tracking.json",
+      "name": "do-not-track-completion",
+      "method": "PUT"
+    },
+    {
+      "href": "../completion/tracking.json",
+      "name": "display-progress",
+      "method": "PUT"
     }
   ]
 }

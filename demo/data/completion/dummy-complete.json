@@ -1,0 +1,334 @@
+{
+    "class": [
+        "named-entity",
+        "describable-entity",
+        "draft-published-entity",
+        "published",
+        "active",
+        "course-offering"
+    ],
+    "properties": {
+        "name": "Course",
+        "code": "C1",
+        "startDate": null,
+        "endDate": null,
+        "isActive": true,
+        "description": ""
+    },
+    "entities": [
+        {
+            "class": [
+                "richtext",
+                "description"
+            ],
+            "rel": [
+                "item"
+            ],
+            "properties": {
+                "text": "",
+                "html": null
+            }
+        },
+        {
+            "class": [
+                "color"
+            ],
+            "rel": [
+                "https://api.brightspace.com/rels/color"
+            ],
+            "properties": {
+                "hexString": "#c47400",
+                "description": ""
+            }
+        },
+        {
+            "class": [
+                "course-image"
+            ],
+            "rel": [
+                "https://api.brightspace.com/rels/organization-image",
+                "nofollow"
+            ],
+            "href": "https://s.brightspace.com/course-images/images/98675985-0647-4579-80d6-b3196992f3d4"
+        },
+        {
+            "class": [
+                "relative-uri"
+            ],
+            "rel": [
+                "item",
+                "https://api.brightspace.com/rels/organization-homepage"
+            ],
+            "properties": {
+                "path": "/d2l/home/6609"
+            }
+        }
+    ],
+    "links": [
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/my-organization-awards"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.awards.api.dev.brightspace.com/organizations/6609/users/169"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/folio-org"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.folio.api.dev.brightspace.com/organizations/6609"
+        },
+        {
+            "rel": [
+                "https://folio.api.brightspace.com/rels/manage"
+            ],
+            "href": "https://portfolio.api.dev.brightspace.com/api/77ebce79-a12b-47ef-9378-f29b869b7fce/evidence?orgUnitId=6609"
+        },
+        {
+            "rel": [
+                "https://folio.api.brightspace.com/rels/filter-instructors"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.enrollments.api.dev.brightspace.com/organizations/6609?sort=eyJTb3J0cyI6W3siU29ydCI6eyJJZCI6Ijg1Y2RiY2UzLTAwNjctNDJjNC1hNDMwLWU5YjcxNjgxZDZmZiJ9LCJEaXJlY3Rpb24iOjB9LHsiU29ydCI6eyJJZCI6ImFmNjBhNzczLWY4N2YtNDkwZi04ZWVkLTVjZjQ5MTk0OGM4NiJ9LCJEaXJlY3Rpb24iOjB9XX0&filter=eyI4NzE1Y2Q4YS1jMWVhLTRkYjUtYTRlMy0yMjdlMDhhYTU3OTkiOlsiaW5zdHJ1Y3RvciJdfQ"
+        },
+        {
+            "rel": [
+                "https://folio.api.brightspace.com/rels/filter-students"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.enrollments.api.dev.brightspace.com/organizations/6609?sort=eyJTb3J0cyI6W3siU29ydCI6eyJJZCI6Ijg1Y2RiY2UzLTAwNjctNDJjNC1hNDMwLWU5YjcxNjgxZDZmZiJ9LCJEaXJlY3Rpb24iOjB9LHsiU29ydCI6eyJJZCI6ImFmNjBhNzczLWY4N2YtNDkwZi04ZWVkLTVjZjQ5MTk0OGM4NiJ9LCJEaXJlY3Rpb24iOjB9XX0&filter=eyI4NzE1Y2Q4YS1jMWVhLTRkYjUtYTRlMy0yMjdlMDhhYTU3OTkiOlsic3R1ZGVudCJdfQ"
+        },
+        {
+            "rel": [
+                "https://activities.api.brightspace.com/rels/organization-activities"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.activities.api.dev.brightspace.com/activityusages/6609"
+        },
+        {
+            "rel": [
+                "https://activities.api.brightspace.com/rels/my-organization-activities"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.activities.api.dev.brightspace.com/activityusages/6609/users/169?start=2020-09-14T15%3a39%3a23.808Z&end=2020-09-21T15%3a39%3a23.808Z"
+        },
+        {
+            "rel": [
+                "https://checklists.api.brightspace.com/rels/checklists"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.checklists.api.dev.brightspace.com/organizations/6609"
+        },
+        {
+            "rel": [
+                "https://activities.api.brightspace.com/rels/activity-usage"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.activities.api.dev.brightspace.com/activities/6606_706000_6609/usages/6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/sequence"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.sequences.api.dev.brightspace.com/6609?deepEmbedEntities=1&embedDepth=1&filterOnDatesAndDepth=0"
+        },
+        {
+            "rel": [
+                "https://files.api.brightspace.com/rels/files"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.files.api.dev.brightspace.com/6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/discussions"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.discussions.api.dev.brightspace.com/6609"
+        },
+        {
+            "rel": [
+                "https://assignments.api.brightspace.com/rels/assignments"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.assignments.api.dev.brightspace.com/6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/my-organization-grades"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.grades.api.dev.brightspace.com/organizations/6609/users/169"
+        },
+        {
+            "rel": [
+                "https://outcomes.api.brightspace.com/rels/intents"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.outcomes.api.dev.brightspace.com/intents/83824477-541a-47c4-a367-d549472cb2c2"
+        },
+        {
+            "rel": [
+                "https://announcements.api.brightspace.com/rels/organization-announcements"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.announcements.api.dev.brightspace.com/organizations/6609"
+        },
+        {
+            "rel": [
+                "https://surveys.api.brightspace.com/rels/surveys"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.surveys.api.dev.brightspace.com/organizations/6609"
+        },
+        {
+            "rel": [
+                "https://notifications.api.brightspace.com/rels/organization-notifications"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.notifications.api.dev.brightspace.com/my-notifications/organizations/6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/enrollments"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.enrollments.api.dev.brightspace.com/organizations/6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/course-offering-info-page"
+            ],
+            "type": "text/html",
+            "href": "https://cd20201124785.devlms.brightspace.com/d2l/lp/manageCourses/course_offering_info_viewedit.d2l?ou=6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/organization-homepage"
+            ],
+            "type": "text/html",
+            "href": "https://cd20201124785.devlms.brightspace.com/d2l/home/6609"
+        },
+        {
+            "rel": [
+                "self"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609"
+        },
+        {
+            "rel": [
+                "https://enrollments.api.brightspace.com/rels/primary-facilitators"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.enrollments.api.dev.brightspace.com/organizations/6609?filter=eyJkN2E5ZTM5Ny1lMDFiLTRjZjctODIxZS1mYWU3M2Q2MjgzMDUiOlsicHJpbWFyeUluc3RydWN0b3IiXX0"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/notification-alerts"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.alerts.api.dev.brightspace.com/notification-alerts"
+        },
+        {
+            "rel": [
+                "https://notifications.api.brightspace.com/rels/my-alerts"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.notifications.api.dev.brightspace.com/alerts/6609"
+        },
+        {
+            "rel": [
+                "https://api.brightspace.com/rels/rubrics"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.rubrics.api.dev.brightspace.com/organizations/6609"
+        },
+        {
+            "class": [
+                "active",
+                "theme"
+            ],
+            "rel": [
+                "https://themes.api.brightspace.com/rels/theme"
+            ],
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.themes.api.dev.brightspace.com/6609/3"
+        }
+    ],
+    "actions": [
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609",
+            "name": "update-name",
+            "method": "PATCH",
+            "fields": [
+                {
+                    "class": [
+                        "required"
+                    ],
+                    "type": "text",
+                    "name": "name",
+                    "value": "Course"
+                }
+            ]
+        },
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609",
+            "name": "update-description",
+            "method": "PATCH",
+            "fields": [
+                {
+                    "class": [
+                        "required"
+                    ],
+                    "type": "text",
+                    "name": "description",
+                    "value": ""
+                }
+            ]
+        },
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609",
+            "name": "update-draft",
+            "method": "PATCH",
+            "fields": [
+                {
+                    "type": "checkbox",
+                    "name": "draft",
+                    "value": false
+                }
+            ]
+        },
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609/completion-tracking",
+            "name": "track-completion",
+            "method": "PUT",
+            "fields": [
+                {
+                    "type": "hidden",
+                    "name": "track",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609/completion-tracking/display-progress",
+            "name": "display-progress",
+            "method": "PUT",
+            "fields": [
+                {
+                    "type": "hidden",
+                    "name": "enable",
+                    "value": true
+                }
+            ]
+        },
+        {
+            "href": "https://cd20201124785.devlms.brightspace.com/d2l/api/lp/1.9/courses/6609/image",
+            "name": "set-catalog-image",
+            "method": "POST",
+            "fields": [
+                {
+                    "type": "text",
+                    "name": "imagePath",
+                    "value": ""
+                }
+            ]
+        },
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609",
+            "name": "remove-homepage-banner",
+            "method": "PUT",
+            "fields": [
+                {
+                    "type": "hidden",
+                    "name": "showCourseBanner",
+                    "value": false
+                }
+            ]
+        },
+        {
+            "href": "https://77ebce79-a12b-47ef-9378-f29b869b7fce.organizations.api.dev.brightspace.com/6609",
+            "name": "delete",
+            "method": "DELETE"
+        }
+    ]
+}

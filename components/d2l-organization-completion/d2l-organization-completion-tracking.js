@@ -3,20 +3,26 @@ import '@brightspace-ui/core/components/button/button.js';
 import '@brightspace-ui/core/components/dialog/dialog.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox.js';
 import '@brightspace-ui/core/components/inputs/input-checkbox-spacer.js';
+import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
 
 import { css, html, LitElement } from 'lit-element';
-import { bodySmallStyles } from '@brightspace-ui/core/components/typography/styles.js';
+
 import { classMap } from 'lit-html/directives/class-map.js';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html.js';
+
+import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
+import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
+
 import { LocalizeOrganizationCompletion } from './localization.js';
 
-class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
+class CompletionTracking extends EntityMixinLit(LocalizeOrganizationCompletion(LitElement)) {
 
 	static get properties() {
 		return {
 			_error: { type: String },
-			_initialValues: { type: Object },
-			_newValues: { type: Object },
+			_trackCompletion: { type: Boolean },
+			_displayProgress: { type: Boolean },
+			_isLoaded: { type: Boolean },
 			_showProgressTracking: { type: Boolean }
 		};
 	}
@@ -40,26 +46,38 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 
 	constructor() {
 		super();
-		this._initialValues = {
-			isCompletionTracked: undefined,
-			isProgressDisplayed: undefined
-		};
-		this._newValues = {};
+		this._isLoaded = false;
+		this._setEntityType(OrganizationEntity);
+	}
+
+	get _entity() {
+		return super._entity;
+	}
+
+	set _entity(entity) {
+		if (entity && this._entityHasChanged(entity, this._entity)) {
+			entity.subEntitiesLoaded().then(() => {
+				super._entity = entity;
+				this._trackCompletion = this._entity.isCompletionTracked();
+				this._displayProgress = this._entity.isProgressDisplayed();
+				this._isLoaded = true;
+			});
+		}
 	}
 
 	render() {
-		const isCompletionTracked = this._newValues.isCompletionTracked !== undefined ?
-			this._newValues.isCompletionTracked :
-			this._initialValues.isCompletionTracked;
-		const isProgressDisplayed = this._newValues.isProgressDisplayed !== undefined ?
-			this._newValues.isProgressDisplayed :
-			this._initialValues.isProgressDisplayed;
-		const showDisableWarning = this._initialValues.isCompletionTracked && this._newValues.isCompletionTracked === false;
-		const showProgressTracking = this._showProgressTracking === undefined && this._initialValues.isCompletionTracked ||
-			this._showProgressTracking;
+		if (!this._isLoaded) {
+			return html``;
+		}
+
+		const isCompletionTracked = this._trackCompletion;
+		const isProgressDisplayed = this._displayProgress;
+
+		const showDisableWarning = this._entity.isCompletionTracked() && this._trackCompletion === false;
+		const showProgressTracking = this._trackCompletion;
 		const completionHelpClasses = {
 			'd2l-body-small': true,
-			'd2l-hidden': this._initialValues.isCompletionTracked
+			'd2l-hidden': isCompletionTracked
 		};
 		const progressTrackingClasses = {
 			'd2l-subfield': true,
@@ -113,15 +131,15 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 
 			<d2l-dialog title-text="${this.localize('dlgDisableTitle')}" id="confirmDisableDialog">
 				<div>${unsafeHTML(this.localize('dlgDisableSecondaryMessage'))}</div>
-				<d2l-button slot="footer" primary data-dialog-action="yes">${this.localize('dlgDisablePositiveButtonText')}</d2l-button>
-				<d2l-button slot="footer" data-dialog-action>${this.localize('dlgDisableNegativeButtonText')}</d2l-button>
+				<d2l-button slot="footer" primary data-dialog-action="yes" id="confirmDisableButton">${this.localize('dlgDisablePositiveButtonText')}</d2l-button>
+				<d2l-button slot="footer" data-dialog-action id="denyDisableButton">${this.localize('dlgDisableNegativeButtonText')}</d2l-button>
 			</d2l-dialog>
 		`;
 	}
 
 	get _valuesChanged() {
-		return this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked ||
-			this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed;
+		return this._trackCompletion !== this._entity.isCompletionTracked() ||
+			this._displayProgress !== this._entity.isProgressDisplayed();
 	}
 
 	async _confirmDisable() {
@@ -130,33 +148,60 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 	}
 
 	_onProgressChange(e) {
-		this._newValues.isProgressDisplayed = e.target.checked;
+		this._displayProgress = e.target.checked;
 	}
 
 	_onTrackingChange(e) {
+		this._trackCompletion = e.target.checked;
 		this._showProgressTracking = e.target.checked;
-		this._newValues.isCompletionTracked = e.target.checked;
+
 		// turn on progress display by default
 		if (e.target.checked) {
-			this._newValues.isProgressDisplayed = true;
+			this._displayProgress = true;
+		} else {
+			this._displayProgress = false;
 		}
 	}
 
 	_onCancelClick() {
-		// todo: redirect
+		this._goToAdminPage();
 	}
 
 	async _onSaveClick() {
-		if (this._initialValues.isCompletionTracked !== this._newValues.isCompletionTracked) {
-			if ((this._initialValues.isCompletionTracked && (await this._confirmDisable())) || this._newValues.isCompletionTracked) {
-				// todo: save completion tracking
-			}
+		// Save checkboxes state that needs to be applied so it will not be updated by entity state changes applied during update
+		const trackCompletion = this._trackCompletion;
+		const displayProgress = this._displayProgress;
+
+		if (trackCompletion !== this._entity.isCompletionTracked && (trackCompletion || await this._confirmDisable())) {
+			await this._entity.updateCompletionTracking(trackCompletion);
 		}
 
-		if (this._initialValues.isProgressDisplayed !== this._newValues.isProgressDisplayed) {
-			// todo: save progress display
+		if (displayProgress !== this._entity.isProgressDisplayed()) {
+			await this._entity.updateDisplayProgress(displayProgress);
 		}
-		// todo: redirect
+
+		this._goToAdminPage();
+	}
+
+	_setWindowLocation(location) {
+		window.location = location;
+	}
+
+	_goToAdminPage() {
+		// TODO: implement Organizations HM Api to return proper link for admin page
+		const orgUnitId = this._orgID;
+		if (orgUnitId !== undefined) {
+			this._setWindowLocation('/d2l/lp/cmc/main.d2l?ou=' + orgUnitId);
+		}
+	}
+
+	get _orgID() {
+		const homepageRel = 'https://api.brightspace.com/rels/organization-homepage';
+		const sirenEntity = this._entity._entity;
+		if (sirenEntity && sirenEntity.hasLinkByRel(homepageRel)) {
+			const homepageUrl = sirenEntity.getLinkByRel(homepageRel).href;
+			return homepageUrl.substring(homepageUrl.lastIndexOf('/') + 1);
+		}
 	}
 }
 
