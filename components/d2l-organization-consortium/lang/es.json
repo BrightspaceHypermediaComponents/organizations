@@ -17,7 +17,7 @@
     },
     "newNotifications" : {
         "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
-        "translation" : "{name} - Tiene nuevas alertas"
+        "translation" : "{name}: tiene nuevas alertas"
     },
     "newNotificationsAlert" : {
         "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",

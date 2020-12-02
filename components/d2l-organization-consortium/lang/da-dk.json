@@ -1,30 +1,30 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page"
+        "translation" : "Hovsa! Vi kunne ikke hente oplysninger for {num} af dine faner. Prøv at opdatere siden"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oops"
+        "translation" : "Hovsa"
     },
     "impersonationWarning" : {
         "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
-        "translation" : "You cannot access other tabs while impersonating."
+        "translation" : "Du kan ikke få adgang til andre faner, når du repræsenterer andre brugere."
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
-        "translation" : "Loading"
+        "translation" : "Indlæser"
     },
     "newNotifications" : {
         "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
-        "translation" : "{name} - Du har nye notifikationer"
+        "translation" : "{name} – Du har nye notifikationer"
     },
     "newNotificationsAlert" : {
         "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
-        "translation" : "You have new alerts in some of your other accounts"
+        "translation" : "Du har nye alarmer på nogle af dine andre konti"
     },
     "otherAccounts" : {
         "context" : "Accessible label summarizing the organization tabs section",
-        "translation" : "Other Accounts"
+        "translation" : "Andre konti"
     }
 }
