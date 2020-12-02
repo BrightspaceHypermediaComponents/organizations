@@ -13,7 +13,7 @@
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
-        "translation" : "Carregando"
+        "translation" : "Em carregamento"
     },
     "newNotifications" : {
         "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",

@@ -9,7 +9,7 @@
     },
     "impersonationWarning" : {
         "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
-        "translation" : "You cannot access other tabs while impersonating."
+        "translation" : "يتعذر الوصول إلى علامات تبويب أخرى أثناء تمثيل دور مستخدم آخر."
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
