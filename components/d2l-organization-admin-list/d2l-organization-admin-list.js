@@ -360,7 +360,12 @@ class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)
 			.createOrgUnit(name, 'LP', this.createActionType)
 			.then(organization => {
 				organization.onActivityUsageChange(activityUsage => {
-					window.location.href = activityUsage.editHref();
+					if (activityUsage.createFormHref()) {
+						window.location.href = activityUsage.createFormHref();
+					} else {
+						window.location.href = activityUsage.editHref();
+					}
+
 				});
 			});
 	}

@@ -6,6 +6,7 @@ describe('d2l-organization-admin-list', () => {
 	let el;
 	let collectionEntity;
 	const basic = html`<d2l-organization-admin-list titleText="Learning Paths"></d2l-organization-admin-list>`;
+	const createLPElement = html`<d2l-organization-admin-list titleText="Learning Paths" createactiontype="7" href="/createLP"></d2l-organization-admin-list>`;
 
 	describe('accessibility', () => {
 		it('should pass all axe tests', async() => {
@@ -37,6 +38,17 @@ describe('d2l-organization-admin-list', () => {
 		collectionEntity.subEntitiesLoaded().then(() => {
 			expect(el._items).to.be.empty;
 			done();
+		});
+	});
+
+	describe('create learning path routing', () => {
+
+		it('should use create-form link when provided', async() => {
+			el = await fixture(createLPElement);
+		});
+
+		it('should use edit link when provided', async() => {
+			el = await fixture(createLPElement);
 		});
 	});
 });
