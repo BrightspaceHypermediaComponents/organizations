@@ -1,18 +1,20 @@
 /* eslint quotes: 0 */
 
 export default {
-	"cancelText" : "Annuleren", // Button text for cancelling changes
-	"checkboxLabel" : "Voortgangtracering voor deze cursus inschakelen", // Label for turning on completion tracking checkbox
-	"disableWarning" : "Voortgangtracering uitschakelen kan leiden tot verlies van voltooiingsgegevens voor cursisten.", // Warning text for disabling existing completion tracking
-	"dlgDisableNegativeButtonText" : "Annuleren", // Button label for cancelling disabling completion dialog
-	"dlgDisablePositiveButtonText" : "Uitschakelen", // Button label for disabling completion dialog
-	"dlgDisableSecondaryMessage" : "Voortgangtracering uitschakelen kan leiden tot verlies van voltooiingsgegevens voor cursisten.<br/><br/>Weet u zeker dat u voortgangtracering van de cursus wilt uitschakelen?", // Warning info for disabling completion dialog
-	"dlgDisableTitle" : "Voortgangtracering van cursus uitschakelen?", // Title for disable completion dialog
-	"enableWarning" : "Inschakelen van voortgangtracering nadat cursisten de cursus gestart hebben, traceert geen cursusvoltooiingen die optraden voordat de functie werd ingeschakeld.", // Warning for enabling completion
-	"errGeneric" : "Er is helaas een fout opgetreden. Probeer het later opnieuw.", // Generic error text
-	"errNoaccess" : "U hebt geen toegang tot het beheer van voortgangtracering.", // Permissions error text
-	"mainDesc" : "Voortgangtracering van cursus is een functie die cursisten als voltooid markeren wanneer alle ‘verplichte’ activiteiten in de inhoudsopgave zijn voltooid.", // Description
-	"mainTitle" : "Voortgangtracering cursus", // Title
-	"saveText" : "Opslaan en sluiten", // Save button text
-	"subTitle" : "Configuratie voortgangtracering" // Subtitle
+	"cancelText": "$$$$$$$$$$$$", // Button text for cancelling changes
+	"checkboxLabel": "$$$$$$$$$$$$$$$$$$$$$$$ $$$$$ $$$$$ $$$$$$$$ $$$$$$$$$$$$$$", // Label for turning on completion tracking checkbox
+	"disableWarning": "$$$$$$$$$$$$$$$$$$$$$$$ $$$$$$$$$$$$$$$$ $$$$ $$$$$$$$ $$$$ $$$$$$$$$ $$$$ $$$$$$$$$$$$$$$$$$$$$$$$$ $$$$$ $$$$$$$$$$$$.", // Warning text for disabling existing completion tracking
+	"displayProgressCheckboxLabel": "Display % Progress", // Label for turning on progress percentage display
+	"displayProgressCheckboxSubText": "Displaying % Progress is only available when Course Completion Tracking is enabled.", // Help text for progress display checkbox
+	"dlgDisableNegativeButtonText": "$$$$$$$$$$$$", // Button label for cancelling disabling completion dialog
+	"dlgDisablePositiveButtonText": "$$$$$$$$$$$$$$$$", // Button label for disabling completion dialog
+	"dlgDisableSecondaryMessage": "$$$$$$$$$$$$$$$$$$$$$$$ $$$$$$$$$$$$$$$$ $$$$ $$$$$$$$ $$$$ $$$$$$$$$ $$$$ $$$$$$$$$$$$$$$$$$$$$$$$$ $$$$$ $$$$$$$$$$$$.<br/><br/>$$$$$ $ $$$$$$$ $$$$ $ $$$$$$$$$$$$$$$$$$$$$$$ $$$$ $$$ $$$$$$$$ $$$$$ $$$$$$$$$$$$$$$$?", // Warning info for disabling completion dialog
+	"dlgDisableTitle": "$$$$$$$$$$$$$$$$$$$$$$$ $$$$ $$$$$$$$ $$$$$$$$$$$$$$$$?", // Title for disable completion dialog
+	"enableWarning": "$$$$$$$$$$$$$$ $$$$ $$$$$$$$$$$$$$$$$$$$$$$ $$$$$$$ $$$$$$$$$$$$ $$$ $$$$$$$$ $$$$$$$$$ $$$$$$$$, $$$$$$$$$$ $$$$$ $$$$$$$$$$$$$$$$$$$$$$$ $$$$ $$$$$$$$$$ $$$$$$$$$ $$$ $$$$$$$$$ $$$$$ $$$$$$$$$$$$$$$$.", // Warning for enabling completion
+	"errGeneric": "$$$ $$$ $$$$$$$$ $$$$ $$$$$ $$$$$$$$$$$$$. $$$$$$$$$ $$$$ $$$$$$$ $$$$$$$$$.", // Generic error text
+	"errNoaccess": "$ $$$$$ $$$$$ $$$$$$$$$ $$$$ $$$$ $$$$$$$$ $$$$ $$$$$$$$$$$$$$$$$$$$$$$.", // Permissions error text
+	"mainDesc": "$$$$$$$$$$$$$$$$$$$$$$$ $$$$ $$$$$$$$ $$$ $$$$ $$$$$$$$$ $$$$ $$$$$$$$$$$$ $$$$ $$$$$$$$$$ $$$$$$$$$$ $$$$$$$$$ $$$$$ ‘$$$$$$$$$$$$$$ $$$$$$$$$$$$$$$$ $$$ $$$ $$$$$$$$$$$$$$$$$ $$$$$ $$$$$$$$$$.", // Description
+	"mainTitle": "$$$$$$$$$$$$$$$$$$$$$$$ $$$$$$$$", // Title
+	"saveText": "$$$$$$$$$ $$$ $$$$$$$$$", // Save button text
+	"subTitle": "$$$$$$$$$$$$$$$$ $$$$$$$$$$$$$$$$$$$$$$$", // Subtitle
 };

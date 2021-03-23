@@ -1,14 +1,14 @@
 {
     "ended" : {
         "context" : "End date and time that is in the past",
-        "translation" : "Geëindigd op {date} om {time}"
+        "translation" : "$$$$$$$$$$$$ $$$ {date} $$$ {time}"
     },
     "endsAt" : {
         "context" : "End date and time that is in the future.",
-        "translation" : "Eindigt op {date} om {time}"
+        "translation" : "$$$$$$$$$ $$$ {date} $$$ {time}"
     },
     "startsAt" : {
         "context" : "Start date and time that is in the future",
-        "translation" : "Start op {date} om {time}"
+        "translation" : "$$$$$$$ $$$ {date} $$$ {time}"
     }
 }

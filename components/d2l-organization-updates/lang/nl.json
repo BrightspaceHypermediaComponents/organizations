@@ -1,38 +1,38 @@
 {
     "unapprovedDiscussions" : {
         "context" : "The number of discussion post that need to be reviewed",
-        "translation" : "{number} niet-goedgekeurde discussies"
+        "translation" : "{number} $$$$$-$$$$$$$$$$$$$$$$ $$$$$$$$$$$$$"
     },
     "unattemptedQuizzes" : {
         "context" : "The amount of quizes that a user has not done.",
-        "translation" : "{number} niet-gestarte tests"
+        "translation" : "{number} $$$$$-$$$$$$$$$$ $$$$$$$"
     },
     "ungradedQuizzes" : {
         "context" : "The number of quizzes that need to be marked",
-        "translation" : "{number} niet-gescoorde tests"
+        "translation" : "{number} $$$$$-$$$$$$$$$$$$ $$$$$$$"
     },
     "unreadAssignmentFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about assignments",
-        "translation" : "{number} ongelezen feedbackberichten voor opdracht"
+        "translation" : "{number} $$$$$$$$$$$$ $$$$$$$$$$$$$$$$$$$$$$ $$$$$ $$$$$$$$$$"
     },
     "unreadAssignmentSubmissions" : {
         "context" : "The number of assignment submissions that still need to be read.",
-        "translation" : "{number} nieuwe opdrachtindieningen"
+        "translation" : "{number} $$$$$$$$ $$$$$$$$$$$$$$$$$$$$$$$$$"
     },
     "unreadDiscussionFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about discussion",
-        "translation" : "{number} ongelezen feedbackberichten voor discussie"
+        "translation" : "{number} $$$$$$$$$$$$ $$$$$$$$$$$$$$$$$$$$$$ $$$$$ $$$$$$$$$$$$"
     },
     "unreadDiscussions" : {
         "context" : "The number of new discussion posts",
-        "translation" : "{number} ongelezen discussies"
+        "translation" : "{number} $$$$$$$$$$$$ $$$$$$$$$$$$$"
     },
     "unreadQuizzesFeedback" : {
         "context" : "The amount of feedback comments that a user has not read about quizzes",
-        "translation" : "{number} ongelezen feedbackberichten voor test"
+        "translation" : "{number} $$$$$$$$$$$$ $$$$$$$$$$$$$$$$$$$$$$ $$$$$ $$$$$"
     },
     "updates" : {
         "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
-        "translation" : "updates"
+        "translation" : "$$$$$$$$$"
     }
 }

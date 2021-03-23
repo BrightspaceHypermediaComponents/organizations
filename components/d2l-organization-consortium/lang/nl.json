@@ -1,30 +1,30 @@
 {
     "errorFull" : {
         "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
-        "translation" : "Oeps! We kunnen geen gegevens ophalen voor {num} van uw tabbladen. Probeer de pagina te vernieuwen"
+        "translation" : "$$$$$! $$$ $$$$$$$$ $$$$$ $$$$$$$$$$ $$$$$$$$$ $$$$$ {num} $$$$ $$$ $$$$$$$$$$$$. $$$$$$$$$ $$$ $$$$$$$$ $$$ $$$$$$$$$$$$$"
     },
     "errorShort" : {
         "context" : "Short error message if something went wrong",
-        "translation" : "Oeps"
+        "translation" : "$$$$$"
     },
     "impersonationWarning" : {
         "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
-        "translation" : "U kunt geen andere tabbladen openen terwijl u een gebruiker imiteert."
+        "translation" : "$ $$$$$ $$$$$ $$$$$$$$ $$$$$$$$$$$$ $$$$$$$$ $$$$$$$$$ $ $$$$ $$$$$$$$$$$$ $$$$$$$$$$."
     },
     "loading" : {
         "context" : "Placeholder loading text until content is ready",
-        "translation" : "Bezig met laden"
+        "translation" : "$$$$$$$ $$$$ $$$$$$$"
     },
     "newNotifications" : {
         "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
-        "translation" : "{name} - U hebt nieuwe waarschuwingen"
+        "translation" : "{name} - $ $$$$$ $$$$$$$$ $$$$$$$$$$$$$$$$$$"
     },
     "newNotificationsAlert" : {
         "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
-        "translation" : "U hebt nieuwe waarschuwingen in enkele van uw andere accounts"
+        "translation" : "$ $$$$$ $$$$$$$$ $$$$$$$$$$$$$$$$$$ $$$ $$$$$$$$ $$$$ $$$ $$$$$$$$ $$$$$$$$$$"
     },
     "otherAccounts" : {
         "context" : "Accessible label summarizing the organization tabs section",
-        "translation" : "Andere accounts"
+        "translation" : "$$$$$$$$ $$$$$$$$$$"
     }
 }
