@@ -1,7 +1,7 @@
 {
     "ended" : {
         "context" : "End date and time that is in the past",
-        "translation" : "S'est terminé le {date} à {time}"
+        "translation" : "S’est terminé le {date} à {time}"
     },
     "endsAt" : {
         "context" : "End date and time that is in the future.",
