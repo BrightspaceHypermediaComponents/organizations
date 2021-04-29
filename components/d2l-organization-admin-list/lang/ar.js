@@ -1,5 +1,4 @@
 /* eslint quotes: 0 */
-
 export default {
 	"actions": "الإجراءات", // Label for learning path context menu
 	"actionsForLP": "الإجراءات لـ {name}", // Label for within the context menu
