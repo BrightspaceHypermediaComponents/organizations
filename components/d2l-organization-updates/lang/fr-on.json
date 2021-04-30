@@ -1,0 +1,38 @@
+{
+    "unapprovedDiscussions" : {
+        "context" : "The number of discussion post that need to be reviewed",
+        "translation" : "{number} discussions non approuvées"
+    },
+    "unattemptedQuizzes" : {
+        "context" : "The amount of quizes that a user has not done.",
+        "translation" : "{number} questionnaires sans tentative"
+    },
+    "ungradedQuizzes" : {
+        "context" : "The number of quizzes that need to be marked",
+        "translation" : "{number} questionnaires non notés"
+    },
+    "unreadAssignmentFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about assignments",
+        "translation" : "{number} rétroaction(s) de travail non lue(s)"
+    },
+    "unreadAssignmentSubmissions" : {
+        "context" : "The number of assignment submissions that still need to be read.",
+        "translation" : "{number} nouvelles soumissions de travail"
+    },
+    "unreadDiscussionFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about discussion",
+        "translation" : "{number} rétroaction(s) de discussion non lue(s)"
+    },
+    "unreadDiscussions" : {
+        "context" : "The number of new discussion posts",
+        "translation" : "{number} discussions non lues"
+    },
+    "unreadQuizzesFeedback" : {
+        "context" : "The amount of feedback comments that a user has not read about quizzes",
+        "translation" : "{number} rétroaction(s) de questionnaire non lue(s)"
+    },
+    "updates" : {
+        "context" : "The total number of updates a course has for a user. Sum of all the other terms.",
+        "translation" : "mises à jour"
+    }
+}

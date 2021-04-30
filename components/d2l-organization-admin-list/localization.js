@@ -18,6 +18,9 @@ export const LocalizeOrganizationAdminList = superclass => class extends Localiz
 				case 'es':
 					translations = await import('./lang/es.js');
 					break;
+				case 'fr-on':
+					translations = await import('./lang/fr-on.js');
+					break;
 				case 'fr':
 					translations = await import('./lang/fr.js');
 					break;

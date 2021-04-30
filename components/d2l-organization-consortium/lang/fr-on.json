@@ -1,0 +1,30 @@
+{
+    "errorFull" : {
+        "context" : "Full error message if something went wrong.  With num indicating how many instances of the error",
+        "translation" : "Oups! Nous avons été incapables d’extraire l’information de {num} de vos onglets. Veuillez rafraîchir la page"
+    },
+    "errorShort" : {
+        "context" : "Short error message if something went wrong",
+        "translation" : "Oups!"
+    },
+    "impersonationWarning" : {
+        "context" : "Tooltip text when a user is impersonating another user and seeing their org tabs",
+        "translation" : "Vous ne pouvez pas accéder à d’autres onglets lorsque vous personnifiez un autre utilisateur."
+    },
+    "loading" : {
+        "context" : "Placeholder loading text until content is ready",
+        "translation" : "Chargement en cours"
+    },
+    "newNotifications" : {
+        "context" : "If the notification dot is present, we wrap the organization name for the tab's link label",
+        "translation" : "{name} – Vous avez de nouvelles alertes."
+    },
+    "newNotificationsAlert" : {
+        "context" : "Accessible alert that screenreaders will hear if at least one of the other organization tabs has notifications",
+        "translation" : "Vous avez de nouvelles alertes dans certains de vos autres comptes."
+    },
+    "otherAccounts" : {
+        "context" : "Accessible label summarizing the organization tabs section",
+        "translation" : "Autres comptes"
+    }
+}

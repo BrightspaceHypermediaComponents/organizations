@@ -7,6 +7,7 @@ import {LangEn} from './build/lang/en.js';
 import {LangEs} from './build/lang/es.js';
 import {LangFi} from './build/lang/fi.js';
 import {LangFr} from './build/lang/fr.js';
+import {LangFrOn} from './build/lang/fr-on.js';
 import {LangJa} from './build/lang/ja.js';
 import {LangKo} from './build/lang/ko.js';
 import {LangNl} from './build/lang/nl.js';
@@ -25,6 +26,7 @@ const OrganizationConsortiumLocalizeImpl = (superClass) => {
 		LangEs,
 		LangFi,
 		LangFr,
+		LangFrOn,
 		LangJa,
 		LangKo,
 		LangNl,
@@ -60,6 +62,7 @@ const OrganizationConsortiumLocalizeImpl = (superClass) => {
 				'de': this.de,
 				'es': this.es,
 				'fi': this.fi,
+				'fr-on': this.fron,
 				'fr': this.fr,
 				'ja': this.ja,
 				'ko': this.ko,
