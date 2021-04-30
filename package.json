@@ -47,7 +47,7 @@
     "sinon": "^9.0.3",
     "web-component-analyzer": "^1.1.6"
   },
-  "version": "5.2.2",
+  "version": "5.2.3",
   "resolutions": {
     "inherits": "2.0.3",
     "samsam": "1.1.3",
