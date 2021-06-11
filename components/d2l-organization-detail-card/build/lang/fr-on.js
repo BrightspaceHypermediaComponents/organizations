@@ -1,7 +1,7 @@
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangFronImpl = (superClass) => class extends superClass {
+const LangFrOnImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.fron = {
@@ -10,4 +10,4 @@ const LangFronImpl = (superClass) => class extends superClass {
 	}
 };
 
-export const LangFron = dedupingMixin(LangFronImpl);
+export const LangFrOn = dedupingMixin(LangFrOnImpl);

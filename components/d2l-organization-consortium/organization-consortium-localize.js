@@ -2,11 +2,15 @@ import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import 'd2l-localize-behavior/d2l-localize-behavior.js';
 import { LangAr } from './build/lang/ar.js';
+import { LangCyGb } from './build/lang/cy-gb.js';
+import { LangDaDk } from './build/lang/da-dk.js';
 import { LangDe } from './build/lang/de.js';
 import { LangEn } from './build/lang/en.js';
 import { LangEs } from './build/lang/es.js';
+import { LangEsEs } from './build/lang/es-es.js';
 import { LangFi } from './build/lang/fi.js';
 import { LangFr } from './build/lang/fr.js';
+import { LangFrFr } from './build/lang/fr-fr.js';
 import { LangFrOn } from './build/lang/fr-on.js';
 import { LangJa } from './build/lang/ja.js';
 import { LangKo } from './build/lang/ko.js';
@@ -21,11 +25,15 @@ import { LangZh } from './build/lang/zh.js';
 const OrganizationConsortiumLocalizeImpl = (superClass) => {
 	const langMixins = [
 		LangAr,
+		LangCyGb,
+		LangDaDk,
 		LangDe,
 		LangEn,
 		LangEs,
+		LangEsEs,
 		LangFi,
 		LangFr,
+		LangFrFr,
 		LangFrOn,
 		LangJa,
 		LangKo,

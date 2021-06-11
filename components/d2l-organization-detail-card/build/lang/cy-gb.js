@@ -1,7 +1,7 @@
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangCygbImpl = (superClass) => class extends superClass {
+const LangCyGbImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.cygb = {
@@ -10,4 +10,4 @@ const LangCygbImpl = (superClass) => class extends superClass {
 	}
 };
 
-export const LangCygb = dedupingMixin(LangCygbImpl);
+export const LangCyGb = dedupingMixin(LangCyGbImpl);
