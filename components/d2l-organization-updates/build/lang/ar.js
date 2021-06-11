@@ -1,4 +1,3 @@
-
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
@@ -10,7 +9,7 @@ const LangArImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} من الاختبارات التي لم تتم أي محاولة لإجرائها',
 			'ungradedQuizzes': '{number} من الاختبارات التي لم توضَع علامة عليها',
 			'unreadAssignmentFeedback': '{number} من ملاحظات الفرض غير المقروءة',
-			'unreadAssignmentSubmissions': '{number} من ملفات إرسال الفروض غير المقروءة',
+			'unreadAssignmentSubmissions': '{number} من إرسالات الفروض الجديدة',
 			'unreadDiscussionFeedback': '{number} من ملاحظات المناقشة غير المقروءة',
 			'unreadDiscussions': '{number} من المناقشات غير المقروءة',
 			'unreadQuizzesFeedback': '{number} من ملاحظات الاختبارات غير المقروءة',

@@ -1,8 +1,7 @@
-
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangFrOnImpl = (superClass) => class extends superClass {
+const LangFronImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.fron = {
@@ -10,11 +9,11 @@ const LangFrOnImpl = (superClass) => class extends superClass {
 			'errorShort': 'Oups!',
 			'impersonationWarning': 'Vous ne pouvez pas accéder à d’autres onglets lorsque vous personnifiez un autre utilisateur.',
 			'loading': 'Chargement en cours',
-			'newNotifications': '{name} - Vous avez de nouvelles alertes',
+			'newNotifications': '{name} – Vous avez de nouvelles alertes.',
 			'newNotificationsAlert': 'Vous avez de nouvelles alertes dans certains de vos autres comptes.',
 			'otherAccounts': 'Autres comptes'
 		};
 	}
 };
 
-export const LangFrOn = dedupingMixin(LangFrOnImpl);
+export const LangFron = dedupingMixin(LangFronImpl);

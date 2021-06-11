@@ -1,4 +1,3 @@
-
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
@@ -10,7 +9,7 @@ const LangDadkImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} ikke-afholdte eksaminationer',
 			'ungradedQuizzes': '{number} eksaminationer uden karakter',
 			'unreadAssignmentFeedback': '{number} ulæst opgavefeedback',
-			'unreadAssignmentSubmissions': '{number} Ulæste opgaveafleveringsfiler',
+			'unreadAssignmentSubmissions': '{number} nye opgaveafleveringer',
 			'unreadDiscussionFeedback': '{number} ulæst diskussionsfeedback',
 			'unreadDiscussions': '{number} ulæste diskussioner',
 			'unreadQuizzesFeedback': '{number} ulæst eksaminationsfeedback',
