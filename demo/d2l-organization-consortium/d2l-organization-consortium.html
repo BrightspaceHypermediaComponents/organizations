@@ -17,8 +17,8 @@
 			// override window.fetch, but defer if we haven't provided an explicit mock
 			window.fetch = 	(input, init) => {
 				const whatToFetch = {
-					'/consortium.json': {method: 'POST', response: consortium},
-					'/consortium-with-error.json': {method: 'POST', response: consortiumError},
+					'/consortium.json': { method: 'POST', response: consortium },
+					'/consortium-with-error.json': { method: 'POST', response: consortiumError },
 				};
 				const url = new URL(input.url);
 				if (whatToFetch[url.pathname] && whatToFetch[url.pathname].method === input.method) {
@@ -132,7 +132,7 @@
 		function tokenGetter() {
 			return Promise.resolve('faketoken3');
 		}
-		window.requestAnimationFrame(function() {
+		window.requestAnimationFrame(() => {
 			document.querySelector('#tabs-1').selected = new URLSearchParams(window.location.search).get('consortium') || '1cb16d6a-8557-4850-8846-3fa9b6174494';
 			document.querySelector('#tabs-2').selected = new URLSearchParams(window.location.search).get('consortium') || '1cb16d6a-8557-4850-8846-3fa9b6174494';
 			document.querySelector('#tabs-3').selected = new URLSearchParams(window.location.search).get('consortium') || '1cb16d6a-8557-4850-8846-3fa9b6174494';

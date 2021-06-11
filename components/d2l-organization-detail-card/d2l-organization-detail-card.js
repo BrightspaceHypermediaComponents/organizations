@@ -90,6 +90,10 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 		};
 	}
 
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
 	static get observers() {
 		return [
 			'_onOrganizationChange(_entity)'
@@ -425,10 +429,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			</d2l-meter-circle>
 		`;
 	}
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
-	}
+
 	connectedCallback() {
 		super.connectedCallback();
 		afterNextRender(this, () => {
@@ -474,8 +475,22 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	_computeForceShowText(isTextLoaded, revealOnLoad) {
 		return isTextLoaded && revealOnLoad;
 	}
+	_onImageLoaded() {
+		const loadedEvent = new CustomEvent(
+			'd2l-organization-detail-card-image-loaded',
+			{ composed: true, bubbles: true, detail: { href: this._organizationUrl } }
+		);
+		// Stop-gap solution to delay loaded event firing until the module sequences have loaded until we can get the sequence count from the siren-sdk
+		setTimeout(() => {
+			this.dispatchEvent(loadedEvent);
+			this._isImageLoaded = true;
+		}, 200);
+	}
 	_onLinkBlurBase() {
 		this.baseFocus = false;
+	}
+	_onLinkBlurModuleList() {
+		this.moduleListFocus = false;
 	}
 	_onLinkFocusBase() {
 		this.baseFocus = true;
@@ -483,9 +498,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 	_onLinkFocusModuleList() {
 		this.moduleListFocus = true;
 	}
-	_onLinkBlurModuleList() {
-		this.moduleListFocus = false;
-	}
+
 	_onOrganizationChange(organization) {
 		this._organizationUrl = organization.self();
 		this._title = organization.name();
@@ -507,6 +520,12 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			this._isTextLoaded = true;
 		}, 200);
 	}
+	_onResize(e) {
+		this._mobile = e.detail.current.width <= 389;
+	}
+	_onRevealTimeout() {
+		this._revealOnLoad = true;
+	}
 	_onSequenceRootChange(sequenceRoot) {
 		const modulesBySequence = [];
 		this._resetCompletion();
@@ -527,23 +546,7 @@ class D2lOrganizationDetailCard extends mixinBehaviors([
 			};
 		});
 	}
-	_onResize(e) {
-		this._mobile = e.detail.current.width <= 389;
-	}
-	_onRevealTimeout() {
-		this._revealOnLoad = true;
-	}
-	_onImageLoaded() {
-		const loadedEvent = new CustomEvent(
-			'd2l-organization-detail-card-image-loaded',
-			{ composed: true, bubbles: true, detail: { href: this._organizationUrl } }
-		);
-		// Stop-gap solution to delay loaded event firing until the module sequences have loaded until we can get the sequence count from the siren-sdk
-		setTimeout(() => {
-			this.dispatchEvent(loadedEvent);
-			this._isImageLoaded = true;
-		}, 200);
-	}
+
 	_resetCompletion() {
 		this._modulesComplete = {
 			value: 0,

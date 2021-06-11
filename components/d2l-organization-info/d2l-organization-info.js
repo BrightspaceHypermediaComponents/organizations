@@ -21,7 +21,6 @@ class OrganizationInfo extends mixinBehaviors([
 ], EntityMixin(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-info'; }
-
 	static get properties() {
 		return {
 			showOrganizationCode: {
@@ -37,6 +36,10 @@ class OrganizationInfo extends mixinBehaviors([
 			_organizationCode: String,
 			_semesterName: String,
 		};
+	}
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
 	}
 
 	static get observers() {
@@ -73,20 +76,30 @@ class OrganizationInfo extends mixinBehaviors([
 		`;
 	}
 
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
-	}
-
 	ready() {
 		super.ready();
 	}
 
+	_computeShowSeparator(showOrganizationCode, showSemester, organizationCode, semesterName) {
+		return showSemester && showOrganizationCode
+			&& semesterName && semesterName.length > 0
+			&& organizationCode && organizationCode.length > 0;
+	}
 	_onOrganizationChange(organization) {
 		this._organizationCode = organization.code();
 		this._setSemesterName(this.showSemesterName);
 	}
 
+	_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, organizationCode, semesterName) {
+		const details = {
+			organization: {
+				code: showOrganizationCode && organizationCode
+			},
+			semesterName: showSemesterName && semesterName
+		};
+
+		this._fireD2lOrganizationAccessible(details);
+	}
 	_setSemesterName(showSemesterName) {
 		this._semesterName = null;
 
@@ -97,22 +110,6 @@ class OrganizationInfo extends mixinBehaviors([
 		}
 	}
 
-	_computeShowSeparator(showOrganizationCode, showSemester, organizationCode, semesterName) {
-		return showSemester && showOrganizationCode
-			&& semesterName && semesterName.length > 0
-			&& organizationCode && organizationCode.length > 0;
-	}
-
-	_sendVoiceReaderInfo(showOrganizationCode, showSemesterName, organizationCode, semesterName) {
-		var details = {
-			organization: {
-				code: showOrganizationCode && organizationCode
-			},
-			semesterName: showSemesterName && semesterName
-		};
-
-		this._fireD2lOrganizationAccessible(details);
-	}
 }
 
 window.customElements.define(OrganizationInfo.is, OrganizationInfo);

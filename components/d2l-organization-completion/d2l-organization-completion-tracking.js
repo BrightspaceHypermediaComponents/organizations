@@ -129,21 +129,11 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 		return action === 'yes';
 	}
 
-	_onProgressChange(e) {
-		this._newValues.isProgressDisplayed = e.target.checked;
-	}
-
-	_onTrackingChange(e) {
-		this._showProgressTracking = e.target.checked;
-		this._newValues.isCompletionTracked = e.target.checked;
-		// turn on progress display by default
-		if (e.target.checked) {
-			this._newValues.isProgressDisplayed = true;
-		}
-	}
-
 	_onCancelClick() {
 		// todo: redirect
+	}
+	_onProgressChange(e) {
+		this._newValues.isProgressDisplayed = e.target.checked;
 	}
 
 	async _onSaveClick() {
@@ -158,6 +148,15 @@ class CompletionTracking extends LocalizeOrganizationCompletion(LitElement) {
 		}
 		// todo: redirect
 	}
+	_onTrackingChange(e) {
+		this._showProgressTracking = e.target.checked;
+		this._newValues.isCompletionTracked = e.target.checked;
+		// turn on progress display by default
+		if (e.target.checked) {
+			this._newValues.isProgressDisplayed = true;
+		}
+	}
+
 }
 
 customElements.define('d2l-organization-completion-tracking', CompletionTracking);

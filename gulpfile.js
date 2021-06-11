@@ -1,7 +1,5 @@
 /* eslint-env node, es6 */
 
-'use strict';
-
 const del = require('del');
 const gulp = require('gulp');
 const ejs = require('gulp-ejs');
@@ -43,7 +41,7 @@ sergeDirectories.forEach((sergeComponent) => {
 	const options = {
 		client: true,
 		strict: true,
-		root: sergeComponent.source_dir + buildDirectory + '/lang',
+		root: `${sergeComponent.source_dir + buildDirectory  }/lang`,
 		localsName: 'data'
 	};
 

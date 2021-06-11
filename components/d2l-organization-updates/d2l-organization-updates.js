@@ -6,13 +6,13 @@ Polymer-based web component for a organization updates.
 @demo demo/d2l-organization-updates/d2l-organization-updates-demo.html Organization Updates
 */
 
-import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
-import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import 'd2l-colors/d2l-colors.js';
 import 'd2l-icons/d2l-icon.js';
 import 'd2l-tooltip/d2l-tooltip.js';
 import 'd2l-offscreen/d2l-offscreen.js';
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
+import { OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { OrganizationUpdatesMixin } from './OrganizationUpdatesMixin.js';
 
 /**
@@ -23,7 +23,6 @@ import { OrganizationUpdatesMixin } from './OrganizationUpdatesMixin.js';
 class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-updates'; }
-
 	static get properties() {
 		return {
 			combined: {
@@ -60,6 +59,10 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 				value: function() { return []; }
 			}
 		};
+	}
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
 	}
 
 	static get observers() {
@@ -180,11 +183,24 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 		`;
 	}
 
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
-	}
+	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes,
+		showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
 
+		const presentationAttributes = {
+			'ShowDropboxUnreadFeedback': showDropboxUnreadFeedback,
+			'ShowUnattemptedQuizzes': showUnattemptedQuizzes,
+			'ShowUngradedQuizAttempts': showUngradedQuizAttempts,
+			'ShowUnreadDiscussionMessages': showUnreadDiscussionMessages,
+			'ShowUnreadDropboxSubmissions': showUnreadDropboxSubmissions,
+		};
+
+		if (!this._notificationList || !presentationAttributes) {
+			return Promise.resolve();
+		}
+
+		const notification = this._orgUpdates_fetch(this._notificationList, presentationAttributes);
+		this._notifications = this._orgUpdates_notifications(notification, combined);
+	}
 	_getNotificationsEntity(organizationEntity) {
 		organizationEntity.onNotificationsChange(
 			(notificationCollection) => {
@@ -197,24 +213,6 @@ class OrganizationUpdates extends OrganizationUpdatesMixin(EntityMixin(PolymerEl
 		);
 	}
 
-	_getNotifications(combined, showDropboxUnreadFeedback, showUnattemptedQuizzes,
-		showUngradedQuizAttempts, showUnreadDiscussionMessages, showUnreadDropboxSubmissions) {
-
-		var presentationAttributes = {
-			'ShowDropboxUnreadFeedback': showDropboxUnreadFeedback,
-			'ShowUnattemptedQuizzes': showUnattemptedQuizzes,
-			'ShowUngradedQuizAttempts': showUngradedQuizAttempts,
-			'ShowUnreadDiscussionMessages': showUnreadDiscussionMessages,
-			'ShowUnreadDropboxSubmissions': showUnreadDropboxSubmissions,
-		};
-
-		if (!this._notificationList || !presentationAttributes) {
-			return Promise.resolve();
-		}
-
-		var notification = this._orgUpdates_fetch(this._notificationList, presentationAttributes);
-		this._notifications = this._orgUpdates_notifications(notification, combined);
-	}
 }
 
 window.customElements.define(OrganizationUpdates.is, OrganizationUpdates);

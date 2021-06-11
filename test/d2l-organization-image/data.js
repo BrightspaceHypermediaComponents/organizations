@@ -51,7 +51,7 @@ export const sequenceRoot = {
 							'alternate'
 						],
 						href: '/activity/1/completion'
-					}]}
+					}] }
 				],
 				actions: [{
 					href: '/activity/1/view-activity',
@@ -85,7 +85,7 @@ export const sequenceRoot = {
 						'alternate'
 					],
 					href: '/organizations/1'
-				}]}
+				}] }
 			],
 			links: [{
 				rel: [

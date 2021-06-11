@@ -1,6 +1,5 @@
-'use strict';
 
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
 const LangKoImpl = (superClass) => class extends superClass {

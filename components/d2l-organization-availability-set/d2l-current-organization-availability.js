@@ -30,24 +30,19 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeOrganizatio
 		this._setEntityType(OrganizationAvailabilityEntity);
 	}
 
+	render() {
+		return html`
+			<d2l-input-checkbox checked ?disabled="${!this._canDelete}" @change="${this._onCheckboxChange}">
+				${this._itemDescription}
+			</d2l-input-checkbox>
+		`;
+	}
+	get _itemDescription() {
+		return this.localize('currentOrgUnitItemDescription', { name: this._name });
+	}
 	set _entity(entity) {
 		this._onAvailabilityChange(entity);
 		super._entity = entity;
-	}
-
-	_onAvailabilityChange(entity) {
-		if (entity) {
-			this._setName(entity);
-			this._canDelete = entity.canDelete();
-		}
-	}
-
-	_setName(entity) {
-		if (entity) {
-			entity.onOrganizationChange(organization => {
-				this._name = organization.name();
-			});
-		}
 	}
 
 	_delete(e) {
@@ -69,24 +64,26 @@ class CurrentOrganizationAvailability extends EntityMixinLit(LocalizeOrganizatio
 			})
 		);
 	}
+	_onAvailabilityChange(entity) {
+		if (entity) {
+			this._setName(entity);
+			this._canDelete = entity.canDelete();
+		}
+	}
 
 	_onCheckboxChange(e) {
 		if (!e.target.checked) {
 			this._delete(e);
 		}
 	}
-
-	get _itemDescription() {
-		return this.localize('currentOrgUnitItemDescription', { name: this._name });
+	_setName(entity) {
+		if (entity) {
+			entity.onOrganizationChange(organization => {
+				this._name = organization.name();
+			});
+		}
 	}
 
-	render() {
-		return html`
-			<d2l-input-checkbox checked ?disabled="${!this._canDelete}" @change="${this._onCheckboxChange}">
-				${this._itemDescription}
-			</d2l-input-checkbox>
-		`;
-	}
 }
 
 customElements.define('d2l-current-organization-availability', CurrentOrganizationAvailability);

@@ -53,37 +53,6 @@ class AdminListPager extends LocalizeOrganizationAdminList(LitElement) {
 		this.totalPages = 1;
 	}
 
-	_hasPreviousPage() {
-		return this.currentPage > 1;
-	}
-
-	_hasNextPage() {
-		return this.currentPage < this.totalPages;
-	}
-
-	_toPreviousPage() {
-		this.onPageChanged(this.currentPage - 1);
-	}
-
-	_toNextPage() {
-		this.onPageChanged(this.currentPage + 1);
-	}
-
-	_toPage(e) {
-		// handle invalid input
-		const value = Number(e.target.value);
-		if (!Number.isInteger(value) || value < 1 || value > this.totalPages) {
-			// reset to original
-			e.target.value = this.currentPage;
-			return;
-		}
-		this.onPageChanged(value);
-	}
-
-	_countDigits(number) {
-		return number.toString().length;
-	}
-
 	render() {
 		return html`
 			<div class='d2l-organization-admin-list-pager'>
@@ -118,6 +87,33 @@ class AdminListPager extends LocalizeOrganizationAdminList(LitElement) {
 			</div>
 		`;
 	}
+	_countDigits(number) {
+		return number.toString().length;
+	}
+	_hasNextPage() {
+		return this.currentPage < this.totalPages;
+	}
+	_hasPreviousPage() {
+		return this.currentPage > 1;
+	}
+
+	_toNextPage() {
+		this.onPageChanged(this.currentPage + 1);
+	}
+	_toPage(e) {
+		// handle invalid input
+		const value = Number(e.target.value);
+		if (!Number.isInteger(value) || value < 1 || value > this.totalPages) {
+			// reset to original
+			e.target.value = this.currentPage;
+			return;
+		}
+		this.onPageChanged(value);
+	}
+	_toPreviousPage() {
+		this.onPageChanged(this.currentPage - 1);
+	}
+
 }
 customElements.define(
 	'd2l-organization-admin-list-pager',

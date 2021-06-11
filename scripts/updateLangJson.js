@@ -6,7 +6,7 @@ sergeDirectories.forEach((sergeComponent) => {
 	if (sergeComponent.parser_plugin && sergeComponent.parser_plugin.plugin === 'parse_js') {
 		return;
 	}
-	const directory = sergeComponent.source_dir + '/';
+	const directory = `${sergeComponent.source_dir  }/`;
 	fs.readdir(directory, (err, filenames) => {
 		if (err) {
 			throw err;
@@ -30,7 +30,7 @@ sergeDirectories.forEach((sergeComponent) => {
 
 			fs.exists(filename, exists => {
 				if (!exists) {
-					throw 'No ' + filename;
+					throw `No ${  filename}`;
 				}
 
 				fs.readFile(filename, (err, data) => {
@@ -58,7 +58,7 @@ sergeDirectories.forEach((sergeComponent) => {
 						}
 					});
 
-					var json = JSON.stringify(sortedcurrentLang, null, 2);
+					const json = JSON.stringify(sortedcurrentLang, null, 2);
 					fs.writeFile(filename, json, (err) => {
 						if (err) throw err;
 					});

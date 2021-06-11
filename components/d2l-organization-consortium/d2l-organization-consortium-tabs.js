@@ -18,7 +18,7 @@ import '@brightspace-ui/core/components/offscreen/offscreen.js';
 import { announce } from '@brightspace-ui/core/helpers/announce.js';
 import { ConsortiumRootEntity } from 'siren-sdk/src/consortium/ConsortiumRootEntity.js';
 import { ConsortiumTokenCollectionEntity } from 'siren-sdk/src/consortium/ConsortiumTokenCollectionEntity.js';
-import { entityFactory, dispose } from 'siren-sdk/src/es6/EntityFactory';
+import { dispose, entityFactory } from 'siren-sdk/src/es6/EntityFactory';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
 import { updateEntity } from 'siren-sdk/src/es6/EntityFactory.js';
 import { OrganizationConsortiumLocalize } from './organization-consortium-localize.js';
@@ -30,7 +30,6 @@ import { OrganizationConsortiumLocalize } from './organization-consortium-locali
 class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocalize(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-consortium-tabs'; }
-
 	static get properties() {
 		return {
 			pollIntervalInSeconds: {
@@ -101,6 +100,11 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 				value: D2L.Id.getUniqueId()
 			}
 		};
+	}
+	constructor() {
+		super();
+		this._setEntityType(ConsortiumRootEntity);
+		this._requestScroll = this._requestScroll.bind(this);
 	}
 
 	static get observers() {
@@ -259,12 +263,6 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		`;
 	}
 
-	constructor() {
-		super();
-		this._setEntityType(ConsortiumRootEntity);
-		this._requestScroll = this._requestScroll.bind(this);
-	}
-
 	connectedCallback() {
 		super.connectedCallback();
 		this._intervalId = window.setInterval(this.updateAlerts.bind(this), this.pollIntervalInSeconds * 1000);
@@ -274,13 +272,6 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		super.disconnectedCallback();
 		window.clearInterval(this._intervalId);
 		dispose(this.__tokenCollection);
-	}
-	updateAlerts() {
-		for (var key in this._alertTokensMap) {
-			if (this._alertTokensMap.hasOwnProperty(key)) {
-				updateEntity(key, this._alertTokensMap[key]);
-			}
-		}
 	}
 	tryRequestScroll() {
 		/* The mobile menu calls this method and fastdom is giving us a needed animation frame.
@@ -292,29 +283,79 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			}
 		});
 	}
-
-	_requestScroll() {
-		var selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
-		if (!selectedTab) {
-			return;
+	updateAlerts() {
+		for (const key in this._alertTokensMap) {
+			if (Object.prototype.hasOwnProperty.call(this._alertTokensMap, key)) {
+				updateEntity(key, this._alertTokensMap[key]);
+			}
 		}
-		fastdom.measure(() => {
-			var distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
-			this.dispatchEvent(
-				new CustomEvent(
-					'd2l-navigation-band-slot-scroll-request',
-					{
-						detail: {
-							pointToCenter: distanceToCenter
-						},
-						bubbles: true,
-						composed: true
-					}
-				)
-			);
-		});
 	}
 
+	_announceNotifications() {
+		announce(this.localize('newNotificationsAlert'));
+	}
+	_checkNotifications(orgs) {
+		const nowHasNotifications = orgs.value.some((org) => { return this._checkOrgNotification(org); });
+
+		if (this._hasNotifications === nowHasNotifications) {
+			return;
+		}
+
+		this._hasNotifications = nowHasNotifications;
+		this.dispatchEvent(
+			new CustomEvent(
+				'd2l-organization-consortium-tabs-notification-update',
+				{
+					detail: {
+						hasOrgTabNotifications: nowHasNotifications,
+						notificationText: this.localize('newNotificationsAlert')
+					},
+					bubbles: true,
+					composed: true
+				}
+			)
+		);
+		if (this.muteAnnouncer) {
+			return;
+		}
+
+		if (this._delayAnnouncer) {
+			this._delayAnnouncer = false;
+		} else if (nowHasNotifications) {
+			this._announceNotifications();
+		}
+
+	}
+	_checkOrgNotification(org) {
+		return org.hasNotification && !this._isSelected(org);
+	}
+	_computeErrors(organizations) {
+		return Object.keys(organizations).filter(key => organizations[key].error);
+	}
+	_computeParsedOrganizations() {
+		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
+		this.set('_errors', this._computeErrors(currentOrganizations));
+		const orgs = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].error !== true).map((key) => {
+			const org = {
+				id: D2L.Id.getUniqueId(),
+				name: currentOrganizations[key].code || currentOrganizations[key].name,
+				fullName: currentOrganizations[key].name,
+				href: currentOrganizations[key].href,
+				hasNotification: currentOrganizations[key].unread,
+				tenant: key,
+				loading: currentOrganizations[key].loading
+			};
+			return org;
+		});
+
+		if (!this._requestedScrollTimeoutId && Object.keys(currentOrganizations).length > 0) {
+			const stillLoading = Object.keys(currentOrganizations).some(key => currentOrganizations[key].loading);
+			if (!stillLoading) {
+				this.tryRequestScroll();
+			}
+		}
+		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
+	}
 	async _getCacheKey() {
 		if (typeof (this.token) === 'function') {
 			const token = await this.token();
@@ -323,65 +364,26 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			return `consortium-tabs-${this.token}`;
 		}
 	}
-
-	async _setCache(token) {
-		if (!token) {
-			return;
-		}
-		const cacheKey = await this._getCacheKey();
-		this._cache = this._tryGetItemSessionStorage(cacheKey);
-		if (this._cache) {
-			this._delayAnnouncer = true;
-		}
+	_getTabAriaLabel(item) {
+		return this._checkOrgNotification(item) ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
 	}
-
-	_tabBoxClasses(_shouldRender, _hasCache) {
-		const classes = [];
-		if (_hasCache) {
-			classes.push('d2l-consortium-tab-showTabs');
-		} else if (_shouldRender) {
-			classes.push('d2l-consortium-tab-growIn');
+	_getTabHref(item) {
+		if (this.impersonationMode) {
+			return undefined;
 		}
-		return classes.join(' ');
+		return this._isSelected(item) ? undefined : item.href;
+	}
+	_getTabIndex(item) {
+		if (!this.impersonationMode) {
+			return undefined;
+		}
+		return this._isSelected(item) ? undefined : '0';
+	}
+	_hasErrors(errors) {
+		return errors.length > 0;
 	}
 	_isSelected(item) {
 		return this.selected === item.tenant;
-	}
-	_tryGetItemSessionStorage(itemName) {
-		try {
-			return JSON.parse(sessionStorage.getItem(itemName));
-		} catch (_) {
-			//noop if session storage isn't available or has bad data
-			return;
-		}
-	}
-	_trySetItemSessionStorage(itemName, value) {
-		try {
-			const itemCopied = JSON.parse(JSON.stringify(value));
-			for (const errorKey of this._computeErrors(itemCopied)) {
-				delete itemCopied[errorKey];
-			}
-			sessionStorage.setItem(itemName, JSON.stringify(itemCopied));
-		} catch (_) {
-			//noop we don't want to blow up if we exceed a quota or are in safari private browsing mode
-		}
-	}
-	_sortOrder(item1, item2) {
-		if (item1 && item1.name && item2 && item2.name) {
-			return item1.name.localeCompare(item2.name);
-		}
-		return 0;
-	}
-
-	_onConsortiumRootChange(rootEntity) {
-		var _self = this;
-		if (rootEntity && rootEntity.getConsortiumCollection()) {
-			this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
-				dispose(_self.__tokenCollection); //clean up the old one
-				this._resetMaps();
-				entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
-			});
-		}
 	}
 
 	_onConsortiumChange(consortiumTokenCollection) {
@@ -390,7 +392,7 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			const key = consortiumEntity.consortiumTenant();
 			this._shouldRender = true;
 			if (!this._cache || !this._cache[key]) {
-				this.set(`_organizations.${key}`, {name:key, loading:true});
+				this.set(`_organizations.${key}`, { name:key, loading:true });
 			}
 
 			consortiumEntity.rootOrganizationEntity((rootEntity, rootErr) => {
@@ -441,37 +443,58 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 			});
 		});
 	}
+	_onConsortiumRootChange(rootEntity) {
+		const _self = this;
+		if (rootEntity && rootEntity.getConsortiumCollection()) {
+			this.performSirenAction(rootEntity.getConsortiumCollection(), null, true).then((entity) => {
+				dispose(_self.__tokenCollection); //clean up the old one
+				this._resetMaps();
+				entityFactory(ConsortiumTokenCollectionEntity, rootEntity.getConsortiumCollection().href, _self._token, (changed) => _self._onConsortiumChange(changed), entity);
+			});
+		}
+	}
+	_requestScroll() {
+		const selectedTab = this.shadowRoot.querySelector('.d2l-tab-container[selected]');
+		if (!selectedTab) {
+			return;
+		}
+		fastdom.measure(() => {
+			const distanceToCenter = selectedTab.offsetLeft + (selectedTab.offsetWidth / 2);
+			this.dispatchEvent(
+				new CustomEvent(
+					'd2l-navigation-band-slot-scroll-request',
+					{
+						detail: {
+							pointToCenter: distanceToCenter
+						},
+						bubbles: true,
+						composed: true
+					}
+				)
+			);
+		});
+	}
 
 	_resetMaps() {
 		this.set('_organizations', {});
 		this.set('_alertTokensMap', {});
 	}
-	_computeErrors(organizations) {
-		return Object.keys(organizations).filter(key => organizations[key].error);
-	}
-	_computeParsedOrganizations() {
-		const currentOrganizations = Object.assign({}, this._cache, this._organizations);
-		this.set('_errors', this._computeErrors(currentOrganizations));
-		const orgs = Object.keys(currentOrganizations).filter(key => currentOrganizations[key].error !== true).map(function(key) {
-			const org = {
-				id: D2L.Id.getUniqueId(),
-				name: currentOrganizations[key].code || currentOrganizations[key].name,
-				fullName: currentOrganizations[key].name,
-				href: currentOrganizations[key].href,
-				hasNotification: currentOrganizations[key].unread,
-				tenant: key,
-				loading: currentOrganizations[key].loading
-			};
-			return org;
-		});
-
-		if (!this._requestedScrollTimeoutId && Object.keys(currentOrganizations).length > 0) {
-			const stillLoading = Object.keys(currentOrganizations).some(key => currentOrganizations[key].loading);
-			if (!stillLoading) {
-				this.tryRequestScroll();
-			}
+	async _setCache(token) {
+		if (!token) {
+			return;
 		}
-		return Object.keys(currentOrganizations).length >= this.tabRenderThreshold ? orgs : []; //don't render anything if we don't pass our render threshold
+		const cacheKey = await this._getCacheKey();
+		this._cache = this._tryGetItemSessionStorage(cacheKey);
+		if (this._cache) {
+			this._delayAnnouncer = true;
+		}
+	}
+
+	_sortOrder(item1, item2) {
+		if (item1 && item1.name && item2 && item2.name) {
+			return item1.name.localeCompare(item2.name);
+		}
+		return 0;
 	}
 	_successfulTabToolTipText(item) {
 		if (item.loading) {
@@ -479,62 +502,37 @@ class OrganizationConsortiumTabs extends EntityMixin(OrganizationConsortiumLocal
 		}
 		return this.impersonationMode && !this._isSelected(item) ? this.localize('impersonationWarning') : item.fullName;
 	}
-	_getTabHref(item) {
-		if (this.impersonationMode) {
-			return undefined;
+	_tabBoxClasses(_shouldRender, _hasCache) {
+		const classes = [];
+		if (_hasCache) {
+			classes.push('d2l-consortium-tab-showTabs');
+		} else if (_shouldRender) {
+			classes.push('d2l-consortium-tab-growIn');
 		}
-		return this._isSelected(item) ? undefined : item.href;
+		return classes.join(' ');
 	}
-	_getTabIndex(item) {
-		if (!this.impersonationMode) {
-			return undefined;
-		}
-		return this._isSelected(item) ? undefined : '0';
-	}
-	_getTabAriaLabel(item) {
-		return this._checkOrgNotification(item) ? this.localize('newNotifications', 'name', item.fullName) : item.fullName;
-	}
-	_hasErrors(errors) {
-		return errors.length > 0;
-	}
-	_checkOrgNotification(org) {
-		return org.hasNotification && !this._isSelected(org);
-	}
-	_checkNotifications(orgs) {
-		const nowHasNotifications = orgs.value.some((org) => { return this._checkOrgNotification(org); });
 
-		if (this._hasNotifications === nowHasNotifications) {
+	_tryGetItemSessionStorage(itemName) {
+		try {
+			return JSON.parse(sessionStorage.getItem(itemName));
+		} catch (_) {
+			//noop if session storage isn't available or has bad data
 			return;
 		}
-
-		this._hasNotifications = nowHasNotifications;
-		this.dispatchEvent(
-			new CustomEvent(
-				'd2l-organization-consortium-tabs-notification-update',
-				{
-					detail: {
-						hasOrgTabNotifications: nowHasNotifications,
-						notificationText: this.localize('newNotificationsAlert')
-					},
-					bubbles: true,
-					composed: true
-				}
-			)
-		);
-		if (this.muteAnnouncer) {
-			return;
-		}
-
-		if (this._delayAnnouncer) {
-			this._delayAnnouncer = false;
-		} else if (nowHasNotifications) {
-			this._announceNotifications();
-		}
-
 	}
-	_announceNotifications() {
-		announce(this.localize('newNotificationsAlert'));
+
+	_trySetItemSessionStorage(itemName, value) {
+		try {
+			const itemCopied = JSON.parse(JSON.stringify(value));
+			for (const errorKey of this._computeErrors(itemCopied)) {
+				delete itemCopied[errorKey];
+			}
+			sessionStorage.setItem(itemName, JSON.stringify(itemCopied));
+		} catch (_) {
+			//noop we don't want to blow up if we exceed a quota or are in safari private browsing mode
+		}
 	}
+
 }
 
 window.customElements.define(OrganizationConsortiumTabs.is, OrganizationConsortiumTabs);

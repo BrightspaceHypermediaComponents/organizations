@@ -42,17 +42,6 @@ class AdminListSearchHeader extends LocalizeOrganizationAdminList(LitElement) {
 		this._searchText = '';
 	}
 
-	_handleSearch(e) {
-		if (e && e.detail) {
-			const searchText = e.detail.value;
-			if (searchText !== this._searchText) {
-				this.onSearchTextChanged &&
-					this.onSearchTextChanged(searchText);
-				this._searchText = searchText;
-			}
-		}
-	}
-
 	render() {
 		return html`
 			<div class='d2l-organization-admin-list-search-header-container'>
@@ -67,6 +56,17 @@ class AdminListSearchHeader extends LocalizeOrganizationAdminList(LitElement) {
 			</div>
 		`;
 	}
+	_handleSearch(e) {
+		if (e && e.detail) {
+			const searchText = e.detail.value;
+			if (searchText !== this._searchText) {
+				this.onSearchTextChanged &&
+					this.onSearchTextChanged(searchText);
+				this._searchText = searchText;
+			}
+		}
+	}
+
 }
 customElements.define(
 	'd2l-organization-admin-list-search-header',

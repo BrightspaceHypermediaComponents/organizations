@@ -47,13 +47,6 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 		announce(' ');
 	}
 
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onAvailabilitySetChange(entity);
-			super._entity = entity;
-		}
-	}
-
 	firstUpdated(changedProperties) {
 		super.firstUpdated(changedProperties);
 
@@ -63,57 +56,6 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 			}
 		});
 	}
-
-	_onAvailabilitySetChange(entity) {
-		if (entity) {
-			this._availabilityHrefs = entity.getAvailabilityHrefs();
-			this._canAddAvailability = entity.canAddAvailability();
-			this._currentOrgUnitEntity = entity.getCurrentOrgUnitEntity();
-			entity.onOrganizationChange(organization => {
-				this._currentOrgUnitName = organization.name();
-			});
-		}
-	}
-
-	_addCurrentOrgUnit(e) {
-		const checkboxElem = e.target;
-		if (checkboxElem.checked) {
-			this.wrapSaveAction(super._entity.addCurrentOrgUnit()).then(() => {
-				announce(this.localize('availableToCurrentOrgUnit', { name: this._currentOrgUnitName }));
-			}).catch(() => {
-				checkboxElem.checked = false;
-			});
-		}
-	}
-
-	handleOrgUnitSelect(response) {
-		const promises = [];
-		if (response.GetType() === D2L.Dialog.ResponseType.Positive) {
-			const orgUnits = response.GetData('OrgUnits');
-			if (orgUnits) {
-				orgUnits.forEach(orgUnit => {
-					const addExplicit = orgUnit.OrgUnitId && orgUnit.OrgUnitId !== '0';
-					if (addExplicit) {
-						promises.push(super._entity.addExplicit(orgUnit.OrgUnitId));
-					} else {
-						const descendantOrgUnitTypeId = orgUnit.DescendantOrgUnitTypeId === '0' ? null : orgUnit.DescendantOrgUnitTypeId;
-						promises.push(super._entity.addInherit(orgUnit.AncestorOrgUnitId, descendantOrgUnitTypeId));
-					}
-				});
-			}
-		}
-		this.wrapSaveAction(Promise.all(promises)).finally(() => {
-			response.GetDialog().Close();
-		});
-	}
-
-	handleAddOrgUnits(e) {
-		if (this._dialog.Open) {
-			this._dialog.SetOpener(e.target);
-			this._dialog.Open();
-		}
-	}
-
 	render() {
 		return html`
 			${this._currentOrgUnitEntity ? html`
@@ -143,6 +85,60 @@ class OrganizationAvailabilitySet extends SaveStatusMixin(EntityMixinLit(Localiz
 			`)}
 		`;
 	}
+	handleAddOrgUnits(e) {
+		if (this._dialog.Open) {
+			this._dialog.SetOpener(e.target);
+			this._dialog.Open();
+		}
+	}
+	handleOrgUnitSelect(response) {
+		const promises = [];
+		if (response.GetType() === D2L.Dialog.ResponseType.Positive) {
+			const orgUnits = response.GetData('OrgUnits');
+			if (orgUnits) {
+				orgUnits.forEach(orgUnit => {
+					const addExplicit = orgUnit.OrgUnitId && orgUnit.OrgUnitId !== '0';
+					if (addExplicit) {
+						promises.push(super._entity.addExplicit(orgUnit.OrgUnitId));
+					} else {
+						const descendantOrgUnitTypeId = orgUnit.DescendantOrgUnitTypeId === '0' ? null : orgUnit.DescendantOrgUnitTypeId;
+						promises.push(super._entity.addInherit(orgUnit.AncestorOrgUnitId, descendantOrgUnitTypeId));
+					}
+				});
+			}
+		}
+		this.wrapSaveAction(Promise.all(promises)).finally(() => {
+			response.GetDialog().Close();
+		});
+	}
+	set _entity(entity) {
+		if (this._entityHasChanged(entity)) {
+			this._onAvailabilitySetChange(entity);
+			super._entity = entity;
+		}
+	}
+
+	_addCurrentOrgUnit(e) {
+		const checkboxElem = e.target;
+		if (checkboxElem.checked) {
+			this.wrapSaveAction(super._entity.addCurrentOrgUnit()).then(() => {
+				announce(this.localize('availableToCurrentOrgUnit', { name: this._currentOrgUnitName }));
+			}).catch(() => {
+				checkboxElem.checked = false;
+			});
+		}
+	}
+	_onAvailabilitySetChange(entity) {
+		if (entity) {
+			this._availabilityHrefs = entity.getAvailabilityHrefs();
+			this._canAddAvailability = entity.canAddAvailability();
+			this._currentOrgUnitEntity = entity.getCurrentOrgUnitEntity();
+			entity.onOrganizationChange(organization => {
+				this._currentOrgUnitName = organization.name();
+			});
+		}
+	}
+
 }
 
 customElements.define('d2l-organization-availability-set', OrganizationAvailabilitySet);

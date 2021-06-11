@@ -54,76 +54,14 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 			}
 		};
 	}
-	_orgUpdates_notifications(notification, combined) {
-		var maxCount = 99;
-		if (!notification) {
-			return [];
-		}
-		if (combined) {
-			notification = {
-				updates: Object.keys(notification).reduce(function(accumulator, key) {
-					return {
-						updateCount: notification[key].updateCount + accumulator.updateCount,
-						icon: null
-					};
-				}, { updateCount: 0 })
-			};
-		}
-
-		return Object.keys(notification).map(function(key) {
-			var toolTip = notification[key].toolTip
-				? notification[key].toolTip.map(function(value) {
-					return	 this.localize(value[0], 'number', value[1]);
-				}.bind(this))
-				: null;
-
-			var ariaLabel = toolTip && toolTip.join(', ');
-			var element = {
-				key: key,
-				order: notification[key].order,
-				isDisabled: (notification[key].updateCount <= 0),
-				updateCount: (notification[key].updateCount > maxCount) ? maxCount + '+' : notification[key].updateCount,
-				toolTip: toolTip,
-				ariaLabel: ariaLabel,
-				icon: notification[key].icon,
-				link: notification[key].link
-			};
-			return element;
-		}.bind(this)).sort(function(a, b) {
-			return a.order - b.order;
-		});
-	}
-
-	_orgUpdates_fetch(notificationList, presentation) {
-
-		if (!notificationList || !presentation) {
-			return {};
-		}
-
-		if (notificationList.length === 0) {
-			return {};
-		}
-		if (Object.keys(this.__organizationUpdates.notificationMap).every(function(notificationKey) {
-			return !presentation[this.__organizationUpdates.notificationMap[notificationKey].presentationLink];
-		}.bind(this))) {
-			return {};
-		}
-
-		var notifications = {};
-		for (var i = 0; i < notificationList.length; i++) {
-			this.__orgUpdates_prepareNotification(notifications, presentation, notificationList[i]);
-		}
-
-		return notifications;
-	}
 	__orgUpdates_prepareNotification(notifications, presentation, updateEntity) {
-		var notification = updateEntity && updateEntity.type();
+		const notification = updateEntity && updateEntity.type();
 
-		if (!notification && !this.__organizationUpdates.notificationMap.hasOwnProperty(notification)) {
+		if (!notification && !Object.prototype.hasOwnProperty.call(this.__organizationUpdates.notificationMap, notification)) {
 			return;
 		}
 
-		var options = this.__organizationUpdates.notificationMap[notification];
+		const options = this.__organizationUpdates.notificationMap[notification];
 		if (!options.key
 			|| !options.presentationLink
 			|| !presentation[options.presentationLink]
@@ -131,8 +69,8 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 			return;
 		}
 
-		var currentLink = updateEntity.getLink();
-		if (!notifications.hasOwnProperty(options.key)) {
+		const currentLink = updateEntity.getLink();
+		if (!Object.prototype.hasOwnProperty.call(notifications, options.key)) {
 			notifications[options.key] = {
 				icon: options.icon,
 				updateCount: 0,
@@ -145,12 +83,74 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 			return;
 		}
 
-		var numberOfUpdates = updateEntity.count();
+		const numberOfUpdates = updateEntity.count();
 		notifications[options.key].updateCount += numberOfUpdates;
 		if (numberOfUpdates) {
 			notifications[options.key].toolTip.push([options.toolTip, numberOfUpdates]);
 		}
 	}
+	_orgUpdates_fetch(notificationList, presentation) {
+
+		if (!notificationList || !presentation) {
+			return {};
+		}
+
+		if (notificationList.length === 0) {
+			return {};
+		}
+		if (Object.keys(this.__organizationUpdates.notificationMap).every((notificationKey) => {
+			return !presentation[this.__organizationUpdates.notificationMap[notificationKey].presentationLink];
+		})) {
+			return {};
+		}
+
+		const notifications = {};
+		for (let i = 0; i < notificationList.length; i++) {
+			this.__orgUpdates_prepareNotification(notifications, presentation, notificationList[i]);
+		}
+
+		return notifications;
+	}
+	_orgUpdates_notifications(notification, combined) {
+		const maxCount = 99;
+		if (!notification) {
+			return [];
+		}
+		if (combined) {
+			notification = {
+				updates: Object.keys(notification).reduce((accumulator, key) => {
+					return {
+						updateCount: notification[key].updateCount + accumulator.updateCount,
+						icon: null
+					};
+				}, { updateCount: 0 })
+			};
+		}
+
+		return Object.keys(notification).map((key) => {
+			const toolTip = notification[key].toolTip
+				? notification[key].toolTip.map((value) => {
+					return	 this.localize(value[0], 'number', value[1]);
+				})
+				: null;
+
+			const ariaLabel = toolTip && toolTip.join(', ');
+			const element = {
+				key: key,
+				order: notification[key].order,
+				isDisabled: (notification[key].updateCount <= 0),
+				updateCount: (notification[key].updateCount > maxCount) ? `${maxCount  }+` : notification[key].updateCount,
+				toolTip: toolTip,
+				ariaLabel: ariaLabel,
+				icon: notification[key].icon,
+				link: notification[key].link
+			};
+			return element;
+		}).sort((a, b) => {
+			return a.order - b.order;
+		});
+	}
+
 };
 
 export const OrganizationUpdatesMixin = dedupingMixin(OrganizationUpdatesImpl);
