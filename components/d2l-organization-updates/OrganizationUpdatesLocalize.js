@@ -18,7 +18,7 @@ import { LangNl } from './build/lang/nl.js';
 import { LangPt } from './build/lang/pt.js';
 import { LangSv } from './build/lang/sv.js';
 import { LangTr } from './build/lang/tr.js';
-import { LangZhtw } from './build/lang/zh-tw.js';
+import { LangZhTw } from './build/lang/zh-tw.js';
 import { LangZh } from './build/lang/zh.js';
 
 /* @polymerMixin */
@@ -41,7 +41,7 @@ const OrganizationUpdatesLocalizeImpl = (superClass) => {
 		LangPt,
 		LangSv,
 		LangTr,
-		LangZhtw,
+		LangZhTw,
 		LangZh
 	];
 	let mixinLang = mixinBehaviors([D2L.PolymerBehaviors.LocalizeBehavior], superClass);
