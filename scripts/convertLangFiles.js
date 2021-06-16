@@ -2,7 +2,7 @@ const fs = require('fs');
 const sergeDirectories = require('../organizations.serge.json');
 
 sergeDirectories.forEach((sergeComponent) => {
-	const directory = `${sergeComponent.source_dir  }/`;
+	const directory = `${sergeComponent.source_dir}/`;
 	fs.readdir(directory, (err, filenames) => {
 		if (err) {
 			throw err;

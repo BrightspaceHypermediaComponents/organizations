@@ -41,7 +41,7 @@ sergeDirectories.forEach((sergeComponent) => {
 	const options = {
 		client: true,
 		strict: true,
-		root: `${sergeComponent.source_dir + buildDirectory  }/lang`,
+		root: `${sergeComponent.source_dir}${buildDirectory}/lang`,
 		localsName: 'data'
 	};
 

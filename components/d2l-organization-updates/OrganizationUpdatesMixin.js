@@ -127,10 +127,10 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 			};
 		}
 
-		return Object.keys(notification).map((key) => {
+		return Object.keys(notification).map(key => {
 			const toolTip = notification[key].toolTip
-				? notification[key].toolTip.map((value) => {
-					return	 this.localize(value[0], 'number', value[1]);
+				? notification[key].toolTip.map(value => {
+					return this.localize(value[0], 'number', value[1]);
 				})
 				: null;
 
@@ -139,7 +139,7 @@ const OrganizationUpdatesImpl = (superClass) => class extends mixinBehaviors([D2
 				key: key,
 				order: notification[key].order,
 				isDisabled: (notification[key].updateCount <= 0),
-				updateCount: (notification[key].updateCount > maxCount) ? `${maxCount  }+` : notification[key].updateCount,
+				updateCount: (notification[key].updateCount > maxCount) ? `${maxCount}+` : notification[key].updateCount,
 				toolTip: toolTip,
 				ariaLabel: ariaLabel,
 				icon: notification[key].icon,
