@@ -1,9 +1,7 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangZhtwImpl = (superClass) => class extends superClass {
+const LangZhTwImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zhtw = {
@@ -18,4 +16,4 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 	}
 };
 
-export const LangZhtw = dedupingMixin(LangZhtwImpl);
+export const LangZhTw = dedupingMixin(LangZhTwImpl);

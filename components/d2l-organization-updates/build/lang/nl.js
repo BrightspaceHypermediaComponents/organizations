@@ -1,6 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
 const LangNlImpl = (superClass) => class extends superClass {
@@ -11,7 +9,7 @@ const LangNlImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} niet-gestarte tests',
 			'ungradedQuizzes': '{number} niet-gescoorde tests',
 			'unreadAssignmentFeedback': '{number} ongelezen feedbackberichten voor opdracht',
-			'unreadAssignmentSubmissions': '{number} ongelezen bestanden met ingediende opdrachten',
+			'unreadAssignmentSubmissions': '{number} nieuwe opdrachtindieningen',
 			'unreadDiscussionFeedback': '{number} ongelezen feedbackberichten voor discussie',
 			'unreadDiscussions': '{number} ongelezen discussies',
 			'unreadQuizzesFeedback': '{number} ongelezen feedbackberichten voor test',

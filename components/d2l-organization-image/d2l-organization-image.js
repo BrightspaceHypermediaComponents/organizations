@@ -1,6 +1,6 @@
 import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { EntityMixin } from 'siren-sdk/src/mixin/entity-mixin.js';
-import { OrganizationEntity, classes as organizationClasses } from 'siren-sdk/src/organizations/OrganizationEntity.js';
+import { classes as organizationClasses, OrganizationEntity } from 'siren-sdk/src/organizations/OrganizationEntity.js';
 import { afterNextRender } from '@polymer/polymer/lib/utils/render-status.js';
 import 'd2l-course-image/d2l-course-image.js';
 
@@ -48,6 +48,10 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 		};
 	}
 
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
 	static get observers() {
 		return [
 			'_onOrganizationChange(_entity)'
@@ -157,11 +161,6 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 		`;
 	}
 
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
-	}
-
 	attached() {
 		super.attached();
 		afterNextRender(this, () => {
@@ -175,6 +174,20 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 		image.removeEventListener('course-image-loaded', this._imageLoaded.bind(this));
 	}
 
+	getTileSizes() {
+		const image = this.shadowRoot.querySelector('d2l-course-image');
+		return image.getTileSizes();
+	}
+	// Couldn't use flat so I stole it from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat
+	_flattenDeep(arr1) {
+		return arr1.reduce((acc, val) => (Array.isArray(val) ? acc.concat(this._flattenDeep(val)) : acc.concat(val)), []);
+	}
+	_imageLoaded() {
+		this.dispatchEvent(new CustomEvent('d2l-organization-image-loaded', {
+			bubbles: true,
+			composed: true
+		}));
+	}
 	_onOrganizationChange(organization) {
 		if (organization === null) {
 			return; // invoked for removed organization
@@ -226,22 +239,6 @@ class D2lOrganizationImage extends EntityMixin(PolymerElement) {
 		});
 	}
 
-	_imageLoaded() {
-		this.dispatchEvent(new CustomEvent('d2l-organization-image-loaded', {
-			bubbles: true,
-			composed: true
-		}));
-	}
-
-	getTileSizes() {
-		const image = this.shadowRoot.querySelector('d2l-course-image');
-		return image.getTileSizes();
-	}
-
-	// Couldn't use flat so I stole it from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat
-	_flattenDeep(arr1) {
-		return arr1.reduce((acc, val) => Array.isArray(val) ? acc.concat(this._flattenDeep(val)) : acc.concat(val), []);
-	}
 }
 
 window.customElements.define('d2l-organization-image', D2lOrganizationImage);

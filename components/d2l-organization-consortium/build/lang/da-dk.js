@@ -1,21 +1,19 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangDadkImpl = (superClass) => class extends superClass {
+const LangDaDkImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.dadk = {
-			'errorFull': 'Oops! We were unable to fetch information for {num} of your tabs. Try refreshing the page',
-			'errorShort': 'Oops',
-			'impersonationWarning': 'You cannot access other tabs while impersonating.',
-			'loading': 'Loading',
-			'newNotifications': '{name} - Du har nye notifikationer',
-			'newNotificationsAlert': 'You have new alerts in some of your other accounts',
-			'otherAccounts': 'Other Accounts'
+			'errorFull': 'Hovsa! Vi kunne ikke hente oplysninger for {num} af dine faner. Prøv at opdatere siden',
+			'errorShort': 'Hovsa',
+			'impersonationWarning': 'Du kan ikke få adgang til andre faner, når du repræsenterer andre brugere.',
+			'loading': 'Indlæser',
+			'newNotifications': '{name} – Du har nye notifikationer',
+			'newNotificationsAlert': 'Du har nye alarmer på nogle af dine andre konti',
+			'otherAccounts': 'Andre konti'
 		};
 	}
 };
 
-export const LangDadk = dedupingMixin(LangDadkImpl);
+export const LangDaDk = dedupingMixin(LangDaDkImpl);

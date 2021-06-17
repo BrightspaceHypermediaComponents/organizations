@@ -20,7 +20,6 @@ class OrganizationDate extends mixinBehaviors([
 ], EntityMixin(OrganizationDateLocalize(PolymerElement))) {
 
 	static get is() { return 'd2l-organization-date'; }
-
 	static get properties() {
 		return {
 			hideCourseStartDate: {
@@ -37,6 +36,10 @@ class OrganizationDate extends mixinBehaviors([
 			}
 		};
 	}
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
+	}
 
 	static get observers() {
 		return [
@@ -52,11 +55,6 @@ class OrganizationDate extends mixinBehaviors([
 		`;
 	}
 
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
-	}
-
 	_getOrganizationDate(organization) {
 		if (!organization) {
 			return;
@@ -65,27 +63,27 @@ class OrganizationDate extends mixinBehaviors([
 		this._setOrganizationDate(this.hideCourseStartDate, this.hideCourseEndDate);
 	}
 
-	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
-		var date = this._entity && this._entity.processedDate(hideCourseStartDate, hideCourseEndDate);
-		this._statusText = !date ? null : this.localize(
-			date.type,
-			'date', this.formatDate(date.date, {format: 'MMMM d, yyyy'}),
-			'time', this.formatTime(date.date)
-		);
-	}
-
 	_sendVoiceReaderInfo(statusText) {
 		if (!statusText) {
 			return;
 		}
 
-		var details = {
+		const details = {
 			organization: {
 				date: statusText
 			},
 		};
 		this._fireD2lOrganizationAccessible(details);
 	}
+	_setOrganizationDate(hideCourseStartDate, hideCourseEndDate) {
+		const date = this._entity && this._entity.processedDate(hideCourseStartDate, hideCourseEndDate);
+		this._statusText = !date ? null : this.localize(
+			date.type,
+			'date', this.formatDate(date.date, { format: 'MMMM d, yyyy' }),
+			'time', this.formatTime(date.date)
+		);
+	}
+
 }
 
 window.customElements.define(OrganizationDate.is, OrganizationDate);

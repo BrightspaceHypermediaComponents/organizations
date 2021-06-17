@@ -1,15 +1,13 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangDadkImpl = (superClass) => class extends superClass {
+const LangDaDkImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.dadk = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'Fuldførte moduler efter samlet antal moduler i {title}'
 		};
 	}
 };
 
-export const LangDadk = dedupingMixin(LangDadkImpl);
+export const LangDaDk = dedupingMixin(LangDaDkImpl);

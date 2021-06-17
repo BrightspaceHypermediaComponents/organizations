@@ -1,9 +1,7 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangZhtwImpl = (superClass) => class extends superClass {
+const LangZhTwImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.zhtw = {
@@ -11,7 +9,7 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} 個未嘗試的測驗',
 			'ungradedQuizzes': '{number} 個未評分的測驗',
 			'unreadAssignmentFeedback': '{number} 個未讀取的作業意見反應',
-			'unreadAssignmentSubmissions': '{number} 個未讀取的作業提交檔案',
+			'unreadAssignmentSubmissions': '{number} 個新的作業提交',
 			'unreadDiscussionFeedback': '{number} 個未讀取的討論意見反應',
 			'unreadDiscussions': '{number} 個未讀取的討論',
 			'unreadQuizzesFeedback': '{number} 個未讀取的測驗意見反應',
@@ -20,4 +18,4 @@ const LangZhtwImpl = (superClass) => class extends superClass {
 	}
 };
 
-export const LangZhtw = dedupingMixin(LangZhtwImpl);
+export const LangZhTw = dedupingMixin(LangZhTwImpl);

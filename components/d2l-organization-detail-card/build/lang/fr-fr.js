@@ -1,15 +1,13 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangFrfrImpl = (superClass) => class extends superClass {
+const LangFrFrImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
 		this.frfr = {
-			'CompletedModulesProgress': 'Completed Modules by Total Modules in {title}'
+			'CompletedModulesProgress': 'Nombre de modules terminés multiplié par le nombre total de modules dans le cours {title}'
 		};
 	}
 };
 
-export const LangFrfr = dedupingMixin(LangFrfrImpl);
+export const LangFrFr = dedupingMixin(LangFrFrImpl);

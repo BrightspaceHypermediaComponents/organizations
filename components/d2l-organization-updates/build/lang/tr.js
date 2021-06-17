@@ -1,6 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
 const LangTrImpl = (superClass) => class extends superClass {
@@ -11,7 +9,7 @@ const LangTrImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} Denenmemiş Sınav',
 			'ungradedQuizzes': '{number} Notlandırılmamış Sınav',
 			'unreadAssignmentFeedback': '{number} Okunmamış Ödev Geri Bildirimi',
-			'unreadAssignmentSubmissions': '{number} Okunmamış Ödev Gönderimi Dosyaları',
+			'unreadAssignmentSubmissions': '{number} Yeni Ödev Gönderimi',
 			'unreadDiscussionFeedback': '{number} Okunmamış Tartışma Geri Bildirimi',
 			'unreadDiscussions': '{number} Okunmamış Tartışma',
 			'unreadQuizzesFeedback': '{number} Okunmamış Sınav Geri Bildirimi',

@@ -20,11 +20,14 @@ class OrganizationName extends mixinBehaviors([
 ], EntityMixin(PolymerElement)) {
 
 	static get is() { return 'd2l-organization-name'; }
-
 	static get properties() {
 		return {
 			_organizationName: String
 		};
+	}
+	constructor() {
+		super();
+		this._setEntityType(OrganizationEntity);
 	}
 
 	static get observers() {
@@ -40,17 +43,12 @@ class OrganizationName extends mixinBehaviors([
 		`;
 	}
 
-	constructor() {
-		super();
-		this._setEntityType(OrganizationEntity);
-	}
-
 	_onOrganizationChange(organization) {
 		this._organizationName = organization.name();
 	}
 
 	_sendVoiceReaderInfo(organizationName) {
-		var details = {
+		const details = {
 			organization: {
 				name: organizationName
 			}

@@ -1,13 +1,13 @@
 import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
-const LangEsImpl = (superClass) => class extends superClass {
+const LangEsEsImpl = (superClass) => class extends superClass {
 	constructor() {
 		super();
-		this.es = {
+		this.eses = {
 			'CompletedModulesProgress': 'Módulos completados por los módulos totales en {title}'
 		};
 	}
 };
 
-export const LangEs = dedupingMixin(LangEsImpl);
+export const LangEsEs = dedupingMixin(LangEsEsImpl);

@@ -15,8 +15,8 @@ import '@brightspace-ui/core/components/menu/menu.js';
 import '@brightspace-ui/core/components/menu/menu-item.js';
 import 'd2l-alert/d2l-alert-toast.js';
 import {
-	heading1Styles,
-	bodyStandardStyles
+	bodyStandardStyles,
+	heading1Styles
 } from '@brightspace-ui/core/components/typography/styles.js';
 import { EntityMixinLit } from 'siren-sdk/src/mixin/entity-mixin-lit.js';
 import { ifDefined } from 'lit-html/directives/if-defined';
@@ -259,112 +259,6 @@ class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)
 		this._setEntityType(OrganizationCollectionEntity);
 	}
 
-	set _entity(entity) {
-		if (this._entityHasChanged(entity)) {
-			this._onOrganizationCollectionChanged(entity);
-			super._entity = entity;
-		}
-	}
-
-	_onOrganizationCollectionChanged(collection) {
-		const items = [];
-
-		let loadedCount = 0;
-		const totalCount = collection.onOrganizationsChange(
-			(organization, index) => {
-				organization.onActivityUsageChange(activityUsage => {
-					items[index] = {
-						usage: { editHref: () => activityUsage.editHref() },
-						organization,
-						actions: {
-							remove: organization.canDelete() ? () => this._deleteItem(organization) : null
-						},
-						hasActions: function() { return Object.values(this.actions).some((action) => action); }
-					};
-					loadedCount++;
-					if (loadedCount > totalCount) {
-						this._items = items;
-					}
-				});
-			}
-		);
-		collection.subEntitiesLoaded().then(() => {
-			this._disposeOldEntities();
-			this._items = items;
-			this._totalPages = collection.totalPages();
-			this._currentPage = collection.currentPage();
-			this._collection = collection;
-			this._loaded = true;
-			if (!this._firstLoad) {
-				this.updateComplete.then(() => {
-					this.shadowRoot.querySelector('.d2l-organization-admin-list-list d2l-list d2l-list-item').focus();
-				});
-			}
-			this._firstLoad = false;
-		});
-	}
-
-	_disposeOldEntities() {
-		this._items && this._items.forEach(item => {
-			item && dispose(item);
-		});
-		this._collection && dispose(this._collection);
-	}
-
-	async _deleteItem(organization) {
-		const dialog = this.shadowRoot.querySelector('#confirm-delete-dialog');
-		const result = await dialog.open();
-		if (!result) {
-			return;
-		}
-		dispose(organization);
-		await organization.delete();
-
-		this._items = this._items.filter(cur => cur.organization !== organization);
-		this._deletedName = organization.name();
-
-		this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
-	}
-
-	_resetLoad() {
-		this._showImages = false;
-		this._loadedImages = 0;
-		this._loaded = false;
-		window.scrollTo(0, 0);
-	}
-
-	_handleSearch(searchText) {
-		this._resetLoad();
-		this._searchText = searchText;
-		this._collection.search(searchText).then(href => {
-			this.href = href;
-		});
-	}
-
-	_handlePageChanged(page) {
-		this._resetLoad();
-		if (page === this._currentPage + 1) {
-			this.href = this._collection.nextPageHref();
-		} else if (page === this._currentPage - 1) {
-			this.href = this._collection.prevPageHref();
-		} else {
-			this._collection.jumpToPage(page).then(href => {
-				this.href = href;
-			});
-		}
-	}
-
-	_createOrgUnit() {
-		const name = this.localize(this.createActionDefaultNameTerm);
-		this._collection
-			.createOrgUnit(name, 'LP', this.createActionType)
-			.then(organization => {
-				organization.onActivityUsageChange(activityUsage => {
-					window.location.href = activityUsage.editHref();
-				});
-			});
-	}
-
 	render() {
 		const items = this._handleLoading(this._renderItemList.bind(this), () => this._renderItemListSkeleton(3), () => {
 			return html`
@@ -412,13 +306,13 @@ class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)
 					<div class="d2l-organization-admin-list-list" aria-live="polite" aria-busy="${!this._loaded ? html`true` : html`false`}">
 						${items}
 					</div>
-					${this._handleLoading(() => this._items.length <= 0 ? null : html`
+					${this._handleLoading(() => (this._items.length <= 0 ? null : html`
 						<d2l-organization-admin-list-pager
 							current-page="${this._currentPage}"
 							total-pages="${this._totalPages}"
 							.onPageChanged="${this._handlePageChanged.bind(this)}">
 						</d2l-organization-admin-list-pager>
-					`)}
+					`))}
 				</div>
 			</div>
 			<d2l-dialog-confirm title-text=${this.localize('confirmDeleteTitle')} text=${this.localize('confirmDeleteMessage')} id="confirm-delete-dialog">
@@ -430,12 +324,121 @@ class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)
 			</d2l-alert-toast>
 		`;
 	}
-
 	updated() {
 		super.updated();
 		this._currentListElements = this.shadowRoot.querySelector('.d2l-organization-admin-list-list d2l-list');
 	}
+	set _entity(entity) {
+		if (this._entityHasChanged(entity)) {
+			this._onOrganizationCollectionChanged(entity);
+			super._entity = entity;
+		}
+	}
 
+	_createOrgUnit() {
+		const name = this.localize(this.createActionDefaultNameTerm);
+		this._collection
+			.createOrgUnit(name, 'LP', this.createActionType)
+			.then(organization => {
+				organization.onActivityUsageChange(activityUsage => {
+					window.location.href = activityUsage.editHref();
+				});
+			});
+	}
+	async _deleteItem(organization) {
+		const dialog = this.shadowRoot.querySelector('#confirm-delete-dialog');
+		const result = await dialog.open();
+		if (!result) {
+			return;
+		}
+		dispose(organization);
+		await organization.delete();
+
+		this._items = this._items.filter(cur => cur.organization !== organization);
+		this._deletedName = organization.name();
+
+		this.shadowRoot.querySelector('#delete-succeeded-toast').open = true;
+	}
+	_disposeOldEntities() {
+		this._items && this._items.forEach(item => {
+			item && dispose(item);
+		});
+		this._collection && dispose(this._collection);
+	}
+	_handleLoading(whenLoaded, firstLoad = () => null, nextLoad =  null) {
+		nextLoad = nextLoad === null ? whenLoaded : nextLoad;
+		return this._firstLoad ? (this._loaded ? whenLoaded() : firstLoad()) : (this._loaded ? whenLoaded() : nextLoad());
+	}
+	_handlePageChanged(page) {
+		this._resetLoad();
+		if (page === this._currentPage + 1) {
+			this.href = this._collection.nextPageHref();
+		} else if (page === this._currentPage - 1) {
+			this.href = this._collection.prevPageHref();
+		} else {
+			this._collection.jumpToPage(page).then(href => {
+				this.href = href;
+			});
+		}
+	}
+	_handleSearch(searchText) {
+		this._resetLoad();
+		this._searchText = searchText;
+		this._collection.search(searchText).then(href => {
+			this.href = href;
+		});
+	}
+	_onListImageLoaded() {
+		this._loadedImages++;
+		if (this._loadedImages >= this._items.length) {
+			this._showImages = true;
+		}
+	}
+	_onOrganizationCollectionChanged(collection) {
+		const items = [];
+
+		let loadedCount = 0;
+		const totalCount = collection.onOrganizationsChange(
+			(organization, index) => {
+				organization.onActivityUsageChange(activityUsage => {
+					items[index] = {
+						usage: { editHref: () => activityUsage.editHref() },
+						organization,
+						actions: {
+							remove: organization.canDelete() ? () => this._deleteItem(organization) : null
+						},
+						hasActions: function() { return Object.values(this.actions).some((action) => action); }
+					};
+					loadedCount++;
+					if (loadedCount > totalCount) {
+						this._items = items;
+					}
+				});
+			}
+		);
+		collection.subEntitiesLoaded().then(() => {
+			this._disposeOldEntities();
+			this._items = items;
+			this._totalPages = collection.totalPages();
+			this._currentPage = collection.currentPage();
+			this._collection = collection;
+			this._loaded = true;
+			if (!this._firstLoad) {
+				this.updateComplete.then(() => {
+					this.shadowRoot.querySelector('.d2l-organization-admin-list-list d2l-list d2l-list-item').focus();
+				});
+			}
+			this._firstLoad = false;
+		});
+	}
+
+	_renderCourseImageSkeleton() {
+		return html`
+			<svg viewBox="0 0 216 120" width="100%" slot="illustration">
+				<rect x="0" width="100%" y="0" height="100%" stroke="none" class="d2l-organization-admin-skeleton-rect"></rect>
+			</svg>
+		`;
+	}
 	_renderItemList() {
 		if (this._items.length <= 0) {
 			return html`
@@ -492,15 +495,6 @@ class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)
 
 		return html`<d2l-list>${items}</d2l-list>`;
 	}
-
-	_renderCourseImageSkeleton() {
-		return html`
-			<svg viewBox="0 0 216 120" width="100%" slot="illustration">
-				<rect x="0" width="100%" y="0" height="100%" stroke="none" class="d2l-organization-admin-skeleton-rect"></rect>
-			</svg>
-		`;
-	}
-
 	_renderItemListSkeleton(numberOfItems) {
 		const itemsSkeleton = html`
 			<d2l-list-item>
@@ -519,17 +513,12 @@ class AdminList extends EntityMixinLit(LocalizeOrganizationAdminList(LitElement)
 		`;
 		return html`<d2l-list>${(new Array(numberOfItems)).fill(itemsSkeleton)}</d2l-list>`;
 	}
-
-	_onListImageLoaded() {
-		this._loadedImages++;
-		if (this._loadedImages >= this._items.length) {
-			this._showImages = true;
-		}
+	_resetLoad() {
+		this._showImages = false;
+		this._loadedImages = 0;
+		this._loaded = false;
+		window.scrollTo(0, 0);
 	}
 
-	_handleLoading(whenLoaded, firstLoad = () => null, nextLoad =  null) {
-		nextLoad = nextLoad === null ? whenLoaded : nextLoad;
-		return this._firstLoad ? (this._loaded ? whenLoaded() : firstLoad()) : (this._loaded ? whenLoaded() : nextLoad());
-	}
 }
 customElements.define('d2l-organization-admin-list', AdminList);

@@ -1,6 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
 const LangPtImpl = (superClass) => class extends superClass {
@@ -11,7 +9,7 @@ const LangPtImpl = (superClass) => class extends superClass {
 			'unattemptedQuizzes': '{number} questionários sem tentativa',
 			'ungradedQuizzes': '{number} questionários sem nota',
 			'unreadAssignmentFeedback': '{number} comentários de atribuição não lidos',
-			'unreadAssignmentSubmissions': '{number} arquivos de envio de atribuição não lidos',
+			'unreadAssignmentSubmissions': '{number} Novos Envios de Atividades',
 			'unreadDiscussionFeedback': '{number} comentários de discussão não lidos',
 			'unreadDiscussions': '{number} discussões não lidas',
 			'unreadQuizzesFeedback': '{number} comentários de questionários não lidos',

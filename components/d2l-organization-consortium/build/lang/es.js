@@ -1,6 +1,4 @@
-'use strict';
-
-import {dedupingMixin} from '@polymer/polymer/lib/utils/mixin.js';
+import { dedupingMixin } from '@polymer/polymer/lib/utils/mixin.js';
 
 /* @polymerMixin */
 const LangEsImpl = (superClass) => class extends superClass {
@@ -11,7 +9,7 @@ const LangEsImpl = (superClass) => class extends superClass {
 			'errorShort': 'Lo sentimos',
 			'impersonationWarning': 'No puede acceder a otras pestañas mientras se hace una suplantación.',
 			'loading': 'Cargando',
-			'newNotifications': '{name} - Tiene nuevas alertas',
+			'newNotifications': '{name}: tiene nuevas alertas',
 			'newNotificationsAlert': 'Tiene nuevas alertas en algunas de sus otras cuentas',
 			'otherAccounts': 'Otras cuentas'
 		};

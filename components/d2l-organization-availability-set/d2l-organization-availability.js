@@ -31,6 +31,19 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeOrganizationAvaila
 		this._setEntityType(OrganizationAvailabilityEntity);
 	}
 
+	render() {
+		const itemDescription = this._itemDescription;
+		return html`
+			${itemDescription}
+			${itemDescription && this._canDelete ? html`
+				<d2l-button-icon
+					?disabled="${this._isDeleting}"
+					text="${this.localize('removeAvailabilityFor', { itemDescription })}"
+					icon="tier1:close-default"
+					@click="${this._delete}"></d2l-button-icon>
+			` : ''}
+		`;
+	}
 	get _entity() {
 		return super._entity;
 	}
@@ -40,42 +53,6 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeOrganizationAvaila
 			this._onAvailabilityChange(entity);
 			super._entity = entity;
 		}
-	}
-
-	_onAvailabilityChange(entity) {
-		if (entity) {
-			this._canDelete = entity.canDelete();
-			this._setName(entity);
-		}
-	}
-
-	_setName(entity) {
-		if (entity) {
-			entity.onOrganizationChange(organization => {
-				this._name = organization.name();
-			});
-		}
-	}
-
-	_delete() {
-		this._isDeleting = true;
-
-		const promise = () => {
-			return super._entity.delete().then(() => {
-				announce(this.localize('availabilityRemoved', { itemDescription: this._itemDescription }));
-			}).catch((error) => {
-				this._isDeleting = false;
-				return Promise.reject(error);
-			});
-		};
-
-		this.dispatchEvent(
-			new CustomEvent('delete-organization-availability', {
-				bubbles: true,
-				composed: true,
-				detail: { promise }
-			})
-		);
 	}
 
 	get _itemDescription() {
@@ -97,19 +74,39 @@ class OrganizationAvailability extends EntityMixinLit(LocalizeOrganizationAvaila
 		}
 		return '';
 	}
+	_delete() {
+		this._isDeleting = true;
 
-	render() {
-		const itemDescription = this._itemDescription;
-		return html`
-			${itemDescription}
-			${itemDescription && this._canDelete ? html`
-				<d2l-button-icon
-					?disabled="${this._isDeleting}"
-					text="${this.localize('removeAvailabilityFor', { itemDescription })}"
-					icon="tier1:close-default"
-					@click="${this._delete}"></d2l-button-icon>
-			` : ''}
-		`;
+		const promise = () => {
+			return super._entity.delete().then(() => {
+				announce(this.localize('availabilityRemoved', { itemDescription: this._itemDescription }));
+			}).catch((error) => {
+				this._isDeleting = false;
+				return Promise.reject(error);
+			});
+		};
+
+		this.dispatchEvent(
+			new CustomEvent('delete-organization-availability', {
+				bubbles: true,
+				composed: true,
+				detail: { promise }
+			})
+		);
+	}
+	_onAvailabilityChange(entity) {
+		if (entity) {
+			this._canDelete = entity.canDelete();
+			this._setName(entity);
+		}
+	}
+
+	_setName(entity) {
+		if (entity) {
+			entity.onOrganizationChange(organization => {
+				this._name = organization.name();
+			});
+		}
 	}
 
 }
